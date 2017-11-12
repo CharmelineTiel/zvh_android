@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Android_Tablet_zvg</string>
+    <string name="app_name">Zorg voor het hart</string>
+    <string name="startButton">Start nieuwe meting</string>
+    <string name="title_activity_bottom_nav">BottomNav</string>
+    <string name="title_home">Home</string>
+    <string name="title_measurement">Meting</string>
+    <string name="title_diary">Dagboek</string>
+    <string name="title_contact">Contact</string>
+    <string name="title_settings">Service</string>
 </resources>
