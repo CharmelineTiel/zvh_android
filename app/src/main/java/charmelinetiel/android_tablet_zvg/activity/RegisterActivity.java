@@ -12,25 +12,24 @@ import com.stepstone.stepper.VerificationError;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.adapters.StepperAdapter;
-import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
-import charmelinetiel.android_tablet_zvg.fragments.SuccessFragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterCompletedFragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterStep2Fragment;
 
-public class StepperActivity extends AppCompatActivity implements StepperLayout.StepperListener {
+public class RegisterActivity extends AppCompatActivity implements StepperLayout.StepperListener {
 
     private StepperLayout mStepperLayout;
-
+    private StepperAdapter mStepperAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_stepper);
 
-
+        setContentView(R.layout.activity_stepper);
         mStepperLayout = (StepperLayout) findViewById(R.id.stepperLayout);
-        mStepperLayout.setAdapter(new StepperAdapter(getSupportFragmentManager(), this));
+        mStepperAdapter = new StepperAdapter(getSupportFragmentManager(), this);
+        mStepperLayout.setAdapter(mStepperAdapter);
         mStepperLayout.setListener(this);
 
-        Fragment fg = new DiaryFragment();
-        setFragment(fg);
 
     }
 
@@ -39,9 +38,9 @@ public class StepperActivity extends AppCompatActivity implements StepperLayout.
 
         //show success message, send email and show login button
         setTitle("Registratie Afronden");
-        Fragment fg = new SuccessFragment();
+        Fragment fg = new RegisterCompletedFragment();
         setFragment(fg);
-        Toast.makeText(this, "onCompleted!", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -52,16 +51,26 @@ public class StepperActivity extends AppCompatActivity implements StepperLayout.
     @Override
     public void onStepSelected(int newStepPosition) {
 
-               Fragment fg = new DiaryFragment();
-               setFragment(fg);
-        Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
+        Fragment fg;
+        switch (newStepPosition) {
+            case 0:
+                setTitle("Registreren stap 1 van 2");
+                fg = new RegisterStep1Fragment();
+                setFragment(fg);
+                break;
+            case 1:
+                setTitle("Registreren stap 2 van 2");
+                fg = new RegisterStep2Fragment();
+                setFragment(fg);
+                break;
+        }
 
     }
 
     @Override
     public void onReturn() {
 
-
+        finish();
         Toast.makeText(this, "One step back", Toast.LENGTH_SHORT).show();
 
     }

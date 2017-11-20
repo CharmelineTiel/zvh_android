@@ -10,7 +10,8 @@ import com.stepstone.stepper.Step;
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
-import charmelinetiel.android_tablet_zvg.fragments.RegisterFragment;
+import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
 
 /**
  * Created by Tiel on 17-11-2017.
@@ -19,15 +20,19 @@ import charmelinetiel.android_tablet_zvg.fragments.RegisterFragment;
 public class StepperAdapter extends AbstractFragmentStepAdapter {
 
     private static final String CURRENT_STEP_POSITION_KEY = "messageResourceId";
-
+    Context context;
+    FragmentManager fm;
     public StepperAdapter(FragmentManager fm, Context context) {
         super(fm, context);
+
+        this.context = context;
+        this.fm = fm;
     }
 
     @Override
     public Step createStep(int position) {
 
-        final RegisterFragment step = new RegisterFragment();
+        final RegisterStep1Fragment step = new RegisterStep1Fragment();
         Bundle b = new Bundle();
         b.putInt(CURRENT_STEP_POSITION_KEY, position);
         step.setArguments(b);
@@ -43,12 +48,8 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
     @NonNull
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
-
-                return new StepViewModel.Builder(context)
-                        .setTitle("Registeren")
-                        .create();
-
-
+        return new StepViewModel.Builder(context)
+                .setTitle(R.string.title_contact) //can be a CharSequence instead
+                .create();
     }
-
 }

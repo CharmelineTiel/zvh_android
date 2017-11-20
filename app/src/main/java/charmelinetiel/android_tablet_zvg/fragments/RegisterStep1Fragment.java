@@ -18,10 +18,10 @@ import com.stepstone.stepper.VerificationError;
 import charmelinetiel.android_tablet_zvg.R;
 
 
-public class RegisterFragment extends Fragment implements BlockingStep {
+public class RegisterStep1Fragment extends Fragment implements BlockingStep {
 
 
-    public RegisterFragment() {
+    public RegisterStep1Fragment() {
         // Required empty public constructor
     }
 
@@ -30,7 +30,7 @@ public class RegisterFragment extends Fragment implements BlockingStep {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.activity_stepper, container, false);
+        View v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
         //initialize your UI
         return v;
@@ -45,11 +45,7 @@ public class RegisterFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onSelected() {
-        //update UI when selected
-//        Fragment fg = new HomeFragment();
-//        FragmentTransaction fgTransition = getFragmentManager().beginTransaction();
-//        fgTransition.replace(R.id.stepperLayout, fg);
-//        fgTransition.commit();
+
     }
 
     @Override
@@ -66,12 +62,13 @@ public class RegisterFragment extends Fragment implements BlockingStep {
             public void run() {
                 callback.goToNextStep();
             }
-        }, 2000L);
+        }, 500L);
     }
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
 
+        callback.complete();
     }
 
     @Override

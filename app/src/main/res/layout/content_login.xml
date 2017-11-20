@@ -17,11 +17,11 @@
         android:layout_centerVertical="true">
 
 <LinearLayout
+    android:padding="@dimen/margin"
     android:layout_centerHorizontal="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <EditText
         android:width="@dimen/formFieldSize"
         android:layout_width="wrap_content"
@@ -49,11 +49,13 @@
         android:text="Automatisch inloggen" />
 
     <Button
+        android:padding="@dimen/margin"
         android:id="@+id/loginBtn"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:layout_margin="@dimen/margin"
         android:textColor="@color/whiteText"
         android:background="@color/colorAccent"
         android:width="@dimen/buttonL"

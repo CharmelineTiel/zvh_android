@@ -17,19 +17,21 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_bottom_nav" />
+        <!--<activity-->
+            <!--android:name=".activity.SplashActivity"-->
+            <!--android:theme="@style/SplashTheme">-->
+        <!--</activity>-->
         <activity
-            android:name=".activity.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:name=".activity.RegisterActivity"
+            android:label="@string/title_activity_stepper"
+            android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.StepperActivity"
-            android:label="@string/title_activity_stepper"
-            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"

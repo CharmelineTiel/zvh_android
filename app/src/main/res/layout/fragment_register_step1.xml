@@ -4,10 +4,80 @@
     android:layout_height="match_parent"
     tools:context="charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
+    <LinearLayout
+        android:padding="@dimen/margin"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <EditText
+        android:width="@dimen/formFieldSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/lighterGrey"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/margin"
+        android:hint="Vul uw voornaam in"/>
+
+    <EditText
+        android:width="@dimen/formFieldSize"
+        android:background="@color/lighterGrey"
+        android:id="@+id/lastname"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Vul uw achternaam in"/>
+
+        <EditText
+            android:width="@dimen/formFieldSize"
+            android:background="@color/lighterGrey"
+            android:id="@+id/email"
+            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Vul uw email in"/>
+
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            >
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Man"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vrouw" />
+
+        </RadioGroup>
+
+        <DatePicker
+            android:background="@color/lighterGrey"
+            android:id="@+id/dateOfBirth"
+            android:layout_margin="@dimen/margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:clickable="true"
+            android:hint="Vul uw geboortedatum in"/>
+    </LinearLayout>
+    </ScrollView>
 </FrameLayout>
