@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.fragments.main;
 
 
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import charmelinetiel.android_tablet_zvg.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeasurementFragment extends Fragment {
+public class ContactFragment extends Fragment {
 
 
-    public MeasurementFragment() {
+    public ContactFragment() {
         // Required empty public constructor
     }
 
@@ -25,9 +25,7 @@ public class MeasurementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_measurement, container, false);
-
-
+        return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 
 }

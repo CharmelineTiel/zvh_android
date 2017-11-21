@@ -30,4 +30,11 @@
     <string name="title_activity_wizard">WizardActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_stepper">StepperActivity</string>
+
+    <string name="registered">
+       \n U heeft een email ontvangen op:
+          \n\n
+        Klik op de link in de email om uw \naccount activeren.
+    </string>
+
 </resources>

@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.fragments.main;
 
 
 import android.os.Bundle;

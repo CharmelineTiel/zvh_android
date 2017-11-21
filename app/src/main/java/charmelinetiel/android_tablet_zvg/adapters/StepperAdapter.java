@@ -11,7 +11,7 @@ import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.register.RegisterStep1Fragment;
 
 /**
  * Created by Tiel on 17-11-2017.

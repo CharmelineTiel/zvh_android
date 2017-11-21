@@ -12,9 +12,9 @@ import com.stepstone.stepper.VerificationError;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.adapters.StepperAdapter;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterCompletedFragment;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep2Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.register.RegisterCompletedFragment;
+import charmelinetiel.android_tablet_zvg.fragments.register.RegisterStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.register.RegisterStep2Fragment;
 
 public class RegisterActivity extends AppCompatActivity implements StepperLayout.StepperListener {
 
@@ -24,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_stepper);
+        setContentView(R.layout.activity_register);
         mStepperLayout = (StepperLayout) findViewById(R.id.stepperLayout);
         mStepperAdapter = new StepperAdapter(getSupportFragmentManager(), this);
         mStepperLayout.setAdapter(mStepperAdapter);

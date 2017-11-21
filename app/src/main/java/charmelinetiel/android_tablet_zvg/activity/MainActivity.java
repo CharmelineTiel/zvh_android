@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
-import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
+import charmelinetiel.android_tablet_zvg.fragments.main.DiaryFragment;
+import charmelinetiel.android_tablet_zvg.fragments.main.HomeFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
 
 public class MainActivity extends AppCompatActivity {
