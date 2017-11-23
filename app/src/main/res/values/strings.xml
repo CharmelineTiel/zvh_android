@@ -9,8 +9,6 @@
     <string name="title_settings">Service</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">MainActivity2</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">Login</string>
@@ -24,17 +22,25 @@
     <string name="error_invalid_password">Uw wachtwoord is te kort</string>
     <string name="error_incorrect_password">Uw wachtwoord is onjuist</string>
     <string name="error_field_required">verplicht veld</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_wizard">WizardActivity</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_stepper">StepperActivity</string>
-
     <string name="registered">
        \n U heeft een email ontvangen op:
           \n\n
         Klik op de link in de email om uw \naccount activeren.
     </string>
 
+    <!-- Strings related to Service -->
+    <string name="settingsLbl">Mijn instellingen</string>
+    <string name="accountLbl">Mijn account</string>
+    <string name="disclaimerLbl">Disclaimer</string>
+    <string name="disclaimerText">
+        Deze app is met de grootst mogelijke zorgvuldigheid samengesteld. Wij kunnen \n\n
+        echter niet garanderen dat de app altijd zonder onderbreking, fouten of gebreken beschikbaar zal zijn\n\n
+        of werken en dat de verschafte informatie volledig, juist of up-to-date is.
+    </string>
+    <string name="title_activity_service">ServiceActivity</string>
+    <string name="tab_title" />
+    <string name="go_to_summary" />
 </resources>

@@ -15,10 +15,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button btn = (Button)findViewById(R.id.loginBtn);
+        Button btn = findViewById(R.id.loginBtn);
         btn.setOnClickListener(this);
     }
 

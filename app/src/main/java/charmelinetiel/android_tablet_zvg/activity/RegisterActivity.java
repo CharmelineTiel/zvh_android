@@ -12,9 +12,9 @@ import com.stepstone.stepper.VerificationError;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.adapters.StepperAdapter;
-import charmelinetiel.android_tablet_zvg.fragments.register.RegisterCompletedFragment;
-import charmelinetiel.android_tablet_zvg.fragments.register.RegisterStep1Fragment;
-import charmelinetiel.android_tablet_zvg.fragments.register.RegisterStep2Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterCompletedFragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterStep2Fragment;
 
 public class RegisterActivity extends AppCompatActivity implements StepperLayout.StepperListener {
 
@@ -24,12 +24,11 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_register);
-        mStepperLayout = (StepperLayout) findViewById(R.id.stepperLayout);
+        setContentView(R.layout.activity_stepper);
+        mStepperLayout =  findViewById(R.id.stepperLayout);
         mStepperAdapter = new StepperAdapter(getSupportFragmentManager(), this);
         mStepperLayout.setAdapter(mStepperAdapter);
         mStepperLayout.setListener(this);
-
 
     }
 
@@ -46,22 +45,27 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
     @Override
     public void onError(VerificationError verificationError) {
         Toast.makeText(this, "onError! -> " + verificationError.getErrorMessage(), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onStepSelected(int newStepPosition) {
 
-        Fragment fg;
+
+            Fragment fg;
         switch (newStepPosition) {
             case 0:
-                setTitle("Registreren stap 1 van 2");
-                fg = new RegisterStep1Fragment();
-                setFragment(fg);
+                    setTitle("Registreren stap 1 van 2");
+                    fg = new RegisterStep1Fragment();
+                    setFragment(fg);
+
                 break;
+
             case 1:
-                setTitle("Registreren stap 2 van 2");
-                fg = new RegisterStep2Fragment();
-                setFragment(fg);
+
+                    setTitle("Registreren stap 2 van 2");
+                    fg = new RegisterStep2Fragment();
+                    setFragment(fg);
                 break;
         }
 
@@ -71,7 +75,6 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
     public void onReturn() {
 
         finish();
-        Toast.makeText(this, "One step back", Toast.LENGTH_SHORT).show();
 
     }
 

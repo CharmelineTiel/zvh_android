@@ -1,0 +1,43 @@
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Mijn instellingen">
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="switch_pref1"
+            android:title="Grotere tekst" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="switch_pref2"
+            android:title="Dagelijkse herinnering voor uw metingen" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="switch_pref3"
+            android:title="Wekelijks uw metingen opsturen naar uw consulent" />
+
+    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
+
+    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Mijn account">
+
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="true"
+            android:key="edit_text"
+            android:title="Uw lengte en gewicht aanpassen" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="switch_pref4"
+            android:title="Automatisch inloggen" />
+
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="true"
+            android:key="logout"
+            android:title="Uitloggen" />
+    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
+
+    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Disclaimer">
+
+    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
+</android.support.v7.preference.PreferenceScreen>

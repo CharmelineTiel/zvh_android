@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.main.DiaryFragment;
-import charmelinetiel.android_tablet_zvg.fragments.main.HomeFragment;
+import charmelinetiel.android_tablet_zvg.fragments.ContactFragment;
+import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
+import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
+import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.contact:
                     setTitle("Contact");
-                    fg = new DiaryFragment();
+                    fg = new ContactFragment();
                     setFragment(fg);
                     return true;
 
                 case R.id.settings:
                     setTitle("Service");
-                    fg = new DiaryFragment();
+                    fg = new ServiceFragment();
                     setFragment(fg);
                     return true;
 
@@ -55,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         customizeNav();
@@ -69,17 +72,35 @@ public class MainActivity extends AppCompatActivity {
         fg = new HomeFragment();
         setFragment(fg);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-public void setFragment(Fragment fg)
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+            finish();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
+    }
+
+    public void setFragment(Fragment fg)
 {
     FragmentTransaction fgTransition = getSupportFragmentManager().beginTransaction();
     fgTransition.replace(R.id.content, fg);
+    fgTransition.addToBackStack("backHome");
     fgTransition.commit();
 }
     public void customizeNav()
     {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
@@ -93,4 +114,5 @@ public void setFragment(Fragment fg)
         }
 
     }
+
 }

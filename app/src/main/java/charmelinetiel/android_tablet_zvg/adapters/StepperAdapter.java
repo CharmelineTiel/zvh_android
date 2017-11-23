@@ -11,7 +11,7 @@ import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.register.RegisterStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
 
 /**
  * Created by Tiel on 17-11-2017.
@@ -48,8 +48,32 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
     @NonNull
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
-        return new StepViewModel.Builder(context)
-                .setTitle(R.string.title_contact) //can be a CharSequence instead
-                .create();
+
+        StepViewModel.Builder builder = new StepViewModel.Builder(context)
+                .setTitle(R.string.tab_title);
+        switch (position) {
+            case 0:
+                builder
+                        .setEndButtonLabel("Volgende")
+                        .setBackButtonLabel("Terug")
+                        .setTitle("Registeren Stap 1")
+                        .setBackButtonStartDrawableResId(StepViewModel.NULL_DRAWABLE);
+                break;
+            case 1:
+                builder
+                        .setEndButtonLabel(R.string.go_to_summary)
+                        .setTitle("Registeren Stap 2")
+                        .setBackButtonLabel("Annuleren");
+                break;
+//            case 2:
+//                builder
+//                        .setTitle("Afronden")
+//                        .setBackButtonLabel("Terug")
+//                        .setEndButtonLabel("Afronden");
+//                break;
+            default:
+                throw new IllegalArgumentException("Unsupported position: " + position);
+        }
+        return builder.create();
     }
 }

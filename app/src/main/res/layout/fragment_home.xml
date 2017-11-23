@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="charmelinetiel.android_tablet_zvg.fragments.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/home_background"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/home_bg" />
+        <Button
+            android:id="@+id/metingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:width="@dimen/buttonSize"
+            android:height="@dimen/margin"
+            android:background="@color/colorAccent"
+            android:text="@string/startButton"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/biggerText" />
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>
