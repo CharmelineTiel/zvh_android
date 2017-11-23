@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
             //icon height and weight
-            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, displayMetrics);
-            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, displayMetrics);
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, displayMetrics);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, displayMetrics);
             iconView.setLayoutParams(layoutParams);
         }
 

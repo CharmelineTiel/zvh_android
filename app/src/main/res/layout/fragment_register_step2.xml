@@ -51,9 +51,6 @@
             android:hint="Herhaal uw wachtwoord"/>
 
 
-
-
-
     </LinearLayout>
     </ScrollView>
 </RelativeLayout>

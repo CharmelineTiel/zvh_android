@@ -47,6 +47,7 @@
             android:padding="@dimen/margin"
             android:text="Klaar"
             android:textSize="@dimen/biggerText"
+            android:textAllCaps="false"
             android:textColor="@color/whiteText"
             />
 

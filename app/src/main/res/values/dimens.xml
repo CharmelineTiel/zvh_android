@@ -8,8 +8,8 @@
     <dimen name="buttonL">400dp</dimen>
     <dimen name="formFieldSize">600dp</dimen>
 
-    <dimen name="design_bottom_navigation_text_size" tools:override="true">23sp</dimen>
-    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">23sp</dimen>
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">23dp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">23dp</dimen>
     <dimen name="design_navigation_icon_padding" tools:override="true">80dp</dimen>
     <dimen name="design_bottom_navigation_margin" tools:override="true">-4dp</dimen>
     <dimen name="margin">20dp</dimen>

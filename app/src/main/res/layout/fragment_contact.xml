@@ -43,6 +43,7 @@
                 android:layout_margin="@dimen/margin"
                 android:textColor="@color/whiteText"
                 android:background="@color/colorAccent"
+                android:textAllCaps="false"
                 android:width="@dimen/buttonL"
                 />
 

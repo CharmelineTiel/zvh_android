@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch (v.getId()) {
             case R.id.loginBtn:
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
                 startActivity(intent);
                 break;
         }
