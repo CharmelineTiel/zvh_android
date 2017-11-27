@@ -63,14 +63,14 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 builder
                         .setEndButtonLabel(R.string.go_to_summary)
                         .setTitle("Registeren Stap 2")
-                        .setBackButtonLabel("Annuleren");
+                        .setBackButtonLabel("Terug");
                 break;
-//            case 2:
-//                builder
-//                        .setTitle("Afronden")
-//                        .setBackButtonLabel("Terug")
-//                        .setEndButtonLabel("Afronden");
-//                break;
+            case 2:
+                builder
+                        .setTitle("Afronden")
+                        .setBackButtonLabel("Terug")
+                        .setEndButtonLabel("Afronden");
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported position: " + position);
         }

@@ -7,18 +7,21 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 
@@ -33,7 +36,9 @@ public class RegisterStep1Fragment extends Fragment
     private EditText lastName;
     private EditText dateOfBirth;
     private EditText email;
-
+    private List<EditText> form;
+    String string = "";
+    static boolean verified = false;
     public RegisterStep1Fragment() {
         // Required empty public constructor
     }
@@ -48,59 +53,63 @@ public class RegisterStep1Fragment extends Fragment
         dateOfBirth = v.findViewById(R.id.dateOfBirth);
         dateOfBirth.setOnClickListener(this);
 
-        firstName = v.findViewById(R.id.firstName);
-        lastName = v.findViewById(R.id.lastName);
-        email = v.findViewById(R.id.email);
         return v;
 
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // save views as variables in this method
+        // "view" is the one returned from onCreateView
+
+        form = new ArrayList<EditText>();
+
+        firstName = view.findViewById(R.id.firstName);
+        lastName = view.findViewById(R.id.lastName);
+        dateOfBirth = view.findViewById(R.id.dateOfBirth);
+        email = view.findViewById(R.id.email);
+
+
+        validate(firstName);
     }
 
     @Nullable
     @Override
     public VerificationError verifyStep() {
 
-//        VerificationError err;
-//        if(TextUtils.isEmpty(lastName.getText().toString())) {
-//
-//            err = new VerificationError("Vul uw voornaam in");
-//
-//        }else{
-//
-//            err = null;
-//        }
+        VerificationError err;
+        validate(firstName);
+        if (!verified){
 
-        return null;
-
+            err = new VerificationError("Vul uw voornaam in");
+            return err;
+        }else
+        {
+            err = null;
+            return err;
+        }
 
     }
 
     @Override
     public void onSelected() {
-
-
     }
 
     @Override
     public void onError(@NonNull VerificationError error) {
 
-//        if (firstName.getText() == null) {
-//
-//            firstName.setError(error.getErrorMessage());
-//
-//        } else if (lastName.getText() == null) {
-//
-//            lastName.setError(error.getErrorMessage());
-//
-//        } else if (dateOfBirth.getText() == null) {
-//            dateOfBirth.setError(error.getErrorMessage());
-//
-//        } else if (email.getText() == null) {
-//            email.setError(error.getErrorMessage());
-//        }
-
-       Toast.makeText(this.getContext(), "onError! -> " + error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-
-        //handle error inside of the fragment, e.g. show error on EditText
+        if (firstName.getText().toString() == ""){
+            firstName.setError(error.getErrorMessage());
+        }else if(lastName.getText().toString() == "")
+        {
+            lastName.setError(error.getErrorMessage());
+        }else if(dateOfBirth.getText().toString() == "")
+        {
+            dateOfBirth.setError(error.getErrorMessage());
+        }else if(email.getText().toString() == "")
+        {
+            email.setError(error.getErrorMessage());
+        }
     }
 
     @Override
@@ -133,6 +142,18 @@ public class RegisterStep1Fragment extends Fragment
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        // Apply any required UI change now that the Fragment is visible.
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
+    @Override
     public void onClick(final View v) {
 
         final Calendar calendar = Calendar.getInstance();
@@ -149,5 +170,38 @@ public class RegisterStep1Fragment extends Fragment
             }
         }, yy, mm, dd);
         datePicker.show();
+    }
+
+
+    private void validate(final EditText edit)
+    {
+        edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                string = s.toString();
+                if (string == "" || string.isEmpty() || string.length() <= 0){
+
+                    verified = false;
+                }else{
+
+                    verified = true;
+                }
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+
+            }
+        });
     }
 }

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -20,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
 
     private StepperLayout mStepperLayout;
     private StepperAdapter mStepperAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,9 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
 
     @Override
     public void onError(VerificationError verificationError) {
-        Toast.makeText(this, "onError! -> " + verificationError.getErrorMessage(), Toast.LENGTH_SHORT).show();
+
+
+        //Toast.makeText(this, "onError! -> " + verificationError.getErrorMessage(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -82,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
     public void setFragment(Fragment fg) {
         FragmentTransaction fgTransition = getSupportFragmentManager().beginTransaction();
         fgTransition.replace(R.id.stepperLayout, fg);
-        fgTransition.addToBackStack(null);
+        fgTransition.addToBackStack(String.valueOf(fg.getId()));
         fgTransition.commit();
     }
 
