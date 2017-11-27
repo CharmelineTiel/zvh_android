@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="Youp.ZVH_Android.activity.ServiceActivity">
+    tools:context="charmelinetiel.android_tablet_zvg.activity.ServiceActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
