@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="charmelinetiel.android_tablet_zvg.activity.LoginActivity"
+    tools:context="Youp.ZVH_Android.activity.LoginActivity"
     tools:showIn="@layout/activity_login">
 
 

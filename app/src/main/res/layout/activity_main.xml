@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="charmelinetiel.android_tablet_zvg.activity.MainActivity">
+    tools:context="Youp.ZVH_Android.activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/content"

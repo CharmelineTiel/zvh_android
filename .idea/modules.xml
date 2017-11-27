@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android_Tablet.iml" filepath="$PROJECT_DIR$/Android_Tablet.iml" />
+      <module fileurl="file://C:\Users\youp\Documents\ZVH_Android\Android_Tablet.iml" filepath="C:\Users\youp\Documents\ZVH_Android\Android_Tablet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZVH_Android.iml" filepath="$PROJECT_DIR$/ZVH_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

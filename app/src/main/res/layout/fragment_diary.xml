@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.fragments.DiaryFragment">
+    tools:context="Youp.ZVH_Android.fragments.DiaryFragment">
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
