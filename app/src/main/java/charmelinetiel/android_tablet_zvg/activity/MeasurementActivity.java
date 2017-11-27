@@ -11,11 +11,12 @@ import com.stepstone.stepper.VerificationError;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.adapters.RegisterAdapter;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterCompletedFragment;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep2Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.MeasurementCompletedFragment;
+import charmelinetiel.android_tablet_zvg.fragments.MeasurementStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.MeasurementStep2Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.MeasurementStep3Fragment;
 
-public class RegisterActivity extends AppCompatActivity implements StepperLayout.StepperListener {
+public class MeasurementActivity extends AppCompatActivity implements StepperLayout.StepperListener {
 
     private StepperLayout mStepperLayout;
     private RegisterAdapter mStepperAdapter;
@@ -35,18 +36,14 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
     @Override
     public void onCompleted(View completeButton) {
 
-        //show success message, send email and show login button
-        setTitle("Registratie Afronden");
-        Fragment fg = new RegisterCompletedFragment();
+        setTitle("Meting afronden");
+        Fragment fg = new MeasurementCompletedFragment();
         setFragment(fg);
 
     }
 
     @Override
     public void onError(VerificationError verificationError) {
-
-
-        //Toast.makeText(this, "onError! -> " + verificationError.getErrorMessage(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -57,17 +54,23 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
             Fragment fg;
         switch (newStepPosition) {
             case 0:
-                    setTitle("Registreren stap 1 van 2");
-                    fg = new RegisterStep1Fragment();
+                    setTitle("Meting stap 1 van 3");
+                    fg = new MeasurementStep1Fragment();
                     setFragment(fg);
 
                 break;
 
             case 1:
 
-                    setTitle("Registreren stap 2 van 2");
-                    fg = new RegisterStep2Fragment();
+                    setTitle("Meting stap 2 van 3");
+                    fg = new MeasurementStep2Fragment();
                     setFragment(fg);
+                break;
+            case 2:
+
+                setTitle("Meting stap 3 van 3");
+                fg = new MeasurementStep3Fragment();
+                setFragment(fg);
                 break;
         }
 
@@ -79,7 +82,6 @@ public class RegisterActivity extends AppCompatActivity implements StepperLayout
         finish();
 
     }
-
 
     public void setFragment(Fragment fg) {
         FragmentTransaction fgTransition = getSupportFragmentManager().beginTransaction();

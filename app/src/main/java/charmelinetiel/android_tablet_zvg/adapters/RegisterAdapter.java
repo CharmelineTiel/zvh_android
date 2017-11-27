@@ -17,12 +17,12 @@ import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
  * Created by Tiel on 17-11-2017.
  */
 
-public class StepperAdapter extends AbstractFragmentStepAdapter {
+public class RegisterAdapter extends AbstractFragmentStepAdapter {
 
     private static final String CURRENT_STEP_POSITION_KEY = "messageResourceId";
     Context context;
     FragmentManager fm;
-    public StepperAdapter(FragmentManager fm, Context context) {
+    public RegisterAdapter(FragmentManager fm, Context context) {
         super(fm, context);
 
         this.context = context;
@@ -68,8 +68,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
             case 2:
                 builder
                         .setTitle("Afronden")
-                        .setBackButtonLabel("Terug")
-                        .setEndButtonLabel("Afronden");
+                        .setBackButtonLabel("Terug");
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported position: " + position);

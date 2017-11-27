@@ -38,6 +38,7 @@ public class DiaryFragment extends Fragment {
 
         chart = v.findViewById(R.id.chart);
 
+        initGraph();
         return v;
     }
 
