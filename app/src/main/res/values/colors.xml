@@ -9,4 +9,15 @@
     <color name="lightGrey">#A9A9A9</color>
     <color name="lighterGrey">#EBEBEB</color>
     <color name="offWhite">#F8F8F8</color>
+
+
+    <color name="negativeFeedbackTxt">#fe5c26</color>
+    <color name="positiveFeedbackTxt">#2ebc48</color>
+
+    <color name="negativeFeedback">#11f56d18</color>
+    <color name="positiveFeedback">#0b2ebc48</color>
+
+    <color name="chart1">#03ade6</color>
+    <color name="chart2">#44057c</color>
+
 </resources>
