@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import charmelinetiel.android_tablet_zvg.R;
 
@@ -30,17 +31,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         Button btn = view.findViewById(R.id.metingBtn);
         btn.setOnClickListener(this);
+        ImageView icon = view.findViewById(R.id.info);
+        icon.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
+
+        Fragment fg;
         switch (v.getId()) {
+
             case R.id.metingBtn:
-                MeasurementFragment nextFrag= new MeasurementFragment();
+                fg= new MeasurementFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, nextFrag)
-                        .addToBackStack(null)
+                        .replace(R.id.content, fg)
+                        .addToBackStack(fg.toString())
+                        .commit();
+                break;
+            case R.id.info:
+                fg = new FAQFragment();
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, fg)
+                        .addToBackStack(fg.toString())
                         .commit();
                 break;
         }

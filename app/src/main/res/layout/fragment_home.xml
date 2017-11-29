@@ -5,7 +5,6 @@
     tools:context="charmelinetiel.android_tablet_zvg.fragments.HomeFragment"
     android:orientation="horizontal">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,6 +32,16 @@
             android:padding="@dimen/margin"
             />
 
+        <ImageView
+            android:id="@+id/info"
+            android:layout_below="@+id/GreetingsText"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info_black_24dp"
+            android:padding="5dp"
+            android:layout_margin="10dp"
+            />
         <LinearLayout
             android:layout_width="400dp"
             android:layout_height="150dp"
