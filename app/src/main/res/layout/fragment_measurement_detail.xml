@@ -1,0 +1,102 @@
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:id="@+id/detailPage"
+        >
+
+        <RelativeLayout
+            android:id="@+id/measurement_list_item"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/titleLbl"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/normalText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/bloodPressureLbl"
+        android:layout_gravity="center"
+        android:layout_below="@id/titleLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/normalText" />
+    <TextView
+        android:id="@+id/feedbackLbl"
+        android:layout_gravity="center"
+        android:layout_below="@id/bloodPressureLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/normalText" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/issuesLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Gezondheidklachten"/>
+        <TextView
+            android:id="@+id/issues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin"
+            android:text="klacht 1, klacht 2"/>
+        <TextView
+            android:id="@+id/extraLbl"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toevoeging"/>
+        <TextView
+            android:id="@+id/extra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="familie komt op bezoek, stress level to the max"/>
+
+        <RelativeLayout
+            android:id="@+id/btnLayout"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:padding="10dp"
+                android:id="@+id/editBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bewerken"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/biggerText"
+                android:background="@color/lightGrey"
+                android:textAllCaps="false"
+                android:width="@dimen/buttonM"
+                />
+        <Button
+            android:padding="10dp"
+            android:id="@+id/backBtn"
+            android:layout_toEndOf="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terug"
+            android:layout_marginTop="@dimen/margin"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/biggerText"
+            android:background="@color/colorAccent"
+            android:textAllCaps="false"
+            android:width="@dimen/buttonM"
+            />
+
+        </RelativeLayout>
+</LinearLayout>

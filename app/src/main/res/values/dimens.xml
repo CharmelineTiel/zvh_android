@@ -6,6 +6,7 @@
     <dimen name="biggerText">20sp</dimen>
     <dimen name="buttonSize">300dp</dimen>
     <dimen name="buttonL">400dp</dimen>
+    <dimen name="buttonM">150dp</dimen>
     <dimen name="formFieldSize">600dp</dimen>
 
     <dimen name="design_bottom_navigation_text_size" tools:override="true">23dp</dimen>

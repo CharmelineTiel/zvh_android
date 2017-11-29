@@ -3,10 +3,12 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -46,6 +48,7 @@ public class DiaryFragment extends Fragment {
         mListView = v.findViewById(R.id.measurement_list_view);
         dummyData();
 
+
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -59,6 +62,26 @@ public class DiaryFragment extends Fragment {
 
             }
         });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Measurement selection = listItems.get(position);
+
+                Bundle bundle=new Bundle();
+                bundle.putParcelable("measurement",selection);
+                MeasurementDetailFragment fg =new MeasurementDetailFragment();
+                fg.setArguments(bundle);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.content, fg);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+
+        });
+
         chart = v.findViewById(R.id.chart);
         initGraph();
         return v;
@@ -99,6 +122,7 @@ public class DiaryFragment extends Fragment {
 
 
         adapter = new ListAdapter(getActivity(),this, listItems);
+
         mListView.setAdapter(adapter);
 
     }
