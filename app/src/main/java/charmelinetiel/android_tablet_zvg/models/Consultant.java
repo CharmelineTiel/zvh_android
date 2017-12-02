@@ -90,4 +90,8 @@ public class Consultant implements Parcelable
         return 0;
     }
 
+
+    public String toString() {
+        return getFirstname() + " " + getLastname();
+    }
 }

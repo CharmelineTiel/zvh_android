@@ -46,7 +46,7 @@ public class RegisterStep1Fragment extends Fragment
     View v;
 
     List<Consultant> allConsultants;
-    ArrayList<String> consultantsNames = new ArrayList<>();
+    ArrayList<Consultant> consultantsNames = new ArrayList<>();
     private APIService apiService;
     static boolean verified = false;
     ArrayAdapter<String> adapter;
@@ -59,12 +59,10 @@ public class RegisterStep1Fragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
-
         apiService = retrofit.create(APIService.class);
-
-        v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
         dateOfBirth = v.findViewById(R.id.dateOfBirth);
         dateOfBirth.setOnClickListener(this);
@@ -77,9 +75,6 @@ public class RegisterStep1Fragment extends Fragment
 
 
         fetchContent();
-
-
-
 
         return v;
 
@@ -192,12 +187,8 @@ public class RegisterStep1Fragment extends Fragment
         if (response.isSuccessful() && response.body() != null) {
            allConsultants = response.body();
 
-            for (Consultant c : allConsultants){
 
-                consultantsNames.add(c.getFirstname());
-            }
-
-            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, consultantsNames);
+            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
 
             Spinner consultantsView =  v.findViewById(R.id.consultants);
 
@@ -206,7 +197,7 @@ public class RegisterStep1Fragment extends Fragment
             consultantsView.setSelection(0,true);
             consultantsView.setAdapter(adapter);
 
-
+            Consultant consultant = (Consultant) ( (Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
 
         }
     }
