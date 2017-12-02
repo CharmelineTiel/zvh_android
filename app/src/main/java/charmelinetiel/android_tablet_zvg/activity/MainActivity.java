@@ -20,7 +20,7 @@ import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
 import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private Fragment fg;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         fg = new HomeFragment();
         setFragment(fg);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 

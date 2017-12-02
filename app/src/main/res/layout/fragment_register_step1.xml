@@ -1,19 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment">
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <TextView
+        android:layout_margin="@dimen/margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-
-    <LinearLayout
+        android:text="Selecteer uw consulent"/>
+    <Spinner
+        android:id="@+id/consultants"
+        android:width="@dimen/formFieldSize"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
         android:padding="@dimen/margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:textSize="@dimen/normalText"
+        android:textColor="@color/lightGrey"
+        />
+
 
     <EditText
         android:id="@+id/firstName"
@@ -24,6 +36,7 @@
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/margin"
         android:textSize="@dimen/normalText"
+        android:hint="Vul uw voornaam in"
         android:textColor="@color/lightGrey" />
 
     <EditText
@@ -50,19 +63,9 @@
             android:textColor="@color/lightGrey"
             android:hint="Vul uw geboortedatum in"/>
 
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/email"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw email in"/>
-
 <TextView
+    android:id="@+id/genderLbl"
+    android:layout_below="@+id/dateOfBirth"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Geslacht bij geboorte"
@@ -72,6 +75,7 @@
     />
 
         <RadioGroup
+            android:layout_below="@+id/genderLbl"
             android:id="@+id/radioGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +99,38 @@
                 android:text="Vrouw" />
 
         </RadioGroup>
-
-    </LinearLayout>
-    </ScrollView>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <Button
+        android:padding="10dp"
+        android:id="@+id/firstBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annuleren"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_margin="10dp"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText"
+        android:background="@color/lightGrey"
+        android:textAllCaps="false"
+        android:width="@dimen/buttonM"
+        />
+    <Button
+        android:padding="10dp"
+        android:id="@+id/secondBtn"
+        android:layout_toEndOf="@+id/firstBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volgende"
+        android:layout_margin="10dp"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText"
+        android:background="@color/colorAccent"
+        android:textAllCaps="false"
+        android:width="@dimen/buttonM"
+        />
 </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

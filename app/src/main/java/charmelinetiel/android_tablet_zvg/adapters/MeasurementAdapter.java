@@ -1,7 +1,6 @@
 package charmelinetiel.android_tablet_zvg.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +10,6 @@ import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
 
 /**
  * Created by Tiel on 17-11-2017.
@@ -31,13 +29,14 @@ public class MeasurementAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public Step createStep(int position) {
+//
+//        final RegisterStep1Fragment step = new RegisterStep1Fragment();
+//        Bundle b = new Bundle();
+//        b.putInt(CURRENT_STEP_POSITION_KEY, position);
+//        step.setArguments(b);
+//        //return step;
 
-        final RegisterStep1Fragment step = new RegisterStep1Fragment();
-        Bundle b = new Bundle();
-        b.putInt(CURRENT_STEP_POSITION_KEY, position);
-        step.setArguments(b);
-        return step;
-
+        return null;
     }
 
     @Override

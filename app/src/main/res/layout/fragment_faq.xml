@@ -8,7 +8,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/sv"
+        android:paddingBottom="@dimen/margin"
         >
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
         <iammert.com.expandablelib.ExpandableLayout
             android:id="@+id/el"
@@ -17,6 +22,33 @@
             app:childLayout="@layout/layout_child"
             app:parentLayout="@layout/layout_parent" />
 
+<TextView
+    android:layout_marginTop="50dp"
+    android:id="@+id/contactTxt"
+    android:textSize="@dimen/normalText"
+    android:textAlignment="center"
+    android:layout_below="@+id/el"
+    android:layout_centerHorizontal="true"
+    android:text="Staat uw vraag er niet bij? Neem contact op met uw consulent. \n \n"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content" />
+        <Button
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/contactBtn"
+            android:layout_below="@+id/contactTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Opnemen"
+
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/biggerText"
+            android:background="@color/colorAccent"
+            android:textAllCaps="false"
+            android:width="200dp"
+            />
+
+</RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

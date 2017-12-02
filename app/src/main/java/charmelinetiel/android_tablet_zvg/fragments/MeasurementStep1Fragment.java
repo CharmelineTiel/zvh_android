@@ -3,9 +3,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,17 +12,13 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.stepstone.stepper.BlockingStep;
-import com.stepstone.stepper.StepperLayout;
-import com.stepstone.stepper.VerificationError;
-
 import java.util.Calendar;
 
 import charmelinetiel.android_tablet_zvg.R;
 
 
 public class MeasurementStep1Fragment extends Fragment
-        implements BlockingStep,
+        implements
         View.OnClickListener
 
 {
@@ -54,61 +47,6 @@ public class MeasurementStep1Fragment extends Fragment
         // save views as variables in this method
         // "view" is the one returned from onCreateView
 
-    }
-
-    @Nullable
-    @Override
-    public VerificationError verifyStep() {
-
-        VerificationError err;
-        if (!verified){
-
-            err = new VerificationError("Vul uw voornaam in");
-            return err;
-        }else
-        {
-            err = null;
-            return err;
-        }
-
-    }
-
-    @Override
-    public void onSelected() {
-    }
-
-    @Override
-    public void onError(@NonNull VerificationError error) {
-
-    }
-
-    @Override
-    public void onNextClicked(final StepperLayout.OnNextClickedCallback callback) {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            callback.goToNextStep();
-
-            }
-        }, 50L);
-    }
-
-    @Override
-    public void onCompleteClicked(final StepperLayout.OnCompleteClickedCallback callback) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                callback.complete();
-            }
-        }, 500L);
-    }
-
-    @Override
-    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-
-        callback.goToPrevStep();
     }
 
     @Override

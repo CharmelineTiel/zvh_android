@@ -38,7 +38,7 @@ public class FAQFragment extends Fragment {
             public void renderParent(View view, String s, boolean b, int i) {
 
                 ((TextView) view.findViewById(R.id.question)).setText(s);
-                //view.findViewById(R.id.arrow).setBackgroundResource(isExpanded ? R.drawable.arrow_up : R.drawable.arrow_down);
+                view.findViewById(R.id.arrow).setBackgroundResource(b ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_chevron_right_black_24dp);
 
             }
 

@@ -26,9 +26,9 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_contact, container, false);
+        view = inflater.inflate(R.layout.fragment_message_sent, container, false);
 
-        Button btn = view.findViewById(R.id.sendMessageBtn);
+        Button btn = view.findViewById(R.id.backHome);
         btn.setOnClickListener(this);
         return view;
     }
@@ -36,5 +36,17 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
+        Fragment fg;
+        switch (v.getId()) {
+
+            case R.id.backHome:
+
+//                fg= new HomeFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.content, fg)
+//                        .addToBackStack(fg.toString())
+//                        .commit();
+                break;
+        }
     }
 }

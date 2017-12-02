@@ -2,26 +2,22 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.stepstone.stepper.BlockingStep;
-import com.stepstone.stepper.StepperLayout;
-import com.stepstone.stepper.VerificationError;
+import android.widget.Button;
 
 import charmelinetiel.android_tablet_zvg.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterStep2Fragment extends Fragment implements BlockingStep {
+public class RegisterStep2Fragment extends Fragment implements View.OnClickListener{
 
 
+    View v;
     public RegisterStep2Fragment() {
         // Required empty public constructor
     }
@@ -30,51 +26,42 @@ public class RegisterStep2Fragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_step2, container, false);
+
+        v =inflater.inflate(R.layout.fragment_register_step2, container, false);
+
+        Button btn1 = v.findViewById(R.id.registerBtn);
+        btn1.setOnClickListener(this);
+
+        Button btn2 = v.findViewById(R.id.backBtn);
+        btn2.setOnClickListener(this);
+        return v;
     }
 
     @Override
-    public void onNextClicked(final StepperLayout.OnNextClickedCallback callback) {
+    public void onClick(View v) {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                callback.goToNextStep();
-            }
-        }, 500L);
+        Fragment fg;
+        switch (v.getId()) {
+
+            case R.id.registerBtn:
+
+                fg = new RegisterCompletedFragment();
+                setFragment(fg);
+                break;
+
+            case R.id.backBtn:
+
+                fg = new RegisterStep1Fragment();
+                setFragment(fg);
+                break;
+        }
     }
 
-    @Override
-    public void onCompleteClicked(final StepperLayout.OnCompleteClickedCallback callback) {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                callback.complete();
-            }
-        }, 500L);
-
-    }
-
-    @Override
-    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-
-    }
-
-    @Nullable
-    @Override
-    public VerificationError verifyStep() {
-        return null;
-    }
-
-    @Override
-    public void onSelected() {
-
-    }
-
-    @Override
-    public void onError(@NonNull VerificationError error) {
-
+    public void setFragment(Fragment fg) {
+        FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
+        fgTransition.replace(R.id.contentR, fg);
+        fgTransition.addToBackStack(String.valueOf(fg.getId()));
+        fgTransition.commit();
     }
 }

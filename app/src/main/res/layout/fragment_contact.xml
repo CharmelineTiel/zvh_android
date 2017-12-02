@@ -4,49 +4,80 @@
     android:layout_height="match_parent"
     tools:context="charmelinetiel.android_tablet_zvg.fragments.ContactFragment">
 
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:padding="@dimen/margin"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/contactTxt"
+                android:layout_margin="10dp"
+                android:text="@string/contactPageTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <EditText
+                android:layout_below="@id/contactTxt"
+                android:id="@+id/subject"
                 android:width="@dimen/formFieldSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/lighterGrey"
-                android:layout_margin="@dimen/margin"
+                android:layout_margin="10dp"
                 android:padding="@dimen/margin"
                 android:hint="Onderwerp"/>
 
             <EditText
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subject"
+                android:layout_margin="10dp"
                 android:width="@dimen/formFieldSize"
                 android:background="@color/lighterGrey"
-                android:id="@+id/password"
-                android:layout_margin="@dimen/margin"
-                android:padding="@dimen/margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minLines="10" />
+                android:minLines="6"
+                android:padding="@dimen/margin" />
 
             <Button
-                android:padding="@dimen/margin"
-                android:id="@+id/sendMessageBtn"
-                android:layout_gravity="right"
+                android:layout_below="@id/message"
+                android:padding="10dp"
+                android:id="@+id/backBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Versturen"
-                android:textSize="@dimen/biggerText"
-                android:textAlignment="center"
-                android:layout_margin="@dimen/margin"
+                android:text="Terug"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_margin="10dp"
                 android:textColor="@color/whiteText"
+                android:textSize="@dimen/biggerText"
+                android:background="@color/lightGrey"
+                android:textAllCaps="false"
+                android:width="@dimen/buttonM"
+                />
+            <Button
+                android:layout_below="@id/message"
+                android:padding="10dp"
+                android:id="@+id/sendBtn"
+                android:layout_toEndOf="@+id/backBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verzenden"
+                android:layout_margin="10dp"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/biggerText"
                 android:background="@color/colorAccent"
                 android:textAllCaps="false"
-                android:width="@dimen/buttonL"
+                android:width="@dimen/buttonM"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
+
+
+    </ScrollView>
 </RelativeLayout>

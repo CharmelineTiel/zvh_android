@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Bericht verzonden"
+            android:textStyle="bold"
             android:textSize="@dimen/biggerText" />
 
         <TextView
@@ -35,16 +36,15 @@
             android:lines="2"
             android:text="U heeft succesvol een bericht verstuurd naar uw consulent."
             android:textAlignment="center"
-            android:textSize="@dimen/biggerText" />
+            android:textSize="@dimen/normalText" />
 
         <Button
             android:id="@+id/backHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:width="@dimen/buttonSize"
+            android:width="@dimen/buttonM"
             android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
             android:text="Klaar"
             android:textSize="@dimen/biggerText"
             android:textAllCaps="false"

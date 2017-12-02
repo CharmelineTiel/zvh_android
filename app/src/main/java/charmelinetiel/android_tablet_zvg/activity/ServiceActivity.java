@@ -28,7 +28,7 @@ public class ServiceActivity extends MaterialPreferenceActivity implements Mater
 
         setPreferenceChangedListener(this);
 
-        useDarkTheme(true);
+        useDarkTheme(false);
 
         setXmlResourceName("app_preferences");
 

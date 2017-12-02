@@ -57,6 +57,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         .addToBackStack(fg.toString())
                         .commit();
                 break;
+
+            case R.id.backHome:
+                fg= new HomeFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, fg)
+                        .addToBackStack(fg.toString())
+                        .commit();
+                break;
         }
+
     }
 }
