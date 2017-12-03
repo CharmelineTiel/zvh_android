@@ -1,17 +1,16 @@
-package youp.zvh_android.fragments;
+package charmelinetiel.android_tablet_zvg.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import youp.zvh_android.R;
-import youp.zvh_android.activity.MainActivity;
-import youp.zvh_android.models.Measurement;
+import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 /**
  * Created by youp on 28-11-2017.
@@ -38,7 +37,6 @@ public class MeasurementStep3Fragment extends Fragment {
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
 
-
         if (container != null) {
             container.removeAllViews();
         }
@@ -51,8 +49,6 @@ public class MeasurementStep3Fragment extends Fragment {
             Measurement measurement = activity.getMeasurement();
 
             measurement.setHealthIssueOther(extraRemarksInput.getText().toString());
-
-
 
             }
         });

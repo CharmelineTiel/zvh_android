@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/measurementStep2"
-    tools:context="youp.zvh_android.fragments.MeasurementFragment"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
@@ -67,7 +66,7 @@
         android:layout_below="@+id/otherNamelyInput"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:width="@dimen/buttonS"
+        android:width="@dimen/buttonM"
         android:background="@color/lightGrey"
         android:padding="@dimen/margin"
         android:text="Terug"
@@ -84,7 +83,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/cancel_measurement2_button"
-        android:width="@dimen/buttonS"
+        android:width="@dimen/buttonM"
         android:background="@color/colorAccent"
         android:padding="@dimen/margin"
         android:text="Volgende"

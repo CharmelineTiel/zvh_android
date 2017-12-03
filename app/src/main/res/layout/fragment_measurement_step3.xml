@@ -8,7 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/measurementStep3"
-    tools:context="youp.zvh_android.fragments.MeasurementFragment"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
@@ -40,7 +39,7 @@
         android:layout_below="@+id/extraRemarksInput"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:width="@dimen/buttonS"
+        android:width="@dimen/buttonM"
         android:background="@color/lightGrey"
         android:padding="@dimen/margin"
         android:text="Terug"
@@ -57,7 +56,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
         android:layout_toRightOf="@id/cancel_measurement3_button"
-        android:width="@dimen/buttonS"
+        android:width="@dimen/buttonM"
         android:background="@color/colorAccent"
         android:padding="@dimen/margin"
         android:text="Opslaan"

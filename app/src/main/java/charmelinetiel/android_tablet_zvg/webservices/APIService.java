@@ -2,6 +2,7 @@ package charmelinetiel.android_tablet_zvg.webservices;
 
 import java.util.List;
 
+import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,6 +18,9 @@ public interface APIService {
 
     @POST("/Users/register")
     Call<User> register(@Body User user);
+
+    @GET("HealthIssues")
+    Call<List<HealthIssue>> getAllHealthIssues();
 
 //    @GET("Articles/{nextId}")
 //    Call<RootObject> getMoreArticles(@Header("x-authtoken") String api_token, @Path("nextId") int nextId, @Query("count") int count);

@@ -13,16 +13,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.fragments.ContactFragment;
 import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
 import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
+import charmelinetiel.android_tablet_zvg.models.HealthIssue;
+import charmelinetiel.android_tablet_zvg.models.Measurement;
+import charmelinetiel.android_tablet_zvg.webservices.APIService;
+import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements Callback<List<HealthIssue>> {
 
     private Fragment fg;
+    private Measurement measurement;
+    private APIService apiService;
+    private List<HealthIssue> healthIssues;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -61,6 +75,14 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        measurement = new Measurement();
+
+        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+        apiService = retrofit.create(APIService.class);
+
+        apiService.getAllHealthIssues().enqueue(this);
+
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
@@ -72,22 +94,21 @@ public class MainActivity extends AppCompatActivity  {
         fg = new HomeFragment();
         setFragment(fg);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
     @Override
     public void onBackPressed() {
 
-        int count = getFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-            //additional code
-            finish();
-        } else {
-            getFragmentManager().popBackStack();
-        }
+//        int count = getFragmentManager().getBackStackEntryCount();
+//
+//        if (count == 0) {
+//            super.onBackPressed();
+//            //additional code
+//            finish();
+//        } else {
+            fg.getFragmentManager().popBackStack();
+//        }
 
     }
 
@@ -112,6 +133,34 @@ public class MainActivity extends AppCompatActivity  {
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, displayMetrics);
             iconView.setLayoutParams(layoutParams);
         }
+    }
+
+    public Measurement getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(Measurement measurement) {
+        this.measurement = measurement;
+    }
+
+
+    @Override
+    public void onResponse(Call<List<HealthIssue>> call, Response<List<HealthIssue>> response) {
+        if (response.isSuccessful() && response.body() != null) {
+            healthIssues = response.body();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<List<HealthIssue>> call, Throwable t) {
+
+    }
+
+    public List<HealthIssue> getHealthIssues(){
+        return healthIssues;
+    }
+
+    public void postMeasurement(Measurement measurement){
 
     }
 

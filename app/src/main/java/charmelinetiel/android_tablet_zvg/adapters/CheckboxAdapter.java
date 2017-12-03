@@ -1,24 +1,19 @@
-package youp.zvh_android.adapters;
+package charmelinetiel.android_tablet_zvg.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import youp.zvh_android.R;
-import youp.zvh_android.models.HealthIssue;
-
+import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 
 public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 

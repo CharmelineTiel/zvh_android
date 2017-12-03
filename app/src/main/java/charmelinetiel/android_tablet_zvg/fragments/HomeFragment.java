@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.metingBtn:
-                fg= new MeasurementFragment();
+                fg= new MeasurementStep1Fragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content, fg)
                         .addToBackStack(fg.toString())
