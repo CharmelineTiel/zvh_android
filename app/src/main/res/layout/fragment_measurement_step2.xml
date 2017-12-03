@@ -1,101 +1,95 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment">
+    android:id="@+id/measurementStep2"
+    tools:context="youp.zvh_android.fragments.MeasurementFragment"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:id="@+id/fillInText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateText"
+        android:text="@string/fillInText2"
+        />
+
+    <RadioButton
+        android:id="@+id/noneRadio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@id/fillInText"
+        android:text="@string/none"/>
 
-    <LinearLayout
-        android:padding="@dimen/margin"
+    <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_below="@id/fillInText"
+        android:layout_toRightOf="@id/noneRadio"
+        android:text="@string/yesNamely"/>
+
+    <ListView
+        android:id="@+id/checkboxList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/noneRadio">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/otherNamely"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/otherNamely"
+        android:layout_below="@id/checkboxList"/>
 
     <EditText
-        android:id="@+id/firstName"
-        android:width="@dimen/formFieldSize"
+        android:id="@+id/otherNamelyInput"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/lighterGrey"
+        android:layout_below="@id/otherNamely"/>
+
+    <Button
+        android:id="@+id/cancel_measurement2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/lighterGrey"
-        android:layout_margin="@dimen/margin"
+        android:layout_alignStart="@+id/onderdruk_image"
+        android:layout_below="@+id/otherNamelyInput"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:width="@dimen/buttonS"
+        android:background="@color/lightGrey"
         android:padding="@dimen/margin"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey" />
+        android:text="Terug"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText" />
 
-    <EditText
-        android:width="@dimen/formFieldSize"
-        android:background="@color/lighterGrey"
-        android:id="@+id/lastName"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
+    <Button
+        android:id="@+id/to_measurement_step3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey"
-        android:hint="Vul uw achternaam in"/>
+        android:layout_alignBaseline="@+id/cancel_measurement2_button"
+        android:layout_alignBottom="@+id/cancel_measurement2_button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/cancel_measurement2_button"
+        android:width="@dimen/buttonS"
+        android:background="@color/colorAccent"
+        android:padding="@dimen/margin"
+        android:text="Volgende"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText" />
 
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/dateOfBirth"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw geboortedatum in"/>
-
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/email"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw email in"/>
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Geslacht bij geboorte"
-    android:layout_margin="@dimen/margin"
-    android:textSize="@dimen/normalText"
-    android:layout_marginBottom="0dp"
-    />
-
-        <RadioGroup
-            android:id="@+id/radioGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:layout_marginTop="0dp"
-            >
-
-            <RadioButton
-                android:id="@+id/radioMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Man"
-                android:textSize="@dimen/normalText"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/radioFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/normalText"
-                android:text="Vrouw" />
-
-        </RadioGroup>
-
-    </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

@@ -1,31 +1,69 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package youp.zvh_android.fragments;
 
-
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import charmelinetiel.android_tablet_zvg.R;
+import youp.zvh_android.R;
+import youp.zvh_android.activity.MainActivity;
+import youp.zvh_android.models.Measurement;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by youp on 28-11-2017.
  */
-public class MeasurementStep3Fragment extends Fragment{
 
+public class MeasurementStep3Fragment extends Fragment {
 
-    public MeasurementStep3Fragment() {
+    private View v;
+    private Button cancelButton;
+    private Button completeButton;
+    private EditText extraRemarksInput;
+
+    public MeasurementStep3Fragment(){
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_step2, container, false);
+
+        v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
+
+        cancelButton = v.findViewById(R.id.cancel_measurement3_button);
+        completeButton = v.findViewById(R.id.complete_measurement_button);
+        extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
+
+
+        if (container != null) {
+            container.removeAllViews();
+        }
+
+        completeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            MainActivity activity = (MainActivity) getActivity();
+            Measurement measurement = activity.getMeasurement();
+
+            measurement.setHealthIssueOther(extraRemarksInput.getText().toString());
+
+
+
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                getActivity().onBackPressed();
+            }
+        });
+
+        return v;
+
     }
-
-
 }

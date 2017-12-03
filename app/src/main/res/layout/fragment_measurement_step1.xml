@@ -1,101 +1,112 @@
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment">
+    android:id="@+id/measurementStep1">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        />
 
-    <LinearLayout
-        android:padding="@dimen/margin"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/fillInText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_below="@id/dateText"
+        android:layout_marginLeft="20dp"
+        android:text="@string/fillInText"
+        />
+
+    <ImageView
+        android:id="@+id/bovendruk_image"
+        android:layout_margin="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/fillInText"
+        android:src="@drawable/meting_img1" />
 
     <EditText
-        android:id="@+id/firstName"
+        android:id="@+id/upperBloodPressure"
         android:width="@dimen/formFieldSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lighterGrey"
         android:layout_margin="@dimen/margin"
         android:padding="@dimen/margin"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey" />
-
-    <EditText
-        android:width="@dimen/formFieldSize"
-        android:background="@color/lighterGrey"
-        android:id="@+id/lastName"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:hint="0"
+        android:textAlignment="center"
         android:textSize="@dimen/normalText"
         android:textColor="@color/lightGrey"
-        android:hint="Vul uw achternaam in"/>
+        android:layout_below="@id/fillInText"
+        android:layout_toRightOf="@id/bovendruk_image"/>
 
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/dateOfBirth"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw geboortedatum in"/>
 
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/email"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw email in"/>
+    <ImageView
+        android:id="@+id/onderdruk_image"
+        android:layout_margin="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/bovendruk_image"
+        android:src="@drawable/meting_img2" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Geslacht bij geboorte"
-    android:layout_margin="@dimen/margin"
-    android:textSize="@dimen/normalText"
-    android:layout_marginBottom="0dp"
-    />
+    <EditText
+        android:id="@+id/lowerBloodPressure"
+        android:width="@dimen/formFieldSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/lighterGrey"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/margin"
+        android:hint="0"
+        android:textAlignment="center"
+        android:textSize="@dimen/normalText"
+        android:textColor="@color/lightGrey"
+        android:layout_below="@id/bovendruk_image"
+        android:layout_toRightOf="@id/onderdruk_image"/>
 
-        <RadioGroup
-            android:id="@+id/radioGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:layout_marginTop="0dp"
-            >
+    <Button
+        android:id="@+id/cancel_measurement1_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/onderdruk_image"
+        android:layout_below="@+id/onderdruk_image"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:width="@dimen/buttonS"
+        android:background="@color/lightGrey"
+        android:padding="@dimen/margin"
+        android:text="Annuleren"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText" />
 
-            <RadioButton
-                android:id="@+id/radioMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Man"
-                android:textSize="@dimen/normalText"
-                android:checked="true" />
+    <Button
+        android:id="@+id/to_measurement_step2_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancel_measurement1_button"
+        android:layout_alignBottom="@+id/cancel_measurement1_button"
+        android:layout_alignEnd="@+id/lowerBloodPressure"
+        android:layout_gravity="center_horizontal"
+        android:width="@dimen/buttonS"
+        android:background="@color/colorAccent"
+        android:padding="@dimen/margin"
+        android:text="Volgende"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText" />
 
-            <RadioButton
-                android:id="@+id/radioFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/normalText"
-                android:text="Vrouw" />
-
-        </RadioGroup>
-
-    </LinearLayout>
-    </ScrollView>
 </RelativeLayout>
+</ScrollView>

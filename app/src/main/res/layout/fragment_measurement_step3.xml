@@ -1,101 +1,69 @@
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment">
+    android:id="@+id/measurementStep3"
+    tools:context="youp.zvh_android.fragments.MeasurementFragment"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:id="@+id/extraRemarks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-
-    <LinearLayout
-        android:padding="@dimen/margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="@string/extraRemarks"
+        android:layout_below="@id/dateText"/>
 
     <EditText
-        android:id="@+id/firstName"
-        android:width="@dimen/formFieldSize"
+        android:id="@+id/extraRemarksInput"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/lighterGrey"
+        android:layout_below="@id/extraRemarks"/>
+
+    <Button
+        android:id="@+id/cancel_measurement3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/lighterGrey"
-        android:layout_margin="@dimen/margin"
+        android:layout_below="@+id/extraRemarksInput"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:width="@dimen/buttonS"
+        android:background="@color/lightGrey"
         android:padding="@dimen/margin"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey" />
+        android:text="Terug"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText" />
 
-    <EditText
-        android:width="@dimen/formFieldSize"
-        android:background="@color/lighterGrey"
-        android:id="@+id/lastName"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
+    <Button
+        android:id="@+id/complete_measurement_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey"
-        android:hint="Vul uw achternaam in"/>
+        android:layout_alignBaseline="@+id/cancel_measurement3_button"
+        android:layout_alignBottom="@+id/cancel_measurement3_button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/cancel_measurement3_button"
+        android:width="@dimen/buttonS"
+        android:background="@color/colorAccent"
+        android:padding="@dimen/margin"
+        android:text="Opslaan"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText" />
 
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/dateOfBirth"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw geboortedatum in"/>
-
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/email"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw email in"/>
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Geslacht bij geboorte"
-    android:layout_margin="@dimen/margin"
-    android:textSize="@dimen/normalText"
-    android:layout_marginBottom="0dp"
-    />
-
-        <RadioGroup
-            android:id="@+id/radioGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:layout_marginTop="0dp"
-            >
-
-            <RadioButton
-                android:id="@+id/radioMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Man"
-                android:textSize="@dimen/normalText"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/radioFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/normalText"
-                android:text="Vrouw" />
-
-        </RadioGroup>
-
-    </LinearLayout>
-    </ScrollView>
 </RelativeLayout>
+</ScrollView>
