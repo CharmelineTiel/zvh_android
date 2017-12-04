@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/home_background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splashscreen_image" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <Button
+        android:padding="@dimen/margin"
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inloggen"
+        android:layout_margin="@dimen/margin"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText"
+        android:background="@color/colorAccent"
+        android:textAllCaps="false"
+        android:width="@dimen/buttonL"
+        />
+
+            <TextView
+                android:id="@+id/orLbl"
+                android:textColor="@color/whiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/loginBtn"
+                android:layout_below="@+id/loginBtn"
+                android:layout_marginEnd="160dp"
+                android:text="of"
+                android:textSize="@dimen/biggerText"
+                android:textStyle="bold" />
+    <Button
+        android:layout_below="@+id/orLbl"
+        android:padding="@dimen/margin"
+        android:id="@+id/registerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account aanmaken"
+        android:layout_margin="@dimen/margin"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/biggerText"
+        android:background="@color/RegisterColor"
+        android:textAllCaps="false"
+        android:width="@dimen/buttonL"
+        />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

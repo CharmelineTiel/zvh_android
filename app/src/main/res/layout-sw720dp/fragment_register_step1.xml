@@ -126,7 +126,7 @@
         android:layout_margin="10dp"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/biggerText"
-        android:background="@color/RegisterColor"
+        android:background="@color/colorAccent"
         android:textAllCaps="false"
         android:width="@dimen/buttonM"
         />

@@ -24,6 +24,7 @@
             android:layout_margin="@dimen/margin"
             android:padding="@dimen/margin"
             android:textSize="@dimen/normalText"
+            android:inputType="textPassword"
             android:textColor="@color/lightGrey"
             android:hint="Vul een wachtwoord in"/>
 
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normalText"
+            android:inputType="textPassword"
             android:textColor="@color/lightGrey"
             android:hint="Herhaal uw wachtwoord"/>
 
@@ -70,7 +72,7 @@
             android:layout_margin="10dp"
             android:textColor="@color/whiteText"
             android:textSize="@dimen/biggerText"
-            android:background="@color/colorAccent"
+            android:background="@color/RegisterColor"
             android:textAllCaps="false"
             android:width="@dimen/buttonM"
             />

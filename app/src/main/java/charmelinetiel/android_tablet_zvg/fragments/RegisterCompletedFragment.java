@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
@@ -18,6 +19,7 @@ import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
 public class RegisterCompletedFragment extends Fragment implements View.OnClickListener{
 
     View view;
+    TextView email;
     public RegisterCompletedFragment() {
         // Required empty public constructor
     }
@@ -30,6 +32,13 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
         view = inflater.inflate(R.layout.fragment_register_completed, container, false);
         Button btn = view.findViewById(R.id.toLoginBtn);
         btn.setOnClickListener(this);
+
+        email = view.findViewById(R.id.emailAdress);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            email.setText(bundle.getString("email"));
+        }
 
         return view;
     }

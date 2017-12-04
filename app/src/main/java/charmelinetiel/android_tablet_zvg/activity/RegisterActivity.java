@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.RegisterStep1Fragment;
+import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
 
 public class RegisterActivity extends AppCompatActivity{
 
@@ -18,7 +18,7 @@ public class RegisterActivity extends AppCompatActivity{
         setContentView(R.layout.activity_register);
 
         Fragment fg;
-        fg = new RegisterStep1Fragment();
+        fg = new LoginOrRegisterFragment();
         setFragment(fg);
 
     }

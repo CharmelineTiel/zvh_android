@@ -25,12 +25,12 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_stepper">Registreren stap 1 van 2</string>
-    <string name="registered">
+    <string name="registeredTxt1">
        \n U heeft een email ontvangen op:
-          \n\n
+    </string>
+    <string name="registeredTxt2">
         Klik op de link in de email om uw \naccount activeren.
     </string>
-
     <!-- Strings related to Service -->
     <string name="settingsLbl">Mijn instellingen</string>
     <string name="accountLbl">Mijn account</string>
@@ -110,4 +110,7 @@
     <string name="heartSkipping">Overslaan van het hart</string>
     <string name="otherNamely">Anders, namelijk:</string>
     <string name="extraRemarks">Extra / opmerkingen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

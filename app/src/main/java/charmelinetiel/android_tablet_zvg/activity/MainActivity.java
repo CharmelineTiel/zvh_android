@@ -1,5 +1,6 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -23,6 +24,7 @@ import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
+import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import retrofit2.Call;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
     private Measurement measurement;
     private APIService apiService;
     private List<HealthIssue> healthIssues;
+    private User user;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -44,8 +47,12 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.measurement:
+
                     setTitle("Meting");
                     fg = new HomeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("user", user);
+                    fg.setArguments(bundle);
                     setFragment(fg);
                     return true;
                 case R.id.diary:
@@ -83,16 +90,19 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
 
         apiService.getAllHealthIssues().enqueue(this);
 
+
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        user = intent.getParcelableExtra("user");
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         customizeNav();
 
-        setTitle("Meting");
-        fg = new HomeFragment();
-        setFragment(fg);
+        bottomNavigationView.setSelectedItemId(R.id.measurement);
 
     }
 
@@ -100,15 +110,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
     @Override
     public void onBackPressed() {
 
-//        int count = getFragmentManager().getBackStackEntryCount();
-//
-//        if (count == 0) {
-//            super.onBackPressed();
-//            //additional code
-//            finish();
-//        } else {
             fg.getFragmentManager().popBackStack();
-//        }
 
     }
 
