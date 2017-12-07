@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
                     fg = new ServiceFragment();
                     setFragment(fg);
                     return true;
-
             }
             return false;
         }
@@ -100,15 +99,15 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
     @Override
     public void onBackPressed() {
 
-//        int count = getFragmentManager().getBackStackEntryCount();
-//
-//        if (count == 0) {
-//            super.onBackPressed();
-//            //additional code
-//            finish();
-//        } else {
+        int count = fg.getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+            finish();
+        } else {
             fg.getFragmentManager().popBackStack();
-//        }
+        }
 
     }
 
