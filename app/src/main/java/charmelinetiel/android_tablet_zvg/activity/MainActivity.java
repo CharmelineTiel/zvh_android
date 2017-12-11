@@ -1,5 +1,6 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.icu.util.Measure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements Callback<List<HealthIssue>> {
+public class MainActivity extends AppCompatActivity implements  Callback {
 
     private Fragment fg;
     private Measurement measurement;
@@ -152,24 +153,36 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
     }
 
 
-    @Override
-    public void onResponse(Call<List<HealthIssue>> call, Response<List<HealthIssue>> response) {
-        if (response.isSuccessful() && response.body() != null) {
-            healthIssues = response.body();
-        }
-    }
 
-    @Override
-    public void onFailure(Call<List<HealthIssue>> call, Throwable t) {
+//    @Override
+//    public void onResponse(Call<List<HealthIssue>> call, Response<List<HealthIssue>> response) {
+//        if (response.isSuccessful() && response.body() != null) {
+//            healthIssues = response.body();
+//        }
+//    }
 
-    }
 
     public List<HealthIssue> getHealthIssues(){
         return healthIssues;
     }
 
-    public void postMeasurement(Measurement measurement){
-
+    public void postMeasurement(){
+        apiService.postMeasurement(measurement,"5a0ad4ac9b582a11641e12f6").enqueue(this);
     }
 
+    @Override
+    public void onResponse(Call call, Response response) {
+        if(response.isSuccessful() && response.body() != null){
+            try{
+                healthIssues = (List<HealthIssue>) response.body();
+            }catch (Exception e){
+                Measurement responseMeasurement = (Measurement) response.body();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(Call call, Throwable t) {
+
+    }
 }

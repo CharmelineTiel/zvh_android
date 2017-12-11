@@ -1,5 +1,6 @@
 package charmelinetiel.android_tablet_zvg.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +37,11 @@ public class MeasurementStep1Fragment extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
+
+        Dialog dialog=new Dialog(getActivity(),android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+        dialog.setContentView(R.layout.measurement_length_and_weight_input);
+
+        dialog.show();
 
         cancelButton = v.findViewById(R.id.cancel_measurement1_button);
         nextButton = v.findViewById(R.id.to_measurement_step2_button);

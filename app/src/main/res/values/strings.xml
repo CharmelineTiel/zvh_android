@@ -98,6 +98,9 @@
     <string name="contactPageTxt">Stuur een bericht naar uw consulent</string>
 
     <!-- Measurement -->
+    <string name="popupText">Voordat u verder kunt gaan hebben wij nog enkele gegevens van u nodig zodat we u beter kunnen assisteren. Namelijk:</string>
+    <string name="length">Lengte (cm)</string>
+    <string name="weight">Gewicht (kg)</string>
     <string name="fillInText">1. Vul uw bloeddruk in (mmHg)</string>
     <string name="fillInText2">2. Gezondheidsklachten</string>
     <string name="none">Geen</string>

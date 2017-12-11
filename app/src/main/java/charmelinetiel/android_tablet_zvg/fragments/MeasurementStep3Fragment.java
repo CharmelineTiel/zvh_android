@@ -41,23 +41,30 @@ public class MeasurementStep3Fragment extends Fragment {
             container.removeAllViews();
         }
 
+        completeButton.setOnClickListener(v -> {
+
+        MainActivity activity = (MainActivity) getActivity();
+        Measurement measurement = activity.getMeasurement();
+
+        measurement.setHealthIssueOther(extraRemarksInput.getText().toString());
+
+//        activity.postMeasurement();
+
         completeButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
 
-            MainActivity activity = (MainActivity) getActivity();
-            Measurement measurement = activity.getMeasurement();
+                MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
-            measurement.setHealthIssueOther(extraRemarksInput.getText().toString());
-
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, measurementSaved)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
-        cancelButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                getActivity().onBackPressed();
-            }
+
         });
+        cancelButton.setOnClickListener(v -> getActivity().onBackPressed());
 
         return v;
 

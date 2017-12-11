@@ -22,25 +22,33 @@
         android:text="@string/fillInText2"
         />
 
-    <RadioButton
-        android:id="@+id/noneRadio"
+    <RadioGroup
+        android:id="@+id/measurementRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fillInText"
-        android:text="@string/none"/>
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/noneRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fillInText"
+            android:text="@string/none"/>
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fillInText"
-        android:layout_toRightOf="@id/noneRadio"
-        android:text="@string/yesNamely"/>
+        <RadioButton
+            android:id="@+id/yesNamelyRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fillInText"
+            android:layout_toRightOf="@id/noneRadio"
+            android:text="@string/yesNamely"/>
+    </RadioGroup>
 
     <ListView
         android:id="@+id/checkboxList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/noneRadio">
+        android:layout_below="@id/measurementRadioGroup">
 
     </ListView>
 
