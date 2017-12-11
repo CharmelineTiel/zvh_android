@@ -1,5 +1,6 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.icu.util.Measure;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -30,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements Callback<List<HealthIssue>> {
+public class MainActivity extends AppCompatActivity implements  Callback {
 
     private Fragment fg;
     private Measurement measurement;
@@ -100,16 +101,15 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
     @Override
     public void onBackPressed() {
 
-//        int count = getFragmentManager().getBackStackEntryCount();
-//
-//        if (count == 0) {
-//            super.onBackPressed();
-//            //additional code
-//            finish();
-//        } else {
-            fg.getFragmentManager().popBackStack();
-//        }
+        int count = fg.getFragmentManager().getBackStackEntryCount();
 
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+            finish();
+        } else {
+            fg.getFragmentManager().popBackStack();
+        }
     }
 
     public void setFragment(Fragment fg)
@@ -144,24 +144,36 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Hea
     }
 
 
-    @Override
-    public void onResponse(Call<List<HealthIssue>> call, Response<List<HealthIssue>> response) {
-        if (response.isSuccessful() && response.body() != null) {
-            healthIssues = response.body();
-        }
-    }
 
-    @Override
-    public void onFailure(Call<List<HealthIssue>> call, Throwable t) {
+//    @Override
+//    public void onResponse(Call<List<HealthIssue>> call, Response<List<HealthIssue>> response) {
+//        if (response.isSuccessful() && response.body() != null) {
+//            healthIssues = response.body();
+//        }
+//    }
 
-    }
 
     public List<HealthIssue> getHealthIssues(){
         return healthIssues;
     }
 
-    public void postMeasurement(Measurement measurement){
-
+    public void postMeasurement(){
+        apiService.postMeasurement(measurement,"5a0ad4ac9b582a11641e12f6").enqueue(this);
     }
 
+    @Override
+    public void onResponse(Call call, Response response) {
+        if(response.isSuccessful() && response.body() != null){
+            try{
+                healthIssues = (List<HealthIssue>) response.body();
+            }catch (Exception e){
+                Measurement responseMeasurement = (Measurement) response.body();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(Call call, Throwable t) {
+
+    }
 }

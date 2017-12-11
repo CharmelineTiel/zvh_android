@@ -3,12 +3,14 @@ package charmelinetiel.android_tablet_zvg.webservices;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
+import charmelinetiel.android_tablet_zvg.models.Measurement;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.models.User;
+import retrofit2.http.Query;
 
 
 public interface APIService {
@@ -21,6 +23,9 @@ public interface APIService {
 
     @GET("HealthIssues")
     Call<List<HealthIssue>> getAllHealthIssues();
+
+    @POST("Measurements")
+    Call<Measurement> postMeasurement(@Body Measurement measurement, @Query("userId") String userId);
 
 //    @GET("Articles/{nextId}")
 //    Call<RootObject> getMoreArticles(@Header("x-authtoken") String api_token, @Path("nextId") int nextId, @Query("count") int count);

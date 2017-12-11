@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class MeasurementStep2Fragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
-        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues());
+        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
         final ListView listView = (ListView) v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
@@ -81,6 +82,22 @@ public class MeasurementStep2Fragment extends Fragment {
         });
 
         return v;
+    }
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.noneRadio:
+                if (checked)
+                    //None selected
+                    break;
+            case R.id.yesNamelyRadio:
+                if (checked)
+                    // Yes namely selected
+                    break;
+        }
     }
 }

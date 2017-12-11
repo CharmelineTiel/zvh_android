@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="charmelinetiel.android_tablet_zvg.fragments.MessageSentFragment">
+
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="center"
+            android:src="@drawable/ic_check_circle_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="Uw meting is succesvol opgeslagen in uw dagboek!"
+            android:textStyle="bold"
+            android:textSize="@dimen/biggerText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lines="2"
+            android:text="U kunt gemakkelijk een overzicht van al uw metingen zien onder dagboek"
+            android:textAlignment="center"
+            android:textSize="@dimen/normalText" />
+
+        <Button
+            android:id="@+id/toDiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:width="@dimen/buttonM"
+            android:layout_margin="@dimen/margin"
+            android:text="Bekijk dagboek"
+            android:textSize="@dimen/biggerText"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteText"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
