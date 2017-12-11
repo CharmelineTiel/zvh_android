@@ -8,8 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.models.User;
 
 
 /**
@@ -18,6 +23,8 @@ import charmelinetiel.android_tablet_zvg.R;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     View view;
+    TextView greetUser;
+    User user;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -33,8 +40,55 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         btn.setOnClickListener(this);
         ImageView icon = view.findViewById(R.id.info);
         icon.setOnClickListener(this);
+
+        greetUser = view.findViewById(R.id.greetingsText);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            user = bundle.getParcelable("user");
+        }
+        
+        greetUser();
+
         return view;
     }
+
+    public void greetUser()
+    {
+        String prefix;
+
+        if (user.getGender().equals(1)){
+            prefix = "meneer";
+        }else{
+
+            prefix = "mevrouw";
+        }
+
+        greetUser.setText( timeOfDay() + " " + prefix  + " " + user.getLastname());
+
+    }
+
+    public String timeOfDay()
+    {
+        Date currentTime = Calendar.getInstance().getTime();
+        String greeting = null;
+
+        if (currentTime.getHours() < 12){
+
+            greeting = "Goedemorgen,";
+
+        }
+        if(currentTime.getHours() <= 18){
+
+            greeting = "Goedemiddag,";
+        }
+        if(currentTime.getHours() > 18 && currentTime.getHours() < 24) {
+
+            greeting = "Goedenavond,";
+         }
+
+         return greeting;
+    }
+
 
     @Override
     public void onClick(View v) {

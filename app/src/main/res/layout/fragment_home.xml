@@ -19,22 +19,20 @@
         android:src="@drawable/home_bg" />
 
         <TextView
-            android:id="@+id/GreetingsText"
+            android:id="@+id/greetingsText"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:height="@dimen/buttonL"
             android:background="@color/whiteText"
             android:textStyle="bold"
             android:textColor="@color/DarkGrey"
             android:textSize="@dimen/biggerText"
             android:layout_alignTop="@+id/home_background"
-            android:text="Goedemiddag, mevrouw Janssen"
             android:padding="@dimen/margin"
             />
 
         <ImageView
             android:id="@+id/info"
-            android:layout_below="@+id/GreetingsText"
+            android:layout_below="@+id/greetingsText"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,12 +41,11 @@
             android:layout_margin="10dp"
             />
         <LinearLayout
+            android:layout_marginTop="250dp"
             android:layout_width="400dp"
             android:layout_height="150dp"
             android:background="@color/whiteText"
-            android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:orientation="vertical"
             >
             <TextView

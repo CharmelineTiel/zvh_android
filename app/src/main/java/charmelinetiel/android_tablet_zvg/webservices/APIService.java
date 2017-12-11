@@ -21,6 +21,9 @@ public interface APIService {
     @POST("/Users/register")
     Call<User> register(@Body User user);
 
+    @POST("/Users/login")
+    Call<User> login(@Body User user);
+
     @GET("HealthIssues")
     Call<List<HealthIssue>> getAllHealthIssues();
 
