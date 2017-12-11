@@ -5,7 +5,7 @@
     <dimen name="normalText">15sp</dimen>
     <dimen name="biggerText">20sp</dimen>
     <dimen name="buttonSize">300dp</dimen>
-    <dimen name="buttonL">400dp</dimen>
+    <dimen name="buttonL">350dp</dimen>
     <dimen name="buttonM">150dp</dimen>
     <dimen name="formFieldSize">600dp</dimen>
 
@@ -13,6 +13,6 @@
     <!--<dimen name="design_bottom_navigation_active_text_size" tools:override="true">23dp</dimen>-->
     <!--<dimen name="design_navigation_icon_padding" tools:override="true">80dp</dimen>-->
     <!--<dimen name="design_bottom_navigation_margin" tools:override="true">-4dp</dimen>-->
-    <dimen name="margin">20dp</dimen>
+    <dimen name="margin">15dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

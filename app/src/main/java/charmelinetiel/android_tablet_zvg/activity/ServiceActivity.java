@@ -11,7 +11,8 @@ import com.codevscolor.materialpreference.callback.MaterialPreferenceCallback;
 
 import charmelinetiel.android_tablet_zvg.R;
 
-public class ServiceActivity extends MaterialPreferenceActivity implements MaterialPreferenceCallback {
+public class ServiceActivity extends MaterialPreferenceActivity
+        implements MaterialPreferenceCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

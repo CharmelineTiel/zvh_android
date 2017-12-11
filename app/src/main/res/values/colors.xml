@@ -9,7 +9,7 @@
     <color name="lightGrey">#A9A9A9</color>
     <color name="lighterGrey">#EBEBEB</color>
     <color name="offWhite">#F8F8F8</color>
-
+    <color name="RegisterColor">#0067e4</color>
 
     <color name="negativeFeedbackTxt">#fe5c26</color>
     <color name="positiveFeedbackTxt">#2ebc48</color>

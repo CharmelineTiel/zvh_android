@@ -44,14 +44,13 @@ public class ConsultantAdapter extends ArrayAdapter<Consultant> {
 
 
         TextView label = new TextView(context);
-        label.setText(consultants[position].getFirstname());
 
-        // And finally return your dynamic (or custom) view for each spinner item
+        label.setText(consultants[position].getFirstname());
+        label.setTag(consultants[position].getConsultantId());
+
         return label;
     }
 
-    // And here is when the "chooser" is popped up
-    // Normally is the same view, but you can customize it if you want
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {

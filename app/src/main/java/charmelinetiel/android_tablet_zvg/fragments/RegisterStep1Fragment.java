@@ -2,10 +2,11 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -39,16 +39,16 @@ public class RegisterStep1Fragment extends Fragment
     EditText lastName;
     EditText dateOfBirth;
     EditText email;
-    List<EditText> form;
     String string = "";
     Button btn1;
     Button btn2;
+    RadioGroup gender;
+    Boolean valid = false;
+    Consultant consultant;
     View v;
 
     List<Consultant> allConsultants;
-    ArrayList<Consultant> consultantsNames = new ArrayList<>();
     private APIService apiService;
-    static boolean verified = false;
     ArrayAdapter<String> adapter;
 
     public RegisterStep1Fragment() {
@@ -79,18 +79,29 @@ public class RegisterStep1Fragment extends Fragment
         return v;
 
     }
-//
-//    public void errorHandeling() {
-//        if (firstName.getText().toString() == "") {
-//
-//        } else if (lastName.getText().toString() == "") {
-//
-//        } else if (dateOfBirth.getText().toString() == "") {
-//
-//        } else if (email.getText().toString() == "") {
-//
-//        }
-//    }
+
+    public boolean showError(EditText edit) {
+
+        String regex = "[a-zA-Z0-9]\\w*";
+
+        if (edit.getTag().equals("firstName") && edit.getText().toString() == "" || !edit.getText().toString().equals((regex))){
+
+            firstName.setError("Vul uw voornaam in");
+            return valid = true;
+        }
+        else if(edit.getText().toString() == "" || !edit.getText().toString().equals((regex))){
+            lastName.setError("Vul uw voornaam in");
+            return valid = true;
+        }
+        else if(edit.getText().toString() == "" || !edit.getText().toString().equals((regex))){
+
+            email.setError("Vul uw email in");
+            return valid = true;
+        }
+
+            return valid = false;
+
+    }
 
     @Override
     public void onStart(){
@@ -114,66 +125,85 @@ public class RegisterStep1Fragment extends Fragment
             int yy = calendar.get(Calendar.YEAR);
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
-                            + "-" + String.valueOf(dayOfMonth);
-                    EditText DateOfBirth = view.findViewById(R.id.dateOfBirth);
-                    DateOfBirth.setText(date);
-                }
+            DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
+                String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
+                        + "-" + String.valueOf(dayOfMonth);
+                dateOfBirth.setText(date);
             }, yy, mm, dd);
             datePicker.show();
             break;
 
             case R.id.secondBtn:
 
+                firstName = v.findViewById(R.id.firstName);
+                firstName.setTag("firstName");
+                lastName = v.findViewById(R.id.lastName);
+                lastName.setTag("lastName");
+                email = v.findViewById(R.id.email);
+                gender = v.findViewById(R.id.radioGender);
+                int index = gender.indexOfChild(getActivity().findViewById(gender.getCheckedRadioButtonId()));
+                int genderId;
+
+                if(index == 0){
+                    genderId = 1;
+                }else{
+
+                    genderId = 2;
+                }
+                consultant = (Consultant) ((Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
+
                 Fragment fg;
                 fg = new RegisterStep2Fragment();
                 getActivity().setTitle("Registreren stap 2 van 2");
+                Bundle bundle = new Bundle();
+                bundle.putString("consultantId", consultant.getConsultantId());
+                bundle.putString("firstName", firstName.getText().toString());
+                bundle.putString("lastName", lastName.getText().toString());
+                bundle.putString("dateOfBirth", dateOfBirth.getText().toString());
+                bundle.putInt("gender", genderId);
+                fg.setArguments(bundle);
                 setFragment(fg);
 
                 break;
 
             case R.id.firstBtn:
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                Fragment fg2;
+                fg2 = new LoginOrRegisterFragment();
+                setFragment(fg2);
                 break;
         }
     }
 
 
-//    private void validate(final EditText edit)
-//    {
-//        edit.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//                string = s.toString();
-//                if (string == "" || string.isEmpty() || string.length() <= 0){
-//
-//                    verified = false;
-//                }else{
-//
-//                    verified = true;
-//                }
-//
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start,
-//                                          int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start,
-//                                      int before, int count) {
-//
-//
-//            }
-//        });
-//    }
+    private void validate(final EditText edit)
+    {
+        edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                string = edit.getText().toString();
+
+                showError(edit);
+
+          }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+
+            }
+        });
+
+    }
 
     public void setFragment(Fragment fg) {
         FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
@@ -192,12 +222,8 @@ public class RegisterStep1Fragment extends Fragment
 
             Spinner consultantsView =  v.findViewById(R.id.consultants);
 
-
-
             consultantsView.setSelection(0,true);
             consultantsView.setAdapter(adapter);
-
-            Consultant consultant = (Consultant) ( (Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
 
         }
     }
