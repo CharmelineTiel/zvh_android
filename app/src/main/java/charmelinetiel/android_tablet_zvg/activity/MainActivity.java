@@ -1,6 +1,5 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
-import android.icu.util.Measure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +25,7 @@ import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.models.User;
+import charmelinetiel.android_tablet_zvg.models.UserLengthWeight;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import retrofit2.Call;
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             }
             return false;
         }
-
     };
 
     @Override
@@ -153,15 +152,10 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         this.measurement = measurement;
     }
 
-
-
-//    @Override
-//    public void onResponse(Call<List<HealthIssue>> call, Response<List<HealthIssue>> response) {
-//        if (response.isSuccessful() && response.body() != null) {
-//            healthIssues = response.body();
-//        }
-//    }
-
+    public void updateUserLengthWeight(int length, int weight){
+        UserLengthWeight lenghtWeight = new UserLengthWeight(length, weight);
+        apiService.updateUserLenghtWeight(lenghtWeight).enqueue(this);
+    }
 
     public List<HealthIssue> getHealthIssues(){
         return healthIssues;
@@ -177,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             try{
                 healthIssues = (List<HealthIssue>) response.body();
             }catch (Exception e){
-                Measurement responseMeasurement = (Measurement) response.body();
+//                Measurement responseMeasurement = (Measurement) response.body();
             }
         }
     }

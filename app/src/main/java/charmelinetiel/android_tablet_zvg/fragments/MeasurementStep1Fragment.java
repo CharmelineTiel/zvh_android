@@ -38,8 +38,32 @@ public class MeasurementStep1Fragment extends Fragment {
             container.removeAllViews();
         }
 
+        MainActivity activity = (MainActivity) getActivity();
+
         Dialog dialog=new Dialog(getActivity(),android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
         dialog.setContentView(R.layout.measurement_length_and_weight_input);
+
+        Button cancel = dialog.findViewById(R.id.cancel_measurement);
+        Button next = dialog.findViewById(R.id.save_length_weight);
+
+        EditText lengthInput = dialog.findViewById(R.id.length_input);
+        EditText weightInput = dialog.findViewById(R.id.weight_input);
+
+        next.setOnClickListener(v -> {
+            try {
+                int length = Integer.parseInt(lengthInput.toString());
+                int weight = Integer.parseInt(weightInput.toString());
+                activity.updateUserLengthWeight(length, weight);
+            }catch (Exception e){
+
+            }
+            dialog.dismiss();
+        });
+
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+            getActivity().onBackPressed();
+        });
 
         dialog.show();
 
@@ -49,33 +73,30 @@ public class MeasurementStep1Fragment extends Fragment {
         upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
 
-        nextButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Fragment step2 = new MeasurementStep2Fragment();
+        nextButton.setOnClickListener(v -> {
+            Fragment step2 = new MeasurementStep2Fragment();
 
-                MainActivity activity = (MainActivity) getActivity();
-                Measurement measurement = activity.getMeasurement();
+            MainActivity activity1 = (MainActivity) getActivity();
+            Measurement measurement = activity1.getMeasurement();
 
+            try{
                 measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
                 measurement.setBloodPressureLower(Integer.parseInt(lowerBloodPressure.getText().toString()));
+            }catch (Exception e){
 
-                activity.setMeasurement(measurement);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content, step2);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
             }
+
+
+            activity1.setMeasurement(measurement);
+
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.content, step2);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                getActivity().onBackPressed();
-            }
-        });
+        cancelButton.setOnClickListener(v -> getActivity().onBackPressed());
 
         return v;
 

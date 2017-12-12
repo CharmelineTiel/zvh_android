@@ -27,7 +27,7 @@ public class MeasurementCompletedFragment extends Fragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_register_completed, container, false);
+        view = inflater.inflate(R.layout.fragment_measurement_saved, container, false);
         Button btn = view.findViewById(R.id.toLoginBtn);
         btn.setOnClickListener(this);
 

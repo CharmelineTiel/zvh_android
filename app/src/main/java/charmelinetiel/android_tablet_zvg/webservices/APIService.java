@@ -4,12 +4,14 @@ import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
+import charmelinetiel.android_tablet_zvg.models.UserLengthWeight;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.models.User;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 
@@ -23,6 +25,9 @@ public interface APIService {
 
     @POST("/Users/login")
     Call<User> login(@Body User user);
+
+    @PUT("/Users")
+    Call<User> updateUserLenghtWeight(@Body UserLengthWeight lengthWeight);
 
     @GET("HealthIssues")
     Call<List<HealthIssue>> getAllHealthIssues();

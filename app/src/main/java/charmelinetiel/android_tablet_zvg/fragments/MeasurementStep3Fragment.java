@@ -48,11 +48,7 @@ public class MeasurementStep3Fragment extends Fragment {
 
         measurement.setHealthIssueOther(extraRemarksInput.getText().toString());
 
-//        activity.postMeasurement();
-
-        completeButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+        activity.postMeasurement();
 
                 MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
@@ -60,10 +56,9 @@ public class MeasurementStep3Fragment extends Fragment {
                         .replace(R.id.content, measurementSaved)
                         .addToBackStack(null)
                         .commit();
-            }
-        });
 
         });
+
         cancelButton.setOnClickListener(v -> getActivity().onBackPressed());
 
         return v;

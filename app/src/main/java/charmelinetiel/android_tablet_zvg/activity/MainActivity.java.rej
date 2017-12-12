@@ -1,9 +1,0 @@
-diff a/app/src/main/java/charmelinetiel/android_tablet_zvg/activity/MainActivity.java b/app/src/main/java/charmelinetiel/android_tablet_zvg/activity/MainActivity.java	(rejected hunks)
-@@ -118,6 +118,7 @@
- +        int count = fg.getFragmentManager().getBackStackEntryCount();
- +=======
-              fg.getFragmentManager().popBackStack();
-++>>>>>>> 2d0995f3e5f091cd6c9887bf138a6b8c4bc529cb
-  
- +        if (count == 0) {
- +            super.onBackPressed();
