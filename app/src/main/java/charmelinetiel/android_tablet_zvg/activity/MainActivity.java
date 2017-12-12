@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
                     fg = new ServiceFragment();
                     setFragment(fg);
                     return true;
-
             }
             return false;
         }
