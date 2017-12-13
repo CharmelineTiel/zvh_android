@@ -69,19 +69,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public String timeOfDay()
     {
-        Date currentTime = Calendar.getInstance().getTime();
         String greeting = null;
 
-        if (currentTime.getHours() < 12){
+        Date date = new Date();
 
+        if (date.getHours() < 12){
             greeting = "Goedemorgen,";
-
         }
-        if(currentTime.getHours() <= 18){
+        else if(date.getHours() <= 18){
 
             greeting = "Goedemiddag,";
         }
-        if(currentTime.getHours() > 18 && currentTime.getHours() < 24) {
+        else if(date.getHours() > 18 && date.getHours() < 24) {
 
             greeting = "Goedenavond,";
          }

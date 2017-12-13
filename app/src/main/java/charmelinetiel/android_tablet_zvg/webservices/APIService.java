@@ -8,6 +8,7 @@ import charmelinetiel.android_tablet_zvg.models.UserLengthWeight;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.models.User;
@@ -27,13 +28,13 @@ public interface APIService {
     Call<User> login(@Body User user);
 
     @PUT("/Users")
-    Call<User> updateUserLenghtWeight(@Body UserLengthWeight lengthWeight);
+    Call<User> updateUserLenghtWeight(@Body UserLengthWeight lengthWeight, @Header("x-authtoken") String token);
 
     @GET("HealthIssues")
-    Call<List<HealthIssue>> getAllHealthIssues();
+    Call<List<HealthIssue>> getAllHealthIssues(@Header("x-authtoken") String token);
 
     @POST("Measurements")
-    Call<Measurement> postMeasurement(@Body Measurement measurement, @Query("userId") String userId);
+    Call<Measurement> postMeasurement(@Body Measurement measurement, @Header("x-authtoken") String token);
 
 //    @GET("Articles/{nextId}")
 //    Call<RootObject> getMoreArticles(@Header("x-authtoken") String api_token, @Path("nextId") int nextId, @Query("count") int count);

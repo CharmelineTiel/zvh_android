@@ -51,8 +51,8 @@ public class MeasurementStep1Fragment extends Fragment {
 
         next.setOnClickListener(v -> {
             try {
-                int length = Integer.parseInt(lengthInput.toString());
-                int weight = Integer.parseInt(weightInput.toString());
+                int length = Integer.parseInt(lengthInput.getText().toString());
+                int weight = Integer.parseInt(weightInput.getText().toString());
                 activity.updateUserLengthWeight(length, weight);
             }catch (Exception e){
 

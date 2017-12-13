@@ -82,18 +82,29 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        user = new User();
+        user.setId("5a2fb89d9c9f2a0014eef71e");
+        user.setDateOfBirth("3-3-1995");
+        user.setEmailAddress("youpkuiper@gmail.com");
+        user.setFirstname("Youp");
+        user.setLastname("Kuiper");
+        user.setGender(1);
+        user.setIsActivated(true);
+        user.setAuthToken("RBauslR0XF8mzRwk");
+
         measurement = new Measurement();
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+        Retrofit retrofit = RetrofitClient.getClient("http://192.168.2.7:8000/");
         apiService = retrofit.create(APIService.class);
 
-        apiService.getAllHealthIssues().enqueue(this);
+        apiService.getAllHealthIssues(user.getAuthToken()).enqueue(this);
 
 
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
-        user = intent.getParcelableExtra("user");
+//        Intent intent = getIntent();
+//        user = intent.getParcelableExtra("user");
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
@@ -153,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     public void updateUserLengthWeight(int length, int weight){
         UserLengthWeight lenghtWeight = new UserLengthWeight(length, weight);
-        apiService.updateUserLenghtWeight(lenghtWeight).enqueue(this);
+        apiService.updateUserLenghtWeight(lenghtWeight, user.getAuthToken()).enqueue(this);
     }
 
     public List<HealthIssue> getHealthIssues(){
@@ -161,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
 
     public void postMeasurement(){
-        apiService.postMeasurement(measurement,"5a0ad4ac9b582a11641e12f6").enqueue(this);
+        apiService.postMeasurement(measurement,user.getAuthToken()).enqueue(this);
     }
 
     @Override
