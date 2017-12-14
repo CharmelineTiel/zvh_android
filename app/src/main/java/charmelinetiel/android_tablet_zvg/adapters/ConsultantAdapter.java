@@ -1,6 +1,7 @@
 package charmelinetiel.android_tablet_zvg.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,24 @@ public class ConsultantAdapter extends ArrayAdapter<Consultant> {
     }
 
     @Override
+    public boolean isEnabled(int position) {
+        if(position == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
         TextView label = new TextView(context);
 
         label.setText(consultants[position].toString());
+
+        if(position == 0){
+            label.setTextColor(Color.GRAY);
+        }
 
         return label;
     }

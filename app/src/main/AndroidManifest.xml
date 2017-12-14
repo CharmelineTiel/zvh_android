@@ -18,6 +18,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_bottom_nav">
+
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,13 +30,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SplashActivity"
-            android:theme="@style/SplashTheme">
-
-        </activity>
-        <activity
             android:name=".activity.RegisterActivity"
-            android:label="@string/title_activity_stepper"
+            android:label="@string/title_login_or_register"
             android:theme="@style/AppTheme">
             android:label="Zorg voor het hart"
             android:theme="@style/SplashTheme">

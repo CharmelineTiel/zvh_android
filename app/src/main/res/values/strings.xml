@@ -23,6 +23,8 @@
     <string name="error_incorrect_password">Uw wachtwoord is onjuist</string>
     <string name="error_field_required">verplicht veld</string>
 
+    <string name="title_login_or_register">Inloggen / Registreren</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_stepper">Registreren stap 1 van 2</string>
     <string name="registeredTxt1">

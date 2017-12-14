@@ -46,6 +46,7 @@ public class RegisterStep1Fragment extends Fragment
     Boolean valid = false;
     Consultant consultant;
     View v;
+    Spinner consultantsView;
 
     List<Consultant> allConsultants;
     private APIService apiService;
@@ -73,6 +74,7 @@ public class RegisterStep1Fragment extends Fragment
         btn2 = v.findViewById(R.id.secondBtn);
         btn2.setOnClickListener(this);
 
+        consultantsView =  v.findViewById(R.id.consultants);
 
         fetchContent();
 
@@ -217,12 +219,11 @@ public class RegisterStep1Fragment extends Fragment
         if (response.isSuccessful() && response.body() != null) {
            allConsultants = response.body();
 
-
             adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
+            adapter.add("Selecteer uw consulent");
 
-            Spinner consultantsView =  v.findViewById(R.id.consultants);
 
-            consultantsView.setSelection(0,true);
+            consultantsView.setSelection(adapter.getCount(),true);
             consultantsView.setAdapter(adapter);
 
         }

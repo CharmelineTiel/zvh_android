@@ -10,22 +10,11 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <TextView
-        android:layout_margin="@dimen/margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selecteer uw consulent"/>
-    <Spinner
-        android:id="@+id/consultants"
-        android:width="@dimen/formFieldSize"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey"
-        />
-
+    <!--<TextView-->
+        <!--android:layout_margin="@dimen/margin"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Selecteer uw consulent"/>-->
 
     <EditText
         android:id="@+id/firstName"
@@ -99,6 +88,17 @@
                 android:text="Vrouw" />
 
         </RadioGroup>
+
+        <Spinner
+            android:id="@+id/consultants"
+            android:width="@dimen/formFieldSize"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/margin"
+            android:textSize="@dimen/normalText"
+            android:textColor="@color/lightGrey"
+            />
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
