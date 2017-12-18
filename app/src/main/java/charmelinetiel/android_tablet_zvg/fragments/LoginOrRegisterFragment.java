@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +30,8 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((RegisterActivity) getActivity()).setTitle("Inloggen / Registeren");
+
         // Inflate the layout for this fragment
        v = inflater.inflate(R.layout.login_or_register, container, false);
 

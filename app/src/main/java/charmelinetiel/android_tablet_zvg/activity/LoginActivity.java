@@ -2,15 +2,22 @@ package charmelinetiel.android_tablet_zvg.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
+import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.models.authToken;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -25,6 +32,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private APIService apiService;
     private User user;
     private EditText email, password;
+    private CheckBox autoLoginCheckBox;
+    private Fragment fg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button btn2 = findViewById(R.id.cancelBtn);
         btn2.setOnClickListener(this);
+
+        autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
     }
 
     @Override
@@ -52,7 +64,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.loginBtn:
 
                 try {
-
                     user = new User();
                     email = findViewById(R.id.username);
                     password = findViewById(R.id.password);
@@ -68,16 +79,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     Toast.makeText(this, e.getMessage(),
                             Toast.LENGTH_LONG).show();
-
                 }
-
-
                 break;
-
-
             case R.id.cancelBtn:
 
-                getFragmentManager().popBackStack();
+                finish();
                 break;
 
             case R.id.Iforgot:
@@ -103,6 +109,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             authToken.getInstance().setAuthToken(response.body().getAuthToken());
 
+            if(autoLoginCheckBox.isChecked()){
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("autoLogin", true);
+                editor.putString("emailAddress", email.getText().toString());
+                editor.putString("password", password.getText().toString());
+                editor.apply();
+            }
         }else{
 
             Toast.makeText(this, "inloggen niet gelukt, controleer alle velden",
@@ -117,4 +131,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(this, "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
     }
+
 }

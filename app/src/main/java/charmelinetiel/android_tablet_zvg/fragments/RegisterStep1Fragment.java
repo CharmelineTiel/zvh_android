@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -60,6 +61,9 @@ public class RegisterStep1Fragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ((RegisterActivity) getActivity()).setTitle("Registreren stap 1 van 2");
+
         v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");

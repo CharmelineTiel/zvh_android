@@ -120,4 +120,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Settings -->
+    <string name="biggerText">biggerText</string>
+    <string name="dailyReminders">dailyReminders</string>
+    <string name="sendMeasurementsWeekly">sendMeasurementsWeekly</string>
+    <string name="editLengthWeight">editLengthWeight</string>
+    <string name="autoLogin">autoLogin</string>
+    <string name="logout">logout</string>
 </resources>

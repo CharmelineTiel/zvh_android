@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -40,6 +41,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((RegisterActivity) getActivity()).setTitle("Registreren stap 2 van 2");
 
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
