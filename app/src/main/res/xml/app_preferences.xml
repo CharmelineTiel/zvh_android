@@ -4,17 +4,17 @@
     <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Mijn instellingen">
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="false"
-            android:key="switch_pref1"
+            android:key="biggerText"
             android:title="Grotere tekst" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="switch_pref2"
+            android:key="dailyReminders"
             android:title="Dagelijkse herinnering voor uw metingen" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="switch_pref3"
+            android:key="sendMeasurementsWeekly"
             android:title="Wekelijks uw metingen opsturen naar uw consulent" />
 
     </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
@@ -23,12 +23,12 @@
 
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="true"
-            android:key="edit_text"
+            android:key="editLengthWeight"
             android:title="Uw lengte en gewicht aanpassen" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="switch_pref4"
+            android:key="autoLogin"
             android:title="Automatisch inloggen" />
 
         <android.support.v7.preference.EditTextPreference
