@@ -3,7 +3,7 @@
 
     <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Mijn instellingen">
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="switch_pref1"
             android:title="Grotere tekst" />
 

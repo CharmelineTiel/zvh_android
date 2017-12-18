@@ -23,13 +23,36 @@
         android:layout_below="@id/dateText"
         android:layout_marginLeft="20dp"
         android:text="@string/fillInText"
+        />        />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/bovendruk_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fillInText"
+        android:layout_alignStart="@id/upperBloodPressure"
+        android:layout_alignTop="@id/bovendruk_image"
+        android:text="@string/bovendruk"
+        />        />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/onderdruk_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/upperBloodPressure"
+        android:layout_alignStart="@id/upperBloodPressure"
+        android:layout_alignTop="@id/onderdruk_image"
+        android:text="@string/onderdruk"
         />
 
     <ImageView
         android:id="@+id/bovendruk_image"
+        android:layout_marginBottom="0dp"
         android:layout_margin="20dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:layout_below="@+id/fillInText"
@@ -37,26 +60,28 @@
 
     <EditText
         android:id="@+id/upperBloodPressure"
-        android:width="@dimen/formFieldSize"
+        android:width="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lighterGrey"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
         android:padding="@dimen/margin"
         android:hint="0"
         android:inputType="number"
         android:textAlignment="center"
+        android:layout_alignBaseline="@id/bovendruk_image"
         android:textSize="@dimen/normalText"
         android:textColor="@color/lightGrey"
-        android:layout_below="@id/fillInText"
+        android:layout_below="@id/bovendruk_text"
         android:layout_toRightOf="@id/bovendruk_image"/>
 
 
     <ImageView
         android:id="@+id/onderdruk_image"
+        android:layout_marginTop="0dp"
         android:layout_margin="20dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:layout_below="@+id/bovendruk_image"
@@ -64,28 +89,30 @@
 
     <EditText
         android:id="@+id/lowerBloodPressure"
-        android:width="@dimen/formFieldSize"
+        android:width="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lighterGrey"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
         android:padding="@dimen/margin"
         android:hint="0"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="@dimen/normalText"
         android:textColor="@color/lightGrey"
-        android:layout_below="@id/bovendruk_image"
+        android:layout_below="@id/onderdruk_text"
         android:layout_toRightOf="@id/onderdruk_image"/>
 
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/onderdruk_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <Button
         android:id="@+id/cancel_measurement1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/onderdruk_image"
-        android:layout_below="@+id/onderdruk_image"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:width="@dimen/buttonM"
         android:background="@color/lightGrey"
         android:padding="@dimen/margin"
@@ -100,8 +127,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/cancel_measurement1_button"
         android:layout_alignBottom="@+id/cancel_measurement1_button"
-        android:layout_alignEnd="@+id/lowerBloodPressure"
         android:layout_gravity="center_horizontal"
+        android:layout_toRightOf="@id/cancel_measurement1_button"
+        android:layout_marginLeft="10dp"
         android:width="@dimen/buttonM"
         android:background="@color/colorAccent"
         android:padding="@dimen/margin"
@@ -109,6 +137,6 @@
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/biggerText" />
-
+    </RelativeLayout>
 </RelativeLayout>
 </ScrollView>
