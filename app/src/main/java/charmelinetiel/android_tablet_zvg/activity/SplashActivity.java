@@ -44,14 +44,11 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
 //
 //            apiService.login(user).enqueue(this);
 //        }else{
-//            Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.RegisterActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-
             Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.RegisterActivity.class);
             startActivity(intent);
             finish();
+//        }
+
     }
 
     @Override
