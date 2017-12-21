@@ -83,29 +83,20 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         super.onCreate(savedInstanceState);
 
 
-        user = new User();
-        user.setId("5a2fb89d9c9f2a0014eef71e");
-        user.setDateOfBirth("3-3-1995");
-        user.setEmailAddress("youpkuiper@gmail.com");
-        user.setFirstname("Youp");
-        user.setLastname("Kuiper");
-        user.setGender(1);
-        user.setIsActivated(true);
-        user.setAuthToken("RBauslR0XF8mzRwk");
-
         measurement = new Measurement();
 
-        Retrofit retrofit = RetrofitClient.getClient("http://192.168.2.7:8000/");
+
+        Intent intent = getIntent();
+        user = intent.getParcelableExtra("user");
+
+
+        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
 
         apiService.getAllHealthIssues(user.getAuthToken()).enqueue(this);
 
 
         setContentView(R.layout.activity_main);
-
-//        Intent intent = getIntent();
-//        user = intent.getParcelableExtra("user");
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

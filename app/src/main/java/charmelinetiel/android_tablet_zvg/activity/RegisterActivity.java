@@ -10,7 +10,6 @@ import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
 
 public class RegisterActivity extends AppCompatActivity{
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +19,6 @@ public class RegisterActivity extends AppCompatActivity{
         Fragment fg;
         fg = new LoginOrRegisterFragment();
         setFragment(fg);
-
     }
 
     public void setFragment(Fragment fg) {

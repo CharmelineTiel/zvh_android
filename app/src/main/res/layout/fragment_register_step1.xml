@@ -10,11 +10,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <!--<TextView-->
-        <!--android:layout_margin="@dimen/margin"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Selecteer uw consulent"/>-->
+
 
     <EditText
         android:id="@+id/firstName"
@@ -32,7 +28,8 @@
         android:width="@dimen/formFieldSize"
         android:background="@color/lighterGrey"
         android:id="@+id/lastName"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
         android:padding="@dimen/margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +38,7 @@
         android:hint="Vul uw achternaam in"/>
 
         <EditText
+            android:editable="false"
             android:width="@dimen/formFieldSize"
             android:background="@color/lighterGrey"
             android:id="@+id/dateOfBirth"
@@ -58,12 +56,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Geslacht bij geboorte"
-    android:layout_margin="@dimen/margin"
+    android:layout_marginTop="@dimen/margin"
+    android:layout_marginLeft="@dimen/margin"
     android:textSize="@dimen/normalText"
+    android:textStyle="bold"
     android:layout_marginBottom="0dp"
     />
 
         <RadioGroup
+            android:buttonTint="@color/colorPrimaryDark"
             android:layout_below="@+id/genderLbl"
             android:id="@+id/radioGender"
             android:layout_width="wrap_content"
@@ -73,6 +74,7 @@
             >
 
             <RadioButton
+                android:buttonTint="@color/colorPrimaryDark"
                 android:id="@+id/radioMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,6 +83,7 @@
                 android:checked="true" />
 
             <RadioButton
+                android:buttonTint="@color/colorPrimaryDark"
                 android:id="@+id/radioFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,7 +92,17 @@
 
         </RadioGroup>
 
+            <TextView
+                android:textSize="@dimen/margin"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selecteer uw consulent"/>
         <Spinner
+            android:background="@color/lighterGrey"
+            android:spinnerMode="dialog"
             android:id="@+id/consultants"
             android:width="@dimen/formFieldSize"
             android:layout_width="fill_parent"

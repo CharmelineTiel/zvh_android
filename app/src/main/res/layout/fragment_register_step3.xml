@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/popup_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin"
+        android:text="@string/popupText"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/weightLbl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin"
+        android:text="@string/weight"/>
+
+    <EditText
+        android:id="@+id/length_input"
+        android:width="@dimen/formFieldSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/lighterGrey"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:padding="@dimen/margin"
+        android:textSize="@dimen/normalText"
+        android:inputType="number"
+        android:textColor="@color/lightGrey"
+        android:hint="Vul uw gewicht in"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/LengthLbl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin"
+        android:text="@string/length"/>
+
+    <EditText
+        android:width="@dimen/formFieldSize"
+        android:background="@color/lighterGrey"
+        android:id="@+id/weight_input"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:padding="@dimen/margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/normalText"
+        android:inputType="number"
+        android:textColor="@color/lightGrey"
+        android:hint="Vul uw lengte in"/>
+
+
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:padding="10dp"
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terug"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_margin="10dp"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/biggerText"
+            android:background="@color/lightGrey"
+            android:textAllCaps="false"
+            android:width="@dimen/buttonM"
+            />
+        <Button
+            android:layout_toEndOf="@+id/backBtn"
+            android:padding="10dp"
+            android:id="@+id/registerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registreren"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_margin="10dp"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/biggerText"
+            android:background="@color/RegisterColor"
+            android:textAllCaps="false"
+            android:width="@dimen/buttonM"
+            />
+
+    </RelativeLayout>
+
+    </LinearLayout>

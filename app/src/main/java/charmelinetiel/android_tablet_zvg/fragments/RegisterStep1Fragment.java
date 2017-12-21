@@ -21,7 +21,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -62,7 +61,7 @@ public class RegisterStep1Fragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ((RegisterActivity) getActivity()).setTitle("Registreren stap 1 van 2");
+        (getActivity()).setTitle("Registreren stap 1 van 3");
 
         v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
@@ -160,7 +159,6 @@ public class RegisterStep1Fragment extends Fragment
 
                 Fragment fg;
                 fg = new RegisterStep2Fragment();
-                getActivity().setTitle("Registreren stap 2 van 2");
                 Bundle bundle = new Bundle();
                 bundle.putString("consultantId", consultant.getConsultantId());
                 bundle.putString("firstName", firstName.getText().toString());
@@ -221,13 +219,15 @@ public class RegisterStep1Fragment extends Fragment
     @Override
     public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
         if (response.isSuccessful() && response.body() != null) {
+
            allConsultants = response.body();
 
+
             adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
-            adapter.add("Selecteer uw consulent");
 
 
-            consultantsView.setSelection(adapter.getCount(),true);
+            consultantsView.setPrompt("Selecteer uw consulent");
+            consultantsView.setSelection(adapter.getCount()-1,true);
             consultantsView.setAdapter(adapter);
 
         }
