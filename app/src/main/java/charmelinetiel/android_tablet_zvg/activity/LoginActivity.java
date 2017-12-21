@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
@@ -29,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<ResponseBody> {
 
     private APIService apiService;
     private TextView forgotPassword;
@@ -106,11 +108,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             //TODO: toon message aan de hand van de response
+                            if(response.body() != null && response.isSuccessful()){
+                                String a = "b";
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             //TODO: toon foutmelding indien nodig
+                            String c = "a";
                         }
                     });
                     dialog.dismiss();
@@ -124,37 +130,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onResponse(Call call, Response response) {
-        if(response.body() instanceof User) {
-            if (response.body() != null && response.isSuccessful()) {
+    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        if (response.body() != null && response.isSuccessful()) {
 
-                User user = (User) response.body();
-                Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
+            Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
+            intent.putExtra("user", response.code());
+            startActivity(intent);
 
-                authToken.getInstance().setAuthToken(user.getAuthToken());
+            authToken.getInstance().setAuthToken(user.getAuthToken());
 
-                if (autoLoginCheckBox.isChecked()) {
+            if (autoLoginCheckBox.isChecked()) {
 
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putBoolean("autoLogin", true);
-                    editor.putString("emailAddress", email.getText().toString());
-                    editor.putString("password", password.getText().toString());
-                    editor.apply();
-                }
-            } else {
-
-                Toast.makeText(this, "inloggen niet gelukt, controleer alle velden",
-                        Toast.LENGTH_LONG).show();
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("autoLogin", true);
+                editor.putString("emailAddress", email.getText().toString());
+                editor.putString("password", password.getText().toString());
+                editor.apply();
             }
+        } else {
+            try {
+                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                Toast.makeText(this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+//            Toast.makeText(this, response.errorBody().toString(),
+//                    Toast.LENGTH_LONG).show();
         }
 
     }
 
     @Override
-    public void onFailure(Call call, Throwable t) {
+    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
         Toast.makeText(this, "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();

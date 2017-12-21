@@ -26,7 +26,7 @@ public interface APIService {
     Call<User> register(@Body User user);
 
     @POST("/Users/login")
-    Call<User> login(@Body User user);
+    Call<ResponseBody> login(@Body User user);
 
     @PUT("/Users")
     Call<User> updateUserLenghtWeight(@Body UserLengthWeight lengthWeight, @Header("x-authtoken") String token);
