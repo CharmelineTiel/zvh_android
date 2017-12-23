@@ -31,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<ResponseBody> {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<User> {
 
     private APIService apiService;
     private TextView forgotPassword;
@@ -130,11 +130,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+    public void onResponse(Call<User> call, Response<User> response) {
         if (response.body() != null && response.isSuccessful()) {
 
             Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
-            intent.putExtra("user", response.code());
+            intent.putExtra("user", response.body());
             startActivity(intent);
 
             authToken.getInstance().setAuthToken(user.getAuthToken());
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onFailure(Call<ResponseBody> call, Throwable t) {
+    public void onFailure(Call<User> call, Throwable t) {
 
         Toast.makeText(this, "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
