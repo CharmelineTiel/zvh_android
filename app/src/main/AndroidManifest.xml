@@ -34,6 +34,14 @@
             android:label="Zorg voor het hart"
             android:theme="@style/SplashTheme">
 
+            <intent-filter android:label="@string/filter_view_example_gizmos">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <data android:scheme="example"
+                    android:host="gizmos" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.LoginActivity"
