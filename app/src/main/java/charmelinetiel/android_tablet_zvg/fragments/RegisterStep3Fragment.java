@@ -54,18 +54,15 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         btn2 = v.findViewById(R.id.backBtn);
         btn2.setOnClickListener(this);
 
+        length = v.findViewById(R.id.length_input);
+        weight = v.findViewById(R.id.weight_input);
+
 
         return v;
     }
 
     @Override
     public void onClick(View v) {
-
-//        length = (EditText) v.findViewById(R.id.length_input);
-//        weight = (EditText) v.findViewById(R.id.weight_input);
-//
-        int l = 99;
-        int w = 99;
 
         switch (v.getId()) {
 
@@ -78,8 +75,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
                 user = activity.getUser();
 
                 try {
-                    user.setLength(l);
-                    user.setWeight(w);
+                    user.setLength(Integer.parseInt(length.getText().toString()));
+                    user.setWeight(Integer.parseInt(weight.getText().toString()));
                 }catch (Exception e){
 
                 }
