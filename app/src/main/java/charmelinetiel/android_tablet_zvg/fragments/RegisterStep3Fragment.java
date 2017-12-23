@@ -12,11 +12,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
+import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +30,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     private APIService apiService;
     private User user;
     private Button btn1, btn2;
-    private EditText length, weight;
+    private EditText length;
+    public EditText weight;
 
     public RegisterStep3Fragment() {
         // Required empty public constructor
@@ -41,22 +45,46 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         (getActivity()).setTitle("Registreren stap 3 van 3");
         v = inflater.inflate(R.layout.fragment_register_step3, container, false);
 
+        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+        apiService = retrofit.create(APIService.class);
+
         btn1 = v.findViewById(R.id.registerBtn);
         btn1.setOnClickListener(this);
 
         btn2 = v.findViewById(R.id.backBtn);
         btn2.setOnClickListener(this);
+
+
         return v;
     }
 
     @Override
     public void onClick(View v) {
 
+//        length = (EditText) v.findViewById(R.id.length_input);
+//        weight = (EditText) v.findViewById(R.id.weight_input);
+//
+        int l = 99;
+        int w = 99;
+
         switch (v.getId()) {
 
             case R.id.registerBtn:
 
-                processRegistration();
+                //processRegistration();
+
+                //update user information
+                RegisterActivity activity = (RegisterActivity) getActivity();
+                user = activity.getUser();
+
+                try {
+                    user.setLength(l);
+                    user.setWeight(w);
+                }catch (Exception e){
+
+                }
+                //register user
+                apiService.register(user).enqueue(this);
 
                 break;
 
@@ -68,25 +96,13 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         }
     }
 
+
     private void processRegistration()
     {
-        //create user based on form inputs
-        length = v.findViewById(R.id.length_input);
-        weight = v.findViewById(R.id.weight_input);
-
-        user = new User();
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            user = bundle.getParcelable("user");
-        }
-
-            user.setLength(0);
-
-            user.setWeight(0);
 
 
-        apiService.register(user).enqueue(this);
+
+
     }
 
     @Override

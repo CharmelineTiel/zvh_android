@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
+import charmelinetiel.android_tablet_zvg.models.User;
 
 public class RegisterActivity extends AppCompatActivity{
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +19,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_register);
 
-        Fragment fg;
-        fg = new LoginOrRegisterFragment();
+        Fragment fg = new LoginOrRegisterFragment();
         setFragment(fg);
     }
 
@@ -26,5 +28,15 @@ public class RegisterActivity extends AppCompatActivity{
         fgTransition.replace(R.id.contentR, fg);
         fgTransition.addToBackStack(String.valueOf(fg.getId()));
         fgTransition.commit();
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public User getUser(){
+
+        return user;
     }
 }

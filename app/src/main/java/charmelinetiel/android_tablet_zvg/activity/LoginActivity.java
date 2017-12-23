@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,8 +18,6 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
-import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.models.authToken;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -79,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     user.setEmailAddress(email.getText().toString());
                     if(user != null) {
                         apiService.login(user).enqueue(this);
+
                     }
                 }
                 catch(Exception e){
@@ -135,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
             intent.putExtra("user", response.body());
+
             startActivity(intent);
 
             authToken.getInstance().setAuthToken(user.getAuthToken());
