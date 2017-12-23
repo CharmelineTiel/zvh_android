@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -41,7 +42,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/"); //TODO fix this, DRY CODE FTW
         apiService = retrofit.create(APIService.class);
 
-        v =inflater.inflate(R.layout.fragment_register_step2, container, false);
+        v = inflater.inflate(R.layout.fragment_register_step2, container, false);
 
         btn1 = v.findViewById(R.id.nextScreenBtn);
         btn1.setOnClickListener(this);
@@ -59,15 +60,10 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
             case R.id.nextScreenBtn:
 
-                user = new User();
-                Bundle bundle = this.getArguments();
-                if (bundle != null) {
-                    user.setConsultantId(bundle.getString("consultantId"));
-                    user.setFirstname(bundle.getString("firstName"));
-                    user.setLastname(bundle.getString("lastName"));
-                    user.setDateOfBirth(bundle.getString("dateOfBirth"));
-                    user.setGender(bundle.getInt("gender"));
-                }
+                //update user information
+                RegisterActivity activity = (RegisterActivity) getActivity();
+                user = activity.getUser();
+
                 email = v.findViewById(R.id.email);
                 pass1 = v.findViewById(R.id.pass1);//TODO check if passwords match
 
@@ -77,17 +73,17 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 if(pass1 != null) {
                     user.setPassword(pass1.getText().toString());
                 }
+                activity.setUser(user);
 
+                //go to step 3
                 Fragment fg = new RegisterStep3Fragment();
-                Bundle bundleForRegister = new Bundle();
-                bundleForRegister.putParcelable("User", user);
-                fg.setArguments(bundle);
                 setFragment(fg);
 
                 break;
 
             case R.id.backBtn:
 
+                //go to previous fragment
                 getFragmentManager().popBackStack();
 
                 break;

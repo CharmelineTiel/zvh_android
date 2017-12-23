@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -63,7 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             prefix = "mevrouw";
         }
 
-        greetUser.setText( timeOfDay() + " " + prefix  + " " + user.getLastname());
+        greetUser.setText( timeOfDay() + " " + prefix + " " + user.getLastname());
 
     }
 

@@ -37,35 +37,6 @@ public class MeasurementStep1Fragment extends Fragment {
             container.removeAllViews();
         }
 
-        //MainActivity activity = (MainActivity) getActivity();
-
-//        Dialog dialog=new Dialog(getActivity(),android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-//        dialog.setContentView(R.layout.measurement_length_and_weight_input);
-//
-//        Button cancel = dialog.findViewById(R.id.cancel_measurement);
-//        Button next = dialog.findViewById(R.id.save_length_weight);
-//
-//        EditText lengthInput = dialog.findViewById(R.id.length_input);
-//        EditText weightInput = dialog.findViewById(R.id.weight_input);
-//
-//        next.setOnClickListener(v -> {
-//            try {
-//                int length = Integer.parseInt(lengthInput.getText().toString());
-//                int weight = Integer.parseInt(weightInput.getText().toString());
-//                activity.updateUserLengthWeight(length, weight);
-//            }catch (Exception e){
-//
-//            }
-//            dialog.dismiss();
-//        });
-//
-//        cancel.setOnClickListener(v -> {
-//            dialog.dismiss();
-//            getActivity().onBackPressed();
-//        });
-//
-//        dialog.show();
-
         cancelButton = v.findViewById(R.id.cancel_measurement1_button);
         nextButton = v.findViewById(R.id.to_measurement_step2_button);
 

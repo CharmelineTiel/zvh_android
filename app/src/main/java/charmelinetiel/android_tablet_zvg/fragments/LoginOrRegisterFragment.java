@@ -47,12 +47,11 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
         switch (v.getId()) {
 
             case R.id.loginBtn:
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginIntent);
                 break;
             case R.id.registerBtn:
-                Fragment fg;
-                fg = new RegisterStep1Fragment();
+                Fragment fg = new RegisterStep1Fragment();
                 setFragment(fg);
                 break;
         }
@@ -64,4 +63,5 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
         fgTransition.addToBackStack(String.valueOf(fg.getId()));
         fgTransition.commit();
     }
+
 }

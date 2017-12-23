@@ -21,7 +21,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
+import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import retrofit2.Call;
@@ -35,22 +37,22 @@ public class RegisterStep1Fragment extends Fragment
 
 {
 
-    EditText firstName;
-    EditText lastName;
-    EditText dateOfBirth;
-    EditText email;
-    String string = "";
-    Button btn1;
-    Button btn2;
-    RadioGroup gender;
-    Boolean valid = false;
-    Consultant consultant;
-    View v;
-    Spinner consultantsView;
-
-    List<Consultant> allConsultants;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText dateOfBirth;
+    private EditText email;
+    private String string = "";
+    private Button btn1;
+    private Button btn2;
+    private RadioGroup gender;
+    private Boolean valid = false;
+    private Consultant consultant;
+    private View v;
+    private User user;
+    private Spinner consultantsView;
+    private List<Consultant> allConsultants;
     private APIService apiService;
-    ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter;
 
     public RegisterStep1Fragment() {
         // Required empty public constructor
@@ -126,26 +128,28 @@ public class RegisterStep1Fragment extends Fragment
         switch (view.getId()) {
 
             case R.id.dateOfBirth:
-            final Calendar calendar = Calendar.getInstance();
-            int yy = calendar.get(Calendar.YEAR);
-            int mm = calendar.get(Calendar.MONTH);
-            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
-                String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
-                        + "-" + String.valueOf(dayOfMonth);
-                dateOfBirth.setText(date);
-            }, yy, mm, dd);
-            datePicker.show();
-            break;
+
+                //set date of birth
+                final Calendar calendar = Calendar.getInstance();
+                int yy = calendar.get(Calendar.YEAR);
+                int mm = calendar.get(Calendar.MONTH);
+                int dd = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
+                    String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
+                            + "-" + String.valueOf(dayOfMonth);
+                    dateOfBirth.setText(date);
+                }, yy, mm, dd);
+                datePicker.show();
+                break;
 
             case R.id.secondBtn:
 
+                //set user
                 firstName = v.findViewById(R.id.firstName);
-                firstName.setTag("firstName");
                 lastName = v.findViewById(R.id.lastName);
-                lastName.setTag("lastName");
                 email = v.findViewById(R.id.email);
                 gender = v.findViewById(R.id.radioGender);
+                consultant = (Consultant) ((Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
                 int index = gender.indexOfChild(getActivity().findViewById(gender.getCheckedRadioButtonId()));
                 int genderId;
 
@@ -155,24 +159,26 @@ public class RegisterStep1Fragment extends Fragment
 
                     genderId = 2;
                 }
-                consultant = (Consultant) ((Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
 
-                Fragment fg;
-                fg = new RegisterStep2Fragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("consultantId", consultant.getConsultantId());
-                bundle.putString("firstName", firstName.getText().toString());
-                bundle.putString("lastName", lastName.getText().toString());
-                bundle.putString("dateOfBirth", dateOfBirth.getText().toString());
-                bundle.putInt("gender", genderId);
-                fg.setArguments(bundle);
+                user = new User();
+                user.setFirstname(firstName.getText().toString());
+                user.setLastname(lastName.getText().toString());
+                user.setDateOfBirth(dateOfBirth.getText().toString());
+                user.setGender(genderId);
+
+                RegisterActivity activity = (RegisterActivity) getActivity();
+                activity.setUser(user);
+
+                //go to registration step 2
+                Fragment fg = new RegisterStep2Fragment();
                 setFragment(fg);
 
                 break;
 
             case R.id.firstBtn:
-                Fragment fg2;
-                fg2 = new LoginOrRegisterFragment();
+
+                //go to previous page
+                Fragment fg2 = new LoginOrRegisterFragment();
                 setFragment(fg2);
                 break;
         }
