@@ -94,14 +94,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     }
 
 
-    private void processRegistration()
-    {
-
-
-
-
-    }
-
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
 

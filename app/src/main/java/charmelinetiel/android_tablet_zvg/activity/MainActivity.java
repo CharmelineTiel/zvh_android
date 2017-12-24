@@ -111,15 +111,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     @Override
     public void onBackPressed() {
 
-        int count = fg.getFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-            //additional code
-            finish();
-        } else {
-            fg.getFragmentManager().popBackStack();
-        }
+        finishAndRemoveTask ();
     }
 
     public void setFragment(Fragment fg)

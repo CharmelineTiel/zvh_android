@@ -62,7 +62,7 @@
             <Button
                 android:layout_below="@id/message"
                 android:padding="10dp"
-                android:id="@+id/sendBtn"
+                android:id="@+id/sendMessageBtn"
                 android:layout_toEndOf="@+id/backBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

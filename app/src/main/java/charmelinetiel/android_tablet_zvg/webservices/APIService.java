@@ -4,6 +4,7 @@ import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
+import charmelinetiel.android_tablet_zvg.models.Message;
 import charmelinetiel.android_tablet_zvg.models.UserLengthWeight;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -36,6 +37,9 @@ public interface APIService {
 
     @POST("Measurements")
     Call<Measurement> postMeasurement(@Body Measurement measurement, @Header("x-authtoken") String token);
+
+    @POST("Messages")
+    Call<ResponseBody> postMessage(@Body Message message, @Header("x-authtoken") String token);
 
     @POST("/Users/forgotPassword")
     Call<ResponseBody> requestResetPasswordEmail(@Query("emailAddress") String emailAddress);

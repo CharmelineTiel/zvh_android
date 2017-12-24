@@ -2,12 +2,10 @@ package charmelinetiel.android_tablet_zvg.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
-import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.models.authToken;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -66,5 +64,12 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
 
+    }
+    @Override
+    protected void onStop() {
+        // call the superclass method first
+        super.onStop();
+
+        finish();
     }
 }

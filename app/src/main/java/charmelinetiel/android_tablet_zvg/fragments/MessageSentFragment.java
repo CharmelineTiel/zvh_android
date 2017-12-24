@@ -41,11 +41,11 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
 
             case R.id.backHome:
 
-//                fg= new HomeFragment();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.content, fg)
-//                        .addToBackStack(fg.toString())
-//                        .commit();
+                fg= new HomeFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, fg)
+                        .addToBackStack(fg.toString())
+                        .commit();
                 break;
         }
     }
