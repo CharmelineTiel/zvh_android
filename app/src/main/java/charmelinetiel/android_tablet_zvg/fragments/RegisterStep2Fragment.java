@@ -53,6 +53,8 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         email = v.findViewById(R.id.email);
         pass1 = v.findViewById(R.id.pass1);
 
+        repeatPass = v.findViewById(R.id.pass2);
+
         return v;
     }
 

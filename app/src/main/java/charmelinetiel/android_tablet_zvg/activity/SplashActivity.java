@@ -34,20 +34,20 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
 
 
         //Check if user has been saved, if so go to mainactivity
-//        if(autoLogin && !emailAddress.equals("") && !password.equals("")){
-//            Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
-//            apiService = retrofit.create(APIService.class);
-//
-//            User user = new User();
-//            user.setEmailAddress(emailAddress);
-//            user.setPassword(password);
-//
-//            apiService.login(user).enqueue(this);
-//        }else{
+        if(autoLogin && !emailAddress.equals("") && !password.equals("")){
+            Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+            apiService = retrofit.create(APIService.class);
+
+            User user = new User();
+            user.setEmailAddress(emailAddress);
+            user.setPassword(password);
+
+            apiService.login(user).enqueue(this);
+        }else{
             Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.RegisterActivity.class);
             startActivity(intent);
             finish();
-//        }
+        }
 
     }
 
