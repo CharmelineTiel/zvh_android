@@ -30,6 +30,12 @@ public class RegisterActivity extends AppCompatActivity{
         fgTransition.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        finishAndRemoveTask ();
+    }
+
     public void setUser(User user)
     {
         this.user = user;
