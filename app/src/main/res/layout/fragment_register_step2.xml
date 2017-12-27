@@ -3,32 +3,68 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+
+
+
+    <TextView
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Logingegevens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin"
+        android:text="Emailadres"/>
+
         <EditText
             android:width="@dimen/formFieldSize"
             android:background="@color/lighterGrey"
             android:id="@+id/email"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
-            android:layout_marginTop="@dimen/margin"
-            android:padding="@dimen/margin"
+            android:padding="@dimen/input_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normalText"
             android:textColor="@color/lightGrey"
             android:hint="Vul uw email in"/>
 
+    <TextView
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin"
+        android:text="Wachtwoord"/>
         <EditText
             android:id="@+id/pass1"
             android:width="@dimen/formFieldSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/lighterGrey"
-            android:layout_margin="@dimen/margin"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
             android:padding="@dimen/margin"
             android:textSize="@dimen/normalText"
             android:inputType="textPassword"
             android:textColor="@color/lightGrey"
             android:hint="Vul een wachtwoord in"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin"
+        android:text="Herhaal wachtwoord"/>
 
         <EditText
             android:width="@dimen/formFieldSize"
@@ -36,7 +72,8 @@
             android:id="@+id/pass2"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
-            android:padding="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:padding="@dimen/input_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normalText"

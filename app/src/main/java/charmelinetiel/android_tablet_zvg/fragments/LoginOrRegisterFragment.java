@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 
         btn2 = v.findViewById(R.id.registerBtn);
         btn2.setOnClickListener(this);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
        return v;
     }
 

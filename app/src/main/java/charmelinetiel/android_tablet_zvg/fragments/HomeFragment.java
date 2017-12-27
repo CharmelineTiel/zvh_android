@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -37,8 +36,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         Button btn = view.findViewById(R.id.metingBtn);
         btn.setOnClickListener(this);
-        ImageView icon = view.findViewById(R.id.info);
-        icon.setOnClickListener(this);
 
         greetUser = view.findViewById(R.id.greetingsText);
         Bundle bundle = this.getArguments();

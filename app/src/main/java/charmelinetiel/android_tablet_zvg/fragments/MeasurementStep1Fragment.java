@@ -56,7 +56,6 @@ public class MeasurementStep1Fragment extends Fragment {
 
             }
 
-
             activity1.setMeasurement(measurement);
 
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -66,7 +65,11 @@ public class MeasurementStep1Fragment extends Fragment {
             fragmentTransaction.commit();
         });
 
-        cancelButton.setOnClickListener(v -> getActivity().onBackPressed());
+        cancelButton.setOnClickListener(v -> {
+
+            getFragmentManager().popBackStack();
+
+        });
 
         return v;
 

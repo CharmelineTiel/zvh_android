@@ -3,9 +3,11 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -16,10 +18,11 @@ import iammert.com.expandablelib.Section;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FAQFragment extends Fragment {
+public class FAQFragment extends Fragment implements View.OnClickListener {
 
 
     View v;
+    Button contactBtn;
     public FAQFragment() {
         // Required empty public constructor
     }
@@ -32,6 +35,7 @@ public class FAQFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_faq, container, false);
 
         ExpandableLayout sectionLinearLayout = v.findViewById(R.id.el);
+        contactBtn = v.findViewById(R.id.contactBtn);
 
         sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<String, String>() {
             @Override
@@ -88,6 +92,27 @@ public class FAQFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().setTitle("Veelgestelde vragen");
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.contactBtn:
+
+                Fragment fg = new ContactFragment();
+                setFragment(fg);
+
+                break;
+            }
+    }
+
+    public void setFragment(Fragment fg) {
+        FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
+        fgTransition.replace(R.id.contentR, fg);
+        fgTransition.addToBackStack(String.valueOf(fg.getId()));
+        fgTransition.commit();
     }
 
 }

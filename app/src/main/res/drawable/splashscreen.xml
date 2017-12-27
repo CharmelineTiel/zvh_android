@@ -6,7 +6,8 @@
 
     <item>
         <bitmap
-            android:gravity="fill_horizontal"
+
+            android:gravity="fill_vertical"
             android:src="@drawable/splashscreen_image"/>
     </item>
 

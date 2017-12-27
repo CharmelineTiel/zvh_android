@@ -12,6 +12,15 @@
     android:paddingRight="20dp">
 
     <TextView
+        android:id="@+id/fillInText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        android:text="3. Noteer eventuele veranderingen in uw gezondheid"
+        />
+
+    <TextView
         android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +37,7 @@
     <EditText
         android:id="@+id/extraRemarksInput"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:background="@color/lighterGrey"
         android:layout_below="@id/extraRemarks"/>
 
@@ -41,7 +50,6 @@
         android:layout_marginTop="20dp"
         android:width="@dimen/buttonM"
         android:background="@color/lightGrey"
-        android:padding="@dimen/margin"
         android:text="Terug"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
@@ -58,7 +66,7 @@
         android:layout_toRightOf="@id/cancel_measurement3_button"
         android:width="@dimen/buttonM"
         android:background="@color/colorAccent"
-        android:padding="@dimen/margin"
+
         android:text="Opslaan"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
