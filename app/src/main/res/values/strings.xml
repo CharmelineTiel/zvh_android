@@ -26,8 +26,8 @@
     <string name="error_field_required">verplicht veld</string>
     <string name="forgotPasswordText">Weet u uw wachtwoord niet meer?
         Vul hieronder uw e-mailadres in en druk op verzenden. We sturen dan binnen enkele minuten een e-mail waarmee een nieuw wachtwoord kan worden aangemaakt. </string>
-
     <string name="title_login_or_register">Inloggen / Registreren</string>
+    <string name="account_activated">Account geactiveerd</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_stepper">Registreren stap 1 van 2</string>
