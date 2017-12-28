@@ -20,7 +20,6 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -118,8 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.cancelBtn:
-                Fragment fg = new LoginOrRegisterFragment();
-                setFragment(fg);
+                Intent Intent = new Intent(this, RegisterActivity.class);
+                startActivity(Intent);
                 break;
 
             case R.id.iForgot:

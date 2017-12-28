@@ -30,10 +30,11 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        (getActivity()).setTitle("Zorg voor het hart");
 
         // Inflate the layout for this fragment
        v = inflater.inflate(R.layout.login_or_register, container, false);
+
+        (getActivity()).setTitle("Zorg voor het hart");
 
         btn1 = v.findViewById(R.id.loginBtn);
         btn1.setOnClickListener(this);
