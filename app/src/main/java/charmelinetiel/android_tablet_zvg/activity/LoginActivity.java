@@ -3,6 +3,7 @@ package charmelinetiel.android_tablet_zvg.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText email, password;
     private CheckBox autoLoginCheckBox;
     private Fragment fg;
+    private Uri data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +46,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
 
-        setContentView(R.layout.activity_login);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setTitle(R.string.title_activity_login);
+        //Get the intent and data to determine if the activity was entered by deep link
+        Intent intent = getIntent();
+        data = intent.getData();
 
-        forgotPassword = findViewById(R.id.iForgot);
-        forgotPassword.setOnClickListener(this);
+        //If the activity was entered by deep link, show the 'account activated' page
+        if(data != null){
 
-        Button btn = findViewById(R.id.loginBtn);
-        btn.setOnClickListener(this);
+            setContentView(R.layout.activity_login_account_activated);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            setTitle(R.string.account_activated);
 
-        Button btn2 = findViewById(R.id.cancelBtn);
-        btn2.setOnClickListener(this);
+            Button toLoginBtn = findViewById(R.id.toLoginBtn);
+            toLoginBtn.setOnClickListener(view -> {
+                //Refresh the activity to get to the login page
+                Intent refresh = new Intent(this, LoginActivity.class);
+                startActivity(refresh);
+                this.finish();
+            });
+        //Else show the normal login page
+        }else {
 
-        autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
+            setContentView(R.layout.activity_login);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            setTitle(R.string.title_activity_login);
+
+            forgotPassword = findViewById(R.id.iForgot);
+            forgotPassword.setOnClickListener(this);
+
+            Button btn = findViewById(R.id.loginBtn);
+            btn.setOnClickListener(this);
+
+            Button btn2 = findViewById(R.id.cancelBtn);
+            btn2.setOnClickListener(this);
+
+            autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
+        }
     }
 
     @Override
@@ -76,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     user.setEmailAddress(email.getText().toString());
                     if(user != null) {
                         apiService.login(user).enqueue(this);
-
                     }
                 }
                 catch(Exception e){
