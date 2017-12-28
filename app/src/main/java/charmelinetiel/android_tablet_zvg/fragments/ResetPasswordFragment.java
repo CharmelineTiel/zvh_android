@@ -66,13 +66,18 @@ public class ResetPasswordFragment extends Fragment {
 
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(getContext(), "Nieuwe wachtwoord is ingesteld, gap",
-                            Toast.LENGTH_LONG).show();
+
+                    Fragment fg = new ResetPasswordCompletedFragment();
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentR, fg)
+                            .addToBackStack(null)
+                            .commit();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getContext(), "Je hebt gefaald man",
+                    Toast.makeText(getContext(), "Je hebt gefaald",
                             Toast.LENGTH_LONG).show();
                 }
             });
