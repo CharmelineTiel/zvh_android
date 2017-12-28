@@ -33,6 +33,8 @@ public class MeasurementStep3Fragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
 
+        (getActivity()).setTitle("Meting stap 3 van 3");
+
         cancelButton = v.findViewById(R.id.cancel_measurement3_button);
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,8 +18,9 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
 import charmelinetiel.android_tablet_zvg.models.User;
-import charmelinetiel.android_tablet_zvg.models.authToken;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import okhttp3.ResponseBody;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private User user;
     private EditText email, password;
     private CheckBox autoLoginCheckBox;
-    private Fragment fg;
+    private FormErrorHandeling validateForm;
     private Uri data;
 
     @Override
@@ -67,6 +67,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
         //Else show the normal login page
         }else {
+
+
+        autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
+
+        validateForm = new FormErrorHandeling();
 
             setContentView(R.layout.activity_login);
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,7 +104,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     user.setPassword(password.getText().toString());
                     user.setEmailAddress(email.getText().toString());
-                    if(user != null) {
+
+                    if(user != null && validInput()) {
+
                         apiService.login(user).enqueue(this);
                     }
                 }
@@ -115,7 +122,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.iForgot:
                 Dialog dialog=new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-                dialog.setTitle("Too damn bad");
                 dialog.setContentView(R.layout.forgot_password_dialog);
                 EditText forgotPasswordEmailInput = dialog.findViewById(R.id.forgotPasswordEmailInput);
                 Button cancelForgotPassword = dialog.findViewById(R.id.cancel_forgot_password);
@@ -126,31 +132,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 Button sendForgotPasswordEmail = dialog.findViewById(R.id.send_forgot_password_email);
                 sendForgotPasswordEmail.setOnClickListener(view -> {
-                    apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            //TODO: toon message aan de hand van de response
-                            if(response.body() != null && response.isSuccessful()){
-                                String a = "b";
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            //TODO: toon foutmelding indien nodig
-                            String c = "a";
-                        }
-                    });
-                    dialog.dismiss();
+                    if (validateForm.inputNotEmpty(forgotPasswordEmailInput)) {
+
+                        apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                //TODO: toon message aan de hand van de response
+                                if (response.body() != null && response.isSuccessful()) {
+                                    String a = "b";
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                //TODO: toon foutmelding indien nodig
+                                String c = "a";
+                            }
+                        });
+                        dialog.dismiss();
+
+                    }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
+
+                        validateForm.showError("Vul een geldige email in");
+                    }
                 });
                 dialog.show();
 
                 break;
         }
 
-
     }
 
+    private boolean validInput(){
+
+        if (!validateForm.inputNotEmpty(email)) {
+            validateForm.showError("Vul uw email in");
+            return false;
+        }else if(!validateForm.InputValidEmail(email)){
+
+            validateForm.showError("Geen geldige email");
+            return false;
+        }
+        if(!validateForm.inputNotEmpty(password)){
+
+            validateForm.showError("Vul uw wachtwoord in");
+            return false;
+        }
+        return true;
+    }
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
         if (response.body() != null && response.isSuccessful()) {
@@ -160,7 +190,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             startActivity(intent);
 
-            authToken.getInstance().setAuthToken(user.getAuthToken());
+            AuthToken.getInstance().setAuthToken(user.getAuthToken());
 
             if (autoLoginCheckBox.isChecked()) {
 
@@ -178,8 +208,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
-//            Toast.makeText(this, response.errorBody().toString(),
-//                    Toast.LENGTH_LONG).show();
+
         }
 
     }

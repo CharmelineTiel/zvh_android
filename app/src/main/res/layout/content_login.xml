@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_marginTop="20dp"
-            android:layout_width="180dp"
+            android:layout_width="150dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitCenter"
@@ -42,6 +42,7 @@
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
         android:padding="@dimen/input_padding"
+        android:textSize="@dimen/normalText"
         android:inputType="textEmailAddress"
         android:hint="Vul uw email in"/>
 
@@ -60,6 +61,7 @@
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
         android:padding="@dimen/input_padding"
+        android:textSize="@dimen/normalText"
         android:inputType="textPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,9 +69,8 @@
 
     <CheckBox android:id="@+id/checkbox_autoLogin"
         android:layout_width="wrap_content"
-        android:padding="@dimen/margin"
         android:layout_gravity="left"
-        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginLeft="@dimen/input_padding"
         android:layout_height="wrap_content"
         android:text="Automatisch inloggen" />
 
@@ -116,7 +117,7 @@
         android:focusable="true"
         android:clickable="true"
         android:textSize="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

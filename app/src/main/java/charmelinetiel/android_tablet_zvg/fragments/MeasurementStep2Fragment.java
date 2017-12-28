@@ -43,6 +43,8 @@ public class MeasurementStep2Fragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
+        (getActivity()).setTitle("Meting stap 2 van 3");
+
         measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
         final ListView listView = (ListView) v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);

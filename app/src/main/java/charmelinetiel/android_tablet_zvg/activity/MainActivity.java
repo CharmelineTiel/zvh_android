@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
         measurement = new Measurement();
 
+        setTitle("Meting");
+
 
         Intent intent = getIntent();
         user = intent.getParcelableExtra("user");
