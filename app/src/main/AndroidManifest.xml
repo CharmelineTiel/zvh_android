@@ -17,12 +17,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/title_activity_bottom_nav"></activity>
+            android:label="@string/title_activity_bottom_nav" />
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,11 +33,13 @@
             android:theme="@style/AppTheme">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "zvh-app://login” -->
-                <data android:scheme="zvh-app"
-                    android:host="resetpassword" />
+                <data
+                    android:host="resetpassword"
+                    android:scheme="zvh-app" />
             </intent-filter>
         </activity>
         <activity
@@ -45,13 +48,16 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "zvh-app://login” -->
-                <data android:scheme="zvh-app"
-                    android:host="login" />
+                <data
+                    android:host="login"
+                    android:scheme="zvh-app" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>

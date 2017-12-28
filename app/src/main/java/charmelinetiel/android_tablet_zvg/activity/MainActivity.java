@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
                     setTitle("Meting");
                     fg = new HomeFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("user", user);
-                    fg.setArguments(bundle);
                     setFragment(fg);
                     return true;
                 case R.id.diary:
@@ -84,27 +81,21 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
 
         measurement = new Measurement();
-
         setTitle("Meting");
-
-
         Intent intent = getIntent();
-        user = intent.getParcelableExtra("user");
+        setUser(intent.getParcelableExtra("user"));
 
 
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
-
-        apiService.getAllHealthIssues(user.getAuthToken()).enqueue(this);
+        apiService.getAllHealthIssues(getUser().getAuthToken()).enqueue(this);
 
 
         setContentView(R.layout.activity_main);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         customizeNav();
-
         bottomNavigationView.setSelectedItemId(R.id.measurement);
 
     }
@@ -149,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     public void updateUserLengthWeight(int length, int weight){
         UserLengthWeight lenghtWeight = new UserLengthWeight(length, weight);
-        apiService.updateUserLenghtWeight(lenghtWeight, user.getAuthToken()).enqueue(this);
+        apiService.updateUserLenghtWeight(lenghtWeight, getUser().getAuthToken()).enqueue(this);
     }
 
     public List<HealthIssue> getHealthIssues(){
@@ -157,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
 
     public void postMeasurement(){
-        apiService.postMeasurement(measurement,user.getAuthToken()).enqueue(this);
+        apiService.postMeasurement(measurement,getUser().getAuthToken()).enqueue(this);
     }
 
     @Override
@@ -166,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             try{
                 healthIssues = (List<HealthIssue>) response.body();
             }catch (Exception e){
-//                Measurement responseMeasurement = (Measurement) response.body();
             }
         }
     }
@@ -174,5 +164,12 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     @Override
     public void onFailure(Call call, Throwable t) {
 
+    }
+    public User getUser(){
+        return user;
+    }
+    public void setUser(User user){
+
+        this.user = user;
     }
 }

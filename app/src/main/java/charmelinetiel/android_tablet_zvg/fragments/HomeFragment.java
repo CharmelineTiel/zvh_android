@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.models.User;
 
 
@@ -34,15 +35,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button btn = view.findViewById(R.id.metingBtn);
-        btn.setOnClickListener(this);
+        Button measurementBtn = view.findViewById(R.id.metingBtn);
+        measurementBtn.setOnClickListener(this);
 
         greetUser = view.findViewById(R.id.greetingsText);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            user = bundle.getParcelable("user");
-        }
-        
+
+        user = ((MainActivity)getActivity()).getUser();
+
         greetUser();
 
         return view;
@@ -93,14 +92,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.metingBtn:
                 fg= new MeasurementStep1Fragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, fg)
-                        .addToBackStack(fg.toString())
-                        .commit();
-                break;
-            case R.id.info:
-                fg = new FAQFragment();
-
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content, fg)
                         .addToBackStack(fg.toString())

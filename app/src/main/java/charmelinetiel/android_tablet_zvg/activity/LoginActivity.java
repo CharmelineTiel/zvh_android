@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.models.AuthToken;
+import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -33,7 +35,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private APIService apiService;
     private TextView forgotPassword;
-    private User user;
     private EditText email, password;
     private CheckBox autoLoginCheckBox;
     private FormErrorHandeling validateForm;
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.loginBtn:
 
                 try {
-                    user = new User();
+                    User user = new User();
                     email = findViewById(R.id.username);
                     password = findViewById(R.id.password);
 
@@ -117,7 +118,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.cancelBtn:
-                finish();
+                Fragment fg = new LoginOrRegisterFragment();
+                setFragment(fg);
                 break;
 
             case R.id.iForgot:
@@ -185,12 +187,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onResponse(Call<User> call, Response<User> response) {
         if (response.body() != null && response.isSuccessful()) {
 
+            User loggedInUser = response.body();
+            loggedInUser.setAuthToken(response.body().getAuthToken());
             Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
-            intent.putExtra("user", response.body());
+            intent.putExtra("user", loggedInUser);
 
             startActivity(intent);
-
-            AuthToken.getInstance().setAuthToken(user.getAuthToken());
 
             if (autoLoginCheckBox.isChecked()) {
 
@@ -218,6 +220,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Toast.makeText(this, "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
+    }
+
+
+    public void setFragment(Fragment fg) {
+        FragmentTransaction fgTransition = getSupportFragmentManager().beginTransaction();
+        fgTransition.replace(R.id.contentR, fg);
+        fgTransition.addToBackStack(String.valueOf(fg.getId()));
+        fgTransition.commit();
     }
 
 }

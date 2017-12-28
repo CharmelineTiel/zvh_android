@@ -1,21 +1,20 @@
 <android.support.v7.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Mijn instellingen">
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="biggerText"
-            android:title="Grotere tekst" />
+    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory
+        android:title="Mijn instellingen">
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="dailyReminders"
-            android:title="Dagelijkse herinnering voor uw metingen" />
+            android:summary="Dagelijkse herinnering voor uw metingen"
+            android:title="Dagelijkse herinnering" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="sendMeasurementsWeekly"
-            android:title="Wekelijks uw metingen opsturen naar uw consulent" />
+            android:summary="Wekelijks uw metingen opsturen naar uw consulent"
+            android:title="Wekelijkse metingen" />
 
     </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
 
@@ -24,20 +23,23 @@
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="true"
             android:key="editLengthWeight"
-            android:title="Uw lengte en gewicht aanpassen" />
+            android:summary="Uw kunt hier uw lengte en gewicht aanpassen"
+            android:title="Lengte en gewicht" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="autoLogin"
             android:title="Automatisch inloggen" />
 
-        <android.support.v7.preference.EditTextPreference
-            android:defaultValue="true"
+        <android.support.v7.preference.Preference
+            android:key="disclaimer"
+            android:summary="Disclaimer text hier"
+            android:title="Disclaimer"/>
+
+        <android.support.v7.preference.Preference
             android:key="logout"
             android:title="Uitloggen" />
-    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
-
-    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Disclaimer">
 
     </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
+
 </android.support.v7.preference.PreferenceScreen>

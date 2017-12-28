@@ -18,6 +18,7 @@
 
 
         <RelativeLayout
+            android:layout_marginBottom="30dp"
             android:paddingBottom="@dimen/margin"
             android:gravity="center_horizontal"
             android:layout_gravity="bottom"
@@ -25,7 +26,6 @@
             android:layout_height="match_parent">
 
     <Button
-        android:padding="@dimen/margin"
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,23 +35,22 @@
         android:textSize="@dimen/biggerText"
         android:background="@color/colorAccent"
         android:textAllCaps="false"
-        android:width="@dimen/buttonL"
+        android:width="300dp"
         />
 
             <TextView
                 android:id="@+id/orLbl"
-                android:textColor="@color/ms_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/loginBtn"
                 android:layout_below="@+id/loginBtn"
-                android:layout_marginEnd="160dp"
+                android:layout_marginEnd="135dp"
                 android:text="of"
+                android:textColor="@color/ms_black"
                 android:textSize="@dimen/biggerText"
                 android:textStyle="bold" />
     <Button
         android:layout_below="@+id/orLbl"
-        android:padding="@dimen/margin"
         android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +60,7 @@
         android:textSize="@dimen/biggerText"
         android:background="@color/RegisterColor"
         android:textAllCaps="false"
-        android:width="@dimen/buttonL"
+        android:width="300dp"
         />
         </RelativeLayout>
     </ScrollView>

@@ -28,8 +28,6 @@ public class MeasurementStep2Fragment extends Fragment {
     private Button cancelButton;
     private Button nextButton;
     private List<String> selectedIssues;
-    CheckboxAdapter measurementCheckboxAdapter = null;
-
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -39,14 +37,16 @@ public class MeasurementStep2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        MainActivity activity = (MainActivity) getActivity();
 
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
+        MainActivity activity = (MainActivity) getActivity();
+
         (getActivity()).setTitle("Meting stap 2 van 3");
 
+        CheckboxAdapter measurementCheckboxAdapter;
         measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
-        final ListView listView = (ListView) v.findViewById(R.id.checkboxList);
+        final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
         selectedIssues = new ArrayList<>();
@@ -71,7 +71,7 @@ public class MeasurementStep2Fragment extends Fragment {
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content, step3)
-                        .addToBackStack(null)
+                        .addToBackStack(String.valueOf(step3.getId()))
                         .commit();
             }
         });

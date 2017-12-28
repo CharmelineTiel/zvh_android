@@ -76,7 +76,7 @@ public class MeasurementStep1Fragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.content, step2);
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(String.valueOf(step2.getId()));
                 fragmentTransaction.commit();
             }
         });
