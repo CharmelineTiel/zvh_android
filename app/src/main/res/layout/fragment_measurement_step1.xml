@@ -1,4 +1,4 @@
-<ScrollView
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -31,23 +31,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fillInText"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="30dp"
         android:text="Datum van vandaag"
         />
     <TextView
-        android:textStyle="bold"
         android:id="@+id/bovendruk_text"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fillInText"
         android:layout_alignStart="@id/upperBloodPressure"
         android:layout_alignTop="@id/bovendruk_image"
         android:text="@string/bovendruk"
-        />        />
+        />
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/onderdruk_text"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/upperBloodPressure"
@@ -58,14 +57,14 @@
 
     <ImageView
         android:id="@+id/bovendruk_image"
-        android:layout_marginBottom="0dp"
         android:layout_margin="20dp"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:layout_below="@+id/fillInText"
-        android:src="@drawable/meting_img1" />
+        android:layout_below="@+id/dateTimeNow"
+        android:src="@drawable/meting_img1"
+        tools:ignore="UnknownId" />
 
     <EditText
         android:id="@+id/upperBloodPressure"
@@ -87,7 +86,6 @@
 
     <ImageView
         android:id="@+id/onderdruk_image"
-        android:layout_marginTop="0dp"
         android:layout_margin="20dp"
         android:layout_width="150dp"
         android:layout_height="150dp"

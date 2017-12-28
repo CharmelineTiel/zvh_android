@@ -36,12 +36,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private User user;
     private EditText email, password;
     private CheckBox autoLoginCheckBox;
-<<<<<<< HEAD
     private FormErrorHandeling validateForm;
-=======
-    private Fragment fg;
     private Uri data;
->>>>>>> 0ae62b6900ec2547bb8d7d827f6dcccffe689b66
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +68,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Else show the normal login page
         }else {
 
-<<<<<<< HEAD
+
         autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
 
         validateForm = new FormErrorHandeling();
 
-=======
             setContentView(R.layout.activity_login);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -94,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
         }
->>>>>>> 0ae62b6900ec2547bb8d7d827f6dcccffe689b66
     }
 
     @Override
@@ -110,12 +104,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     user.setPassword(password.getText().toString());
                     user.setEmailAddress(email.getText().toString());
-<<<<<<< HEAD
 
                     if(user != null && validInput()) {
-=======
-                    if(user != null) {
->>>>>>> 0ae62b6900ec2547bb8d7d827f6dcccffe689b66
+
                         apiService.login(user).enqueue(this);
                     }
                 }
