@@ -10,49 +10,35 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 
 import java.util.Calendar;
-import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
-import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.models.User;
-import charmelinetiel.android_tablet_zvg.webservices.APIService;
-import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 public class RegisterStep1Fragment extends Fragment
-        implements View.OnClickListener, Callback<List<Consultant>>
+        implements View.OnClickListener
 
 {
 
     private EditText firstName;
     private EditText lastName;
     private EditText dateOfBirth;
-    private EditText email;
+    private EditText email, length, weight;
     private String string = "";
     private Button btn1;
     private Button btn2;
     private RadioGroup gender;
-    private Boolean valid = false;
-    private Consultant consultant;
+    private Boolean allInputValid = false;
     private View v;
     private User user;
-    private Spinner consultantsView;
-    private List<Consultant> allConsultants;
-    private APIService apiService;
-    private ArrayAdapter<String> adapter;
+
 
     public RegisterStep1Fragment() {
         // Required empty public constructor
@@ -67,9 +53,6 @@ public class RegisterStep1Fragment extends Fragment
 
         v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
-        apiService = retrofit.create(APIService.class);
-
         dateOfBirth = v.findViewById(R.id.dateOfBirth);
         dateOfBirth.setOnClickListener(this);
 
@@ -79,9 +62,12 @@ public class RegisterStep1Fragment extends Fragment
         btn2 = v.findViewById(R.id.secondBtn);
         btn2.setOnClickListener(this);
 
-        consultantsView =  v.findViewById(R.id.consultants);
-
-        fetchContent();
+        length = v.findViewById(R.id.length_input);
+        weight = v.findViewById(R.id.weight_input);
+        firstName = v.findViewById(R.id.firstName);
+        lastName = v.findViewById(R.id.lastName);
+        email = v.findViewById(R.id.email);
+        gender = v.findViewById(R.id.radioGender);
 
         return v;
 
@@ -91,23 +77,33 @@ public class RegisterStep1Fragment extends Fragment
 
         String regex = "[a-zA-Z0-9]\\w*";
 
-        if (edit.getTag().equals("firstName") && edit.getText().toString() == "" || !edit.getText().toString().equals((regex))){
+        if (edit.getTag().equals("firstName") && !edit.getText().toString().equals((regex))){
 
             firstName.setError("Vul uw voornaam in");
-            return valid = true;
+            allInputValid = false;
         }
-        else if(edit.getText().toString() == "" || !edit.getText().toString().equals((regex))){
+        else if(edit.getTag().equals("lastName")){
             lastName.setError("Vul uw voornaam in");
-            return valid = true;
+            allInputValid = false;
         }
-        else if(edit.getText().toString() == "" || !edit.getText().toString().equals((regex))){
+        else if(edit.getTag().equals("dateOfBirth")){
 
-            email.setError("Vul uw email in");
-            return valid = true;
+            dateOfBirth.setError("Vul uw geboortedatum in");
+            allInputValid = false;
+        }else if (edit.getTag().equals("length_input")){
+
+            length.setError("Vul uw lengte in");
+
+        }else if(edit.getTag().equals("weight_input")){
+
+            weight.setError("Vul uw weight in");
+            allInputValid = false;
+        }else{
+
+            allInputValid = true;
         }
 
-            return valid = false;
-
+        return allInputValid;
     }
 
     @Override
@@ -144,12 +140,8 @@ public class RegisterStep1Fragment extends Fragment
 
             case R.id.secondBtn:
 
-                //set user
-                firstName = v.findViewById(R.id.firstName);
-                lastName = v.findViewById(R.id.lastName);
-                email = v.findViewById(R.id.email);
-                gender = v.findViewById(R.id.radioGender);
-                consultant = (Consultant) ((Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
+
+
                 int index = gender.indexOfChild(getActivity().findViewById(gender.getCheckedRadioButtonId()));
                 int genderId;
 
@@ -160,26 +152,33 @@ public class RegisterStep1Fragment extends Fragment
                     genderId = 2;
                 }
 
+                try {
+                    user.setLength(Integer.parseInt(length.getText().toString()));
+                    user.setWeight(Integer.parseInt(weight.getText().toString()));
+                }catch (Exception e){
+
+                }
                 user = new User();
                 user.setFirstname(firstName.getText().toString());
                 user.setLastname(lastName.getText().toString());
                 user.setDateOfBirth(dateOfBirth.getText().toString());
                 user.setGender(genderId);
+                user.setDateOfBirth(dateOfBirth.getText().toString());
 
                 RegisterActivity activity = (RegisterActivity) getActivity();
                 activity.setUser(user);
 
-                //go to registration step 2
-                Fragment fg = new RegisterStep2Fragment();
-                setFragment(fg);
+                //ken wel beter eh
+
+
+                    //go to registration step 2
+                    Fragment fg = new RegisterStep2Fragment();
+                    setFragment(fg);
 
                 break;
 
             case R.id.firstBtn:
-
-                //go to previous page
-                Fragment fg2 = new LoginOrRegisterFragment();
-                setFragment(fg2);
+                getFragmentManager().popBackStack();
                 break;
         }
     }
@@ -191,16 +190,15 @@ public class RegisterStep1Fragment extends Fragment
             @Override
             public void afterTextChanged(Editable s) {
 
-                string = edit.getText().toString();
+                if("".equals(edit.getText().toString())) {
 
-                showError(edit);
-
+                    showError(edit);
+                }
           }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
-
 
 
             }
@@ -209,7 +207,10 @@ public class RegisterStep1Fragment extends Fragment
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
 
+                if(edit.getText().toString().equals("")) {
 
+                    showError(edit);
+                }
             }
         });
 
@@ -222,30 +223,5 @@ public class RegisterStep1Fragment extends Fragment
         fgTransition.commit();
     }
 
-    @Override
-    public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
-        if (response.isSuccessful() && response.body() != null) {
 
-           allConsultants = response.body();
-
-
-            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
-
-
-            consultantsView.setPrompt("Selecteer uw consulent");
-            consultantsView.setSelection(adapter.getCount()-1,true);
-            consultantsView.setAdapter(adapter);
-
-        }
-    }
-
-    @Override
-    public void onFailure(Call<List<Consultant>> call, Throwable t) {
-
-    }
-
-    private void fetchContent() {
-
-        apiService.getAllConsultants().enqueue(this);
-    }
 }

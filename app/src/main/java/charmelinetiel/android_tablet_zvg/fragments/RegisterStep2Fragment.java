@@ -27,7 +27,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     private APIService apiService;
     private User user;
     private Button btn1, btn2;
-    private EditText email, pass1, repeatPass;
+    private EditText email, pass1, pass2;
 
     public RegisterStep2Fragment() {
         // Required empty public constructor
@@ -52,8 +52,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
         email = v.findViewById(R.id.email);
         pass1 = v.findViewById(R.id.pass1);
-
-        repeatPass = v.findViewById(R.id.pass2);
+        pass2 = v.findViewById(R.id.pass2);
 
         return v;
     }
@@ -70,7 +69,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 user = activity.getUser();
 
                 //TODO check if passwords match
-                if(email.getText().toString() != "" && pass1.getText().toString() != "" && pass1.getText().toString().equals(repeatPass.getText().toString())) {
+                if(email.getText().toString() != "" && pass1.getText().toString() != "" && pass1.getText().toString().equals(pass2.getText().toString())) {
                     user.setEmailAddress(email.getText().toString());
 
                     user.setPassword(pass1.getText().toString());

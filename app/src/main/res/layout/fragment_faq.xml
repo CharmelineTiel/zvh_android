@@ -6,9 +6,9 @@
 
 
     <ScrollView
+        android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/sv"
         android:paddingBottom="@dimen/margin"
         >
 <RelativeLayout
@@ -23,8 +23,8 @@
             app:parentLayout="@layout/layout_parent" />
 
 <TextView
-    android:layout_marginTop="50dp"
     android:id="@+id/contactTxt"
+    android:layout_marginTop="50dp"
     android:textSize="@dimen/normalText"
     android:textAlignment="center"
     android:layout_below="@+id/el"
@@ -32,10 +32,11 @@
     android:text="Staat uw vraag er niet bij? Neem contact op met uw consulent. \n \n"
     android:layout_width="250dp"
     android:layout_height="wrap_content" />
+
         <Button
+            android:id="@+id/contactBtn"
             android:padding="10dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/contactBtn"
             android:layout_below="@+id/contactTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

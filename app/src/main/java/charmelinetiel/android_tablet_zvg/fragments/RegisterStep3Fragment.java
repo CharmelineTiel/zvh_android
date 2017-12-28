@@ -7,12 +7,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
+import charmelinetiel.android_tablet_zvg.models.Consultant;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -30,9 +34,10 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     private APIService apiService;
     private User user;
     private Button btn1, btn2;
-    private EditText length;
-    public EditText weight;
-
+    private Spinner consultantsView;
+    private List<Consultant> allConsultants;
+    private ArrayAdapter<String> adapter;
+    private Consultant consultant;
     public RegisterStep3Fragment() {
         // Required empty public constructor
     }
@@ -54,9 +59,10 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         btn2 = v.findViewById(R.id.backBtn);
         btn2.setOnClickListener(this);
 
-        length = v.findViewById(R.id.length_input);
-        weight = v.findViewById(R.id.weight_input);
+        consultantsView =  v.findViewById(R.id.consultants);
+        consultant = (Consultant) ((Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
 
+        ConsultantsDropdown();
 
         return v;
     }
@@ -68,21 +74,11 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
             case R.id.registerBtn:
 
-                //processRegistration();
-
-                //update user information
+                //Register user
                 RegisterActivity activity = (RegisterActivity) getActivity();
                 user = activity.getUser();
-
-                try {
-                    user.setLength(Integer.parseInt(length.getText().toString()));
-                    user.setWeight(Integer.parseInt(weight.getText().toString()));
-                }catch (Exception e){
-
-                }
-                //register user
+                user.setConsultantId(consultant.getConsultantId());
                 apiService.register(user).enqueue(this);
-
                 break;
 
             case R.id.backBtn:
@@ -125,4 +121,31 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         fgTransition.commit();
     }
 
+    public void ConsultantsDropdown(){
+
+        apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
+            @Override
+            public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
+
+                if (response.isSuccessful() && response.body() != null) {
+
+                    allConsultants = response.body();
+
+
+                    adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
+
+
+                    consultantsView.setPrompt("Selecteer uw consulent");
+                    consultantsView.setSelection(adapter.getCount()-1,true);
+                    consultantsView.setAdapter(adapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Consultant>> call, Throwable t) {
+
+            }
+        });
+    }
 }
