@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.User;
-import charmelinetiel.android_tablet_zvg.models.authToken;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import retrofit2.Call;
@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
             intent.putExtra("user", response.body());
             startActivity(intent);
 
-            authToken.getInstance().setAuthToken(response.body().getAuthToken());
+            AuthToken.getInstance().setAuthToken(response.body().getAuthToken());
         }
     }
 

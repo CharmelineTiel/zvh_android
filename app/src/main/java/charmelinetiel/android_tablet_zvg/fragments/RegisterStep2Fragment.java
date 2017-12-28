@@ -4,6 +4,8 @@ package charmelinetiel.android_tablet_zvg.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -28,6 +31,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     private User user;
     private Button btn1, btn2;
     private EditText email, pass1, pass2;
+    private FormErrorHandeling validateForm;
 
     public RegisterStep2Fragment() {
         // Required empty public constructor
@@ -68,7 +72,6 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 RegisterActivity activity = (RegisterActivity) getActivity();
                 user = activity.getUser();
 
-                //TODO check if passwords match
                 if(email.getText().toString() != "" && pass1.getText().toString() != "" && pass1.getText().toString().equals(pass2.getText().toString())) {
                     user.setEmailAddress(email.getText().toString());
 
@@ -77,10 +80,10 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
                 activity.setUser(user);
 
-                //go to step 3
-                Fragment fg = new RegisterStep3Fragment();
-                setFragment(fg);
-
+                if(validInput()) {
+                    Fragment fg = new RegisterStep3Fragment();
+                    setFragment(fg);
+                }
                 break;
 
             case R.id.backBtn:
@@ -90,6 +93,51 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
                 break;
         }
+    }
+
+    private boolean validInput(){
+
+        validateForm = new FormErrorHandeling();
+
+        if (!validateForm.InputValidEmail(email)){
+
+            validateForm.showError("Geen geldige email");
+            return false;
+        }else if(!validateForm.inputNotEmpty(email)){
+
+            validateForm.showError("Vul uw email in");
+        }
+
+        pass2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String pass = pass1.getText().toString();
+                if (editable.length() > 0 && pass.length() > 0) {
+                    if(!pass2.getText().toString().equals(pass)){
+
+                        validateForm.showError("Uw wachtwoord komt niet overeen");
+                    }
+
+                }
+            }
+        });
+
+        if (!validateForm.inputNotEmpty(pass1) || !validateForm.inputNotEmpty(pass2)){
+
+            validateForm.showError("Vul uw wachtwoord in");
+            return false;
+        }
+        return true;
     }
 
 //TODO make setFragment static somehow, this method is being used in pretty much all the fragments.. DRY CODE FTW

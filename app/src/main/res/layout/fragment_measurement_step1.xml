@@ -21,10 +21,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dateText"
         android:textStyle="bold"
+        android:textSize="@dimen/biggerText"
         android:layout_marginLeft="20dp"
         android:text="@string/fillInText"
-        />        />
-
+        />
+    <TextView
+        android:id="@+id/dateTimeNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fillInText"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="Datum van vandaag"
+        />
     <TextView
         android:textStyle="bold"
         android:id="@+id/bovendruk_text"

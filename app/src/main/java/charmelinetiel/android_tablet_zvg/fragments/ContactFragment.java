@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
 import charmelinetiel.android_tablet_zvg.models.Message;
-import charmelinetiel.android_tablet_zvg.models.authToken;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
 import okhttp3.ResponseBody;
@@ -32,7 +33,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private Message messageObj;
     private Button sendBtn, backBtn;
     private EditText message,subject;
-
+    private FormErrorHandeling validateForm;
     public ContactFragment() {
         // Required empty public constructor
     }
@@ -56,6 +57,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         message = view.findViewById(R.id.message);
         subject = view.findViewById(R.id.subject);
 
+        validateForm = new FormErrorHandeling();
+
         return view;
     }
 
@@ -65,21 +68,20 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         switch (v.getId()) {
             case R.id.sendMessageBtn:
 
-                if(subject.getText().toString().equals("")){
+                if(!validateForm.inputNotEmpty(subject)){
 
-                    Toast.makeText(getActivity(), "Onderwerp mag niet leeg zijn",
-                            Toast.LENGTH_LONG).show();
+                    validateForm.showError("Onderwerp mag niet leeg zijn");
 
-                }else if (message.getText().toString().equals("")){
+                }else if (!validateForm.inputNotEmpty(message)){
 
-                    Toast.makeText(getActivity(), "Bericht mag niet leeg zijn",
-                            Toast.LENGTH_LONG).show();
+                    validateForm.showError("Bericht mag niet leeg zijn");
+
                 }else {
 
                     messageObj = new Message();
                     messageObj.setSubject(subject.getText().toString());
                     messageObj.setMessage(message.getText().toString());
-                    apiService.postMessage(messageObj, authToken.getInstance().getAuthToken()).enqueue(this);
+                    apiService.postMessage(messageObj, AuthToken.getInstance().getAuthToken()).enqueue(this);
 
                 }
 
@@ -90,7 +92,6 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
                 getFragmentManager().popBackStack();
 
                 break;
-
         }
 
     }

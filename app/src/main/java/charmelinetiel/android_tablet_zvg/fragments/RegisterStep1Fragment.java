@@ -5,8 +5,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,7 @@ import java.util.Calendar;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
 import charmelinetiel.android_tablet_zvg.models.User;
 
 
@@ -35,10 +34,9 @@ public class RegisterStep1Fragment extends Fragment
     private Button btn1;
     private Button btn2;
     private RadioGroup gender;
-    private Boolean allInputValid = false;
     private View v;
     private User user;
-
+    private FormErrorHandeling validateForm;
 
     public RegisterStep1Fragment() {
         // Required empty public constructor
@@ -73,39 +71,6 @@ public class RegisterStep1Fragment extends Fragment
 
     }
 
-    public boolean showError(EditText edit) {
-
-        String regex = "[a-zA-Z0-9]\\w*";
-
-        if (edit.getTag().equals("firstName") && !edit.getText().toString().equals((regex))){
-
-            firstName.setError("Vul uw voornaam in");
-            allInputValid = false;
-        }
-        else if(edit.getTag().equals("lastName")){
-            lastName.setError("Vul uw voornaam in");
-            allInputValid = false;
-        }
-        else if(edit.getTag().equals("dateOfBirth")){
-
-            dateOfBirth.setError("Vul uw geboortedatum in");
-            allInputValid = false;
-        }else if (edit.getTag().equals("length_input")){
-
-            length.setError("Vul uw lengte in");
-
-        }else if(edit.getTag().equals("weight_input")){
-
-            weight.setError("Vul uw weight in");
-            allInputValid = false;
-        }else{
-
-            allInputValid = true;
-        }
-
-        return allInputValid;
-    }
-
     @Override
     public void onStart(){
         super.onStart();
@@ -125,22 +90,11 @@ public class RegisterStep1Fragment extends Fragment
 
             case R.id.dateOfBirth:
 
-                //set date of birth
-                final Calendar calendar = Calendar.getInstance();
-                int yy = calendar.get(Calendar.YEAR);
-                int mm = calendar.get(Calendar.MONTH);
-                int dd = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
-                    String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
-                            + "-" + String.valueOf(dayOfMonth);
-                    dateOfBirth.setText(date);
-                }, yy, mm, dd);
-                datePicker.show();
+                setDate();
+
                 break;
 
             case R.id.secondBtn:
-
-
 
                 int index = gender.indexOfChild(getActivity().findViewById(gender.getCheckedRadioButtonId()));
                 int genderId;
@@ -168,13 +122,10 @@ public class RegisterStep1Fragment extends Fragment
                 RegisterActivity activity = (RegisterActivity) getActivity();
                 activity.setUser(user);
 
-                //ken wel beter eh
-
-
-                    //go to registration step 2
-                    Fragment fg = new RegisterStep2Fragment();
-                    setFragment(fg);
-
+                    if(validInput()) {
+                        Fragment fg = new RegisterStep2Fragment();
+                        setFragment(fg);
+                    }
                 break;
 
             case R.id.firstBtn:
@@ -184,36 +135,47 @@ public class RegisterStep1Fragment extends Fragment
     }
 
 
-    private void validate(final EditText edit)
+    private boolean validInput()
     {
-        edit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
+        validateForm = new FormErrorHandeling();
 
-                if("".equals(edit.getText().toString())) {
+        if(!validateForm.inputNotEmpty(firstName)){
 
-                    showError(edit);
-                }
-          }
+            validateForm.showError("Vul uw voornaam in");
+            return false;
+        }else if(!validateForm.inputValidString(firstName)) {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
+            validateForm.showError("Geen geldige voornaam in");
+            return false;
+        }
 
+        if(!validateForm.inputNotEmpty(lastName)){
 
-            }
+            validateForm.showError("Vul uw achternaam in");
+            return false;
+        }else if(!validateForm.inputValidString(lastName)) {
+            validateForm.showError("Geen geldige achternaam");
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
+        if(!validateForm.inputNotEmpty(dateOfBirth)){
 
-                if(edit.getText().toString().equals("")) {
+            validateForm.showError("Vul uw geboortedatum in");
+            return false;
+        }
 
-                    showError(edit);
-                }
-            }
-        });
+        if(!validateForm.inputNotEmpty(length)){
 
+            validateForm.showError("Vul uw lengte in");
+            return false;
+        }
+
+        if(!validateForm.inputNotEmpty(weight)){
+
+            validateForm.showError("Vul uw gewicht in");
+            return false;
+        }
+
+        return true;
     }
 
     public void setFragment(Fragment fg) {
@@ -223,5 +185,18 @@ public class RegisterStep1Fragment extends Fragment
         fgTransition.commit();
     }
 
+    public void setDate(){
+
+        final Calendar calendar = Calendar.getInstance();
+        int yy = calendar.get(Calendar.YEAR);
+        int mm = calendar.get(Calendar.MONTH);
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
+            String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
+                    + "-" + String.valueOf(dayOfMonth);
+            dateOfBirth.setText(date);
+        }, yy, mm, dd);
+        datePicker.show();
+    }
 
 }
