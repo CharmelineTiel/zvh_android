@@ -12,8 +12,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">Login</string>
-    <string name="bovendruk">Bovendruk/SYS</string>
-    <string name="onderdruk">Onderdruk/DIA</string>
+    <string name="bovendruk">Bovendruk/SYS(mmHg)</string>
+    <string name="onderdruk">Onderdruk/DIA(mmHg)</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -101,14 +101,14 @@
         bloeddrukmeter uiteraard een pompje op batterijen zodat de meting volledig automatisch verloopt.\n
         De huisarts heeft met deze metingen een nauwkeurig beeld van de bloeddruk en het verloop.
     </string>
-    <string name="contactPageTxt">Heeft u vragen of wilt u een afspraak maken? Dan kunt u via dit formulier een bericht naar uw consulent. In geval van spoed kunt u het beste telefonisch contact opnemen met uw ziekenhuis of 112 bellen.</string>
+    <string name="contactPageTxt">Heeft u vragen of wilt u een afspraak maken? Dan kunt u via dit formulier een bericht sturen naar uw consulent. In geval van spoed kunt u het beste telefonisch contact opnemen met uw ziekenhuis of 112 bellen.</string>
 
 
     <!-- Measurement -->
     <string name="popupText">Voordat u verder kunt gaan hebben wij nog enkele gegevens van u nodig zodat we u beter kunnen assisteren. Namelijk:</string>
     <string name="length">Lengte (cm)</string>
     <string name="weight">Gewicht (kg)</string>
-    <string name="fillInText">Vul uw bloeddruk in (mmHg)</string>
+    <string name="fillInText">Vul uw bloeddruk in</string>
     <string name="fillInText2">Gezondheidsklachten</string>
     <string name="none">Geen</string>
     <string name="yesNamely">Ja, namelijk</string>

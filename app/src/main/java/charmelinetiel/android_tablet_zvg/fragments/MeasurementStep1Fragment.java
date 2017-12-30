@@ -16,7 +16,7 @@ import java.util.Date;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
-import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 
@@ -28,7 +28,7 @@ public class MeasurementStep1Fragment extends Fragment {
     private EditText upperBloodPressure;
     private EditText lowerBloodPressure;
     private TextView dateTimeNow;
-    private FormErrorHandeling validateForm;
+    private FormErrorHandling validateForm;
 
     public MeasurementStep1Fragment(){
         // Required empty public constructor
@@ -94,14 +94,14 @@ public class MeasurementStep1Fragment extends Fragment {
 
     private boolean validInput()
     {
-        validateForm = new FormErrorHandeling();
+        validateForm = new FormErrorHandling();
 
-        if(!validateForm.inputNotEmpty(upperBloodPressure)){
+        if(!validateForm.inputGiven(upperBloodPressure)){
 
             validateForm.showError("Bovendruk mag niet leeg zijn");
             return false;
         }
-        if(!validateForm.inputNotEmpty(lowerBloodPressure)){
+        if(!validateForm.inputGiven(lowerBloodPressure)){
 
             validateForm.showError("Onderdruk mag niet leeg zijn");
             return false;

@@ -57,7 +57,8 @@
                     android:scheme="zvh-app" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.DiaryActivity"></activity>
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
-import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -31,7 +31,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     private User user;
     private Button btn1, btn2;
     private EditText email, pass1, pass2;
-    private FormErrorHandeling validateForm;
+    private FormErrorHandling validateForm;
 
     public RegisterStep2Fragment() {
         // Required empty public constructor
@@ -97,15 +97,16 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
     private boolean validInput(){
 
-        validateForm = new FormErrorHandeling();
+        validateForm = new FormErrorHandling();
 
         if (!validateForm.InputValidEmail(email)){
 
             validateForm.showError("Geen geldige email");
-            return false;
-        }else if(!validateForm.inputNotEmpty(email)){
+           return false;
+        }else if(!validateForm.inputGiven(email)){
 
             validateForm.showError("Vul uw email in");
+            return false;
         }
 
         pass2.addTextChangedListener(new TextWatcher() {
@@ -117,6 +118,14 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                String pass = pass1.getText().toString();
+                if (charSequence.length() > 0 && pass.length() > 0) {
+                    if(!pass2.getText().toString().equals(pass)){
+
+                        validateForm.showError("Uw wachtwoord komt niet overeen");
+                    }
+
+                }
             }
 
             @Override
@@ -125,18 +134,28 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 if (editable.length() > 0 && pass.length() > 0) {
                     if(!pass2.getText().toString().equals(pass)){
 
-                        validateForm.showError("Uw wachtwoord komt niet overeen");
+                        validateForm.showError("De ingevoerde wachtwoorden komen niet overeen.");
                     }
 
                 }
             }
         });
 
-        if (!validateForm.inputNotEmpty(pass1) || !validateForm.inputNotEmpty(pass2)){
+        if (!validateForm.inputGiven(pass1)) {
 
-            validateForm.showError("Vul uw wachtwoord in");
+            validateForm.showError("Vul een wachtwoord in");
             return false;
         }
+        if (!validateForm.inputGiven(pass2)){
+            validateForm.showError("Herhaal uw wachtwoord in");
+            return false;
+        }else if(!pass1.getText().toString().equals(pass2.getText().toString())){
+
+            validateForm.showError("De ingevoerde wachtwoorden komen niet overeen.");
+            return false;
+        }
+
+
         return true;
     }
 
