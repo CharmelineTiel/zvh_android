@@ -45,7 +45,7 @@ public class User implements Parcelable
     @SerializedName("activationToken")
     @Expose
     private String activationToken;
-    @SerializedName("AuthToken")
+    @SerializedName("authToken")
     @Expose
     private String authToken;
     @SerializedName("resetPasswordToken")
