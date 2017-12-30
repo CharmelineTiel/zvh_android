@@ -89,12 +89,12 @@ public class ListAdapter extends BaseAdapter {
                 <= 130) {
 
             viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
-            viewHolder.feedbackMessage.setText("Uw bloeddruk was prima");
+            viewHolder.feedbackMessage.setText("Bloeddruk feedback");
             viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
         }else{
 
             viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
-            viewHolder.feedbackMessage.setText("Houd uw bloeddruk goed in de gaten");
+            viewHolder.feedbackMessage.setText("Bloeddruk feedback");
             viewHolder.layout.setBackgroundResource(R.color.negativeFeedback);
         }
             return convertView;

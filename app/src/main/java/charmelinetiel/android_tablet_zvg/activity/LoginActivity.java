@@ -20,8 +20,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
-import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -37,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView forgotPassword;
     private EditText email, password;
     private CheckBox autoLoginCheckBox;
-    private FormErrorHandeling validateForm;
+    private FormErrorHandling validateForm;
     private Uri data;
 
     @Override
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
 
-        validateForm = new FormErrorHandeling();
+        validateForm = new FormErrorHandling();
 
             setContentView(R.layout.activity_login);
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -118,8 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.cancelBtn:
-                Fragment fg = new LoginOrRegisterFragment();
-                setFragment(fg);
+                Intent Intent = new Intent(this, RegisterActivity.class);
+                startActivity(Intent);
                 break;
 
             case R.id.iForgot:
@@ -135,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Button sendForgotPasswordEmail = dialog.findViewById(R.id.send_forgot_password_email);
                 sendForgotPasswordEmail.setOnClickListener(view -> {
 
-                    if (validateForm.inputNotEmpty(forgotPasswordEmailInput)) {
+                    if (validateForm.inputGiven(forgotPasswordEmailInput)) {
 
                         apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
                             @Override
@@ -168,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean validInput(){
 
-        if (!validateForm.inputNotEmpty(email)) {
+        if (!validateForm.inputGiven(email)) {
             validateForm.showError("Vul uw email in");
             return false;
         }else if(!validateForm.InputValidEmail(email)){
@@ -176,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             validateForm.showError("Geen geldige email");
             return false;
         }
-        if(!validateForm.inputNotEmpty(password)){
+        if(!validateForm.inputGiven(password)){
 
             validateForm.showError("Vul uw wachtwoord in");
             return false;

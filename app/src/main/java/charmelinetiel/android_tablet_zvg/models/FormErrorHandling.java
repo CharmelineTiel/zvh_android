@@ -6,11 +6,11 @@ import android.widget.EditText;
  * Created by C Tiel on 12/28/2017.
  */
 
-public class FormErrorHandeling {
+public class FormErrorHandling {
 
     private EditText editText;
 
-    public boolean inputNotEmpty(EditText editText)
+    public boolean inputGiven(EditText editText)
     {
         this.editText = editText;
         if("".equals(editText.getText().toString())) {
