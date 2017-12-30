@@ -26,7 +26,11 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
         this.selectedIssues = selectedIssues;
         this.healthIssues = new ArrayList<HealthIssue>();
-        this.healthIssues.addAll(healthIssues);
+        try {
+            this.healthIssues.addAll(healthIssues);
+        }catch (Exception e){
+
+        }
     }
 
     private class ViewHolder {

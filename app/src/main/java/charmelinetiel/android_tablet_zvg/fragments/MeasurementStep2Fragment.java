@@ -44,12 +44,14 @@ public class MeasurementStep2Fragment extends Fragment {
 
         (getActivity()).setTitle("Meting stap 2 van 3");
 
+        selectedIssues = new ArrayList<>();
+
+
         CheckboxAdapter measurementCheckboxAdapter;
         measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
         final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
-        selectedIssues = new ArrayList<>();
 
         cancelButton = v.findViewById(R.id.cancel_measurement2_button);
         nextButton = v.findViewById(R.id.to_measurement_step3_button);
