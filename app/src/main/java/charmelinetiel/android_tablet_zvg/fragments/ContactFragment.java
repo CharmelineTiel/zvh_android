@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
-import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.Message;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -33,7 +33,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private Message messageObj;
     private Button sendBtn, backBtn;
     private EditText message,subject;
-    private FormErrorHandeling validateForm;
+    private FormErrorHandling validateForm;
     public ContactFragment() {
         // Required empty public constructor
     }
@@ -57,7 +57,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         message = view.findViewById(R.id.message);
         subject = view.findViewById(R.id.subject);
 
-        validateForm = new FormErrorHandeling();
+        validateForm = new FormErrorHandling();
 
         return view;
     }
@@ -68,23 +68,12 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         switch (v.getId()) {
             case R.id.sendMessageBtn:
 
-                if(!validateForm.inputNotEmpty(subject)){
-
-                    validateForm.showError("Onderwerp mag niet leeg zijn");
-
-                }else if (!validateForm.inputNotEmpty(message)){
-
-                    validateForm.showError("Bericht mag niet leeg zijn");
-
-                }else {
-
+                if(validInput()) {
                     messageObj = new Message();
                     messageObj.setSubject(subject.getText().toString());
                     messageObj.setMessage(message.getText().toString());
                     apiService.postMessage(messageObj, AuthToken.getInstance().getAuthToken()).enqueue(this);
-
                 }
-
                 break;
 
             case R.id.backBtn:
@@ -115,4 +104,21 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
     }
+
+
+    public boolean validInput()
+    {
+        if(!validateForm.inputGiven(subject)){
+
+            validateForm.showError("Onderwerp mag niet leeg zijn");
+            return false;
+
+        }else if (!validateForm.inputGiven(message)) {
+
+            validateForm.showError("Bericht mag niet leeg zijn");
+            return false;
+        }
+        return true;
+    }
+
 }

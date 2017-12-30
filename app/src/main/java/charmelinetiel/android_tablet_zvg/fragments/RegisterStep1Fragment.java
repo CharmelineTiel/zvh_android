@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
-import charmelinetiel.android_tablet_zvg.models.FormErrorHandeling;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.User;
 
 
@@ -36,7 +36,7 @@ public class RegisterStep1Fragment extends Fragment
     private RadioGroup gender;
     private View v;
     private User user;
-    private FormErrorHandeling validateForm;
+    private FormErrorHandling validateForm;
 
     public RegisterStep1Fragment() {
         // Required empty public constructor
@@ -137,9 +137,9 @@ public class RegisterStep1Fragment extends Fragment
 
     private boolean validInput()
     {
-        validateForm = new FormErrorHandeling();
+        validateForm = new FormErrorHandling();
 
-        if(!validateForm.inputNotEmpty(firstName)){
+        if(!validateForm.inputGiven(firstName)){
 
             validateForm.showError("Vul uw voornaam in");
             return false;
@@ -149,7 +149,7 @@ public class RegisterStep1Fragment extends Fragment
             return false;
         }
 
-        if(!validateForm.inputNotEmpty(lastName)){
+        if(!validateForm.inputGiven(lastName)){
 
             validateForm.showError("Vul uw achternaam in");
             return false;
@@ -157,19 +157,19 @@ public class RegisterStep1Fragment extends Fragment
             validateForm.showError("Geen geldige achternaam");
         }
 
-        if(!validateForm.inputNotEmpty(dateOfBirth)){
+        if(!validateForm.inputGiven(dateOfBirth)){
 
             validateForm.showError("Vul uw geboortedatum in");
             return false;
         }
 
-        if(!validateForm.inputNotEmpty(length)){
+        if(!validateForm.inputGiven(length)){
 
             validateForm.showError("Vul uw lengte in");
             return false;
         }
 
-        if(!validateForm.inputNotEmpty(weight)){
+        if(!validateForm.inputGiven(weight)){
 
             validateForm.showError("Vul uw gewicht in");
             return false;
