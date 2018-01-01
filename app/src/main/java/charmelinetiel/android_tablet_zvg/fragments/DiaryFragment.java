@@ -3,12 +3,14 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -20,8 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.ListAdapter;
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
+import charmelinetiel.android_tablet_zvg.webservices.APIService;
+import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 /**
@@ -31,9 +41,9 @@ public class DiaryFragment extends Fragment {
 
     private BarChart chart;
     private ListView mListView;
-    private ListAdapter adapter;
     private View v;
-    private ArrayList<Measurement> listItems;
+    private ArrayList<Measurement> measurements;
+
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -46,7 +56,10 @@ public class DiaryFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_diary, container, false);
         mListView = v.findViewById(R.id.measurement_list_view);
-        dummyData();
+
+        MainActivity mainActivity = (MainActivity) getActivity();
+        measurements = new ArrayList<>();
+        measurements.addAll(mainActivity.getMeasurements());
 
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -67,7 +80,7 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Measurement selection = listItems.get(position);
+                Measurement selection = mainActivity.getMeasurements().get(position);
 
                 Bundle bundle=new Bundle();
                 bundle.putParcelable("measurement",selection);
@@ -83,6 +96,11 @@ public class DiaryFragment extends Fragment {
         });
 
         chart = v.findViewById(R.id.chart);
+
+        ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
+
+        mListView.setAdapter(adapter);
+
         initGraph();
         return v;
     }
@@ -92,54 +110,21 @@ public class DiaryFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void dummyData()
-    {
-        listItems = new ArrayList<>();
 
-        Measurement m1 = new Measurement();
-        m1.setBloodPressureUpper(120);
-        m1.setBloodPressureLower(80);
-        m1.setMeasurementDateTime("di, 28 nov 2017");
-        listItems.add(m1);
-
-        Measurement m2 = new Measurement();
-        m2.setBloodPressureUpper(150);
-        m2.setBloodPressureLower(80);
-        m2.setMeasurementDateTime("ma, 27 nov 2017");
-        listItems.add(m2);
-
-        Measurement m3 = new Measurement();
-        m3.setBloodPressureUpper(160);
-        m3.setBloodPressureLower(60);
-        m3.setMeasurementDateTime("zo, 26 nov 2017");
-        listItems.add(m3);
-
-        Measurement m4 = new Measurement();
-        m4.setBloodPressureUpper(100);
-        m4.setBloodPressureLower(80);
-        m4.setMeasurementDateTime("za, 25 nov 2017");
-        listItems.add(m4);
-
-
-        adapter = new ListAdapter(getActivity(),this, listItems);
-
-        mListView.setAdapter(adapter);
-
-    }
     public void initGraph(){
 
         //bovendruk
         List<BarEntry> bloodPressureUpper = new ArrayList<>();
-        for (int i = 0; i < listItems.size(); i++)
+        for (int i = 0; i < measurements.size(); i++)
         {
-            bloodPressureUpper.add(new BarEntry(i,listItems.get(i).getBloodPressureUpper()));
+            bloodPressureUpper.add(new BarEntry(i,measurements.get(i).getBloodPressureUpper()));
         }
 
         //onderdruk
         List<BarEntry> bloodPressureLower = new ArrayList<>();
-        for (int i = 0; i < listItems.size(); i++)
+        for (int i = 0; i < measurements.size(); i++)
         {
-            bloodPressureLower.add(new BarEntry(i,listItems.get(i).getBloodPressureLower()));
+            bloodPressureLower.add(new BarEntry(i,measurements.get(i).getBloodPressureLower()));
         }
 
         BarDataSet upperBP = new BarDataSet(bloodPressureUpper, "Bovendruk");

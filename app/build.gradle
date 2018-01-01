@@ -1,4 +1,9 @@
+plugins {
+    id "org.sonarqube" version "2.6"
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'org.sonarqube'
 
 android {
     compileSdkVersion 26
@@ -42,8 +47,6 @@ dependencies {
     compile 'com.github.iammert:ExpandableLayout:1.4.1'
     compile 'com.google.android.gms:play-services:6.1.71'
 
-
     testCompile 'junit:junit:4.12'
-
-
 }
+

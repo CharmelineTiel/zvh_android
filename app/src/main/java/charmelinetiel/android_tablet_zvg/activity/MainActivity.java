@@ -14,14 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.adapters.ListAdapter;
 import charmelinetiel.android_tablet_zvg.fragments.ContactFragment;
 import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
 import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.models.User;
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private Measurement measurement;
     private APIService apiService;
     private List<HealthIssue> healthIssues;
+
+    private List<Measurement> measurements;
     private User user;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -97,6 +102,27 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         customizeNav();
         bottomNavigationView.setSelectedItemId(R.id.measurement);
+
+
+//        measurements = new ArrayList<>();
+
+        apiService.getMeasurements(AuthToken.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
+            @Override
+            public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    try{
+                        measurements = response.body();
+                    }catch (Exception e){
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Measurement>> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -168,8 +194,13 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     public User getUser(){
         return user;
     }
+
     public void setUser(User user){
 
         this.user = user;
+    }
+
+    public List<Measurement> getMeasurements() {
+        return measurements;
     }
 }

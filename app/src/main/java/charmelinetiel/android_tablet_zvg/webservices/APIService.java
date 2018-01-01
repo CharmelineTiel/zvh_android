@@ -39,6 +39,9 @@ public interface APIService {
     @POST("Measurements")
     Call<Measurement> postMeasurement(@Body Measurement measurement, @Header("x-authtoken") String token);
 
+    @GET("Measurements")
+    Call<List<Measurement>> getMeasurements(@Header("x-authtoken") String token);
+
     @POST("Messages")
     Call<ResponseBody> postMessage(@Body Message message, @Header("x-authtoken") String token);
 
