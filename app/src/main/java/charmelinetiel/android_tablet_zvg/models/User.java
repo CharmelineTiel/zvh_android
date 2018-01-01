@@ -51,6 +51,9 @@ public class User implements Parcelable
     @SerializedName("resetPasswordToken")
     @Expose
     private String resetPasswordToken;
+    @SerializedName("consultant")
+    @Expose
+    private Consultant consultant;
     public final static Creator<User> CREATOR = new Creator<User>() {
 
 
@@ -83,6 +86,7 @@ public class User implements Parcelable
         this.activationToken = ((String) in.readValue((String.class.getClassLoader())));
         this.authToken = ((String) in.readValue((String.class.getClassLoader())));
         this.resetPasswordToken = ((String) in.readValue((String.class.getClassLoader())));
+        this.consultant = ((Consultant) in.readValue((Consultant.class.getClassLoader())));
     }
 
     public User() {
@@ -199,6 +203,14 @@ public class User implements Parcelable
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
     }
+    public Consultant getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(Consultant consultant) {
+        this.consultant = consultant;
+    }
+
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
@@ -215,6 +227,7 @@ public class User implements Parcelable
         dest.writeValue(activationToken);
         dest.writeValue(authToken);
         dest.writeValue(resetPasswordToken);
+        dest.writeValue(consultant);
     }
 
     public int describeContents() {
