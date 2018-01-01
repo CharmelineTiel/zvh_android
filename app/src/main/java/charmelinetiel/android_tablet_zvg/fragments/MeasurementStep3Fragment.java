@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
@@ -23,6 +24,7 @@ public class MeasurementStep3Fragment extends Fragment {
     private Button completeButton;
     private EditText extraRemarksInput;
     private MainActivity mainActivity;
+    private TextView date;
 
     public MeasurementStep3Fragment(){
         // Required empty public constructor
@@ -32,6 +34,8 @@ public class MeasurementStep3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mainActivity = (MainActivity) getActivity();
+
         v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
 
         (getActivity()).setTitle("Meting stap 3 van 3");
@@ -39,6 +43,8 @@ public class MeasurementStep3Fragment extends Fragment {
         cancelButton = v.findViewById(R.id.cancel_measurement3_button);
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
+        date = v.findViewById(R.id.dateTimeNow);
+        mainActivity.setDateOfToday(date);
 
         extraRemarksInput.setText(mainActivity.getMeasurement().getComment());
 
@@ -48,25 +54,21 @@ public class MeasurementStep3Fragment extends Fragment {
 
         completeButton.setOnClickListener(v -> {
 
-        mainActivity = (MainActivity) getActivity();
         Measurement measurement = mainActivity.getMeasurement();
-
         measurement.setComment(extraRemarksInput.getText().toString());
 
-            mainActivity.postMeasurement();
+        mainActivity.postMeasurement();
+        MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
-                MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
-
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, measurementSaved)
-                        .addToBackStack(null)
-                        .commit();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, measurementSaved)
+                .addToBackStack(null)
+                .commit();
 
         });
 
-        cancelButton.setOnClickListener(v -> getActivity().onBackPressed());
+        cancelButton.setOnClickListener(v ->   getFragmentManager().popBackStack());
 
         return v;
-
     }
 }

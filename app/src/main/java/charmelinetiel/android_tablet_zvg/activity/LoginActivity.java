@@ -187,10 +187,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (response.body() != null && response.isSuccessful()) {
 
             User loggedInUser = response.body();
+
             loggedInUser.setAuthToken(response.body().getAuthToken());
             Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
             intent.putExtra("user", loggedInUser);
-
             startActivity(intent);
 
             if (autoLoginCheckBox.isChecked()) {

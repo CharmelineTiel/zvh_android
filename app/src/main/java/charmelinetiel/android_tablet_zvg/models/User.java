@@ -71,7 +71,7 @@ public class User implements Parcelable
     };
 
 
-    protected User(Parcel in) {
+    public User(Parcel in) {
         this.id = ((String) in.readValue((String.class.getClassLoader())));
         this.emailAddress = ((String) in.readValue((String.class.getClassLoader())));
         this.lastname = ((String) in.readValue((String.class.getClassLoader())));
@@ -212,6 +212,7 @@ public class User implements Parcelable
     }
 
 
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(emailAddress);
@@ -230,6 +231,7 @@ public class User implements Parcelable
         dest.writeValue(consultant);
     }
 
+    @Override
     public int describeContents() {
         return 0;
     }

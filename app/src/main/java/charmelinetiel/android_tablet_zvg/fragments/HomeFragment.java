@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 fg= new HomeFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content, fg)
-                        .addToBackStack(fg.toString())
+                        .addToBackStack("Home")
                         .commit();
                 break;
         }

@@ -1,16 +1,14 @@
 package charmelinetiel.android_tablet_zvg.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 
 
 public class MeasurementSavedFragment extends Fragment {
@@ -35,7 +33,6 @@ public class MeasurementSavedFragment extends Fragment {
             public void onClick(View v){
 
                 DiaryFragment diary = new DiaryFragment();
-
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content, diary)
                         .addToBackStack(null)

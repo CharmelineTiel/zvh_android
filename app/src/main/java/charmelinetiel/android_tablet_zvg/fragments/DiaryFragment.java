@@ -3,15 +3,15 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -24,14 +24,7 @@ import java.util.List;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.ListAdapter;
-import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
-import charmelinetiel.android_tablet_zvg.webservices.APIService;
-import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 /**
@@ -41,6 +34,8 @@ public class DiaryFragment extends Fragment {
 
     private BarChart chart;
     private ListView mListView;
+    private TextView insertMeasurementText;
+    private Button goToMeasurementBtn;
     private View v;
     private ArrayList<Measurement> measurements;
 
@@ -56,11 +51,29 @@ public class DiaryFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_diary, container, false);
         mListView = v.findViewById(R.id.measurement_list_view);
+        chart = v.findViewById(R.id.chart);
+        insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
+        goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
 
         MainActivity mainActivity = (MainActivity) getActivity();
+
         measurements = new ArrayList<>();
         measurements.addAll(mainActivity.getMeasurements());
 
+        if (measurements.size() == 0){
+
+            mListView.setVisibility(View.GONE);
+            chart.setVisibility(View.GONE);
+            insertMeasurementText.setVisibility(View.VISIBLE);
+            goToMeasurementBtn.setVisibility(View.VISIBLE);
+
+        }else{
+
+            mListView.setVisibility(View.VISIBLE);
+            chart.setVisibility(View.VISIBLE);
+            insertMeasurementText.setVisibility(View.GONE);
+            goToMeasurementBtn.setVisibility(View.GONE);
+        }
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -95,7 +108,17 @@ public class DiaryFragment extends Fragment {
 
         });
 
-        chart = v.findViewById(R.id.chart);
+        goToMeasurementBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+               MeasurementStep1Fragment fg = new MeasurementStep1Fragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, fg)
+                        .addToBackStack(String.valueOf(fg.getId()))
+                        .commit();
+            }
+        });
 
         ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
 
