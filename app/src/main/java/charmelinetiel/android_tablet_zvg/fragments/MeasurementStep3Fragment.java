@@ -23,6 +23,7 @@ public class MeasurementStep3Fragment extends Fragment {
     private Button cancelButton;
     private Button completeButton;
     private EditText extraRemarksInput;
+    private MainActivity mainActivity;
     private TextView date;
 
     public MeasurementStep3Fragment(){
@@ -33,7 +34,7 @@ public class MeasurementStep3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        MainActivity activity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
 
         v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
 
@@ -43,7 +44,9 @@ public class MeasurementStep3Fragment extends Fragment {
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
         date = v.findViewById(R.id.dateTimeNow);
-        activity.setDateOfToday(date);
+        mainActivity.setDateOfToday(date);
+
+        extraRemarksInput.setText(mainActivity.getMeasurement().getComment());
 
         if (container != null) {
             container.removeAllViews();
@@ -51,23 +54,21 @@ public class MeasurementStep3Fragment extends Fragment {
 
         completeButton.setOnClickListener(v -> {
 
-
-        Measurement measurement = activity.getMeasurement();
+        Measurement measurement = mainActivity.getMeasurement();
         measurement.setComment(extraRemarksInput.getText().toString());
-        activity.postMeasurement();
 
-                MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
+        mainActivity.postMeasurement();
+        MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, measurementSaved)
-                        .addToBackStack(null)
-                        .commit();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, measurementSaved)
+                .addToBackStack(null)
+                .commit();
 
         });
 
         cancelButton.setOnClickListener(v ->   getFragmentManager().popBackStack());
 
         return v;
-
     }
 }

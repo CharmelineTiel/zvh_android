@@ -26,6 +26,7 @@ public class MeasurementStep1Fragment extends Fragment {
     private EditText lowerBloodPressure;
     private TextView dateTimeNow;
     private FormErrorHandling validateForm;
+    private MainActivity mainActivity;
 
     public MeasurementStep1Fragment(){
         // Required empty public constructor
@@ -35,7 +36,9 @@ public class MeasurementStep1Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        (getActivity()).setTitle("Meting stap 1 van 3");
+        mainActivity = (MainActivity) getActivity();
+
+        mainActivity.setTitle("Meting stap 1 van 3");
 
         v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
 
@@ -48,6 +51,10 @@ public class MeasurementStep1Fragment extends Fragment {
 
         upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
+
+        upperBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureUpper());
+        lowerBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureLower());
+
         dateTimeNow = v.findViewById(R.id.dateTimeNow);
 
         MainActivity mainActivity = (MainActivity)getActivity();

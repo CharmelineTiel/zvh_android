@@ -11,9 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.helpers.FragmentChangeListener;
+import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 /**
@@ -23,6 +28,10 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
     private View v;
     private Measurement m;
+    private TextView issues, extra, extraLbl;
+    private MainActivity mainActivity;
+    private List<HealthIssue> healthIssues;
+
     public MeasurementDetailFragment() {
         // Required empty public constructor
     }
@@ -33,10 +42,16 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
                              Bundle savedInstanceState) {
         m = getArguments().getParcelable("measurement");
 
+        mainActivity = (MainActivity) getActivity();
+        healthIssues = mainActivity.getHealthIssues();
+
         v = inflater.inflate(R.layout.fragment_measurement_detail, container, false);
 
-        Button btn = v.findViewById(R.id.backBtn);
-        btn.setOnClickListener(this);
+        Button backButton = v.findViewById(R.id.backBtn);
+        backButton.setOnClickListener(this);
+
+        Button editButton = v.findViewById(R.id.editBtn);
+        editButton.setOnClickListener(this);
 
         return v;
     }
@@ -48,6 +63,11 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
                 DiaryFragment previousFrag= new DiaryFragment();
                 replaceFragment(previousFrag);
                 break;
+            case R.id.editBtn:
+                mainActivity.setMeasurement(m);
+                MeasurementStep1Fragment editMeasurementFrag = new MeasurementStep1Fragment();
+                replaceFragment(editMeasurementFrag);
+                break;
         }
     }
     public void onActivityCreated(Bundle savedInstanceState)
@@ -58,6 +78,30 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
         TextView bloodPressure = v.findViewById(R.id.bloodPressureLbl);
         TextView feedback = v.findViewById(R.id.feedbackLbl);
         RelativeLayout layout = v.findViewById(R.id.measurement_list_item);
+
+        issues = v.findViewById(R.id.issues);
+        extra = v.findViewById(R.id.extra);
+        extraLbl = v.findViewById(R.id.extraLbl);
+
+        String healthIssuesText = "";
+
+        for (int i = 0; i < healthIssues.size(); i++){
+            healthIssuesText += healthIssues.get(i).getName();
+
+            //Add a comma if needed
+            if(i != healthIssues.size()-1 || m.getHealthIssueOther() != ""){
+                healthIssuesText += ", ";
+            }
+        }
+        healthIssuesText += m.getHealthIssueOther();
+
+        issues.setText(healthIssuesText);
+
+        if(m.getComment() == "" || m.getComment() == null){
+            extraLbl.setVisibility(View.INVISIBLE);
+        }
+
+        extra.setText(m.getComment());
 
         date.setText(m.getMeasurementDateFormatted());
         bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper() + ", " + "Onderdruk: " + m.getBloodPressureLower());
