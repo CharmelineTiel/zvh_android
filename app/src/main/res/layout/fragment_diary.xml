@@ -1,15 +1,40 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="charmelinetiel.android_tablet_zvg.fragments.DiaryFragment">
 
+    <TextView
+        android:id="@+id/insertMeasurementText"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/biggerText"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:text="U heeft nog geen meting ingevoerd"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/goToMeasurement"
+        android:text="Nieuwe meting"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/input_padding"
+        android:layout_below="@+id/insertMeasurementText"
+        android:textColor="@color/whiteText"
+        android:textAllCaps="false"
+        android:textSize="@dimen/biggerText"
+        android:background="@color/colorAccent"
+        android:layout_width="@dimen/buttonM"
+        android:layout_height="wrap_content" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
+        android:layout_below="@+id/insertMeasurementText"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"/>
 
         <ListView
@@ -17,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:dividerHeight="8dp"
+            android:layout_below="@+id/chart"
             android:divider="@android:color/transparent"
             />
 
-</LinearLayout>
+</RelativeLayout>

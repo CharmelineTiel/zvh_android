@@ -11,9 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
@@ -53,10 +50,8 @@ public class MeasurementStep1Fragment extends Fragment {
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
         dateTimeNow = v.findViewById(R.id.dateTimeNow);
 
-        //set the date and time
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date customDate = new Date();
-        dateTimeNow.setText("Datum van vandaag: " + " " + simpleDateFormat.format(customDate));
+        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity.setDateOfToday(dateTimeNow);
 
         nextButton.setOnClickListener(v -> {
             Fragment step2 = new MeasurementStep2Fragment();
@@ -83,7 +78,12 @@ public class MeasurementStep1Fragment extends Fragment {
 
         cancelButton.setOnClickListener(v -> {
 
-            getFragmentManager().popBackStack();
+            HomeFragment fg = new HomeFragment();
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content, fg)
+                    .addToBackStack(String.valueOf(fg.getId()))
+                    .commit();
             getActivity().setTitle("Meting");
 
         });

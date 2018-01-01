@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -30,6 +30,9 @@ public class MeasurementStep2Fragment extends Fragment {
     private Button nextButton;
     private List<String> selectedIssues;
     private EditText otherNamelyInput;
+    private ListView checkboxList;
+    private TextView otherNamelyLbl, noIssues, date;
+    private RadioGroup measurementRadioGroup;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -42,11 +45,11 @@ public class MeasurementStep2Fragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
+
         MainActivity activity = (MainActivity) getActivity();
 
-        (getActivity()).setTitle("Meting stap 2 van 3");
 
-        selectedIssues = new ArrayList<>();
+        (getActivity()).setTitle("Meting stap 2 van 3");
 
 
         CheckboxAdapter measurementCheckboxAdapter;
@@ -55,13 +58,25 @@ public class MeasurementStep2Fragment extends Fragment {
         listView.setAdapter(measurementCheckboxAdapter);
 
 
+
         cancelButton = v.findViewById(R.id.cancel_measurement2_button);
         nextButton = v.findViewById(R.id.to_measurement_step3_button);
         otherNamelyInput = v.findViewById(R.id.otherNamelyInput);
+        otherNamelyLbl = v.findViewById(R.id.otherNamely);
+        checkboxList = v.findViewById(R.id.checkboxList);
+        noIssues = v.findViewById(R.id.noIssues);
+        measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
+        measurementRadioGroup.check(R.id.yesNamelyRadio);
+        date = v.findViewById(R.id.dateTimeNow);
+        activity.setDateOfToday(date);
+
+
+
 
         if (container != null) {
             container.removeAllViews();
         }
+
 
         nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -85,27 +100,32 @@ public class MeasurementStep2Fragment extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                getActivity().onBackPressed();
+                getFragmentManager().popBackStack();
+            }
+        });
+
+        measurementRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch(checkedId) {
+                    case R.id.noneRadio:
+
+                        checkboxList.setVisibility(View.GONE);
+                        noIssues.setVisibility(View.VISIBLE);
+
+                        break;
+
+                    case R.id.yesNamelyRadio:
+
+                        checkboxList.setVisibility(View.VISIBLE);
+                        noIssues.setVisibility(View.GONE);
+                        break;
+                }
             }
         });
 
         return v;
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.noneRadio:
-                if (checked)
-                    //None selected
-                    break;
-            case R.id.yesNamelyRadio:
-                if (checked)
-                    // Yes namely selected
-                    break;
-        }
-    }
 }

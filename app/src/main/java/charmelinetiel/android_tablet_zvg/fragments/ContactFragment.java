@@ -32,7 +32,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private APIService apiService;
     private Message messageObj;
     private Button sendBtn, backBtn;
-    private EditText message,subject;
+    private EditText message,subject, consulent;
     private FormErrorHandling validateForm;
     public ContactFragment() {
         // Required empty public constructor
@@ -56,6 +56,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
 
         message = view.findViewById(R.id.message);
         subject = view.findViewById(R.id.subject);
+        consulent = view.findViewById(R.id.email);
 
         validateForm = new FormErrorHandling();
 

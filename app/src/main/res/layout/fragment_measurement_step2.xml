@@ -1,6 +1,5 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/measurementStep2"
@@ -8,41 +7,46 @@
     android:paddingRight="20dp">
 
     <TextView
-        android:id="@+id/dateText"
+        android:id="@+id/IssuesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/input_padding"
+        android:textSize="@dimen/biggerText"
+        android:text="Heeft u regelmatig last van een of meer van de volgende gezondheidsklachten? "
         />
 
     <TextView
-        android:id="@+id/fillInText"
+        android:id="@+id/dateTimeNow"
+        android:layout_below="@+id/IssuesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dateText"
-        android:textStyle="bold"
-        android:text="@string/fillInText2"
+        android:layout_marginBottom="@dimen/margin"
         />
 
     <RadioGroup
         android:id="@+id/measurementRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fillInText"
+        android:layout_below="@id/dateTimeNow"
         android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/noneRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fillInText"
-            android:text="@string/none"/>
 
         <RadioButton
             android:id="@+id/yesNamelyRadio"
+            android:buttonTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fillInText"
             android:layout_toRightOf="@id/noneRadio"
             android:text="@string/yesNamely"/>
+
+        <RadioButton
+            android:id="@+id/noneRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fillInText"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/none"/>
     </RadioGroup>
 
     <ListView
@@ -50,29 +54,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/measurementRadioGroup">
-
     </ListView>
 
     <TextView
         android:id="@+id/otherNamely"
+        android:layout_marginTop="@dimen/input_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="@string/otherNamely"
         android:layout_below="@id/checkboxList"/>
 
     <EditText
         android:id="@+id/otherNamelyInput"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/lighterGrey"
         android:layout_below="@id/otherNamely"/>
 
+    <TextView
+        android:id="@+id/noIssues"
+        android:visibility="gone"
+        android:layout_below="@+id/otherNamelyInput"
+        android:layout_marginTop="@dimen/input_padding"
+        android:layout_marginBottom="@dimen/input_padding"
+        android:layout_marginLeft="@dimen/input_padding"
+        android:text="Geen bijzondere klachten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/cancel_measurement2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/onderdruk_image"
-        android:layout_below="@+id/otherNamelyInput"
+        android:layout_below="@+id/noIssues"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:width="@dimen/buttonM"

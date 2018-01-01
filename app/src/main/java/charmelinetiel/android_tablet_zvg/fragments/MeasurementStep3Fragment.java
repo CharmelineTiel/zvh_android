@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
@@ -22,6 +23,7 @@ public class MeasurementStep3Fragment extends Fragment {
     private Button cancelButton;
     private Button completeButton;
     private EditText extraRemarksInput;
+    private TextView date;
 
     public MeasurementStep3Fragment(){
         // Required empty public constructor
@@ -31,6 +33,8 @@ public class MeasurementStep3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        MainActivity activity = (MainActivity) getActivity();
+
         v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
 
         (getActivity()).setTitle("Meting stap 3 van 3");
@@ -38,6 +42,8 @@ public class MeasurementStep3Fragment extends Fragment {
         cancelButton = v.findViewById(R.id.cancel_measurement3_button);
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
+        date = v.findViewById(R.id.dateTimeNow);
+        activity.setDateOfToday(date);
 
         if (container != null) {
             container.removeAllViews();
@@ -45,11 +51,9 @@ public class MeasurementStep3Fragment extends Fragment {
 
         completeButton.setOnClickListener(v -> {
 
-        MainActivity activity = (MainActivity) getActivity();
+
         Measurement measurement = activity.getMeasurement();
-
         measurement.setComment(extraRemarksInput.getText().toString());
-
         activity.postMeasurement();
 
                 MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
@@ -61,7 +65,7 @@ public class MeasurementStep3Fragment extends Fragment {
 
         });
 
-        cancelButton.setOnClickListener(v -> getActivity().onBackPressed());
+        cancelButton.setOnClickListener(v ->   getFragmentManager().popBackStack());
 
         return v;
 

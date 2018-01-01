@@ -4,7 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/measurementStep3"
@@ -12,34 +11,28 @@
     android:paddingRight="20dp">
 
     <TextView
-        android:id="@+id/fillInText"
+        android:id="@+id/IssuesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
         android:textStyle="bold"
-        android:text="3. Noteer eventuele veranderingen in uw gezondheid"
+        android:layout_marginTop="@dimen/input_padding"
+        android:textSize="@dimen/biggerText"
+        android:text="Noteer eventuele veranderingen in uw gezondheid (optioneel)"
         />
-
     <TextView
-        android:id="@+id/dateText"
+        android:id="@+id/dateTimeNow"
+        android:layout_below="@+id/IssuesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         />
-
-    <TextView
-        android:id="@+id/extraRemarks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/extraRemarks"
-        android:layout_below="@id/dateText"/>
 
     <EditText
         android:id="@+id/extraRemarksInput"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/lighterGrey"
-        android:layout_below="@id/extraRemarks"/>
+        android:layout_below="@id/dateTimeNow"/>
 
     <Button
         android:id="@+id/cancel_measurement3_button"
