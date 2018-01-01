@@ -48,7 +48,7 @@ public class MeasurementStep3Fragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         Measurement measurement = activity.getMeasurement();
 
-        measurement.setHealthIssueOther(extraRemarksInput.getText().toString());
+        measurement.setComment(extraRemarksInput.getText().toString());
 
         activity.postMeasurement();
 

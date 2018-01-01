@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
@@ -28,6 +29,7 @@ public class MeasurementStep2Fragment extends Fragment {
     private Button cancelButton;
     private Button nextButton;
     private List<String> selectedIssues;
+    private EditText otherNamelyInput;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -48,13 +50,14 @@ public class MeasurementStep2Fragment extends Fragment {
 
 
         CheckboxAdapter measurementCheckboxAdapter;
-        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssuesIds());
+        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
         final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
 
         cancelButton = v.findViewById(R.id.cancel_measurement2_button);
         nextButton = v.findViewById(R.id.to_measurement_step3_button);
+        otherNamelyInput = v.findViewById(R.id.otherNamelyInput);
 
         if (container != null) {
             container.removeAllViews();
@@ -67,7 +70,8 @@ public class MeasurementStep2Fragment extends Fragment {
                 MainActivity activity = (MainActivity) getActivity();
                 Measurement measurement = activity.getMeasurement();
 
-                measurement.setHealthIssuesIds(measurementCheckboxAdapter.getSelectedIssues());
+                measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
+                measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
 
                 MeasurementStep3Fragment step3 = new MeasurementStep3Fragment();
 

@@ -1,3 +1,4 @@
+
 package charmelinetiel.android_tablet_zvg.models; ;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public class Measurement implements Parcelable
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("healthIssuesIds")
+    @SerializedName("healthIssueIds")
     @Expose
-    private List<String> healthIssuesIds = null;
+    private List<String> healthIssueIds = null;
     @SerializedName("bloodPressureLower")
     @Expose
     private Integer bloodPressureLower;
@@ -25,6 +26,9 @@ public class Measurement implements Parcelable
     @SerializedName("healthIssueOther")
     @Expose
     private String healthIssueOther;
+    @SerializedName("comment")
+    @Expose
+    private String comment;
     @SerializedName("userId")
     @Expose
     private String userId;
@@ -53,10 +57,11 @@ public class Measurement implements Parcelable
 
     protected Measurement(Parcel in) {
         this.id = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.healthIssuesIds, (java.lang.String.class.getClassLoader()));
+        in.readList(this.healthIssueIds, (java.lang.String.class.getClassLoader()));
         this.bloodPressureLower = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.bloodPressureUpper = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.healthIssueOther = ((String) in.readValue((String.class.getClassLoader())));
+        this.comment = ((String) in.readValue((String.class.getClassLoader())));
         this.userId = ((String) in.readValue((String.class.getClassLoader())));
         this.measurementDateTime = ((String) in.readValue((String.class.getClassLoader())));
         this.measurementDateFormatted = ((String) in.readValue((String.class.getClassLoader())));
@@ -73,20 +78,22 @@ public class Measurement implements Parcelable
      *
      * @param bloodPressureUpper
      * @param id
-     * @param healthIssuesIds
      * @param measurementDateFormatted
+     * @param healthIssueIds
      * @param measurementDateTime
      * @param userId
      * @param bloodPressureLower
      * @param healthIssueOther
+     * @param comment
      */
-    public Measurement(String id, List<String> healthIssuesIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String userId, String measurementDateTime, String measurementDateFormatted) {
+    public Measurement(String id, List<String> healthIssueIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String comment, String userId, String measurementDateTime, String measurementDateFormatted) {
         super();
         this.id = id;
-        this.healthIssuesIds = healthIssuesIds;
+        this.healthIssueIds = healthIssueIds;
         this.bloodPressureLower = bloodPressureLower;
         this.bloodPressureUpper = bloodPressureUpper;
         this.healthIssueOther = healthIssueOther;
+        this.comment = comment;
         this.userId = userId;
         this.measurementDateTime = measurementDateTime;
         this.measurementDateFormatted = measurementDateFormatted;
@@ -100,12 +107,12 @@ public class Measurement implements Parcelable
         this.id = id;
     }
 
-    public List<String> getHealthIssuesIds() {
-        return healthIssuesIds;
+    public List<String> getHealthIssueIds() {
+        return healthIssueIds;
     }
 
-    public void setHealthIssuesIds(List<String> healthIssuesIds) {
-        this.healthIssuesIds = healthIssuesIds;
+    public void setHealthIssueIds(List<String> healthIssueIds) {
+        this.healthIssueIds = healthIssueIds;
     }
 
     public Integer getBloodPressureLower() {
@@ -130,6 +137,14 @@ public class Measurement implements Parcelable
 
     public void setHealthIssueOther(String healthIssueOther) {
         this.healthIssueOther = healthIssueOther;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getUserId() {
@@ -158,10 +173,11 @@ public class Measurement implements Parcelable
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
-        dest.writeList(healthIssuesIds);
+        dest.writeList(healthIssueIds);
         dest.writeValue(bloodPressureLower);
         dest.writeValue(bloodPressureUpper);
         dest.writeValue(healthIssueOther);
+        dest.writeValue(comment);
         dest.writeValue(userId);
         dest.writeValue(measurementDateTime);
         dest.writeValue(measurementDateFormatted);
