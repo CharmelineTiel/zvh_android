@@ -52,9 +52,12 @@ public class MeasurementStep1Fragment extends Fragment {
         upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
 
-        upperBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureUpper());
-        lowerBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureLower());
+        try {
+            upperBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureUpper().toString());
+            lowerBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureLower().toString());
+        }catch (Exception e){
 
+        }
         dateTimeNow = v.findViewById(R.id.dateTimeNow);
 
         MainActivity mainActivity = (MainActivity)getActivity();
