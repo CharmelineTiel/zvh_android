@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.Message;
@@ -32,7 +33,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private APIService apiService;
     private Message messageObj;
     private Button sendBtn, backBtn;
-    private EditText message,subject, consulent;
+    private EditText message,subject, consultantEmail, consultantName;
     private FormErrorHandling validateForm;
     public ContactFragment() {
         // Required empty public constructor
@@ -56,7 +57,13 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
 
         message = view.findViewById(R.id.message);
         subject = view.findViewById(R.id.subject);
-        consulent = view.findViewById(R.id.email);
+        consultantEmail = view.findViewById(R.id.consultantEmail);
+        consultantName = view.findViewById(R.id.consultantName);
+
+        MainActivity mainActivity = (MainActivity)getActivity();
+        consultantEmail.setText(mainActivity.getUser().getConsultant().getEmailAddress());
+        consultantName.setText(mainActivity.getUser().getConsultant().getFirstname()
+                                + " " + mainActivity.getUser().getConsultant().getLastname());
 
         validateForm = new FormErrorHandling();
 
