@@ -22,6 +22,7 @@ public class MeasurementStep3Fragment extends Fragment {
     private Button cancelButton;
     private Button completeButton;
     private EditText extraRemarksInput;
+    private MainActivity mainActivity;
 
     public MeasurementStep3Fragment(){
         // Required empty public constructor
@@ -39,18 +40,20 @@ public class MeasurementStep3Fragment extends Fragment {
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
 
+        extraRemarksInput.setText(mainActivity.getMeasurement().getComment());
+
         if (container != null) {
             container.removeAllViews();
         }
 
         completeButton.setOnClickListener(v -> {
 
-        MainActivity activity = (MainActivity) getActivity();
-        Measurement measurement = activity.getMeasurement();
+        mainActivity = (MainActivity) getActivity();
+        Measurement measurement = mainActivity.getMeasurement();
 
         measurement.setComment(extraRemarksInput.getText().toString());
 
-        activity.postMeasurement();
+            mainActivity.postMeasurement();
 
                 MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
