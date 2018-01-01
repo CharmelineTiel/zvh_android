@@ -48,7 +48,7 @@ public class MeasurementStep2Fragment extends Fragment {
 
 
         CheckboxAdapter measurementCheckboxAdapter;
-        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
+        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssuesIds());
         final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
@@ -67,7 +67,7 @@ public class MeasurementStep2Fragment extends Fragment {
                 MainActivity activity = (MainActivity) getActivity();
                 Measurement measurement = activity.getMeasurement();
 
-                measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
+                measurement.setHealthIssuesIds(measurementCheckboxAdapter.getSelectedIssues());
 
                 MeasurementStep3Fragment step3 = new MeasurementStep3Fragment();
 

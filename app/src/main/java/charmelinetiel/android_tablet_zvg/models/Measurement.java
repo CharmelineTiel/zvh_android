@@ -1,41 +1,40 @@
-package charmelinetiel.android_tablet_zvg.models;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+package charmelinetiel.android_tablet_zvg.models; ;
 
 import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Measurement implements Parcelable
 {
 
     @SerializedName("_id")
     @Expose
-    private String _id;
-    @SerializedName("userId")
+    private String id;
+    @SerializedName("healthIssuesIds")
     @Expose
-    private String userId;
-    @SerializedName("bloodPressureUpper")
-    @Expose
-    private Integer bloodPressureUpper;
+    private List<String> healthIssuesIds = null;
     @SerializedName("bloodPressureLower")
     @Expose
     private Integer bloodPressureLower;
-    @SerializedName("healthIssueIds")
+    @SerializedName("bloodPressureUpper")
     @Expose
-    private List<String> healthIssueIds = null;
+    private Integer bloodPressureUpper;
     @SerializedName("healthIssueOther")
     @Expose
     private String healthIssueOther;
-    @SerializedName("comment")
+    @SerializedName("userId")
     @Expose
-    private String comment;
+    private String userId;
     @SerializedName("measurementDateTime")
     @Expose
     private String measurementDateTime;
-    public final static Creator<Measurement> CREATOR = new Creator<Measurement>() {
+    @SerializedName("measurementDateFormatted")
+    @Expose
+    private String measurementDateFormatted;
+    public final static Parcelable.Creator<Measurement> CREATOR = new Creator<Measurement>() {
 
 
         @SuppressWarnings({
@@ -53,41 +52,60 @@ public class Measurement implements Parcelable
             ;
 
     protected Measurement(Parcel in) {
-        this._id = ((String) in.readValue((String.class.getClassLoader())));
-        this.userId = ((String) in.readValue((String.class.getClassLoader())));
-        this.bloodPressureUpper = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.id = ((String) in.readValue((String.class.getClassLoader())));
+        in.readList(this.healthIssuesIds, (java.lang.String.class.getClassLoader()));
         this.bloodPressureLower = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        in.readList(this.healthIssueIds, (String.class.getClassLoader()));
+        this.bloodPressureUpper = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.healthIssueOther = ((String) in.readValue((String.class.getClassLoader())));
-        this.comment = ((String) in.readValue((String.class.getClassLoader())));
+        this.userId = ((String) in.readValue((String.class.getClassLoader())));
         this.measurementDateTime = ((String) in.readValue((String.class.getClassLoader())));
+        this.measurementDateFormatted = ((String) in.readValue((String.class.getClassLoader())));
     }
 
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public Measurement() {
     }
 
-    public String getMeasurementId() {
-        return _id;
-    }
-
-    public void setMeasurementId(String _id) {
-        this._id = _id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public Integer getBloodPressureUpper() {
-        return bloodPressureUpper;
-    }
-
-    public void setBloodPressureUpper(Integer bloodPressureUpper) {
+    /**
+     *
+     * @param bloodPressureUpper
+     * @param id
+     * @param healthIssuesIds
+     * @param measurementDateFormatted
+     * @param measurementDateTime
+     * @param userId
+     * @param bloodPressureLower
+     * @param healthIssueOther
+     */
+    public Measurement(String id, List<String> healthIssuesIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String userId, String measurementDateTime, String measurementDateFormatted) {
+        super();
+        this.id = id;
+        this.healthIssuesIds = healthIssuesIds;
+        this.bloodPressureLower = bloodPressureLower;
         this.bloodPressureUpper = bloodPressureUpper;
+        this.healthIssueOther = healthIssueOther;
+        this.userId = userId;
+        this.measurementDateTime = measurementDateTime;
+        this.measurementDateFormatted = measurementDateFormatted;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<String> getHealthIssuesIds() {
+        return healthIssuesIds;
+    }
+
+    public void setHealthIssuesIds(List<String> healthIssuesIds) {
+        this.healthIssuesIds = healthIssuesIds;
     }
 
     public Integer getBloodPressureLower() {
@@ -98,12 +116,12 @@ public class Measurement implements Parcelable
         this.bloodPressureLower = bloodPressureLower;
     }
 
-    public List<String> getHealthIssueIds() {
-        return healthIssueIds;
+    public Integer getBloodPressureUpper() {
+        return bloodPressureUpper;
     }
 
-    public void setHealthIssueIds(List<String> healthIssueIds) {
-        this.healthIssueIds = healthIssueIds;
+    public void setBloodPressureUpper(Integer bloodPressureUpper) {
+        this.bloodPressureUpper = bloodPressureUpper;
     }
 
     public String getHealthIssueOther() {
@@ -114,12 +132,12 @@ public class Measurement implements Parcelable
         this.healthIssueOther = healthIssueOther;
     }
 
-    public String getComment() {
-        return comment;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getMeasurementDateTime() {
@@ -130,15 +148,23 @@ public class Measurement implements Parcelable
         this.measurementDateTime = measurementDateTime;
     }
 
+    public String getMeasurementDateFormatted() {
+        return measurementDateFormatted;
+    }
+
+    public void setMeasurementDateFormatted(String measurementDateFormatted) {
+        this.measurementDateFormatted = measurementDateFormatted;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(_id);
-        dest.writeValue(userId);
-        dest.writeValue(bloodPressureUpper);
+        dest.writeValue(id);
+        dest.writeList(healthIssuesIds);
         dest.writeValue(bloodPressureLower);
-        dest.writeList(healthIssueIds);
+        dest.writeValue(bloodPressureUpper);
         dest.writeValue(healthIssueOther);
-        dest.writeValue(comment);
+        dest.writeValue(userId);
         dest.writeValue(measurementDateTime);
+        dest.writeValue(measurementDateFormatted);
     }
 
     public int describeContents() {

@@ -59,7 +59,7 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
         TextView feedback = v.findViewById(R.id.feedbackLbl);
         RelativeLayout layout = v.findViewById(R.id.measurement_list_item);
 
-        date.setText(m.getMeasurementDateTime());
+        date.setText(m.getMeasurementDateFormatted());
         bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper() + ", " + "Onderdruk: " + m.getBloodPressureLower());
 
         if (m.getBloodPressureLower() <= 80 && m.getBloodPressureUpper()

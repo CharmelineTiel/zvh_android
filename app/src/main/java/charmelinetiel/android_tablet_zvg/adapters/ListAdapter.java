@@ -79,7 +79,7 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.title.setText(m.getMeasurementDateTime());
+        viewHolder.title.setText(m.getMeasurementDateFormatted());
         viewHolder.bloodPressure.setText("Bovendruk:" + m.getBloodPressureUpper().toString() + "," + " " +
                 "Onderdruk:" +
                 m.getBloodPressureLower().toString());

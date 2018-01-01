@@ -103,9 +103,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         customizeNav();
         bottomNavigationView.setSelectedItemId(R.id.measurement);
 
-
-//        measurements = new ArrayList<>();
-
         apiService.getMeasurements(AuthToken.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
@@ -123,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
             }
         });
-
     }
 
 
