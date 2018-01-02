@@ -11,11 +11,13 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.CheckboxAdapter;
+import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 
@@ -34,6 +36,8 @@ public class MeasurementStep2Fragment extends Fragment {
     private TextView otherNamelyLbl, noIssues, date;
     private RadioGroup measurementRadioGroup;
     private MainActivity mainActivity;
+    private CheckboxAdapter measurementCheckboxAdapter;
+
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -54,13 +58,11 @@ public class MeasurementStep2Fragment extends Fragment {
             mainActivity.setTitle("Meting stap 2 van 3");
         }
 
-        CheckboxAdapter measurementCheckboxAdapter;
-
-        measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
-                R.layout.checkbox_listview_item, mainActivity.getHealthIssues(),
-                mainActivity.getMeasurement().getHealthIssueIds());
-
-        measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), mainActivity.getMeasurement().getHealthIssueIds());
+        if(mainActivity.getMeasurement() != null){
+            measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), mainActivity.getMeasurement().getHealthIssueIds());
+        }else{
+            measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
+        }
         final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 

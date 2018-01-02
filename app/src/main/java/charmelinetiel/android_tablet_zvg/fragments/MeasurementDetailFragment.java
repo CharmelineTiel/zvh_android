@@ -63,7 +63,9 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
                 break;
             case R.id.editBtn:
 
+                //Set the measurement in the mainactivity so the values can be set
                 mainActivity.setMeasurement(m);
+                mainActivity.setEditingMeasurement(true);
                 mainActivity.openFragment(new MeasurementStep1Fragment());
 
                 break;

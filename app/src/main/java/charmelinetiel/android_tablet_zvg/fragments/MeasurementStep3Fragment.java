@@ -63,7 +63,6 @@ public class MeasurementStep3Fragment extends Fragment {
         Measurement measurement = mainActivity.getMeasurement();
         measurement.setComment(extraRemarksInput.getText().toString());
 
-        mainActivity.postMeasurement();
         mainActivity.openFragment(new MeasurementSavedFragment());
             if(mainActivity.isEditingMeasurement()){
                 mainActivity.putMeasurement();
