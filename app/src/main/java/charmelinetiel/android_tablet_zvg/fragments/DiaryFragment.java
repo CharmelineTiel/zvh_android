@@ -70,8 +70,14 @@ public class DiaryFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
 
-
         mainActivity = (MainActivity) getActivity();
+
+        measurements = new ArrayList<>();
+
+        if (mainActivity.getMeasurements() != null) {
+            measurements.addAll(mainActivity.getMeasurements());
+        }
+        ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
 
         adapter = new ListAdapter(getContext(),this, measurements);
 

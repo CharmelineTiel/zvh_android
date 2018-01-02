@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             User loggedInUser = response.body();
 
             loggedInUser.setAuthToken(response.body().getAuthToken());
-            Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("user", loggedInUser);
             startActivity(intent);
 
