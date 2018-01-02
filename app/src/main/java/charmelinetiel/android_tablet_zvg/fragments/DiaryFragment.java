@@ -66,43 +66,11 @@ public class DiaryFragment extends Fragment {
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
         mainActivity = (MainActivity) getActivity();
 
-        mainActivity = (MainActivity) getActivity();
-
-
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         measurements = new ArrayList<>();
 
-        if (getMeasurements() != null) {
-            measurements.addAll(getMeasurements());
-        }
-       adapter = new ListAdapter(getContext(),this, measurements);
-
-        adapter = new ListAdapter(getContext(),this, measurements);
-
-        if(measurements == null){
-            measurements = new ArrayList<>();
-        }
-
-        // Show/Hide elements in the fragment based on if there are measurements
-        if (measurements.size() == 0){
-
-            mListView.setVisibility(View.GONE);
-            chart.setVisibility(View.GONE);
-            insertMeasurementText.setVisibility(View.VISIBLE);
-            goToMeasurementBtn.setVisibility(View.VISIBLE);
-
-        }else{
-
-            mListView.setVisibility(View.VISIBLE);
-            chart.setVisibility(View.VISIBLE);
-            insertMeasurementText.setVisibility(View.GONE);
-            goToMeasurementBtn.setVisibility(View.GONE);
-        }
-
-        measurements = new ArrayList<>();
-        
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
