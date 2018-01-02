@@ -5,7 +5,7 @@
         android:title="Mijn instellingen">
 
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="dailyReminders"
             android:summary="Dagelijkse herinnering voor uw metingen"
             android:title="Dagelijkse herinnering" />

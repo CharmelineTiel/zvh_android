@@ -1,15 +1,27 @@
 package charmelinetiel.android_tablet_zvg.fragments;
 
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.models.AlarmReceiver;
+
+import static android.content.Context.ALARM_SERVICE;
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
@@ -18,6 +30,10 @@ import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
 public class ServiceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
+    private NotificationManager mNotificationManager;
+    private static final int NOTIFICATION_ID = 0;
+    private Preference logout, dailyReminder, sendWeekly;
+    private MainActivity mainActivity;
     public ServiceFragment() {
         // Required empty public constructor
     }
@@ -27,8 +43,24 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
 
         addPreferencesFromResource(R.xml.app_preferences);
 
+        mainActivity = (MainActivity) getActivity();
 
-        Preference logout = findPreference("logout");
+        logout = findPreference("logout");
+        dailyReminder= findPreference("dailyReminders");
+
+        //initialize notificationManager and alarmManager
+        mNotificationManager = (NotificationManager) (getActivity()).getSystemService(NOTIFICATION_SERVICE);
+        final AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+
+        //Set up the Notification Broadcast Intent
+        Intent notifyIntent = new Intent(getActivity(), AlarmReceiver.class);
+
+        //Set up the PendingIntent for the AlarmManager
+        final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
+                (getActivity(), NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+
         logout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -36,7 +68,52 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                 Intent myIntent = new Intent(getActivity(), LoginActivity.class);
                 getActivity().startActivity(myIntent);
                 getActivity().finish();
+                mainActivity.setUser(null);
+
                 return true;
+            }
+        });
+
+        dailyReminder.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+                String toastMessage;
+                boolean isReminderOn = (Boolean) newValue;
+                if (isReminderOn) {
+
+
+                    Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(400);
+
+                    long triggerTime = SystemClock.elapsedRealtime()
+                            + AlarmManager.INTERVAL_FIFTEEN_MINUTES / 14;
+
+                    //TODO change to daily, it is set to 1 minute for testing purposes
+                    long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 14;
+
+                    //If the Toggle is turned on, set the repeating reminder with a 15 minute interval
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            triggerTime, repeatInterval, notifyPendingIntent);
+
+                    //Set the toast message for the "on" case
+                    toastMessage = "Dagelijkse herinnering aan";
+                } else {
+                    //Cancel the notification if the reminder is turned off
+                    alarmManager.cancel(notifyPendingIntent);
+                    mNotificationManager.cancelAll();
+
+                    //Set the toast message for the "off" case
+                    toastMessage = "Dagelijkse herinnering uit";
+                }
+
+                Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT)
+                        .show();
+
+
+                return true;
+
             }
         });
 

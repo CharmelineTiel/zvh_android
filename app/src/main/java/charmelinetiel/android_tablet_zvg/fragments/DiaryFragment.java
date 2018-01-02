@@ -57,8 +57,10 @@ public class DiaryFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
 
         measurements = new ArrayList<>();
-        measurements.addAll(mainActivity.getMeasurements());
 
+        if (mainActivity.getMeasurements() != null) {
+            measurements.addAll(mainActivity.getMeasurements());
+        }
         ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
 
         mListView.setAdapter(adapter);

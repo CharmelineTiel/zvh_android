@@ -1,5 +1,9 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +11,7 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -16,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,67 +50,36 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private List<HealthIssue> healthIssues;
     private List<Measurement> measurements;
     private User user;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.measurement:
-
-                    setTitle("Meting");
-                    fg = new HomeFragment();
-                    setFragment(fg);
-                    return true;
-                case R.id.diary:
-                    setTitle("Mijn Dagboek");
-                    fg = new DiaryFragment();
-                    setFragment(fg);
-                    return true;
-
-                case R.id.contact:
-                    setTitle("Contact");
-                    fg = new ContactFragment();
-                    setFragment(fg);
-                    return true;
-
-                case R.id.settings:
-                    setTitle("Service");
-                    fg = new ServiceFragment();
-                    setFragment(fg);
-                    return true;
-            }
-            return false;
-        }
-    };
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         measurement = new Measurement();
         setTitle("Meting");
         Intent intent = getIntent();
         setUser(intent.getParcelableExtra("user"));
+        setContentView(R.layout.activity_main);
 
 
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
-        apiService.getAllHealthIssues(getUser().getAuthToken()).enqueue(this);
 
+        if (getUser().getAuthToken() != null) {
+            apiService.getAllHealthIssues(getUser().getAuthToken()).enqueue(this);
+        }else{
 
-        setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
-        customizeNav();
-        bottomNavigationView.setSelectedItemId(R.id.measurement);
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
 
+            loadMeasurements();
+        }
 
-        loadMeasurements();
+        initBottomNav();
+
     }
+
 
 
     @Override
@@ -120,9 +95,45 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     fgTransition.addToBackStack("backHome");
     fgTransition.commit();
 }
-    public void customizeNav()
+    public void initBottomNav()
     {
+
+        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.measurement:
+
+                        setTitle("Meting");
+                        fg = new HomeFragment();
+                        setFragment(fg);
+                        return true;
+                    case R.id.diary:
+                        setTitle("Mijn Dagboek");
+                        fg = new DiaryFragment();
+                        setFragment(fg);
+                        return true;
+
+                    case R.id.contact:
+                        setTitle("Contact");
+                        fg = new ContactFragment();
+                        setFragment(fg);
+                        return true;
+
+                    case R.id.settings:
+                        setTitle("Service");
+                        fg = new ServiceFragment();
+                        setFragment(fg);
+                        return true;
+                }
+                return false;
+            }
+        };
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
@@ -134,6 +145,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, displayMetrics);
             iconView.setLayoutParams(layoutParams);
         }
+
+        bottomNavigationView.setSelectedItemId(R.id.measurement);
+
     }
 
     public void loadMeasurements()
@@ -213,4 +227,45 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         textView.setText("Datum van vandaag: " + " " + simpleDateFormat.format(customDate));
 
     }
+
+    public void sendNotification(View view) {
+
+        //Get an instance of NotificationManager//
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this, "Reminder")
+                        .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                        .setContentTitle("Meting herinnering")
+                        .setContentText("Het is weer tijd voor uw meting!");
+
+
+        //Create the intent that’ll fire when the user taps the notification//
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Calendar timeToAlert = Calendar.getInstance();
+        Calendar currentTimeCal = Calendar.getInstance();
+
+        timeToAlert.set(Calendar.HOUR, 2);
+        timeToAlert.set(Calendar.MINUTE, 35);
+        timeToAlert.set(Calendar.SECOND, 0);
+
+        long alertTime = timeToAlert.getTimeInMillis();
+        long currentTime = currentTimeCal.getTimeInMillis();
+
+        if (alertTime >= currentTime){
+
+            alarmManager.setRepeating(AlarmManager.RTC, alertTime, AlarmManager.INTERVAL_DAY, pendingIntent);
+        }else{
+
+            timeToAlert.add(Calendar.DAY_OF_MONTH, 1);
+            alertTime = timeToAlert.getTimeInMillis();
+            alarmManager.setRepeating(AlarmManager.RTC, alertTime, AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+        mBuilder.setContentIntent(pendingIntent);
+        // Gets an instance of the NotificationManager service
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+
 }
