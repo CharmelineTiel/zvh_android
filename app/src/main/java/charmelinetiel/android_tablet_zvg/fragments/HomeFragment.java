@@ -14,6 +14,7 @@ import java.util.Date;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.models.User;
 
 
@@ -97,6 +98,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.metingBtn:
 
+                mainActivity.setEditingMeasurement(false);
+                mainActivity.setMeasurement(new Measurement());
                 mainActivity.openFragment(new MeasurementStep1Fragment());
                 break;
 

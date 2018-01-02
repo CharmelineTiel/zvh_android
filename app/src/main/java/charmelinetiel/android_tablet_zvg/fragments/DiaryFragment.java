@@ -105,6 +105,8 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View v){
 
+                mainActivity.setEditingMeasurement(false);
+                mainActivity.setMeasurement(new Measurement());
                 mainActivity.openFragment(new MeasurementStep1Fragment());
 
             }
