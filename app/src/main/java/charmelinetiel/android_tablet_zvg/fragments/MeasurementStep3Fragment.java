@@ -40,6 +40,12 @@ public class MeasurementStep3Fragment extends Fragment {
 
         mainActivity.setTitle("Meting stap 3 van 3");
 
+        if(mainActivity.isEditingMeasurement()){
+            mainActivity.setTitle("Meting bewerken stap 3 van 3");
+        }else{
+            mainActivity.setTitle("Meting stap 3 van 3");
+        }
+
         cancelButton = v.findViewById(R.id.cancel_measurement3_button);
         completeButton = v.findViewById(R.id.complete_measurement_button);
         extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
@@ -59,10 +65,20 @@ public class MeasurementStep3Fragment extends Fragment {
 
         mainActivity.postMeasurement();
         mainActivity.openFragment(new MeasurementSavedFragment());
+            if(mainActivity.isEditingMeasurement()){
+                mainActivity.putMeasurement();
+            }else{
+                mainActivity.postMeasurement();
+            }
+        MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, measurementSaved)
+                .addToBackStack(null)
+                .commit();
         });
 
-        cancelButton.setOnClickListener(v ->   getFragmentManager().popBackStack());
+        cancelButton.setOnClickListener(v -> getFragmentManager().popBackStack());
 
         return v;
     }

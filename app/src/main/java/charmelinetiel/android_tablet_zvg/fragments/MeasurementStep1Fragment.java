@@ -37,6 +37,13 @@ public class MeasurementStep1Fragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
         mainActivity.setTitle("Meting stap 1 van 3");
 
+
+        if(mainActivity.isEditingMeasurement()){
+            mainActivity.setTitle("Meting bewerken stap 1 van 3");
+        }else{
+            mainActivity.setTitle("Meting stap 1 van 3");
+        }
+
         v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
 
 

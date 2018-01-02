@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private Measurement measurement;
     private APIService apiService;
     private List<HealthIssue> healthIssues;
-    private List<Measurement> measurements;
     private User user;
+
+    private boolean isEditingMeasurement;
 
 
     @Override
@@ -67,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
-
-            loadMeasurements();
         }
 
         initBottomNav();
@@ -141,27 +140,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     }
 
-    public void loadMeasurements()
-    {
-        apiService.getMeasurements(user.getAuthToken()).enqueue(new Callback<List<Measurement>>() {
-            @Override
-            public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
-                if(response.isSuccessful() && response.body() != null){
-                    try{
-                        measurements = response.body();
-                    }catch (Exception e){
-                    }
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Measurement>> call, Throwable t) {
-
-            }
-        });
-
-    }
     public Measurement getMeasurement() {
         return measurement;
     }
@@ -193,6 +172,21 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         }
     }
 
+    public void putMeasurement(){
+        apiService.putMeasurement(measurement, getUser().getAuthToken()).enqueue(new Callback<Measurement>() {
+            @Override
+            public void onResponse(Call<Measurement> call, Response<Measurement> response) {
+                String a = "a";
+            }
+
+            @Override
+            public void onFailure(Call<Measurement> call, Throwable t) {
+                String a = "b";
+            }
+        });
+    }
+
+
     @Override
     public void onFailure(Call call, Throwable t) {
 
@@ -206,11 +200,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         this.user = user;
     }
 
-    public List<Measurement> getMeasurements() {
-        return measurements;
-    }
-
-
     public void setDateOfToday(TextView textView){
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -219,5 +208,12 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     }
 
+    public boolean isEditingMeasurement() {
+        return isEditingMeasurement;
+    }
+
+    public void setEditingMeasurement(boolean editingMeasurement) {
+        isEditingMeasurement = editingMeasurement;
+    }
 
 }

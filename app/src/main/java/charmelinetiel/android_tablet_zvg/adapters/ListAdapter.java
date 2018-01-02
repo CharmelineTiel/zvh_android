@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
@@ -24,7 +25,7 @@ public class ListAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private Fragment fg;
     private Context context;
-    private ArrayList<Measurement> data;
+    private List<Measurement> data;
 
     private static class ViewHolder {
         TextView title;
@@ -34,7 +35,7 @@ public class ListAdapter extends BaseAdapter {
         RelativeLayout layout;
     }
 
-    public ListAdapter(Context context, Fragment fg, ArrayList<Measurement> data) {
+    public ListAdapter(Context context, Fragment fg, List<Measurement> data) {
         this.fg = fg;
         this.data = data;
         this.inflater = fg.getLayoutInflater();
@@ -43,7 +44,15 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data.size();
+        if(data != null){
+            return data.size();
+        }else{
+            return 0;
+        }
+    }
+
+    public void setData(List<Measurement> data){
+        this.data = data;
     }
 
     @Override

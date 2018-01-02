@@ -23,7 +23,14 @@ import java.util.List;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.ListAdapter;
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
+import charmelinetiel.android_tablet_zvg.webservices.APIService;
+import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 /**
@@ -36,8 +43,11 @@ public class DiaryFragment extends Fragment {
     private TextView insertMeasurementText;
     private Button goToMeasurementBtn;
     private View v;
-    private ArrayList<Measurement> measurements;
     private MainActivity mainActivity;
+    private List<Measurement> measurements;
+    private APIService apiService;
+    private ListAdapter adapter;
+
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -53,19 +63,30 @@ public class DiaryFragment extends Fragment {
         chart = v.findViewById(R.id.chart);
         insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
+
+        mainActivity = (MainActivity) getActivity();
+
+
+        Retrofit retrofit = RetrofitClient.getClient();
+        apiService = retrofit.create(APIService.class);
+
         mainActivity = (MainActivity) getActivity();
 
 
         measurements = new ArrayList<>();
 
-        if (mainActivity.getMeasurements() != null) {
-            measurements.addAll(mainActivity.getMeasurements());
+        if (getMeasurements() != null) {
+            measurements.addAll(getMeasurements());
         }
-        ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
+       adapter = new ListAdapter(getContext(),this, measurements);
 
-        mListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter = new ListAdapter(getContext(),this, measurements);
 
+        if(measurements == null){
+            measurements = new ArrayList<>();
+        }
+
+        // Show/Hide elements in the fragment based on if there are measurements
         if (measurements.size() == 0){
 
             mListView.setVisibility(View.GONE);
@@ -99,7 +120,7 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Measurement selection = mainActivity.getMeasurements().get(position);
+                Measurement selection = getMeasurements().get(position);
 
                 Bundle bundle=new Bundle();
                 bundle.putParcelable("measurement",selection);
@@ -119,9 +140,10 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-
-
         initGraph();
+
+        loadMeasurements();
+
         return v;
     }
 
@@ -157,5 +179,43 @@ public class DiaryFragment extends Fragment {
         chart.animateXY(2000, 2000);
         chart.setFitBars(true); // make the x-axis fit exactly all bars
         chart.invalidate(); // refresh
+    }
+
+    public void loadMeasurements()
+    {
+        apiService.getMeasurements(AuthToken.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
+            @Override
+            public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    try{
+                        measurements = response.body();
+
+                        adapter.setData(measurements);
+
+                        mainActivity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                adapter.notifyDataSetChanged();
+                                mListView.setAdapter(adapter);
+                            }
+                        });
+
+                    }catch (Exception e){
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Measurement>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public List<Measurement> getMeasurements() {
+        return measurements;
+    }
+
+    public void setMeasurements(List<Measurement> measurements) {
+        this.measurements = measurements;
     }
 }
