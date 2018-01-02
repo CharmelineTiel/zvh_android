@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView greetUser;
     private User user;
     private MainActivity mainActivity;
+    private ProgressBar progressBar;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        progressBar = view.findViewById(R.id.progressBar_cyclic);
 
         Button measurementBtn = view.findViewById(R.id.metingBtn);
         measurementBtn.setOnClickListener(this);
@@ -90,21 +93,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        Fragment fg;
         switch (v.getId()) {
 
             case R.id.metingBtn:
 
                 mainActivity.openFragment(new MeasurementStep1Fragment());
-
                 break;
 
             case R.id.backHome:
 
                 mainActivity.openFragment(new HomeFragment());
-
                 break;
         }
 
     }
+
+
 }

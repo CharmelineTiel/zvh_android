@@ -31,7 +31,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.HEAD;
+
+import static charmelinetiel.android_tablet_zvg.activity.MainActivity.progressBar;
 
 
 /**
@@ -49,7 +50,6 @@ public class DiaryFragment extends Fragment {
     private APIService apiService;
     private ListAdapter adapter;
 
-
     public DiaryFragment() {
         // Required empty public constructor
     }
@@ -65,6 +65,7 @@ public class DiaryFragment extends Fragment {
         insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
         mainActivity = (MainActivity) getActivity();
+        progressBar = v.findViewById(R.id.progressBar_cyclic);
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -148,6 +149,7 @@ public class DiaryFragment extends Fragment {
         chart.invalidate(); // refresh
     }
 
+
     public void loadMeasurements(DiaryFragment diaryFragment)
     {
         apiService.getMeasurements(AuthToken.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
@@ -157,14 +159,17 @@ public class DiaryFragment extends Fragment {
                     try{
                         measurements = response.body();
 
+                        progressBar.setVisibility(View.VISIBLE);
+
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
-
                                 initGraph();
                                 adapter = new ListAdapter(getContext(),diaryFragment, measurements);
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
                             }
+
                         });
 
                         // Show/Hide elements in the fragment based on if there are measurements
@@ -198,5 +203,6 @@ public class DiaryFragment extends Fragment {
     public List<Measurement> getMeasurements() {
         return measurements;
     }
+
 
 }

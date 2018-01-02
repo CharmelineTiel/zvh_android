@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -43,21 +44,53 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private APIService apiService;
     private List<HealthIssue> healthIssues;
     private User user;
-
     private boolean isEditingMeasurement;
+    public static ProgressBar progressBar;
 
 
+    BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.measurement:
+
+                    setTitle("Meting");
+                    openFragment(new HomeFragment());
+                    return true;
+                case R.id.diary:
+                    setTitle("Mijn Dagboek");
+                    openFragment(new DiaryFragment());
+                    return true;
+
+                case R.id.contact:
+                    setTitle("Contact");
+                    openFragment(new ContactFragment());
+                    return true;
+
+                case R.id.settings:
+                    setTitle("Service");
+                    openFragment(new ServiceFragment());
+                    return true;
+            }
+
+
+            return false;
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
 
         measurement = new Measurement();
         setTitle("Meting");
         Intent intent = getIntent();
         setUser(intent.getParcelableExtra("user"));
-        setContentView(R.layout.activity_main);
 
+        progressBar = findViewById(R.id.progressBar_cyclic);
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -91,36 +124,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     public void initBottomNav()
     {
-
-        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.measurement:
-
-                        setTitle("Meting");
-                        openFragment(new HomeFragment());
-                        return true;
-                    case R.id.diary:
-                        setTitle("Mijn Dagboek");
-                        openFragment(new DiaryFragment());
-                        return true;
-
-                    case R.id.contact:
-                        setTitle("Contact");
-                        openFragment(new ContactFragment());
-                        return true;
-
-                    case R.id.settings:
-                        setTitle("Service");
-                        openFragment(new ServiceFragment());
-                        return true;
-                }
-                return false;
-            }
-        };
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
@@ -139,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         bottomNavigationView.setSelectedItemId(R.id.measurement);
 
     }
-
 
     public Measurement getMeasurement() {
         return measurement;
@@ -215,5 +217,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     public void setEditingMeasurement(boolean editingMeasurement) {
         isEditingMeasurement = editingMeasurement;
     }
+
 
 }

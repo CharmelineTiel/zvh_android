@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="charmelinetiel.android_tablet_zvg.activity.MainActivity">
 
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
