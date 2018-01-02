@@ -54,11 +54,15 @@ public class DiaryFragment extends Fragment {
         chart = v.findViewById(R.id.chart);
         insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
-
         MainActivity mainActivity = (MainActivity) getActivity();
 
         measurements = new ArrayList<>();
         measurements.addAll(mainActivity.getMeasurements());
+
+        ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
+
+        mListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         if (measurements.size() == 0){
 
@@ -100,7 +104,6 @@ public class DiaryFragment extends Fragment {
                 MeasurementDetailFragment fg =new MeasurementDetailFragment();
                 fg.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
                 transaction.replace(R.id.content, fg);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -120,19 +123,11 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-        ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
 
-        mListView.setAdapter(adapter);
 
         initGraph();
         return v;
     }
-
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-    }
-
 
     public void initGraph(){
 

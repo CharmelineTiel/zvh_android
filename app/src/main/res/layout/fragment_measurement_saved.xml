@@ -8,7 +8,7 @@
     <LinearLayout
         android:gravity="center_horizontal"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/margin">
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:text="Uw meting is succesvol opgeslagen in uw dagboek!"
+            android:text="U heeft uw meting succesvol afgerond"
             android:textStyle="bold"
             android:textSize="@dimen/biggerText" />
 
@@ -39,19 +39,37 @@
             android:textAlignment="center"
             android:textSize="@dimen/normalText" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/toDiary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:width="@dimen/buttonM"
+                android:layout_toEndOf="@+id/toHome"
+                android:layout_marginTop="@dimen/input_padding"
+                android:text="Bekijk dagboek"
+                android:textSize="@dimen/biggerText"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteText"
+                />
         <Button
-            android:id="@+id/toDiary"
+            android:id="@+id/toHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@color/lightGrey"
             android:width="@dimen/buttonM"
-            android:layout_margin="@dimen/margin"
-            android:text="Bekijk dagboek"
+            android:layout_marginTop="@dimen/input_padding"
+            android:layout_marginRight="@dimen/margin"
+            android:text="Niet nu"
             android:textSize="@dimen/biggerText"
             android:textAllCaps="false"
             android:textColor="@color/whiteText"
             />
 
+        </RelativeLayout>
     </LinearLayout>
 
 
