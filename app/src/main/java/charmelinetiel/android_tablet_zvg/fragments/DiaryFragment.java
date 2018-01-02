@@ -45,8 +45,6 @@ public class DiaryFragment extends Fragment {
     private Button goToMeasurementBtn;
     private View v;
     private MainActivity mainActivity;
-
-
     private List<Measurement> measurements;
     private APIService apiService;
     private ListAdapter adapter;
@@ -66,41 +64,13 @@ public class DiaryFragment extends Fragment {
         chart = v.findViewById(R.id.chart);
         insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
+        mainActivity = (MainActivity) getActivity();
 
         Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
         apiService = retrofit.create(APIService.class);
 
-        mainActivity = (MainActivity) getActivity();
-
         measurements = new ArrayList<>();
-
-        if (mainActivity.getMeasurements() != null) {
-            measurements.addAll(mainActivity.getMeasurements());
-        }
-        ListAdapter adapter = new ListAdapter(getContext(),this, measurements);
-
-        adapter = new ListAdapter(getContext(),this, measurements);
-
-        if(measurements == null){
-            measurements = new ArrayList<>();
-        }
-
-        // Show/Hide elements in the fragment based on if there are measurements
-        if (measurements.size() == 0){
-
-            mListView.setVisibility(View.GONE);
-            chart.setVisibility(View.GONE);
-            insertMeasurementText.setVisibility(View.VISIBLE);
-            goToMeasurementBtn.setVisibility(View.VISIBLE);
-
-        }else{
-
-            mListView.setVisibility(View.VISIBLE);
-            chart.setVisibility(View.VISIBLE);
-            insertMeasurementText.setVisibility(View.GONE);
-            goToMeasurementBtn.setVisibility(View.GONE);
-        }
-
+        
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -145,9 +115,7 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-        initGraph();
-
-        loadMeasurements();
+        loadMeasurements(this);
 
         return v;
     }
@@ -186,7 +154,7 @@ public class DiaryFragment extends Fragment {
         chart.invalidate(); // refresh
     }
 
-    public void loadMeasurements()
+    public void loadMeasurements(DiaryFragment diaryFragment)
     {
         apiService.getMeasurements(AuthToken.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
             @Override
@@ -195,14 +163,31 @@ public class DiaryFragment extends Fragment {
                     try{
                         measurements = response.body();
 
-                        adapter.setData(measurements);
-
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
-                                adapter.notifyDataSetChanged();
+
+                                initGraph();
+                                adapter = new ListAdapter(getContext(),diaryFragment, measurements);
                                 mListView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
                             }
                         });
+
+                        // Show/Hide elements in the fragment based on if there are measurements
+                        if (measurements.size() == 0){
+
+                            mListView.setVisibility(View.GONE);
+                            chart.setVisibility(View.GONE);
+                            insertMeasurementText.setVisibility(View.VISIBLE);
+                            goToMeasurementBtn.setVisibility(View.VISIBLE);
+
+                        }else{
+
+                            mListView.setVisibility(View.VISIBLE);
+                            chart.setVisibility(View.VISIBLE);
+                            insertMeasurementText.setVisibility(View.GONE);
+                            goToMeasurementBtn.setVisibility(View.GONE);
+                        }
 
                     }catch (Exception e){
                     }
@@ -220,7 +205,4 @@ public class DiaryFragment extends Fragment {
         return measurements;
     }
 
-    public void setMeasurements(List<Measurement> measurements) {
-        this.measurements = measurements;
-    }
 }

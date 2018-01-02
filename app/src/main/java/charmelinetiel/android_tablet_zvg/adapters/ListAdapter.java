@@ -52,7 +52,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     public void setData(List<Measurement> data){
-        this.data = data;
+        this.data.addAll(data);
     }
 
     @Override
