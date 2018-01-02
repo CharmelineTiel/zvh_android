@@ -53,11 +53,16 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
             HealthIssue issue = healthIssues.get(position);
 
-            if(selectedIssues.contains(issue.getHealthIssueId())){
-                box.setChecked(true);
+            if(selectedIssues != null){
+                if(selectedIssues.contains(issue.getHealthIssueId())){
+                    box.setChecked(true);
+                }else{
+                    box.setChecked(false);
+                }
             }else{
-                box.setChecked(false);
+                selectedIssues = new ArrayList<>();
             }
+
 
             box.setText(issue.getName());
             box.setTag(issue.getHealthIssueId());

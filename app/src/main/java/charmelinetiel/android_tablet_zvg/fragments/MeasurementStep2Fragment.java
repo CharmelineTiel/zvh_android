@@ -33,6 +33,7 @@ public class MeasurementStep2Fragment extends Fragment {
     private ListView checkboxList;
     private TextView otherNamelyLbl, noIssues, date;
     private RadioGroup measurementRadioGroup;
+    private MainActivity mainActivity;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -46,14 +47,17 @@ public class MeasurementStep2Fragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
 
-        MainActivity activity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
 
 
-        (getActivity()).setTitle("Meting stap 2 van 3");
-
+        if(mainActivity.isEditingMeasurement()){
+            mainActivity.setTitle("Meting bewerken stap 2 van 3");
+        }else{
+            mainActivity.setTitle("Meting stap 2 van 3");
+        }
 
         CheckboxAdapter measurementCheckboxAdapter;
-        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
+        measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), mainActivity.getMeasurement().getHealthIssueIds());
         final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
@@ -68,7 +72,7 @@ public class MeasurementStep2Fragment extends Fragment {
         measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
         measurementRadioGroup.check(R.id.yesNamelyRadio);
         date = v.findViewById(R.id.dateTimeNow);
-        activity.setDateOfToday(date);
+        mainActivity.setDateOfToday(date);
 
 
 
