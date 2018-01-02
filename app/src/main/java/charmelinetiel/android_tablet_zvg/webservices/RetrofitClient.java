@@ -11,7 +11,9 @@ public class RetrofitClient {
     public static Retrofit retrofit = null;
 
 
-    public static Retrofit getClient(String baseUrl) {
+    public static Retrofit getClient() {
+
+        String baseUrl = "https://zvh-api.herokuapp.com/";
 
         if (retrofit == null) {
 

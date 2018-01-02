@@ -4,7 +4,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +29,12 @@ public class RegisterStep1Fragment extends Fragment
     private EditText lastName;
     private EditText dateOfBirth;
     private EditText email, length, weight;
-    private String string = "";
-    private Button btn1;
-    private Button btn2;
+    private Button btn1, btn2;
     private RadioGroup gender;
     private View v;
     private User user;
     private FormErrorHandling validateForm;
+    private RegisterActivity registerActivity;
 
     public RegisterStep1Fragment() {
         // Required empty public constructor
@@ -47,7 +45,9 @@ public class RegisterStep1Fragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        (getActivity()).setTitle("Registreren stap 1 van 3");
+        registerActivity = (RegisterActivity) getActivity();
+
+        registerActivity.setTitle("Registreren stap 1 van 3");
 
         v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
@@ -123,8 +123,9 @@ public class RegisterStep1Fragment extends Fragment
                 activity.setUser(user);
 
                     if(validInput()) {
-                        Fragment fg = new RegisterStep2Fragment();
-                        setFragment(fg);
+
+                        registerActivity.openFragment(new RegisterStep2Fragment());
+
                     }
                 break;
 
@@ -176,13 +177,6 @@ public class RegisterStep1Fragment extends Fragment
         }
 
         return true;
-    }
-
-    public void setFragment(Fragment fg) {
-        FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
-        fgTransition.replace(R.id.contentR, fg);
-        fgTransition.addToBackStack(String.valueOf(fg.getId()));
-        fgTransition.commit();
     }
 
     public void setDate(){

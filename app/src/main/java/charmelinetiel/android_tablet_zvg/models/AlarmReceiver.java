@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
+import charmelinetiel.android_tablet_zvg.activity.SplashActivity;
 
 /**
  * Created by C Tiel on 1/2/2018.
@@ -25,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //what happens when the notification gets clicked on
-        Intent contentIntent = new Intent(context, LoginActivity.class);
+        Intent contentIntent = new Intent(context, SplashActivity.class);
         contentIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity
                 (context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_CANCEL_CURRENT);

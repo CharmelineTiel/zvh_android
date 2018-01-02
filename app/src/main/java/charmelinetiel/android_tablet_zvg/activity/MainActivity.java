@@ -1,17 +1,13 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
-import android.app.AlarmManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -21,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,17 +39,17 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements  Callback {
 
-    private Fragment fg;
     private Measurement measurement;
     private APIService apiService;
     private List<HealthIssue> healthIssues;
     private List<Measurement> measurements;
     private User user;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         measurement = new Measurement();
         setTitle("Meting");
@@ -63,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         setContentView(R.layout.activity_main);
 
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+        Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         if (getUser().getAuthToken() != null) {
@@ -80,7 +75,13 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     }
 
-
+    public void openFragment(final Fragment fg)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content, fg, fg.toString());
+        ft.commit();
+    }
 
     @Override
     public void onBackPressed() {
@@ -88,13 +89,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         finishAndRemoveTask ();
     }
 
-    public void setFragment(Fragment fg)
-{
-    FragmentTransaction fgTransition = getSupportFragmentManager().beginTransaction();
-    fgTransition.replace(R.id.content, fg);
-    fgTransition.addToBackStack("backHome");
-    fgTransition.commit();
-}
+
     public void initBottomNav()
     {
 
@@ -107,25 +102,21 @@ public class MainActivity extends AppCompatActivity implements  Callback {
                     case R.id.measurement:
 
                         setTitle("Meting");
-                        fg = new HomeFragment();
-                        setFragment(fg);
+                        openFragment(new HomeFragment());
                         return true;
                     case R.id.diary:
                         setTitle("Mijn Dagboek");
-                        fg = new DiaryFragment();
-                        setFragment(fg);
+                        openFragment(new DiaryFragment());
                         return true;
 
                     case R.id.contact:
                         setTitle("Contact");
-                        fg = new ContactFragment();
-                        setFragment(fg);
+                        openFragment(new ContactFragment());
                         return true;
 
                     case R.id.settings:
                         setTitle("Service");
-                        fg = new ServiceFragment();
-                        setFragment(fg);
+                        openFragment(new ServiceFragment());
                         return true;
                 }
                 return false;
@@ -228,44 +219,5 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     }
 
-    public void sendNotification(View view) {
-
-        //Get an instance of NotificationManager//
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this, "Reminder")
-                        .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                        .setContentTitle("Meting herinnering")
-                        .setContentText("Het is weer tijd voor uw meting!");
-
-
-        //Create the intent that’ll fire when the user taps the notification//
-
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Calendar timeToAlert = Calendar.getInstance();
-        Calendar currentTimeCal = Calendar.getInstance();
-
-        timeToAlert.set(Calendar.HOUR, 2);
-        timeToAlert.set(Calendar.MINUTE, 35);
-        timeToAlert.set(Calendar.SECOND, 0);
-
-        long alertTime = timeToAlert.getTimeInMillis();
-        long currentTime = currentTimeCal.getTimeInMillis();
-
-        if (alertTime >= currentTime){
-
-            alarmManager.setRepeating(AlarmManager.RTC, alertTime, AlarmManager.INTERVAL_DAY, pendingIntent);
-        }else{
-
-            timeToAlert.add(Calendar.DAY_OF_MONTH, 1);
-            alertTime = timeToAlert.getTimeInMillis();
-            alarmManager.setRepeating(AlarmManager.RTC, alertTime, AlarmManager.INTERVAL_DAY, pendingIntent);
-        }
-        mBuilder.setContentIntent(pendingIntent);
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, mBuilder.build());
-    }
 
 }

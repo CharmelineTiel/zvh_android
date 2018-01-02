@@ -9,13 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MessageSentFragment extends Fragment implements View.OnClickListener {
 
-    View view;
+    private View view;
+    private MainActivity mainActivity;
 
     public MessageSentFragment() {
         // Required empty public constructor
@@ -28,6 +30,8 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
 
         view = inflater.inflate(R.layout.fragment_message_sent, container, false);
 
+        mainActivity = (MainActivity) getActivity();
+
         Button btn = view.findViewById(R.id.backHome);
         btn.setOnClickListener(this);
         return view;
@@ -36,16 +40,13 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-        Fragment fg;
+
         switch (v.getId()) {
 
             case R.id.backHome:
 
-                fg= new HomeFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, fg)
-                        .addToBackStack(fg.toString())
-                        .commit();
+                mainActivity.openFragment(new HomeFragment());
+
                 break;
         }
     }

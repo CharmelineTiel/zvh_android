@@ -3,7 +3,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
@@ -21,8 +21,9 @@ import iammert.com.expandablelib.Section;
 public class FAQFragment extends Fragment implements View.OnClickListener {
 
 
-    View v;
-    Button contactBtn;
+    private View v;
+    private Button contactBtn;
+    private MainActivity mainActivity;
     public FAQFragment() {
         // Required empty public constructor
     }
@@ -34,6 +35,8 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_faq, container, false);
 
+
+        MainActivity mainActivity = (MainActivity) getActivity();
         ExpandableLayout sectionLinearLayout = v.findViewById(R.id.el);
         contactBtn = v.findViewById(R.id.contactBtn);
 
@@ -101,18 +104,10 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
             case R.id.contactBtn:
 
-                Fragment fg = new ContactFragment();
-                setFragment(fg);
+                mainActivity.openFragment(new ContactFragment());
 
                 break;
             }
-    }
-
-    public void setFragment(Fragment fg) {
-        FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
-        fgTransition.replace(R.id.contentR, fg);
-        fgTransition.addToBackStack(String.valueOf(fg.getId()));
-        fgTransition.commit();
     }
 
 }

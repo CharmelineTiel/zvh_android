@@ -2,8 +2,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +35,10 @@ public class MeasurementStep1Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mainActivity = (MainActivity) getActivity();
-
         mainActivity.setTitle("Meting stap 1 van 3");
 
         v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
+
 
         if (container != null) {
             container.removeAllViews();
@@ -60,13 +58,11 @@ public class MeasurementStep1Fragment extends Fragment {
         }
         dateTimeNow = v.findViewById(R.id.dateTimeNow);
 
-        MainActivity mainActivity = (MainActivity)getActivity();
         mainActivity.setDateOfToday(dateTimeNow);
 
         nextButton.setOnClickListener(v -> {
-            Fragment step2 = new MeasurementStep2Fragment();
-            MainActivity activity1 = (MainActivity) getActivity();
-            Measurement measurement = activity1.getMeasurement();
+
+            Measurement measurement = mainActivity.getMeasurement();
 
             try{
                 measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
@@ -75,26 +71,19 @@ public class MeasurementStep1Fragment extends Fragment {
 
             }
 
-            activity1.setMeasurement(measurement);
+            mainActivity.setMeasurement(measurement);
 
             if (validInput()) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content, step2);
-                fragmentTransaction.addToBackStack(String.valueOf(step2.getId()));
-                fragmentTransaction.commit();
+
+                mainActivity.openFragment(new MeasurementStep2Fragment());
             }
         });
 
         cancelButton.setOnClickListener(v -> {
 
-            HomeFragment fg = new HomeFragment();
+            mainActivity.openFragment(new HomeFragment());
 
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content, fg)
-                    .addToBackStack(String.valueOf(fg.getId()))
-                    .commit();
-            getActivity().setTitle("Meting");
+            mainActivity.setTitle("Meting");
 
         });
 

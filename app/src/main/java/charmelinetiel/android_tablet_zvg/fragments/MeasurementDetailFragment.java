@@ -3,28 +3,24 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
-import charmelinetiel.android_tablet_zvg.helpers.FragmentChangeListener;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeasurementDetailFragment extends Fragment implements View.OnClickListener, FragmentChangeListener {
+public class MeasurementDetailFragment extends Fragment implements View.OnClickListener {
 
     private View v;
     private Measurement m;
@@ -41,6 +37,7 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         m = getArguments().getParcelable("measurement");
+
 
         mainActivity = (MainActivity) getActivity();
         healthIssues = mainActivity.getHealthIssues();
@@ -60,13 +57,15 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.backBtn:
-                DiaryFragment previousFrag= new DiaryFragment();
-                replaceFragment(previousFrag);
+
+                mainActivity.openFragment(new DiaryFragment());
+
                 break;
             case R.id.editBtn:
+
                 mainActivity.setMeasurement(m);
-                MeasurementStep1Fragment editMeasurementFrag = new MeasurementStep1Fragment();
-                replaceFragment(editMeasurementFrag);
+                mainActivity.openFragment(new MeasurementStep1Fragment());
+
                 break;
         }
     }
@@ -122,12 +121,4 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
     }
 
-    @Override
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, fragment, fragment.toString());
-        fragmentTransaction.addToBackStack(fragment.toString());
-        fragmentTransaction.commit();
-    }
 }

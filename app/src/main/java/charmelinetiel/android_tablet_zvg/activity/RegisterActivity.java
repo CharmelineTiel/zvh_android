@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_register);
 
+
         Intent intent = getIntent();
         data = intent.getData();
 
@@ -34,22 +36,22 @@ public class RegisterActivity extends AppCompatActivity{
 
             Fragment fg = new ResetPasswordFragment();
             fg.setArguments(bundle);
-            setFragment(fg);
+            openFragment(fg);
+
         }else{
 
-            Fragment fg = new LoginOrRegisterFragment();
-            setFragment(fg);
+            openFragment(new LoginOrRegisterFragment());
+
         }
 
     }
-
-    public void setFragment(Fragment fg) {
-        FragmentTransaction fgTransition = this.getSupportFragmentManager().beginTransaction();
-        fgTransition.replace(R.id.contentR, fg);
-        fgTransition.addToBackStack(String.valueOf(fg.getId()));
-        fgTransition.commit();
+    public void openFragment(final Fragment fg)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content, fg, fg.toString());
+        ft.commit();
     }
-
     @Override
     public void onBackPressed() {
 

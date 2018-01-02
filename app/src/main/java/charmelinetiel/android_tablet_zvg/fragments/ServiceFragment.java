@@ -16,8 +16,8 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.AlarmReceiver;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -34,6 +34,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     private static final int NOTIFICATION_ID = 0;
     private Preference logout, dailyReminder, sendWeekly;
     private MainActivity mainActivity;
+
     public ServiceFragment() {
         // Required empty public constructor
     }
@@ -65,9 +66,9 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
             @Override
             public boolean onPreferenceClick(Preference preference) {
 
-                Intent myIntent = new Intent(getActivity(), LoginActivity.class);
-                getActivity().startActivity(myIntent);
-                getActivity().finish();
+                Intent myIntent = new Intent(mainActivity, RegisterActivity.class);
+                mainActivity.startActivity(myIntent);
+                mainActivity.finish();
                 mainActivity.setUser(null);
 
                 return true;

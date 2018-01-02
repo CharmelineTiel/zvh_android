@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,7 +44,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+
+        //Check if Auto-login has been configured
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean autoLogin = sharedPref.getBoolean("autoLogin", false);
+        String emailAddress = sharedPref.getString("emailAddress", "");
+        String password = sharedPref.getString("password", "");
+
+
+        //Check if user has been saved, if so go to mainactivity
+        if(autoLogin && !emailAddress.equals("") && !password.equals("")){
+            Retrofit retrofit = RetrofitClient.getClient();
+            apiService = retrofit.create(APIService.class);
+
+            User user = new User();
+            user.setEmailAddress(emailAddress);
+            user.setPassword(password);
+
+            apiService.login(user).enqueue(this);
+        }else{
+            Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.RegisterActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         //Get the intent and data to determine if the activity was entered by deep link
@@ -141,14 +166,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 //TODO: toon message aan de hand van de response
                                 if (response.body() != null && response.isSuccessful()) {
-                                    String a = "b";
+
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                //TODO: toon foutmelding indien nodig
-                                String c = "a";
+
                             }
                         });
                         dialog.dismiss();
@@ -221,12 +245,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.LENGTH_LONG).show();
     }
 
-
-    public void setFragment(Fragment fg) {
-        FragmentTransaction fgTransition = getSupportFragmentManager().beginTransaction();
-        fgTransition.replace(R.id.contentR, fg);
-        fgTransition.addToBackStack(String.valueOf(fg.getId()));
-        fgTransition.commit();
+    public void openFragment(final Fragment fg)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content, fg, fg.toString());
+        ft.commit();
     }
 
 }

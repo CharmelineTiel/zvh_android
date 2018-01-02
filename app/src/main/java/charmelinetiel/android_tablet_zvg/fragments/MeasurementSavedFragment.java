@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 
 
 public class MeasurementSavedFragment extends Fragment {
 
     private View v;
     private Button toDiary, toHome;
+    private MainActivity mainActivity;
 
     public MeasurementSavedFragment() {
         // Required empty public constructor
@@ -25,6 +27,7 @@ public class MeasurementSavedFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_measurement_saved, container, false);
 
+        mainActivity = (MainActivity) getActivity();
         toDiary = v.findViewById(R.id.toDiary);
         toHome = v.findViewById(R.id.toHome);
 
@@ -32,11 +35,8 @@ public class MeasurementSavedFragment extends Fragment {
             @Override
             public void onClick(View v){
 
-                DiaryFragment diary = new DiaryFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, diary)
-                        .addToBackStack(null)
-                        .commit();
+                mainActivity.openFragment(new DiaryFragment());
+
             }
         });
 
@@ -44,11 +44,8 @@ public class MeasurementSavedFragment extends Fragment {
             @Override
             public void onClick(View v){
 
-                HomeFragment home = new HomeFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, home)
-                        .addToBackStack(null)
-                        .commit();
+                mainActivity.openFragment(new HomeFragment());
+
             }
         });
         return v;

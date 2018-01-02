@@ -23,8 +23,8 @@ public class MeasurementStep3Fragment extends Fragment {
     private Button cancelButton;
     private Button completeButton;
     private EditText extraRemarksInput;
-    private MainActivity mainActivity;
     private TextView date;
+    private MainActivity mainActivity;
 
     public MeasurementStep3Fragment(){
         // Required empty public constructor
@@ -38,7 +38,7 @@ public class MeasurementStep3Fragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
 
-        (getActivity()).setTitle("Meting stap 3 van 3");
+        mainActivity.setTitle("Meting stap 3 van 3");
 
         cancelButton = v.findViewById(R.id.cancel_measurement3_button);
         completeButton = v.findViewById(R.id.complete_measurement_button);
@@ -58,12 +58,7 @@ public class MeasurementStep3Fragment extends Fragment {
         measurement.setComment(extraRemarksInput.getText().toString());
 
         mainActivity.postMeasurement();
-        MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
-
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content, measurementSaved)
-                .addToBackStack(null)
-                .commit();
+        mainActivity.openFragment(new MeasurementSavedFragment());
 
         });
 

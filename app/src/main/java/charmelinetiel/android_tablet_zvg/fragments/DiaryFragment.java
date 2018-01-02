@@ -3,7 +3,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,7 @@ public class DiaryFragment extends Fragment {
     private Button goToMeasurementBtn;
     private View v;
     private ArrayList<Measurement> measurements;
-
+    private MainActivity mainActivity;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -54,7 +53,8 @@ public class DiaryFragment extends Fragment {
         chart = v.findViewById(R.id.chart);
         insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
-        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
+
 
         measurements = new ArrayList<>();
 
@@ -103,12 +103,9 @@ public class DiaryFragment extends Fragment {
 
                 Bundle bundle=new Bundle();
                 bundle.putParcelable("measurement",selection);
-                MeasurementDetailFragment fg =new MeasurementDetailFragment();
+                MeasurementDetailFragment fg = new MeasurementDetailFragment();
                 fg.setArguments(bundle);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content, fg);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                mainActivity.openFragment(fg);
             }
 
         });
@@ -117,11 +114,8 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View v){
 
-               MeasurementStep1Fragment fg = new MeasurementStep1Fragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, fg)
-                        .addToBackStack(String.valueOf(fg.getId()))
-                        .commit();
+                mainActivity.openFragment(new MeasurementStep1Fragment());
+
             }
         });
 

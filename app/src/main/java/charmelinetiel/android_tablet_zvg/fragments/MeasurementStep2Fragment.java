@@ -33,7 +33,7 @@ public class MeasurementStep2Fragment extends Fragment {
     private ListView checkboxList;
     private TextView otherNamelyLbl, noIssues, date;
     private RadioGroup measurementRadioGroup;
-
+    private MainActivity mainactivity;
     public MeasurementStep2Fragment(){
         // Required empty public constructor
     }
@@ -46,14 +46,15 @@ public class MeasurementStep2Fragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
 
-        MainActivity activity = (MainActivity) getActivity();
-
+       mainactivity = (MainActivity) getActivity();
 
         (getActivity()).setTitle("Meting stap 2 van 3");
 
 
         CheckboxAdapter measurementCheckboxAdapter;
-        measurementCheckboxAdapter = new CheckboxAdapter(activity, R.layout.checkbox_listview_item, activity.getHealthIssues(), activity.getMeasurement().getHealthIssueIds());
+        measurementCheckboxAdapter = new CheckboxAdapter(mainactivity,
+                R.layout.checkbox_listview_item, mainactivity.getHealthIssues(),
+                mainactivity.getMeasurement().getHealthIssueIds());
         final ListView listView = v.findViewById(R.id.checkboxList);
         listView.setAdapter(measurementCheckboxAdapter);
 
@@ -68,7 +69,7 @@ public class MeasurementStep2Fragment extends Fragment {
         measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
         measurementRadioGroup.check(R.id.yesNamelyRadio);
         date = v.findViewById(R.id.dateTimeNow);
-        activity.setDateOfToday(date);
+        mainactivity.setDateOfToday(date);
 
 
 
@@ -88,12 +89,8 @@ public class MeasurementStep2Fragment extends Fragment {
                 measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
 
-                MeasurementStep3Fragment step3 = new MeasurementStep3Fragment();
+                mainactivity.openFragment(new MeasurementStep3Fragment());
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, step3)
-                        .addToBackStack(String.valueOf(step3.getId()))
-                        .commit();
             }
         });
 

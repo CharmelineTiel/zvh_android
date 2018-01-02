@@ -3,7 +3,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -32,6 +31,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     private Button btn1, btn2;
     private EditText email, pass1, pass2;
     private FormErrorHandling validateForm;
+    private RegisterActivity registerActivity;
 
     public RegisterStep2Fragment() {
         // Required empty public constructor
@@ -41,12 +41,15 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        (getActivity()).setTitle("Registreren stap 2 van 3");
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/"); //TODO fix this, DRY CODE FTW
+        registerActivity = (RegisterActivity) getActivity();
+        registerActivity.setTitle("Registreren stap 2 van 3");
+
+        Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         v = inflater.inflate(R.layout.fragment_register_step2, container, false);
+
 
         btn1 = v.findViewById(R.id.nextScreenBtn);
         btn1.setOnClickListener(this);
@@ -81,8 +84,8 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 activity.setUser(user);
 
                 if(validInput()) {
-                    Fragment fg = new RegisterStep3Fragment();
-                    setFragment(fg);
+
+                    registerActivity.openFragment(new RegisterStep3Fragment());
                 }
                 break;
 
@@ -157,14 +160,6 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
 
         return true;
-    }
-
-//TODO make setFragment static somehow, this method is being used in pretty much all the fragments.. DRY CODE FTW
-    public void setFragment(Fragment fg) {
-        FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
-        fgTransition.replace(R.id.contentR, fg);
-        fgTransition.addToBackStack(String.valueOf(fg.getId()));
-        fgTransition.commit();
     }
 
 }

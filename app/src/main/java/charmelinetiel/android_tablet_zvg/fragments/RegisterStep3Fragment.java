@@ -3,7 +3,6 @@ package charmelinetiel.android_tablet_zvg.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     private List<Consultant> allConsultants;
     private ArrayAdapter<String> adapter;
     private Consultant consultant;
+    private RegisterActivity registerActivity;
+
     public RegisterStep3Fragment() {
         // Required empty public constructor
     }
@@ -47,10 +48,11 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        (getActivity()).setTitle("Registreren stap 3 van 3");
+        registerActivity = (RegisterActivity) getActivity();
+        registerActivity.setTitle("Registreren stap 3 van 3");
         v = inflater.inflate(R.layout.fragment_register_step3, container, false);
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+        Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         btn1 = v.findViewById(R.id.registerBtn);
@@ -75,8 +77,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
             case R.id.registerBtn:
 
                 //Register user
-                RegisterActivity activity = (RegisterActivity) getActivity();
-                user = activity.getUser();
+                user = registerActivity.getUser();
                 user.setConsultantId(consultant.getConsultantId());
                 apiService.register(user).enqueue(this);
                 break;
@@ -98,7 +99,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
             Bundle bundle = new Bundle();
             bundle.putString("email", user.getEmailAddress());
             fg.setArguments(bundle);
-            setFragment(fg);
+            registerActivity.openFragment(fg);
 
         }else{
 
@@ -112,13 +113,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
-    }
-
-    public void setFragment(Fragment fg) {
-        FragmentTransaction fgTransition = getActivity().getSupportFragmentManager().beginTransaction();
-        fgTransition.replace(R.id.contentR, fg);
-        fgTransition.addToBackStack(String.valueOf(fg.getId()));
-        fgTransition.commit();
     }
 
     public void ConsultantsDropdown(){

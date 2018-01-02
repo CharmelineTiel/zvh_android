@@ -35,6 +35,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private Button sendBtn, backBtn;
     private EditText message,subject, consultantEmail, consultantName;
     private FormErrorHandling validateForm;
+    private MainActivity mainActivity;
+
     public ContactFragment() {
         // Required empty public constructor
     }
@@ -46,7 +48,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
 
         view = inflater.inflate(R.layout.fragment_contact, container, false);
 
-        Retrofit retrofit = RetrofitClient.getClient("https://zvh-api.herokuapp.com/");
+
+        Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         sendBtn = view.findViewById(R.id.sendMessageBtn);
@@ -60,7 +63,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         consultantEmail = view.findViewById(R.id.consultantEmail);
         consultantName = view.findViewById(R.id.consultantName);
 
-        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity = (MainActivity)getActivity();
         consultantEmail.setText(mainActivity.getUser().getConsultant().getEmailAddress());
         consultantName.setText(mainActivity.getUser().getConsultant().getFirstname()
                                 + " " + mainActivity.getUser().getConsultant().getLastname());
@@ -98,11 +101,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
 
         if(response.isSuccessful()){
 
-           Fragment fg= new MessageSentFragment();
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content, fg)
-                    .addToBackStack(fg.toString())
-                    .commit();
+           mainActivity.openFragment(new MessageSentFragment());
         }
     }
 

@@ -18,8 +18,9 @@ import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
  */
 public class RegisterCompletedFragment extends Fragment implements View.OnClickListener{
 
-    View view;
-    TextView email;
+    private View view;
+    private TextView email;
+
     public RegisterCompletedFragment() {
         // Required empty public constructor
     }

@@ -21,9 +21,10 @@ import charmelinetiel.android_tablet_zvg.models.User;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    View view;
-    TextView greetUser;
-    User user;
+    private View view;
+    private TextView greetUser;
+    private User user;
+    private MainActivity mainActivity;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -35,12 +36,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
         Button measurementBtn = view.findViewById(R.id.metingBtn);
         measurementBtn.setOnClickListener(this);
 
         greetUser = view.findViewById(R.id.greetingsText);
 
-        user = ((MainActivity)getActivity()).getUser();
+        mainActivity = (MainActivity) getActivity();
+        user = mainActivity.getUser();
 
         greetUser();
 
@@ -91,19 +94,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.metingBtn:
-                fg= new MeasurementStep1Fragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, fg)
-                        .addToBackStack(fg.toString())
-                        .commit();
+
+                mainActivity.openFragment(new MeasurementStep1Fragment());
+
                 break;
 
             case R.id.backHome:
-                fg= new HomeFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, fg)
-                        .addToBackStack(fg.toString())
-                        .commit();
+
+                mainActivity.openFragment(new HomeFragment());
+
                 break;
         }
 
