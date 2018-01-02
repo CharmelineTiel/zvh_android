@@ -33,14 +33,10 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
         }
     }
 
-    private class ViewHolder {
-        CheckBox box;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
+        CheckBox box;
         View view;
         TextView otherNamely;
         EditText otherNamelyInput;
@@ -52,21 +48,25 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
             view = vi.inflate(R.layout.fragment_measurement_step2, parent,false);
             otherNamely = view.findViewById(R.id.otherNamely);
             otherNamelyInput = view.findViewById(R.id.otherNamelyInput);
-            holder = new ViewHolder();
-            holder.box = convertView.findViewById(R.id.checkBox1);
-            convertView.setTag(holder);
+            box = convertView.findViewById(R.id.checkBox1);
+            convertView.setTag(box);
 
-
-            selectedIssues = new ArrayList<>();
             HealthIssue issue = healthIssues.get(position);
-            holder.box.setText(issue.getName());
-            holder.box.setTag(issue.getHealthIssueId());
 
-            holder.box.setOnClickListener(new View.OnClickListener() {
+            if(selectedIssues.contains(issue.getHealthIssueId())){
+                box.setChecked(true);
+            }else{
+                box.setChecked(false);
+            }
+
+            box.setText(issue.getName());
+            box.setTag(issue.getHealthIssueId());
+
+            box.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    final boolean isChecked = holder.box.isChecked();
+                    final boolean isChecked = box.isChecked();
 
                     if (isChecked){
 
@@ -88,7 +88,6 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
                     }
                 }
             });
-
         }
 
         return convertView;
@@ -98,5 +97,6 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
     public List<String> getSelectedIssues(){
         return selectedIssues;
     }
+
 
 }
