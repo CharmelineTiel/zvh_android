@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,34 +41,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox autoLoginCheckBox;
     private FormErrorHandling validateForm;
     private Uri data;
+    private ProgressBar progressBar;
+    private ScrollView loginPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        //Check if Auto-login has been configured
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean autoLogin = sharedPref.getBoolean("autoLogin", false);
-        String emailAddress = sharedPref.getString("emailAddress", "");
-        String password = sharedPref.getString("password", "");
-
-
-        //Check if user has been saved, if so go to mainactivity
-        if(autoLogin && !emailAddress.equals("") && !password.equals("")){
-            Retrofit retrofit = RetrofitClient.getClient();
-            apiService = retrofit.create(APIService.class);
-
-            User user = new User();
-            user.setEmailAddress(emailAddress);
-            user.setPassword(password);
-
-            apiService.login(user).enqueue(this);
-        }else{
-            Intent intent = new Intent(this, charmelinetiel.android_tablet_zvg.activity.RegisterActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -92,8 +72,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
         //Else show the normal login page
         }else {
-
-
         autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
 
         validateForm = new FormErrorHandling();
@@ -102,6 +80,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             setTitle(R.string.title_activity_login);
+
+            progressBar = findViewById(R.id.progressBar);
+            loginPage = findViewById(R.id.loginPage);
 
             forgotPassword = findViewById(R.id.iForgot);
             forgotPassword.setOnClickListener(this);
@@ -131,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     user.setEmailAddress(email.getText().toString());
 
                     if(user != null && validInput()) {
-
+                        showProgressBar();
                         apiService.login(user).enqueue(this);
                     }
                 }
@@ -227,6 +208,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.apply();
             }
         } else {
+            hideProgressBar();
             try {
                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                 Toast.makeText(this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
@@ -240,7 +222,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
-
+        hideProgressBar();
         Toast.makeText(this, "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
     }
@@ -251,6 +233,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.content, fg, fg.toString());
         ft.commit();
+    }
+
+    public void showProgressBar(){
+        loginPage.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar(){
+        loginPage.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
 }

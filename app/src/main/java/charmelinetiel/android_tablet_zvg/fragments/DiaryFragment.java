@@ -67,10 +67,13 @@ public class DiaryFragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
         progressBar = v.findViewById(R.id.progressBar_cyclic);
 
+        progressBar.setVisibility(View.VISIBLE);
+
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         measurements = new ArrayList<>();
+        chart.setNoDataText("");
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -160,8 +163,6 @@ public class DiaryFragment extends Fragment {
                 if(response.isSuccessful() && response.body() != null){
                     try{
                         measurements = response.body();
-
-                        progressBar.setVisibility(View.VISIBLE);
 
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {

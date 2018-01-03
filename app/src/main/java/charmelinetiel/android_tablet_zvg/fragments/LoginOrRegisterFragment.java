@@ -21,7 +21,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
 
 
     private View v;
-    private Button btn1, btn2;
+    private Button loginButton, registerButton;
     private RegisterActivity registerActivity;
 
     public LoginOrRegisterFragment() {
@@ -39,11 +39,11 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
         registerActivity = (RegisterActivity) getActivity();
         (getActivity()).setTitle("Zorg voor het hart");
 
-        btn1 = v.findViewById(R.id.loginBtn);
-        btn1.setOnClickListener(this);
+        loginButton = v.findViewById(R.id.loginBtn);
+        loginButton.setOnClickListener(this);
 
-        btn2 = v.findViewById(R.id.registerBtn);
-        btn2.setOnClickListener(this);
+        registerButton = v.findViewById(R.id.registerBtn);
+        registerButton.setOnClickListener(this);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
        return v;

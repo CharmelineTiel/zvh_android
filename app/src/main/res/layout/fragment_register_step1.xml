@@ -25,7 +25,7 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/input_padding"
+                android:paddingLeft="@dimen/margin"
                 android:text="Voornaam"/>
     <EditText
         android:id="@+id/firstName"

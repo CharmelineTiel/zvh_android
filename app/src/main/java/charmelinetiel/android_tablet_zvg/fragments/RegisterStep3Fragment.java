@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static charmelinetiel.android_tablet_zvg.activity.MainActivity.progressBar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -38,6 +43,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     private ArrayAdapter<String> adapter;
     private Consultant consultant;
     private RegisterActivity registerActivity;
+    private RelativeLayout progressBar;
+    private TextView consultantText, consultantTitle;
 
     public RegisterStep3Fragment() {
         // Required empty public constructor
@@ -52,6 +59,10 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         registerActivity.setTitle("Registreren stap 3 van 3");
         v = inflater.inflate(R.layout.fragment_register_step3, container, false);
 
+        consultantText = v.findViewById(R.id.consultant_text);
+        consultantTitle = v.findViewById(R.id.consultant_title);
+        progressBar = v.findViewById(R.id.progressBar);
+
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
@@ -62,7 +73,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         btn2.setOnClickListener(this);
 
         consultantsView =  v.findViewById(R.id.consultants);
-        consultant = (Consultant) ((Spinner) v.findViewById(R.id.consultants) ).getSelectedItem();
 
         ConsultantsDropdown();
 
@@ -77,7 +87,9 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
             case R.id.registerBtn:
 
                 //Register user
+                showProgressBar();
                 user = registerActivity.getUser();
+                consultant = (Consultant) consultantsView.getSelectedItem();
                 user.setConsultantId(consultant.getConsultantId());
                 apiService.register(user).enqueue(this);
                 break;
@@ -102,7 +114,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
             registerActivity.openFragment(fg);
 
         }else{
-
+            hideProgressBar();
             Toast.makeText(getActivity(), "Er is iets fout gegaan, controleer alle velden",
                     Toast.LENGTH_LONG).show();
         }
@@ -111,6 +123,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     @Override
     public void onFailure(Call<User> call, Throwable t) {
 
+        hideProgressBar();
         Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
     }
@@ -141,5 +154,23 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
             }
         });
+    }
+
+    public void showProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
+        btn1.setVisibility(View.GONE);
+        btn2.setVisibility(View.GONE);
+        consultantsView.setVisibility(View.GONE);
+        consultantTitle.setVisibility(View.GONE);
+        consultantText.setVisibility(View.GONE);
+    }
+
+    public void hideProgressBar(){
+        progressBar.setVisibility(View.GONE);
+        btn1.setVisibility(View.VISIBLE);
+        btn2.setVisibility(View.VISIBLE);
+        consultantsView.setVisibility(View.VISIBLE);
+        consultantTitle.setVisibility(View.VISIBLE);
+        consultantText.setVisibility(View.VISIBLE);
     }
 }

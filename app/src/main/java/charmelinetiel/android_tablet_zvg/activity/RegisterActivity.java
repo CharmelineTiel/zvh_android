@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity{
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content, fg, fg.toString());
+        ft.replace(R.id.contentR, fg, fg.toString());
         ft.commit();
     }
     @Override
