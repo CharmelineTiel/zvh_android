@@ -40,6 +40,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private MainActivity mainActivity;
     private ProgressBar progressBar;
     private ScrollView contactPage;
+    private String screenResolution;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -50,7 +51,9 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_contact, container, false);
+        screenResolution = getString(R.string.screen_type);
+
+            view = inflater.inflate(R.layout.fragment_contact, container, false);
 
 
         Retrofit retrofit = RetrofitClient.getClient();
@@ -73,6 +76,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
                                 + " " + mainActivity.getUser().getConsultant().getLastname());
 
         progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
         contactPage = view.findViewById(R.id.contactPage);
 
         validateForm = new FormErrorHandling();
