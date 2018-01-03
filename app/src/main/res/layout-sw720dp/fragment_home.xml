@@ -29,7 +29,7 @@
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/home" />
+            android:src="@drawable/homescreen_image" />
 
         <TextView
             android:id="@+id/greetingsText"
