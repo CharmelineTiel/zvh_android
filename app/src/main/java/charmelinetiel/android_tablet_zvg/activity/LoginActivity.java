@@ -49,6 +49,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_login);
+
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
@@ -77,7 +79,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         validateForm = new FormErrorHandling();
 
-            setContentView(R.layout.activity_login);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             setTitle(R.string.title_activity_login);
@@ -113,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     user.setEmailAddress(email.getText().toString());
 
                     if(user != null && validInput()) {
-                        showProgressBar();
+                        //showProgressBar();
                         apiService.login(user).enqueue(this);
                     }
                 }

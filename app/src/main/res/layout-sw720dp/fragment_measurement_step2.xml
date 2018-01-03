@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/padding_10"
-        android:textSize="@dimen/bigger_text_mobile"
+        android:layout_marginTop="@dimen/padding_20"
+        android:textSize="@dimen/bigger_text_tablet"
         android:text="Heeft u regelmatig last van een of meer van de volgende gezondheidsklachten? "
         />
 
@@ -21,7 +21,7 @@
         android:layout_below="@+id/IssuesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin_20"
         />
 
     <RadioGroup
@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fillInText"
+            android:textSize="@dimen/normal_text_tablet"
             android:buttonTint="@color/colorPrimaryDark"
             android:text="@string/none"/>
     </RadioGroup>
@@ -58,10 +59,11 @@
 
     <TextView
         android:id="@+id/otherNamely"
-        android:layout_marginTop="@dimen/padding_10"
+        android:layout_marginTop="@dimen/padding_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:textSize="@dimen/normal_text_tablet"
         android:text="@string/otherNamely"
         android:layout_below="@id/checkboxList"/>
 
@@ -77,25 +79,31 @@
         android:id="@+id/noIssues"
         android:visibility="gone"
         android:layout_below="@+id/otherNamelyInput"
-        android:layout_marginTop="@dimen/padding_10"
-        android:layout_marginBottom="@dimen/padding_10"
-        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginTop="@dimen/padding_20"
+        android:layout_marginBottom="@dimen/padding_20"
+        android:layout_marginLeft="@dimen/padding_20"
         android:text="Geen bijzondere klachten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+<RelativeLayout
+    android:layout_below="@+id/noIssues"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <Button
         android:id="@+id/cancel_measurement2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/noIssues"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:width="@dimen/button_mobile"
+        android:width="@dimen/button_tablet"
         android:background="@color/lightGrey"
         android:text="Terug"
+        android:padding="@dimen/padding_20"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/bigger_text_mobile" />
+        android:textSize="@dimen/bigger_text_tablet" />
 
     <Button
         android:id="@+id/to_measurement_step3_button"
@@ -106,11 +114,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/cancel_measurement2_button"
-        android:width="@dimen/button_mobile"
+        android:width="@dimen/button_tablet"
         android:background="@color/colorAccent"
         android:text="Volgende"
+        android:padding="@dimen/padding_20"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/bigger_text_mobile" />
+        android:textSize="@dimen/bigger_text_tablet" />
+</RelativeLayout>
 
 </RelativeLayout>

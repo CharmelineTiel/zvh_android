@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/margin_15">
+        android:padding="@dimen/margin_20">
 
         <ImageView
             android:id="@+id/image"
@@ -28,7 +28,7 @@
             android:textAlignment="center"
             android:text="U heeft uw meting succesvol afgerond"
             android:textStyle="bold"
-            android:textSize="@dimen/bigger_text_mobile" />
+            android:textSize="@dimen/bigger_text_tablet" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,21 +37,22 @@
             android:lines="2"
             android:text="U kunt gemakkelijk een overzicht van al uw metingen zien onder dagboek"
             android:textAlignment="center"
-            android:textSize="@dimen/normal_text_mobile" />
+            android:textSize="@dimen/normal_text_tablet" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <Button
                 android:id="@+id/toDiary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
-                android:width="@dimen/button_mobile"
+                android:width="@dimen/button_tablet"
                 android:layout_toEndOf="@+id/toHome"
-                android:layout_marginTop="@dimen/padding_10"
+                android:layout_marginTop="@dimen/padding_20"
                 android:text="Bekijk dagboek"
-                android:textSize="@dimen/bigger_text_mobile"
+                android:padding="@dimen/padding_20"
+                android:textSize="@dimen/bigger_text_tablet"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteText"
                 />
@@ -60,11 +61,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/lightGrey"
-            android:width="@dimen/button_mobile"
-            android:layout_marginTop="@dimen/padding_10"
-            android:layout_marginRight="@dimen/margin_15"
+            android:width="@dimen/button_tablet"
+            android:layout_marginTop="@dimen/padding_20"
+            android:layout_marginRight="@dimen/margin_20"
             android:text="Niet nu"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:padding="@dimen/padding_20"
+            android:textSize="@dimen/bigger_text_tablet"
             android:textAllCaps="false"
             android:textColor="@color/whiteText"
             />

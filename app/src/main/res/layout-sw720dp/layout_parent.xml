@@ -7,7 +7,7 @@ android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="@dimen/margin_20"
     android:background="@color/lighterGrey"
     android:elevation="2dp">
 
@@ -15,7 +15,7 @@ android:orientation="vertical">
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/padding_20"
         android:textStyle="bold"
         android:layout_centerVertical="true"/>
 
@@ -23,11 +23,11 @@ android:orientation="vertical">
     <ImageView
         android:src="@drawable/ic_expand_more_black_24dp"
         android:id="@+id/arrow"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="16dp"/>
+        android:layout_margin="@dimen/margin_20"/>
 
 </RelativeLayout>
 

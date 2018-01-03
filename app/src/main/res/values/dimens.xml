@@ -17,6 +17,7 @@
     <!--<dimen name="design_bottom_navigation_margin" tools:override="true">-4dp</dimen>-->
     <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_20">20dp</dimen>
     <dimen name="fab_margin">16dp</dimen>

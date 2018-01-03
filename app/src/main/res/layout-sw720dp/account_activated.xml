@@ -8,10 +8,10 @@
     <LinearLayout
         android:gravity="center_horizontal"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/margin_15">
+        android:padding="@dimen/margin_20">
 
         <ImageView
             android:id="@+id/image"
@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:text="Account geactiveerd"
             android:textStyle="bold"
-            android:textSize="@dimen/bigger_text_mobile" />
+            android:textSize="@dimen/bigger_text_tablet" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,17 +36,18 @@
             android:lines="2"
             android:text="Uw account is succesvol geactiveerd."
             android:textAlignment="center"
-            android:textSize="@dimen/normal_text_mobile" />
+            android:textSize="@dimen/normal_text_tablet" />
 
         <Button
             android:id="@+id/toLoginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:width="@dimen/button_mobile"
-            android:layout_margin="@dimen/margin_15"
+            android:width="@dimen/button_tablet"
+            android:layout_margin="@dimen/margin_20"
             android:text="Inloggen"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:padding="@dimen/padding_20"
+            android:textSize="@dimen/bigger_text_tablet"
             android:textAllCaps="false"
             android:textColor="@color/whiteText"
             />

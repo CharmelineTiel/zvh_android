@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="20dp"
     android:id="@+id/measurement_list_item"
     >
 
@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_mobile"
+        android:textSize="@dimen/normal_text_tablet"
         android:textStyle="bold" />
 
     <TextView
@@ -20,14 +20,14 @@
         android:layout_below="@id/titleLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_mobile" />
+        android:textSize="@dimen/normal_text_tablet" />
     <TextView
         android:id="@+id/feedbackLbl"
         android:layout_gravity="center"
         android:layout_below="@id/bloodPressureLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_mobile" />
+        android:textSize="@dimen/normal_text_tablet" />
     <TextView
         android:id="@+id/dateLbl"
         android:layout_width="wrap_content"

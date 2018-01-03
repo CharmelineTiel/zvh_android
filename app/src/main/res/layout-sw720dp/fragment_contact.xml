@@ -9,7 +9,7 @@
 
 
         <RelativeLayout
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_20"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,6 +17,7 @@
 
             <TextView
                 android:id="@+id/contactTxt"
+                android:textSize="@dimen/normal_text_tablet"
                 android:text="@string/contactPageTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -28,78 +29,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contactTxt"
+                android:textSize="@dimen/normal_text_tablet"
                 android:text="Consulent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 />
 
             <EditText
                 android:id="@+id/consultantName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/emailLbl"
-                android:width="@dimen/form_field_mobile"
-                android:layout_marginTop="@dimen/padding_10"
                 android:background="@color/lighterGrey"
                 android:editable="false"
-                android:padding="@dimen/padding_10" />
+                android:padding="@dimen/padding_20" />
 
             <EditText
                 android:id="@+id/consultantEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consultantName"
-                android:width="@dimen/form_field_mobile"
-                android:layout_marginTop="@dimen/padding_10"
+                android:layout_marginTop="@dimen/padding_20"
                 android:background="@color/lighterGrey"
                 android:editable="false"
-                android:padding="@dimen/padding_10" />
+                android:padding="@dimen/padding_20" />
 
             <TextView
                 android:id="@+id/subjectLbl"
                 android:textStyle="bold"
+                android:textSize="@dimen/normal_text_tablet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/consultantEmail"
                 android:text="Onderwerp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 />
             <EditText
                 android:id="@+id/subject"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/subjectLbl"
-                android:width="@dimen/form_field_mobile"
                 android:background="@color/lighterGrey"
+                android:textSize="@dimen/normal_text_tablet"
                 android:hint="Vul een onderwerp in"
-                android:padding="@dimen/padding_10" />
+                android:padding="@dimen/padding_20" />
 
 
             <TextView
                 android:id="@+id/messageLbl"
                 android:textStyle="bold"
+                android:textSize="@dimen/normal_text_tablet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/subject"
                 android:text="Bericht"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 />
 
             <EditText
                 android:id="@+id/message"
+                android:textSize="@dimen/normal_text_tablet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/messageLbl"
-                android:width="@dimen/form_field_mobile"
+                android:width="@dimen/button_tablet"
                 android:hint="Vul een bericht in"
                 android:background="@color/lighterGrey"
-                android:paddingTop="@dimen/padding_10"
-                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_20"
+                android:paddingLeft="@dimen/padding_20"
                 android:paddingBottom="50dp" />
 
         <RelativeLayout
             android:layout_below="@id/message"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_20"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,12 +112,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Annuleren"
+                android:padding="@dimen/padding_20"
                 android:textColor="@color/whiteText"
-                android:textSize="@dimen/bigger_text_mobile"
+                android:textSize="@dimen/bigger_text_tablet"
                 android:background="@color/lightGrey"
                 android:textAllCaps="false"
-                android:layout_marginRight="@dimen/margin_15"
-                android:width="@dimen/button_mobile"
+                android:layout_marginRight="@dimen/margin_20"
+                android:width="@dimen/button_tablet"
                 />
             <Button
                 android:id="@+id/sendMessageBtn"
@@ -123,11 +126,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Verzenden"
+                android:padding="@dimen/padding_20"
                 android:textColor="@color/whiteText"
-                android:textSize="@dimen/bigger_text_mobile"
+                android:textSize="@dimen/bigger_text_tablet"
                 android:background="@color/colorAccent"
                 android:textAllCaps="false"
-                android:width="@dimen/button_mobile"
+                android:width="@dimen/button_tablet"
                 />
         </RelativeLayout>
 

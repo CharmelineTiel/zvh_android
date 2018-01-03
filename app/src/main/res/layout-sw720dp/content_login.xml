@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="@dimen/margin_20"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_marginTop="@dimen/margin_15"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        >
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_20"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -22,8 +23,8 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_marginTop="20dp"
-            android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_width="300dp"
+            android:layout_height="180dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_zvh" />
@@ -31,52 +32,53 @@
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
+        android:textSize="@dimen/normal_text_tablet"
+        android:paddingLeft="@dimen/margin_20"
         android:text="Email"/>
     <EditText
         android:id="@+id/username"
-        android:width="@dimen/form_field_mobile"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lighterGrey"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:padding="@dimen/padding_10"
-        android:textSize="@dimen/normal_text_mobile"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:padding="@dimen/padding_20"
+        android:textSize="@dimen/normal_text_tablet"
         android:inputType="textEmailAddress"
         android:hint="Vul uw email in"/>
 
     <TextView
-        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_20"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
+        android:textSize="@dimen/normal_text_tablet"
+        android:paddingLeft="@dimen/margin_20"
         android:text="Wachtwoord"/>
     <EditText
         android:layout_below="@+id/username"
-        android:width="@dimen/form_field_mobile"
         android:background="@color/lighterGrey"
         android:id="@+id/password"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:padding="@dimen/padding_10"
-        android:textSize="@dimen/normal_text_mobile"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:padding="@dimen/padding_20"
+        android:textSize="@dimen/normal_text_tablet"
         android:inputType="textPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Vul uw wachtwoord in"/>
 
     <CheckBox android:id="@+id/checkbox_autoLogin"
         android:layout_width="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginLeft="@dimen/padding_20"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/normal_text_tablet"
         android:text="Automatisch inloggen" />
 
         <RelativeLayout
             android:id="@+id/loginLayout"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_20"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,12 +89,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Annuleren"
-            android:layout_marginRight="@dimen/margin_15"
+            android:padding="@dimen/padding_20"
+            android:layout_marginRight="@dimen/margin_20"
             android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/lightGrey"
             android:textAllCaps="false"
-            android:width="@dimen/button_mobile"
+            android:width="@dimen/button_tablet"
             />
     <Button
         android:layout_toEndOf="@id/cancelBtn"
@@ -101,11 +104,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:padding="@dimen/padding_20"
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/bigger_text_mobile"
+        android:textSize="@dimen/bigger_text_tablet"
         android:background="@color/colorAccent"
         android:textAllCaps="false"
-        android:width="@dimen/button_mobile"
+        android:width="@dimen/button_tablet"
         />
 
     <TextView
@@ -116,7 +120,7 @@
         android:text="Wachtwoord vergeten?"
         android:focusable="true"
         android:clickable="true"
-        android:textSize="@dimen/margin_15"
+        android:textSize="@dimen/bigger_text_tablet"
         android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -124,5 +128,5 @@
 
 
     </LinearLayout>
-    </ScrollView>
 
+    </RelativeLayout>

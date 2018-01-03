@@ -2,15 +2,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:padding="@dimen/padding_20"
         android:id="@+id/detailPage"
         >
 
         <RelativeLayout
             android:id="@+id/measurement_list_item"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_marginBottom="@dimen/margin_15"
+            android:padding="@dimen/padding_20"
+            android:layout_marginBottom="@dimen/margin_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     <TextView
@@ -18,7 +18,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_mobile"
+        android:textSize="@dimen/normal_text_tablet"
         android:textStyle="bold" />
 
     <TextView
@@ -27,37 +27,40 @@
         android:layout_below="@id/titleLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_mobile" />
+        android:textSize="@dimen/normal_text_tablet" />
     <TextView
         android:id="@+id/feedbackLbl"
         android:layout_gravity="center"
         android:layout_below="@id/bloodPressureLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_mobile" />
+        android:textSize="@dimen/normal_text_tablet" />
         </RelativeLayout>
         <TextView
             android:id="@+id/issuesLbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textSize="@dimen/bigger_text_tablet"
             android:text="Gezondheidklachten"/>
         <TextView
             android:id="@+id/issues"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_20"
             />
         <TextView
             android:id="@+id/extraLbl"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/bigger_text_tablet"
             android:text="Toevoeging"/>
         <TextView
             android:id="@+id/extra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text_tablet"
             android:text="familie komt op bezoek, stress level to the max"/>
 
         <RelativeLayout
@@ -65,37 +68,37 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <Button
-                android:padding="10dp"
+                android:padding="@dimen/padding_20"
                 android:id="@+id/editBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bewerken"
-                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_20"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/whiteText"
-                android:textSize="@dimen/bigger_text_mobile"
+                android:textSize="@dimen/bigger_text_tablet"
                 android:background="@color/lightGrey"
                 android:textAllCaps="false"
-                android:width="@dimen/button_mobile"
+                android:width="@dimen/button_tablet"
                 />
         <Button
-            android:padding="10dp"
+            android:padding="@dimen/padding_20"
             android:id="@+id/backBtn"
             android:layout_toEndOf="@+id/editBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Terug"
-            android:layout_marginTop="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_20"
             android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/colorAccent"
             android:textAllCaps="false"
-            android:width="@dimen/button_mobile"
+            android:width="@dimen/button_tablet"
             />
 
         </RelativeLayout>

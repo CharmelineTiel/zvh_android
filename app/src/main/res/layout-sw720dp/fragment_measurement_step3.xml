@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/padding_10"
-        android:textSize="@dimen/bigger_text_mobile"
+        android:layout_marginTop="@dimen/padding_20"
+        android:textSize="@dimen/bigger_text_tablet"
         android:text="Noteer eventuele veranderingen in uw gezondheid (optioneel)"
         />
     <TextView
@@ -30,40 +30,48 @@
     <EditText
         android:id="@+id/extraRemarksInput"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:background="@color/lighterGrey"
         android:layout_below="@id/dateTimeNow"/>
 
-    <Button
-        android:id="@+id/cancel_measurement3_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_below="@+id/extraRemarksInput"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:width="@dimen/button_mobile"
-        android:background="@color/lightGrey"
-        android:text="Terug"
-        android:textAllCaps="false"
-        android:textColor="@color/whiteText"
-        android:textSize="@dimen/bigger_text_mobile" />
-
-    <Button
-        android:id="@+id/complete_measurement_button"
-        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/cancel_measurement3_button"
-        android:layout_alignBottom="@+id/cancel_measurement3_button"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/cancel_measurement3_button"
-        android:width="@dimen/button_mobile"
-        android:background="@color/colorAccent"
+        android:layout_width="wrap_content">
 
-        android:text="Opslaan"
-        android:textAllCaps="false"
-        android:textColor="@color/whiteText"
-        android:textSize="@dimen/bigger_text_mobile" />
+        <Button
+            android:id="@+id/cancel_measurement3_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:width="@dimen/button_tablet"
+            android:background="@color/lightGrey"
+            android:text="Terug"
+            android:padding="@dimen/padding_20"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/bigger_text_tablet" />
+
+        <Button
+            android:id="@+id/complete_measurement_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/cancel_measurement3_button"
+            android:layout_alignBottom="@+id/cancel_measurement3_button"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
+            android:padding="@dimen/padding_20"
+            android:layout_toRightOf="@id/cancel_measurement3_button"
+            android:width="@dimen/button_tablet"
+            android:background="@color/colorAccent"
+
+            android:text="Opslaan"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/bigger_text_tablet" />
+    </RelativeLayout>
 
 </RelativeLayout>
 </ScrollView>

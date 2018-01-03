@@ -37,19 +37,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/DarkGrey"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/transparent"
-            android:paddingLeft="@dimen/margin_15"
-            android:paddingTop="@dimen/padding_10"
-            android:paddingBottom="@dimen/padding_10"
+            android:paddingLeft="@dimen/margin_20"
+            android:paddingTop="@dimen/padding_20"
+            android:paddingBottom="@dimen/padding_20"
             android:layout_alignTop="@+id/home_background"
             />
         <LinearLayout
             android:id="@+id/measurementBtn"
-            android:layout_marginTop="210dp"
-            android:layout_width="280dp"
-            android:layout_height="120dp"
-            android:paddingTop="@dimen/padding_10"
+            android:layout_centerVertical="true"
+            android:layout_width="480dp"
+            android:layout_height="180dp"
+            android:paddingTop="@dimen/padding_20"
             android:background="@color/whiteTransparent"
             android:layout_centerHorizontal="true"
             android:orientation="vertical"
@@ -60,10 +60,10 @@
                 android:id="@+id/metingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_10"
+                android:padding="@dimen/padding_20"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:textSize="@dimen/normal_text_mobile"
+                android:textSize="@dimen/bigger_text_tablet"
                 android:text="Start hier een nieuwe meting "
                 />
             <Button
@@ -72,24 +72,25 @@
                 android:id="@+id/metingBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:width="220dp"
+                android:width="@dimen/button_tablet"
                 android:background="@color/colorAccent"
                 android:text="@string/startButton"
+                android:padding="@dimen/padding_20"
                 android:textColor="@color/whiteText"
                 android:textAllCaps="false"
-                android:textSize="@dimen/bigger_text_mobile" />
+                android:textSize="@dimen/bigger_text_tablet" />
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/logo_antonius"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="right"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="46dp"
+            android:layout_marginEnd="40dp"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_antonius_zorggroep" />
 
