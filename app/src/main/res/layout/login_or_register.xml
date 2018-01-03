@@ -19,7 +19,7 @@
 
         <RelativeLayout
             android:layout_marginBottom="30dp"
-            android:paddingBottom="@dimen/margin"
+            android:paddingBottom="@dimen/margin_15"
             android:gravity="center_horizontal"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
@@ -30,9 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inloggen"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="@dimen/margin_15"
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/biggerText"
+        android:textSize="@dimen/bigger_text_mobile"
         android:background="@color/colorAccent"
         android:textAllCaps="false"
         android:width="300dp"
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="135dp"
                 android:text="of"
                 android:textColor="@color/ms_black"
-                android:textSize="@dimen/biggerText"
+                android:textSize="@dimen/bigger_text_mobile"
                 android:textStyle="bold" />
     <Button
         android:layout_below="@+id/orLbl"
@@ -55,9 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registreren"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="@dimen/margin_15"
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/biggerText"
+        android:textSize="@dimen/bigger_text_mobile"
         android:background="@color/RegisterColor"
         android:textAllCaps="false"
         android:width="300dp"

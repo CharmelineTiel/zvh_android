@@ -13,7 +13,7 @@
             android:layout_height="match_parent">
 
     <TextView
-        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin_15"
         android:textStyle="bold"
         android:textSize="20dp"
         android:text="Persoonsgegevens"
@@ -21,73 +21,73 @@
         android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/margin_15"
                 android:text="Voornaam"/>
     <EditText
         android:id="@+id/firstName"
-        android:width="@dimen/formFieldSize"
+        android:width="@dimen/form_field_mobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lighterGrey"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:padding="@dimen/input_padding"
-        android:textSize="@dimen/normalText"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:padding="@dimen/padding_10"
+        android:textSize="@dimen/normal_text_mobile"
         android:hint="Vul uw voornaam in"
         android:textColor="@color/lightGrey" />
 
             <TextView
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/margin_15"
                 android:text="Achternaam"/>
     <EditText
-        android:width="@dimen/formFieldSize"
+        android:width="@dimen/form_field_mobile"
         android:background="@color/lighterGrey"
         android:id="@+id/lastName"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_marginRight="@dimen/margin"
-        android:padding="@dimen/input_padding"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:padding="@dimen/padding_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/normalText"
+        android:textSize="@dimen/normal_text_mobile"
         android:textColor="@color/lightGrey"
         android:hint="Vul uw achternaam in"/>
 
             <TextView
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/margin_15"
                 android:text="Geboortedatum"/>
         <EditText
             android:editable="false"
-            android:width="@dimen/formFieldSize"
+            android:width="@dimen/form_field_mobile"
             android:background="@color/lighterGrey"
             android:id="@+id/dateOfBirth"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:padding="@dimen/input_padding"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:padding="@dimen/padding_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
+            android:textSize="@dimen/normal_text_mobile"
             android:textColor="@color/lightGrey"
             android:hint="Vul uw geboortedatum in"/>
 
 
             <TextView
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/margin_15"
                 android:text="Geslacht bij geboorte"/>
 
         <RadioGroup
@@ -96,7 +96,7 @@
             android:id="@+id/radioGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin">
+            android:layout_marginLeft="@dimen/margin_15">
 
             <RadioButton
                 android:buttonTint="@color/colorPrimaryDark"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Man"
-                android:textSize="@dimen/normalText"
+                android:textSize="@dimen/normal_text_mobile"
                 android:checked="true" />
 
             <RadioButton
@@ -112,31 +112,31 @@
                 android:id="@+id/radioFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/normalText"
+                android:textSize="@dimen/normal_text_mobile"
                 android:text="Vrouw" />
         </RadioGroup>
 
 
             <TextView
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
                 android:id="@+id/weightLbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/margin_15"
                 android:text="@string/weight"/>
 
             <EditText
                 android:id="@+id/length_input"
-                android:width="@dimen/formFieldSize"
+                android:width="@dimen/form_field_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/lighterGrey"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin"
-                android:padding="@dimen/input_padding"
-                android:textSize="@dimen/normalText"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:padding="@dimen/padding_10"
+                android:textSize="@dimen/normal_text_mobile"
                 android:inputType="number"
                 android:textColor="@color/lightGrey"
                 android:hint="Vul uw gewicht in"/>
@@ -146,20 +146,20 @@
                 android:id="@+id/LengthLbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/margin_15"
                 android:text="@string/length"/>
 
             <EditText
-                android:width="@dimen/formFieldSize"
+                android:width="@dimen/form_field_mobile"
                 android:background="@color/lighterGrey"
                 android:id="@+id/weight_input"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin"
-                android:padding="@dimen/input_padding"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:padding="@dimen/padding_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/normalText"
+                android:textSize="@dimen/normal_text_mobile"
                 android:inputType="number"
                 android:textColor="@color/lightGrey"
                 android:hint="Vul uw lengte in"/>
@@ -177,10 +177,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/biggerText"
+        android:textSize="@dimen/bigger_text_mobile"
         android:background="@color/lightGrey"
         android:textAllCaps="false"
-        android:width="@dimen/buttonM"
+        android:width="@dimen/button_mobile"
         />
     <Button
         android:id="@+id/secondBtn"
@@ -192,10 +192,10 @@
         android:layout_marginRight="10dp"
 
         android:textColor="@color/whiteText"
-        android:textSize="@dimen/biggerText"
+        android:textSize="@dimen/bigger_text_mobile"
         android:background="@color/RegisterColor"
         android:textAllCaps="false"
-        android:width="@dimen/buttonM"
+        android:width="@dimen/button_mobile"
         />
 </RelativeLayout>
         </LinearLayout>
