@@ -3,81 +3,81 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-
-
-
     <TextView
-        android:layout_marginTop="@dimen/margin_15"
-        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginLeft="@dimen/margin_20"
         android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Inloggegevens"
+        android:textSize="@dimen/bigger_text_tablet"
+        android:text="Logingegevens"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
     <TextView
-        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_20"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
+        android:textSize="@dimen/normal_text_tablet"
+        android:paddingLeft="@dimen/margin_20"
         android:text="Emailadres"/>
 
         <EditText
-            android:width="@dimen/form_field_mobile"
-            android:background="@color/lighterGrey"
             android:id="@+id/email"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:padding="@dimen/padding_10"
-            android:layout_width="wrap_content"
+            android:width="@dimen/form_field_tablet"
+            android:background="@color/lighterGrey"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:padding="@dimen/padding_20"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/normal_text_mobile"
+            android:textSize="@dimen/normal_text_tablet"
             android:textColor="@color/lightGrey"
-            android:inputType="textEmailAddress"
             android:hint="Vul uw email in"/>
 
     <TextView
-        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_20"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
+        android:textSize="@dimen/normal_text_tablet"
+        android:paddingLeft="@dimen/margin_20"
         android:text="Wachtwoord"/>
+
         <EditText
             android:id="@+id/pass1"
-            android:width="@dimen/form_field_mobile"
-            android:layout_width="wrap_content"
+            android:width="@dimen/form_field_tablet"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/lighterGrey"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:padding="@dimen/margin_15"
-            android:textSize="@dimen/normal_text_mobile"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:padding="@dimen/margin_20"
+            android:textSize="@dimen/normal_text_tablet"
             android:inputType="textPassword"
             android:textColor="@color/lightGrey"
             android:hint="Vul een wachtwoord in"/>
 
     <TextView
-        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_20"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
+        android:textSize="@dimen/normal_text_tablet"
+        android:paddingLeft="@dimen/margin_20"
         android:text="Herhaal wachtwoord"/>
 
         <EditText
-            android:width="@dimen/form_field_mobile"
+            android:width="@dimen/form_field_tablet"
             android:background="@color/lighterGrey"
             android:id="@+id/pass2"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:layout_marginBottom="@dimen/margin_15"
-            android:padding="@dimen/padding_10"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:padding="@dimen/padding_20"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/normal_text_mobile"
+            android:textSize="@dimen/normal_text_tablet"
             android:inputType="textPassword"
             android:textColor="@color/lightGrey"
             android:hint="Herhaal uw wachtwoord"/>
@@ -91,32 +91,32 @@
 
 
             <Button
-            android:padding="10dp"
+            android:padding="20dp"
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Terug"
-            android:layout_marginTop="@dimen/margin_15"
-            android:layout_margin="10dp"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_margin="20dp"
             android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/lightGrey"
             android:textAllCaps="false"
-            android:width="@dimen/button_mobile"
+            android:width="@dimen/button_tablet"
             />
         <Button
-            android:padding="10dp"
+            android:padding="20dp"
             android:id="@+id/nextScreenBtn"
             android:layout_toEndOf="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Volgende"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/RegisterColor"
             android:textAllCaps="false"
-            android:width="@dimen/button_mobile"
+            android:width="@dimen/button_tablet"
             />
 
     </RelativeLayout>

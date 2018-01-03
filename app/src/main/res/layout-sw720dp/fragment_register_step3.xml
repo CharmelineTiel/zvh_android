@@ -3,27 +3,10 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/progressBar"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="50dp"
-            android:minWidth="50dp"
-            android:indeterminate="true"
-            android:visibility="visible"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
 
     <TextView
-        android:id="@+id/consultant_title"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginLeft="@dimen/margin_20"
         android:textStyle="bold"
         android:textSize="20dp"
         android:text="Consulent"
@@ -31,10 +14,9 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/consultant_text"
-        android:textSize="@dimen/margin_15"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_15"
+        android:textSize="@dimen/margin_20"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Uw consulent bij het St. Antonius Ziekenhuis"/>
@@ -42,12 +24,11 @@
         android:background="@color/lighterGrey"
         android:spinnerMode="dialog"
         android:id="@+id/consultants"
-        android:width="@dimen/form_field_mobile"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_15"
-        android:padding="@dimen/padding_10"
-        android:textSize="@dimen/normal_text_mobile"
+        android:layout_margin="@dimen/margin_20"
+        android:padding="@dimen/padding_20"
+        android:textSize="@dimen/normal_text_tablet"
         android:textColor="@color/lightGrey"
         />
 
@@ -61,13 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Terug"
-            android:layout_marginTop="@dimen/margin_15"
-            android:layout_margin="10dp"
+            android:padding="@dimen/padding_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_margin="20dp"
             android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/lightGrey"
             android:textAllCaps="false"
-            android:width="@dimen/button_mobile"
+            android:width="@dimen/button_tablet"
             />
         <Button
             android:layout_toEndOf="@+id/backBtn"
@@ -75,13 +57,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registreren"
-            android:layout_marginTop="@dimen/margin_15"
-            android:layout_margin="10dp"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_margin="20dp"
+            android:padding="@dimen/padding_20"
             android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
+            android:textSize="@dimen/bigger_text_tablet"
             android:background="@color/RegisterColor"
             android:textAllCaps="false"
-            android:width="@dimen/button_mobile"
+            android:width="@dimen/button_tablet"
             />
 
     </RelativeLayout>

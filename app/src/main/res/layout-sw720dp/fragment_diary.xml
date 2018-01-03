@@ -16,7 +16,7 @@
         android:indeterminate="true"
         android:visibility="gone"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
 
     <TextView
@@ -49,8 +49,7 @@
         android:layout_below="@+id/insertMeasurementText"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        />
+        android:layout_gravity="center_horizontal"/>
 
         <ListView
             android:id="@+id/measurement_list_view"

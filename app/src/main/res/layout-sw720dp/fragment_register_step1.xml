@@ -1,136 +1,209 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    <TextView
-        android:layout_margin="@dimen/margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selecteer uw consulent"/>
-    <Spinner
-        android:id="@+id/consultants"
-        android:width="@dimen/formFieldSize"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey"
-        />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-
-    <EditText
-        android:id="@+id/firstName"
-        android:width="@dimen/formFieldSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/lighterGrey"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
-        android:textSize="@dimen/normalText"
-        android:hint="Vul uw voornaam in"
-        android:textColor="@color/lightGrey" />
-
-    <EditText
-        android:width="@dimen/formFieldSize"
-        android:background="@color/lighterGrey"
-        android:id="@+id/lastName"
-        android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normalText"
-        android:textColor="@color/lightGrey"
-        android:hint="Vul uw achternaam in"/>
-
-        <EditText
-            android:width="@dimen/formFieldSize"
-            android:background="@color/lighterGrey"
-            android:id="@+id/dateOfBirth"
-            android:layout_margin="@dimen/margin"
-            android:padding="@dimen/margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normalText"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw geboortedatum in"/>
-
-<TextView
-    android:id="@+id/genderLbl"
-    android:layout_below="@+id/dateOfBirth"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Geslacht bij geboorte"
-    android:layout_margin="@dimen/margin"
-    android:textSize="@dimen/normalText"
-    android:layout_marginBottom="0dp"
-    />
-
-        <RadioGroup
-            android:layout_below="@+id/genderLbl"
-            android:id="@+id/radioGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:layout_marginTop="0dp"
-            >
-
-            <RadioButton
-                android:id="@+id/radioMale"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Man"
-                android:textSize="@dimen/normalText"
-                android:checked="true" />
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:text="Persoonsgegevens"
+                android:textSize="@dimen/bigger_text_tablet"
+                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/radioFemale"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:paddingLeft="@dimen/padding_20"
+                android:text="Voornaam"
+                android:textSize="@dimen/normal_text_tablet"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:background="@color/lighterGrey"
+                android:hint="Vul uw voornaam in"
+                android:padding="@dimen/padding_20"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/normal_text_tablet" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:paddingLeft="@dimen/margin_20"
+                android:textSize="@dimen/normal_text_tablet"
+                android:text="Achternaam"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:background="@color/lighterGrey"
+                android:hint="Vul uw achternaam in"
+                android:padding="@dimen/padding_20"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/normal_text_tablet" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:paddingLeft="@dimen/margin_20"
+                android:textSize="@dimen/normal_text_tablet"
+                android:text="Geboortedatum"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/dateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:background="@color/lighterGrey"
+                android:editable="false"
+                android:hint="Vul uw geboortedatum in"
+                android:padding="@dimen/padding_20"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/normal_text_tablet" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:paddingLeft="@dimen/margin_20"
+                android:textSize="@dimen/normal_text_tablet"
+                android:text="Geslacht bij geboorte"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/normalText"
-                android:text="Vrouw" />
+                android:layout_below="@+id/genderLbl"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:buttonTint="@color/colorPrimaryDark">
 
-        </RadioGroup>
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <Button
-        android:padding="10dp"
-        android:id="@+id/firstBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Annuleren"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_margin="10dp"
-        android:textColor="@color/whiteText"
-        android:textSize="@dimen/biggerText"
-        android:background="@color/lightGrey"
-        android:textAllCaps="false"
-        android:width="@dimen/buttonM"
-        />
-    <Button
-        android:padding="10dp"
-        android:id="@+id/secondBtn"
-        android:layout_toEndOf="@+id/firstBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Volgende"
-        android:layout_margin="10dp"
-        android:textColor="@color/whiteText"
-        android:textSize="@dimen/biggerText"
-        android:background="@color/colorAccent"
-        android:textAllCaps="false"
-        android:width="@dimen/buttonM"
-        />
-</RelativeLayout>
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:checked="true"
+                    android:text="Man"
+                    android:textSize="@dimen/normal_text_tablet" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:text="Vrouw"
+                    android:textSize="@dimen/normal_text_tablet" />
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/weightLbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:paddingLeft="@dimen/margin_20"
+                android:textSize="@dimen/normal_text_tablet"
+                android:text="@string/weight"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/length_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:background="@color/lighterGrey"
+                android:baselineAligned="false"
+                android:hint="Vul uw gewicht in"
+                android:inputType="number"
+                android:padding="@dimen/padding_20"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/normal_text_tablet" />
+
+            <TextView
+                android:id="@+id/LengthLbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_20"
+                android:textSize="@dimen/normal_text_tablet"
+                android:text="@string/length"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/weight_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:background="@color/lighterGrey"
+                android:hint="Vul uw lengte in"
+                android:inputType="number"
+                android:padding="@dimen/padding_20"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/normal_text_tablet" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/firstBtn"
+                    android:layout_width="wrap_content"
+                    android:width="@dimen/button_tablet"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:background="@color/lightGrey"
+                    android:padding="@dimen/margin_20"
+                    android:text="Annuleren"
+                    android:textAllCaps="false"
+                    android:textColor="@color/whiteText"
+                    android:textSize="@dimen/bigger_text_tablet" />
+
+                <Button
+                    android:id="@+id/secondBtn"
+                    android:layout_width="wrap_content"
+                    android:width="@dimen/button_tablet"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:layout_toEndOf="@+id/firstBtn"
+                    android:background="@color/RegisterColor"
+                    android:text="Volgende"
+                    android:textAllCaps="false"
+                    android:padding="@dimen/margin_20"
+                    android:textColor="@color/whiteText"
+                    android:textSize="@dimen/bigger_text_tablet" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
