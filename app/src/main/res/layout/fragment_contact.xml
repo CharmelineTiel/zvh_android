@@ -4,8 +4,20 @@
     android:layout_height="match_parent"
     tools:context="charmelinetiel.android_tablet_zvg.fragments.ContactFragment">
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
     <ScrollView android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/contactPage">
 
 
         <RelativeLayout

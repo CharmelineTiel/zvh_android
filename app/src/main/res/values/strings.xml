@@ -25,7 +25,7 @@
     <string name="error_incorrect_password">Uw wachtwoord is onjuist</string>
     <string name="error_field_required">verplicht veld</string>
     <string name="forgotPasswordText">Weet u uw wachtwoord niet meer?
-        Vul hieronder uw e-mailadres in en druk op verzenden. We sturen dan binnen enkele minuten een e-mail waarmee een nieuw wachtwoord kan worden aangemaakt. </string>
+        Vul hieronder uw e-mailadres in en druk op verzenden. We sturen dan binnen enkele minuten een e-mail waarmee u uw wachtwoord kunt herstellen. </string>
     <string name="title_login_or_register">Inloggen / Registreren</string>
     <string name="account_activated">Account geactiveerd</string>
 
