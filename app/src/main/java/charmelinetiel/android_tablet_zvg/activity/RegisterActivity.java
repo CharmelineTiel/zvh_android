@@ -24,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_register);
 
-
         Intent intent = getIntent();
         data = intent.getData();
 
@@ -50,8 +49,10 @@ public class RegisterActivity extends AppCompatActivity{
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.contentR, fg, fg.toString());
+        ft.addToBackStack(fg.toString());
         ft.commit();
     }
+
     @Override
     public void onBackPressed() {
 

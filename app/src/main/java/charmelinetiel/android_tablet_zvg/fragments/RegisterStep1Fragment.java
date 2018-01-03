@@ -130,6 +130,7 @@ public class RegisterStep1Fragment extends Fragment
                 break;
 
             case R.id.firstBtn:
+
                 getFragmentManager().popBackStack();
                 break;
         }

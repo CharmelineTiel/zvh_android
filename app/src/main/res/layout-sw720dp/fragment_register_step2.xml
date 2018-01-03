@@ -24,7 +24,6 @@
 
         <EditText
             android:id="@+id/email"
-            android:width="@dimen/form_field_tablet"
             android:background="@color/lighterGrey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
@@ -46,7 +45,6 @@
 
         <EditText
             android:id="@+id/pass1"
-            android:width="@dimen/form_field_tablet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/lighterGrey"
@@ -68,9 +66,8 @@
         android:text="Herhaal wachtwoord"/>
 
         <EditText
-            android:width="@dimen/form_field_tablet"
-            android:background="@color/lighterGrey"
             android:id="@+id/pass2"
+            android:background="@color/lighterGrey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
             android:layout_marginBottom="@dimen/margin_20"
