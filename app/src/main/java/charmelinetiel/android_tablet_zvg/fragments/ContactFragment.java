@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -36,6 +38,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
     private EditText message,subject, consultantEmail, consultantName;
     private FormErrorHandling validateForm;
     private MainActivity mainActivity;
+    private ProgressBar progressBar;
+    private ScrollView contactPage;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -68,6 +72,9 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         consultantName.setText(mainActivity.getUser().getConsultant().getFirstname()
                                 + " " + mainActivity.getUser().getConsultant().getLastname());
 
+        progressBar = view.findViewById(R.id.progressBar);
+        contactPage = view.findViewById(R.id.contactPage);
+
         validateForm = new FormErrorHandling();
 
         return view;
@@ -80,6 +87,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
             case R.id.sendMessageBtn:
 
                 if(validInput()) {
+                    showProgressBar();
                     messageObj = new Message();
                     messageObj.setSubject(subject.getText().toString());
                     messageObj.setMessage(message.getText().toString());
@@ -102,12 +110,17 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
         if(response.isSuccessful()){
 
            mainActivity.openFragment(new MessageSentFragment());
+        }else{
+            Toast.makeText(getActivity(), "Er is iets fout gegaan, controleer alstublieft alle velden",
+                    Toast.LENGTH_LONG).show();
+            hideProgressBar();
         }
     }
 
     @Override
     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+        hideProgressBar();
         Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
     }
@@ -126,6 +139,16 @@ public class ContactFragment extends Fragment implements View.OnClickListener, C
             return false;
         }
         return true;
+    }
+
+    public void showProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
+        contactPage.setVisibility(View.GONE);
+    }
+
+    public void hideProgressBar(){
+        progressBar.setVisibility(View.GONE);
+        contactPage.setVisibility(View.VISIBLE);
     }
 
 }

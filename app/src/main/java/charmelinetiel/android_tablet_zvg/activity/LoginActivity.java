@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -132,6 +133,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 dialog.setContentView(R.layout.forgot_password_dialog);
                 EditText forgotPasswordEmailInput = dialog.findViewById(R.id.forgotPasswordEmailInput);
                 Button cancelForgotPassword = dialog.findViewById(R.id.cancel_forgot_password);
+                TextView iForgotLbl = dialog.findViewById(R.id.iForgotLbl);
+                TextView forgotPasswordText = dialog.findViewById(R.id.forgotPasswordText);
+                LinearLayout buttonsPanel = dialog.findViewById(R.id.buttonsPanel);
+                ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+                LinearLayout emailSent = dialog.findViewById(R.id.emailSent);
+                Button closeDialogButton = dialog.findViewById(R.id.closeDialogButton);
+
+                closeDialogButton.setOnClickListener(view -> {
+                    dialog.dismiss();
+                });
 
                 cancelForgotPassword.setOnClickListener(view -> {
                     dialog.dismiss();
@@ -147,16 +158,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 //TODO: toon message aan de hand van de response
                                 if (response.body() != null && response.isSuccessful()) {
+                                    progressBar.setVisibility(View.GONE);
+                                    emailSent.setVisibility(View.VISIBLE);
+                                }else {
+                                    iForgotLbl.setVisibility(View.VISIBLE);
+                                    forgotPasswordText.setVisibility(View.VISIBLE);
+                                    buttonsPanel.setVisibility(View.VISIBLE);
+                                    forgotPasswordEmailInput.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.INVISIBLE);
 
+                                    Toast.makeText(getBaseContext(), "Controleer uw e-mail adres", Toast.LENGTH_LONG).show();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                iForgotLbl.setVisibility(View.VISIBLE);
+                                forgotPasswordText.setVisibility(View.VISIBLE);
+                                buttonsPanel.setVisibility(View.VISIBLE);
+                                forgotPasswordEmailInput.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
 
+                                Toast.makeText(getBaseContext(), "Controleer uw e-mail adres", Toast.LENGTH_LONG).show();
                             }
                         });
-                        dialog.dismiss();
 
                     }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
 
@@ -244,5 +269,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginPage.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
+
+
 
 }
