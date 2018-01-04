@@ -24,10 +24,10 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
     private View v;
     private Button contactBtn;
     private MainActivity mainActivity;
+
     public FAQFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,9 +36,10 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_faq, container, false);
 
 
-        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
         ExpandableLayout sectionLinearLayout = v.findViewById(R.id.el);
         contactBtn = v.findViewById(R.id.contactBtn);
+        contactBtn.setOnClickListener(this);
 
         sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<String, String>() {
             @Override
