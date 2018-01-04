@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             startActivity(loginIntent);
         }
 
+
+
         initBottomNav();
 
     }
