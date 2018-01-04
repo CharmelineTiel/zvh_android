@@ -22,7 +22,7 @@ import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
-import charmelinetiel.android_tablet_zvg.adapters.ListAdapter;
+import charmelinetiel.android_tablet_zvg.adapters.MeasurementListAdapter;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -48,7 +48,7 @@ public class DiaryFragment extends Fragment {
     private MainActivity mainActivity;
     private List<Measurement> measurements;
     private APIService apiService;
-    private ListAdapter adapter;
+    private MeasurementListAdapter adapter;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -167,7 +167,7 @@ public class DiaryFragment extends Fragment {
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
                                 initGraph();
-                                adapter = new ListAdapter(getContext(),diaryFragment, measurements);
+                                adapter = new MeasurementListAdapter(getContext(),diaryFragment, measurements);
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 progressBar.setVisibility(View.GONE);

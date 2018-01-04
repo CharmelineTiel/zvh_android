@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -20,7 +19,7 @@ import charmelinetiel.android_tablet_zvg.models.Measurement;
  * Created by Tiel on 27-11-2017.
  */
 
-public class ListAdapter extends BaseAdapter {
+public class MeasurementListAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
     private Fragment fg;
@@ -35,7 +34,7 @@ public class ListAdapter extends BaseAdapter {
         RelativeLayout layout;
     }
 
-    public ListAdapter(Context context, Fragment fg, List<Measurement> data) {
+    public MeasurementListAdapter(Context context, Fragment fg, List<Measurement> data) {
         this.fg = fg;
         this.data = data;
         this.inflater = fg.getLayoutInflater();

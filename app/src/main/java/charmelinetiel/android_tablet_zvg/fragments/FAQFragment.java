@@ -104,7 +104,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
             case R.id.contactBtn:
 
-                mainActivity.openFragment(new ContactFragment());
+                mainActivity.openFragment(new ContactHostFragment());
 
                 break;
             }

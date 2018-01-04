@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.ContactFragment;
+import charmelinetiel.android_tablet_zvg.fragments.ContactHostFragment;
 import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
 import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
                 case R.id.contact:
                     setTitle("Contact");
-                    openFragment(new ContactFragment());
+                    openFragment(new ContactHostFragment());
                     return true;
 
                 case R.id.settings:
