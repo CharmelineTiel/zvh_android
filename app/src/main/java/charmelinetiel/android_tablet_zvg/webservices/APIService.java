@@ -2,6 +2,7 @@ package charmelinetiel.android_tablet_zvg.webservices;
 
 import java.util.List;
 
+import charmelinetiel.android_tablet_zvg.models.Faq;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.models.Message;
@@ -23,6 +24,9 @@ public interface APIService {
 
     @GET("Consultants")
     Call<List<Consultant>> getAllConsultants();
+
+    @GET("/faq")
+    Call<List<Faq>> getFaq();
 
     @POST("/Users/register")
     Call<User> register(@Body User user);
@@ -53,6 +57,8 @@ public interface APIService {
 
     @PUT("Users/resetPassword")
     Call<ResponseBody> resetPassword(@Body ResetPasswordBody passwordReset );
+
+
 
 //    @GET("Articles/{nextId}")
 //    Call<RootObject> getMoreArticles(@Header("x-authtoken") String api_token, @Path("nextId") int nextId, @Query("count") int count);

@@ -38,7 +38,6 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
                              Bundle savedInstanceState) {
         m = getArguments().getParcelable("measurement");
 
-
         mainActivity = (MainActivity) getActivity();
         healthIssues = mainActivity.getHealthIssues();
 
@@ -86,11 +85,15 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
         String healthIssuesText = "";
 
-        for (int i = 0; i < healthIssues.size(); i++){
-            healthIssuesText += healthIssues.get(i).getName();
+        for (int i = 0; i < m.getHealthIssueIds().size(); i++){
+            for(int j = 0; j < healthIssues.size(); j++){
+                if(m.getHealthIssueIds().get(i).equals(healthIssues.get(j).getHealthIssueId())){
+                    healthIssuesText += healthIssues.get(j).getName();
 
+                }
+            }
             //Add a comma if needed
-            if(i != healthIssues.size()-1 || m.getHealthIssueOther() != ""){
+            if(i != m.getHealthIssueIds().size()-1 || !m.getHealthIssueOther().equals("")){
                 healthIssuesText += ", ";
             }
         }
