@@ -1,8 +1,3 @@
-<ScrollView
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +20,7 @@
         android:layout_below="@+id/IssuesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_marginBottom="3dp"
         />
 
     <RadioGroup
@@ -67,22 +62,13 @@
         android:text="Anders, namelijk"
         android:layout_below="@id/checkboxList"/>
 
-    <TextView
-        android:id="@+id/otherNamely"
-        android:layout_marginTop="@dimen/padding_10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="@string/otherNamely"
-        android:layout_below="@id/checkboxList"/>
-
     <EditText
         android:id="@+id/otherNamelyInput"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/lighterGrey"
-        android:layout_below="@id/otherNamely"/>
+        android:layout_below="@id/otherNamelyCheckbox"/>
 
     <TextView
         android:id="@+id/noIssues"
@@ -98,7 +84,6 @@
         android:id="@+id/cancel_measurement2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/noIssues"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:width="@dimen/button_mobile"
@@ -106,23 +91,22 @@
         android:text="Terug"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
+        android:layout_alignParentBottom="true"
         android:textSize="@dimen/bigger_text_mobile" />
 
     <Button
         android:id="@+id/to_measurement_step3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/cancel_measurement2_button"
-        android:layout_alignBottom="@+id/cancel_measurement2_button"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/cancel_measurement2_button"
         android:width="@dimen/button_mobile"
         android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
         android:text="Volgende"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/bigger_text_mobile" />
 
 </RelativeLayout>
-</ScrollView>

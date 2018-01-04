@@ -87,7 +87,11 @@ public class MeasurementStep2Fragment extends Fragment {
         }
 
         otherNamelyCheckbox.setOnClickListener(view -> {
-            otherNamelyInput.setVisibility(View.VISIBLE);
+            if(otherNamelyInput.getVisibility() == View.VISIBLE){
+                otherNamelyInput.setVisibility(View.GONE);
+            }else{
+                otherNamelyInput.setVisibility(View.VISIBLE);
+            }
         });
         checkboxList.setEnabled(false);
 
@@ -103,7 +107,6 @@ public class MeasurementStep2Fragment extends Fragment {
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
 
                 mainActivity.openFragment(new MeasurementStep3Fragment());
-
             }
         });
 
@@ -129,7 +132,7 @@ public class MeasurementStep2Fragment extends Fragment {
                     case R.id.yesNamelyRadio:
 
                         checkboxList.setVisibility(View.VISIBLE);
-                        noIssues.setVisibility(View.GONE);
+                        noIssues.setVisibility(View.INVISIBLE);
                         break;
                 }
             }
