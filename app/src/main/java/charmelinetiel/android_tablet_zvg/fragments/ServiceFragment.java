@@ -32,7 +32,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
 
     private NotificationManager mNotificationManager;
     private static final int NOTIFICATION_ID = 0;
-    private Preference logout, dailyReminder, sendWeekly;
+    private Preference logout, dailyReminder, sendWeekly, veelgesteldeVragen, disclaimer;
     private MainActivity mainActivity;
 
     public ServiceFragment() {
@@ -48,6 +48,9 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
 
         logout = findPreference("logout");
         dailyReminder= findPreference("dailyReminders");
+        veelgesteldeVragen = findPreference("veelgesteldeVragen");
+        disclaimer = findPreference("disclaimer");
+
 
         //initialize notificationManager and alarmManager
         mNotificationManager = (NotificationManager) (getActivity()).getSystemService(NOTIFICATION_SERVICE);
@@ -115,6 +118,28 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
 
                 return true;
 
+            }
+        });
+
+        veelgesteldeVragen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                Fragment fg = new FAQFragment();
+                mainActivity.openFragment(fg);
+
+                return true;
+            }
+        });
+
+        disclaimer.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                Fragment fg = new DisclaimerFragment();
+                mainActivity.openFragment(fg);
+
+                return true;
             }
         });
 
