@@ -25,7 +25,7 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
     private View v;
     private Measurement m;
-    private TextView issues, extra, extraLbl;
+    private TextView issues, extra, extraLbl, issuesLbl;
     private MainActivity mainActivity;
     private List<HealthIssue> healthIssues;
 
@@ -95,6 +95,7 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
         issues = v.findViewById(R.id.issues);
         extra = v.findViewById(R.id.extra);
         extraLbl = v.findViewById(R.id.extraLbl);
+        issuesLbl = v.findViewById(R.id.issuesLbl);
 
         String healthIssuesText = "";
 
@@ -114,8 +115,13 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
         issues.setText(healthIssuesText);
 
-        if(m.getComment() == "" || m.getComment() == null){
-            extraLbl.setVisibility(View.INVISIBLE);
+        if(m.getComment().equals("") || m.getComment() == null){
+            extraLbl.setVisibility(View.GONE);
+            extra.setVisibility(View.GONE);
+        }
+        if(m.getHealthIssueIds().size() == 0 && (m.getHealthIssueOther().equals("") || m.getHealthIssueOther() == null)){
+            issuesLbl.setVisibility(View.GONE);
+            issues.setVisibility(View.GONE);
         }
 
         extra.setText(m.getComment());

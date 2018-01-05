@@ -38,16 +38,12 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
         CheckBox box;
         View view;
-        TextView otherNamely;
-        EditText otherNamelyInput;
 
         if (convertView == null) {
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.checkbox_listview_item, null);
             view = vi.inflate(R.layout.fragment_measurement_step2, parent,false);
-            otherNamely = view.findViewById(R.id.otherNamely);
-            otherNamelyInput = view.findViewById(R.id.otherNamelyInput);
             box = convertView.findViewById(R.id.checkBox1);
             convertView.setTag(box);
 
@@ -77,19 +73,19 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
                         selectedIssues.add(v.getTag().toString());
 
-                        if (issue.getHealthIssueId() == v.getTag()){
-
-                            otherNamely.setVisibility(View.VISIBLE);
-                            otherNamelyInput.setVisibility(View.VISIBLE);
-                        }
+//                        if (issue.getHealthIssueId() == v.getTag()){
+//
+//                            otherNamely.setVisibility(View.VISIBLE);
+//                            otherNamelyInput.setVisibility(View.VISIBLE);
+//                        }
                     }else
                     {
                         selectedIssues.remove(v.getTag().toString());
 
-                        if (issue.getHealthIssueId() == v.getTag()){
-                        otherNamely.setVisibility(View.GONE);
-                        otherNamelyInput.setVisibility(View.GONE);
-                        }
+//                        if (issue.getHealthIssueId() == v.getTag()){
+//                        otherNamely.setVisibility(View.GONE);
+//                        otherNamelyInput.setVisibility(View.GONE);
+//                        }
                     }
                 }
             });

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.ResetPasswordBody;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -27,7 +28,7 @@ public class ResetPasswordFragment extends Fragment {
     private String token;
     private View v;
     private APIService apiService;
-    private LoginActivity loginActivity;
+    private RegisterActivity registerActivity;
 
     public ResetPasswordFragment() {
         // Required empty public constructor
@@ -39,7 +40,7 @@ public class ResetPasswordFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_reset_password, container, false);
 
-        loginActivity = (LoginActivity) getActivity();
+        registerActivity = (RegisterActivity) getActivity();
         if (getArguments() != null) {
             token = getArguments().getString("token");
         }
@@ -66,7 +67,7 @@ public class ResetPasswordFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                    loginActivity.openFragment(new ResetPasswordCompletedFragment());
+                    registerActivity.openFragment(new ResetPasswordCompletedFragment());
 
                 }
 
