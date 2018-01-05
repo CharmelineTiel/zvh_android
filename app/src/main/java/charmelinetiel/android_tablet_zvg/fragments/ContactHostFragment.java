@@ -37,8 +37,7 @@ public class ContactHostFragment extends Fragment
 
         if(screenResolution.equals("mobile")) {
 
-            view = inflater.inflate(R.layout.fragment_new_message, container, false);
-
+            mainActivity.openFragment(new NewMessageFragment());
 
         }else if(screenResolution.equals("tablet")) {
 
