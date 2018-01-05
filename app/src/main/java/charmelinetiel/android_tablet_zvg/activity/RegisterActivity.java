@@ -58,7 +58,8 @@ public class RegisterActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
 
-        finishAndRemoveTask ();
+            super.onBackPressed();
+
     }
 
     public void setUser(User user)

@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             return false;
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,10 +100,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         apiService = retrofit.create(APIService.class);
 
 
-
-        if (getUser().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())){
+        if (getUser().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
             apiService.getAllHealthIssues(getUser().getAuthToken()).enqueue(this);
-        }else{
+        } else {
 
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
@@ -113,8 +113,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     }
 
-    public void openFragment(final Fragment fg)
-    {
+    public void openFragment(final Fragment fg) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.content, fg, fg.toString());
@@ -122,15 +121,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         ft.commit();
     }
 
-    @Override
-    public void onBackPressed() {
 
-        finishAndRemoveTask ();
-    }
-
-
-    public void initBottomNav()
-    {
+    public void initBottomNav() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
@@ -158,30 +150,30 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         this.measurement = measurement;
     }
 
-    public void updateUserLengthWeight(int length, int weight){
+    public void updateUserLengthWeight(int length, int weight) {
         UserLengthWeight lenghtWeight = new UserLengthWeight(length, weight);
         apiService.updateUserLenghtWeight(lenghtWeight, getUser().getAuthToken()).enqueue(this);
     }
 
-    public List<HealthIssue> getHealthIssues(){
+    public List<HealthIssue> getHealthIssues() {
         return healthIssues;
     }
 
-    public void postMeasurement(){
-        apiService.postMeasurement(measurement,getUser().getAuthToken()).enqueue(this);
+    public void postMeasurement() {
+        apiService.postMeasurement(measurement, getUser().getAuthToken()).enqueue(this);
     }
 
     @Override
     public void onResponse(Call call, Response response) {
-        if(response.isSuccessful() && response.body() != null){
-            try{
+        if (response.isSuccessful() && response.body() != null) {
+            try {
                 healthIssues = (List<HealthIssue>) response.body();
-            }catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }
 
-    public void putMeasurement(){
+    public void putMeasurement() {
         apiService.putMeasurement(measurement, getUser().getAuthToken()).enqueue(new Callback<Measurement>() {
             @Override
             public void onResponse(Call<Measurement> call, Response<Measurement> response) {
@@ -213,16 +205,17 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
         }
     }
-    public User getUser(){
+
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
 
         this.user = user;
     }
 
-    public void setDateOfToday(TextView textView){
+    public void setDateOfToday(TextView textView) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date customDate = new Date();
@@ -238,11 +231,16 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         isEditingMeasurement = editingMeasurement;
     }
 
-    public void makeSnackBar(String messageText, Activity fg)
-    {
+    public void makeSnackBar(String messageText, Activity fg) {
         Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
                 messageText, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+
+    }
 }

@@ -139,4 +139,14 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        android.app.FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }
