@@ -145,14 +145,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     dialog.dismiss();
                 });
 
+                closeDialogButton.setOnClickListener(view -> {
+                    dialog.dismiss();
+                });
+
+
                 Button sendForgotPasswordEmail = dialog.findViewById(R.id.send_forgot_password_email);
                 sendForgotPasswordEmail.setOnClickListener(view -> {
 
                     if (validateForm.inputGiven(forgotPasswordEmailInput)) {
-                        iForgotLbl.setVisibility(View.GONE);
-                        forgotPasswordText.setVisibility(View.GONE);
-                        buttonsPanel.setVisibility(View.GONE);
-                        forgotPasswordEmailInput.setVisibility(View.GONE);
+                        iForgotLbl.setVisibility(View.INVISIBLE);
+                        forgotPasswordText.setVisibility(View.INVISIBLE);
+                        buttonsPanel.setVisibility(View.INVISIBLE);
+                        forgotPasswordEmailInput.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
 
                         apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
