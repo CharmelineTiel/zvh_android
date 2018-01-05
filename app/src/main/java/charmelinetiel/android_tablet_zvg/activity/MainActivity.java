@@ -175,10 +175,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     public void onResponse(Call call, Response response) {
         if(response.isSuccessful() && response.body() != null){
             try{
-                ExceptionHandler.exceptionThrower(new Exception());
                 healthIssues = (List<HealthIssue>) response.body();
             }catch (Exception e){
-                makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
             }
         }
     }

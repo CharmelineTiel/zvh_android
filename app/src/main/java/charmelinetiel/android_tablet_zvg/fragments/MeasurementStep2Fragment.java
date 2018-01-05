@@ -3,22 +3,17 @@ package charmelinetiel.android_tablet_zvg.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.CheckboxAdapter;
-import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 public class MeasurementStep2Fragment extends Fragment {
@@ -78,7 +73,6 @@ public class MeasurementStep2Fragment extends Fragment {
         }
 
         try {
-            ExceptionHandler.exceptionThrower(new Exception());
             measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
                     R.layout.checkbox_listview_item,
                     mainActivity.getHealthIssues(),
@@ -87,7 +81,6 @@ public class MeasurementStep2Fragment extends Fragment {
 
 
         } catch (Exception e) {
-            mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
             measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
                     R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
         }

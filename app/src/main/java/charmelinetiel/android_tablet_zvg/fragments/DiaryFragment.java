@@ -116,7 +116,13 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-            loadMeasurements(this);
+        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+
+                loadMeasurements(this);
+        }else{
+
+            mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
+        }
 
         return v;
     }
@@ -177,6 +183,7 @@ public class DiaryFragment extends Fragment {
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 progressBar.setVisibility(View.GONE);
+
 
                             }
 
