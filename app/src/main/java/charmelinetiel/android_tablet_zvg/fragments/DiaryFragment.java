@@ -24,6 +24,7 @@ import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.MeasurementListAdapter;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -115,7 +116,7 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-        loadMeasurements(this);
+            loadMeasurements(this);
 
         return v;
     }
@@ -160,30 +161,36 @@ public class DiaryFragment extends Fragment {
         apiService.getMeasurements(AuthToken.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
-                if(response.isSuccessful() && response.body() != null){
-                    try{
-                        measurements = response.body();
 
+
+                if(response.isSuccessful() && response.body() != null) {
+
+                    try {
+
+                        ExceptionHandler.exceptionThrower(new Exception());
+                        measurements = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
+
                                 initGraph();
-                                adapter = new MeasurementListAdapter(getContext(),diaryFragment, measurements);
+                                adapter = new MeasurementListAdapter(getContext(), diaryFragment, measurements);
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 progressBar.setVisibility(View.GONE);
+
                             }
 
                         });
 
                         // Show/Hide elements in the fragment based on if there are measurements
-                        if (measurements.size() == 0){
+                        if (measurements.size() == 0) {
 
                             mListView.setVisibility(View.GONE);
                             chart.setVisibility(View.GONE);
                             insertMeasurementText.setVisibility(View.VISIBLE);
                             goToMeasurementBtn.setVisibility(View.VISIBLE);
 
-                        }else{
+                        } else {
 
                             mListView.setVisibility(View.VISIBLE);
                             chart.setVisibility(View.VISIBLE);
@@ -191,7 +198,10 @@ public class DiaryFragment extends Fragment {
                             goToMeasurementBtn.setVisibility(View.GONE);
                         }
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
+
+                        mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+
                     }
                 }
             }
@@ -199,6 +209,12 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
 
+                try {
+                    ExceptionHandler.exceptionThrower(new Exception());
+                } catch (Exception e) {
+
+                    mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                }
             }
         });
     }

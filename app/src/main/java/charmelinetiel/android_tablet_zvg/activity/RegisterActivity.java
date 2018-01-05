@@ -1,8 +1,10 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -48,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity{
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.contentR, fg, fg.toString());
+        ft.replace(R.id.content, fg, fg.toString());
         ft.addToBackStack(fg.toString());
         ft.commit();
     }
@@ -67,5 +69,12 @@ public class RegisterActivity extends AppCompatActivity{
     public User getUser(){
 
         return user;
+    }
+
+    public void makeSnackBar(String messageText, Activity fg)
+    {
+        Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
+                messageText, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 }

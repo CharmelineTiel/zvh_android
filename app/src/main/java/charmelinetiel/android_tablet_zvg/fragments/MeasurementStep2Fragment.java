@@ -12,13 +12,12 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.CheckboxAdapter;
-import charmelinetiel.android_tablet_zvg.models.HealthIssue;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 /**
@@ -52,21 +51,7 @@ public class MeasurementStep2Fragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
         mainActivity = (MainActivity) getActivity();
-
-        if(mainActivity.isEditingMeasurement()){
-            mainActivity.setTitle("Meting bewerken stap 2 van 3");
-        }else{
-            mainActivity.setTitle("Meting stap 2 van 3");
-        }
-
-        //TODO: check if this if else is necessary
-        if(mainActivity.getMeasurement() != null){
-            measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), mainActivity.getMeasurement().getHealthIssueIds());
-        }else{
-            measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
-        }
         final ListView listView = v.findViewById(R.id.checkboxList);
-        listView.setAdapter(measurementCheckboxAdapter);
 
         cancelButton = v.findViewById(R.id.cancel_measurement2_button);
         nextButton = v.findViewById(R.id.to_measurement_step3_button);
@@ -78,6 +63,29 @@ public class MeasurementStep2Fragment extends Fragment {
         measurementRadioGroup.check(R.id.yesNamelyRadio);
         date = v.findViewById(R.id.dateTimeNow);
         otherNamelyCheckbox = v.findViewById(R.id.otherNamelyCheckbox);
+
+
+        if(mainActivity.isEditingMeasurement()){
+            mainActivity.setTitle("Meting bewerken stap 2 van 3");
+        }else{
+            mainActivity.setTitle("Meting stap 2 van 3");
+        }
+
+        try {
+            ExceptionHandler.exceptionThrower(new Exception());
+            measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
+                    R.layout.checkbox_listview_item,
+                    mainActivity.getHealthIssues(),
+                    mainActivity.getMeasurement().getHealthIssueIds());
+                    listView.setAdapter(measurementCheckboxAdapter);
+
+
+        } catch (Exception e) {
+            mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+            measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
+                    R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
+        }
+
 
         mainActivity.setDateOfToday(date);
 

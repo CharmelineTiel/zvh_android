@@ -1,11 +1,13 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,11 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -105,23 +105,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.loginBtn:
 
-                try {
-                    User user = new User();
-                    email = findViewById(R.id.username);
-                    password = findViewById(R.id.password);
+                if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
 
-                    user.setPassword(password.getText().toString());
-                    user.setEmailAddress(email.getText().toString());
+                        User user = new User();
+                        email = findViewById(R.id.username);
+                        password = findViewById(R.id.password);
 
-                    if(user != null && validInput()) {
-                        //showProgressBar();
-                        apiService.login(user).enqueue(this);
-                    }
-                }
-                catch(Exception e){
+                        user.setPassword(password.getText().toString());
+                        user.setEmailAddress(email.getText().toString());
 
-                    Toast.makeText(this, e.getMessage(),
-                            Toast.LENGTH_LONG).show();
+                        if (user != null && validInput()) {
+                            //showProgressBar();
+                            apiService.login(user).enqueue(this);
+                        }
+
+                }else {
+
+                    makeSnackBar("Geen Internet verbinding", LoginActivity.this);
                 }
                 break;
             case R.id.cancelBtn:
@@ -168,7 +168,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     forgotPasswordEmailInput.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.INVISIBLE);
 
-                                    Toast.makeText(getBaseContext(), "Controleer uw e-mail adres", Toast.LENGTH_LONG).show();
+                                    try {
+                                        ExceptionHandler.exceptionThrower(new Exception());
+                                    } catch (Exception e) {
+
+                                        makeSnackBar(ExceptionHandler.getMessage(e), LoginActivity.this);
+                                    }
                                 }
                             }
 
@@ -180,7 +185,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 forgotPasswordEmailInput.setVisibility(View.VISIBLE);
                                 progressBar.setVisibility(View.INVISIBLE);
 
-                                Toast.makeText(getBaseContext(), "Controleer uw e-mail adres", Toast.LENGTH_LONG).show();
+                                try {
+                                    ExceptionHandler.exceptionThrower(new Exception());
+                                } catch (Exception e) {
+
+                                    makeSnackBar(ExceptionHandler.getMessage(e), LoginActivity.this);
+                                }
                             }
                         });
 
@@ -235,11 +245,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         } else {
             hideProgressBar();
+
             try {
-                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                Toast.makeText(this, jObjError.getString("error"), Toast.LENGTH_LONG).show();
+                ExceptionHandler.exceptionThrower(new Exception());
             } catch (Exception e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+                makeSnackBar(ExceptionHandler.getMessage(e), this);
             }
 
         }
@@ -249,8 +260,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onFailure(Call<User> call, Throwable t) {
         hideProgressBar();
-        Toast.makeText(this, "server error.. probeer het opnieuw",
-                Toast.LENGTH_LONG).show();
+
+        try {
+            ExceptionHandler.exceptionThrower(new Exception());
+        } catch (Exception e) {
+
+            makeSnackBar(ExceptionHandler.getMessage(e), this);
+        }
+
     }
 
     public void openFragment(final Fragment fg)
@@ -273,5 +290,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    public void makeSnackBar(String messageText, Activity fg)
+    {
+        Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
+                messageText, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
 
 }

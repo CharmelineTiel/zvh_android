@@ -37,7 +37,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
        v = inflater.inflate(R.layout.login_or_register, container, false);
 
         registerActivity = (RegisterActivity) getActivity();
-        (getActivity()).setTitle("Zorg voor het hart");
+        registerActivity.setTitle("Zorg voor het hart");
 
         loginButton = v.findViewById(R.id.loginBtn);
         loginButton.setOnClickListener(this);

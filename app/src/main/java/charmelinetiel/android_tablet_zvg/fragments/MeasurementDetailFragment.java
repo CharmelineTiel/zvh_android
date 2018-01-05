@@ -14,6 +14,7 @@ import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
@@ -39,7 +40,14 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
         m = getArguments().getParcelable("measurement");
 
         mainActivity = (MainActivity) getActivity();
-        healthIssues = mainActivity.getHealthIssues();
+
+        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+
+            healthIssues = mainActivity.getHealthIssues();
+        }else{
+
+            mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
+        }
 
         v = inflater.inflate(R.layout.fragment_measurement_detail, container, false);
 
@@ -63,9 +71,14 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
             case R.id.editBtn:
 
                 //Set the measurement in the mainactivity so the values can be set
-                mainActivity.setMeasurement(m);
-                mainActivity.setEditingMeasurement(true);
-                mainActivity.openFragment(new MeasurementStep1Fragment());
+                if (ExceptionHandler.isConnectedToInternet(getContext())) {
+                    mainActivity.setMeasurement(m);
+                    mainActivity.setEditingMeasurement(true);
+                    mainActivity.openFragment(new MeasurementStep1Fragment());
+                }else{
+
+                    mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
+                }
 
                 break;
         }

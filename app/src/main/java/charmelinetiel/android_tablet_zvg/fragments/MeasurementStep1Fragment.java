@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
@@ -58,11 +59,14 @@ public class MeasurementStep1Fragment extends Fragment {
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
 
         try {
+            ExceptionHandler.exceptionThrower(new NumberFormatException());
             upperBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureUpper().toString());
             lowerBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureLower().toString());
-        }catch (Exception e){
+        } catch (Exception e) {
 
+            mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
         }
+
         dateTimeNow = v.findViewById(R.id.dateTimeNow);
 
         mainActivity.setDateOfToday(dateTimeNow);
@@ -71,11 +75,14 @@ public class MeasurementStep1Fragment extends Fragment {
 
             Measurement measurement = mainActivity.getMeasurement();
 
-            try{
+
+            try {
+                ExceptionHandler.exceptionThrower(new NumberFormatException());
                 measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
                 measurement.setBloodPressureLower(Integer.parseInt(lowerBloodPressure.getText().toString()));
-            }catch (Exception e){
+            } catch (Exception e) {
 
+                mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
             }
 
             mainActivity.setMeasurement(measurement);

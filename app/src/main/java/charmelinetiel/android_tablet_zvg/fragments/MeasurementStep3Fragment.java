@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 /**
@@ -60,21 +61,25 @@ public class MeasurementStep3Fragment extends Fragment {
 
         completeButton.setOnClickListener(v -> {
 
-        Measurement measurement = mainActivity.getMeasurement();
-        measurement.setComment(extraRemarksInput.getText().toString());
+            if (ExceptionHandler.isConnectedToInternet(getContext())) {
 
-        mainActivity.openFragment(new MeasurementSavedFragment());
-            if(mainActivity.isEditingMeasurement()){
-                mainActivity.putMeasurement();
+                Measurement measurement = mainActivity.getMeasurement();
+                measurement.setComment(extraRemarksInput.getText().toString());
+
+                mainActivity.openFragment(new MeasurementSavedFragment());
+                if (mainActivity.isEditingMeasurement()) {
+                    mainActivity.putMeasurement();
+                } else {
+                    mainActivity.postMeasurement();
+                }
+
+                mainActivity.openFragment(new MeasurementSavedFragment());
+
             }else{
-                mainActivity.postMeasurement();
-            }
-        MeasurementSavedFragment measurementSaved = new MeasurementSavedFragment();
 
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content, measurementSaved)
-                .addToBackStack(null)
-                .commit();
+                mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
+
+            }
         });
 
         cancelButton.setOnClickListener(v -> getFragmentManager().popBackStack());

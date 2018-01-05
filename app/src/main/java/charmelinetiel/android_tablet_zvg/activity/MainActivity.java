@@ -1,10 +1,12 @@
 package charmelinetiel.android_tablet_zvg.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +29,7 @@ import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
 import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 import charmelinetiel.android_tablet_zvg.models.User;
@@ -95,14 +98,15 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        if (getUser().getAuthToken() != null) {
+
+
+        if (getUser().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())){
             apiService.getAllHealthIssues(getUser().getAuthToken()).enqueue(this);
         }else{
 
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
         }
-
 
 
         initBottomNav();
@@ -171,8 +175,10 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     public void onResponse(Call call, Response response) {
         if(response.isSuccessful() && response.body() != null){
             try{
+                ExceptionHandler.exceptionThrower(new Exception());
                 healthIssues = (List<HealthIssue>) response.body();
             }catch (Exception e){
+                makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
             }
         }
     }
@@ -181,12 +187,19 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         apiService.putMeasurement(measurement, getUser().getAuthToken()).enqueue(new Callback<Measurement>() {
             @Override
             public void onResponse(Call<Measurement> call, Response<Measurement> response) {
-                String a = "a";
+
             }
 
             @Override
-            public void onFailure(Call<Measurement> call, Throwable t) {
-                String a = "b";
+            public void onFailure(Call<Measurement> call, Throwable t)
+
+            {
+                try {
+                    ExceptionHandler.exceptionThrower(new Exception());
+                } catch (Exception e) {
+
+                    makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
+                }
             }
         });
     }
@@ -195,6 +208,12 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     @Override
     public void onFailure(Call call, Throwable t) {
 
+        try {
+            ExceptionHandler.exceptionThrower(new Exception());
+        } catch (Exception e) {
+
+            makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
+        }
     }
     public User getUser(){
         return user;
@@ -221,5 +240,11 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         isEditingMeasurement = editingMeasurement;
     }
 
+    public void makeSnackBar(String messageText, Activity fg)
+    {
+        Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
+                messageText, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
 
 }

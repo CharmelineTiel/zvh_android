@@ -5,18 +5,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
+import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.Faq;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,32 +41,42 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        apiService.getFaq().enqueue(new Callback<List<Faq>>() {
-            @Override
-            public void onResponse(Call<List<Faq>> call, Response<List<Faq>> response) {
-                if(response.isSuccessful() && response.body() != null){
-                    faqList = response.body();
+        if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
+            apiService.getFaq().enqueue(new Callback<List<Faq>>() {
+                @Override
+                public void onResponse(Call<List<Faq>> call, Response<List<Faq>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        faqList = response.body();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Faq>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Faq>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
 
-        apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
-            @Override
-            public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
+            apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
+                @Override
+                public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<List<Consultant>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Consultant>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }else{
 
+            this.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
 
         //Check if user has been saved, if so go to mainactivity
@@ -75,7 +85,20 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
             user.setEmailAddress(emailAddress);
             user.setPassword(password);
 
-            apiService.login(user).enqueue(this);
+            if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
+
+                apiService.login(user).enqueue(this);
+
+            }else{
+
+                this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }else{
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
@@ -99,6 +122,13 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
 
+        this.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
+            }
+        });
     }
     @Override
     protected void onStop() {
@@ -107,4 +137,5 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
 
         finish();
     }
+
 }

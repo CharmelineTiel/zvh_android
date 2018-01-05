@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.Message;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -90,17 +90,25 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
             case R.id.sendMessageBtn:
 
                 if(validInput()) {
-                    //showProgressBar();
-                    messageObj = new Message();
-                    messageObj.setSubject(subject.getText().toString());
-                    messageObj.setMessage(message.getText().toString());
-                    apiService.postMessage(messageObj, AuthToken.getInstance().getAuthToken()).enqueue(this);
+
+                    if (ExceptionHandler.isConnectedToInternet(getContext())) {
+
+                        //showProgressBar();
+                        messageObj = new Message();
+                        messageObj.setSubject(subject.getText().toString());
+                        messageObj.setMessage(message.getText().toString());
+                        apiService.postMessage(messageObj, AuthToken.getInstance().getAuthToken()).enqueue(this);
+                    }else{
+
+                        mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
+
+                    }
                 }
                 break;
 
             case R.id.backBtn:
 
-                mainActivity.getFragmentManager().popBackStack();
+                getChildFragmentManager().popBackStack();
 
                 break;
         }
@@ -113,8 +121,13 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
             mainActivity.openFragment(new MessageSentFragment());
         }else{
-            Toast.makeText(getActivity(), "Er is iets fout gegaan, controleer alstublieft alle velden",
-                    Toast.LENGTH_LONG).show();
+
+            try {
+                ExceptionHandler.exceptionThrower(new Exception());
+            } catch (Exception e) {
+
+                mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+            }
             //hideProgressBar();
         }
     }
@@ -123,8 +136,13 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
         //hideProgressBar();
-        Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
-                Toast.LENGTH_LONG).show();
+        try {
+            ExceptionHandler.exceptionThrower(new Exception());
+        } catch (Exception e) {
+
+            mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+        }
+
     }
 
 

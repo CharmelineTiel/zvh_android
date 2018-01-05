@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.MessageListAdapter;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.Message;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -85,7 +85,13 @@ public class AllMessagesFragment extends Fragment {
 
         });
 
-        loadMessages();
+        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+
+            loadMessages();
+        }else{
+
+            mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
+        }
 
         return view;
     }
@@ -102,9 +108,11 @@ public class AllMessagesFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    try{
-                        messages = response.body();
 
+
+                    try{
+                        ExceptionHandler.exceptionThrower(new Exception());
+                        messages = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
 
@@ -128,13 +136,20 @@ public class AllMessagesFragment extends Fragment {
 
                     }catch (Exception e){
 
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
+
+                try {
+                    ExceptionHandler.exceptionThrower(new Exception());
+                } catch (Exception e) {
+
+                    mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                }
 
             }
         });

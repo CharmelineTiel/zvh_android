@@ -8,17 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.Consultant;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
 import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
@@ -26,8 +25,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static charmelinetiel.android_tablet_zvg.activity.MainActivity.progressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +71,13 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         consultantsView =  v.findViewById(R.id.consultants);
 
-        ConsultantsDropdown();
+        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+
+            ConsultantsDropdown();
+        }else{
+
+            registerActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), registerActivity);
+        }
 
         return v;
     }
@@ -86,12 +89,19 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
             case R.id.registerBtn:
 
-                //Register user
                 showProgressBar();
-                user = registerActivity.getUser();
-                consultant = (Consultant) consultantsView.getSelectedItem();
-                user.setConsultantId(consultant.getConsultantId());
-                apiService.register(user).enqueue(this);
+
+                if (ExceptionHandler.isConnectedToInternet(getContext())) {
+                    user = registerActivity.getUser();
+                    consultant = (Consultant) consultantsView.getSelectedItem();
+                    user.setConsultantId(consultant.getConsultantId());
+                    apiService.register(user).enqueue(this);
+
+                }else{
+
+                    registerActivity.makeSnackBar(getString(R.string.noInternetConnection), registerActivity);
+
+                }
                 break;
 
             case R.id.backBtn:
@@ -114,9 +124,13 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
             registerActivity.openFragment(fg);
 
         }else{
-            hideProgressBar();
-            Toast.makeText(getActivity(), "Er is iets fout gegaan, controleer alle velden",
-                    Toast.LENGTH_LONG).show();
+            try {
+                hideProgressBar();
+                ExceptionHandler.exceptionThrower(new Exception());
+            } catch (Exception e) {
+
+                registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
+            }
         }
     }
 
@@ -124,8 +138,12 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     public void onFailure(Call<User> call, Throwable t) {
 
         hideProgressBar();
-        Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
-                Toast.LENGTH_LONG).show();
+        try {
+            ExceptionHandler.exceptionThrower(new Exception());
+        } catch (Exception e) {
+
+            registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
+        }
     }
 
     public void ConsultantsDropdown(){
@@ -151,6 +169,13 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onFailure(Call<List<Consultant>> call, Throwable t) {
+
+                try {
+                    ExceptionHandler.exceptionThrower(new Exception());
+                } catch (Exception e) {
+
+                    registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
+                }
 
             }
         });

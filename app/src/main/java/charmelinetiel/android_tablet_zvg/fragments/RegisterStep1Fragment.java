@@ -16,6 +16,7 @@ import java.util.Calendar;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
+import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.User;
 
@@ -96,7 +97,7 @@ public class RegisterStep1Fragment extends Fragment
 
             case R.id.secondBtn:
 
-                int index = gender.indexOfChild(getActivity().findViewById(gender.getCheckedRadioButtonId()));
+                int index = gender.indexOfChild(registerActivity.findViewById(gender.getCheckedRadioButtonId()));
                 int genderId;
 
                 if(index == 0){
@@ -106,10 +107,14 @@ public class RegisterStep1Fragment extends Fragment
                     genderId = 2;
                 }
 
+
                 try {
+                    ExceptionHandler.exceptionThrower(new NumberFormatException());
                     user.setLength(Integer.parseInt(length.getText().toString()));
                     user.setWeight(Integer.parseInt(weight.getText().toString()));
                 }catch (Exception e){
+
+                    registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
 
                 }
                 user = new User();
@@ -125,7 +130,6 @@ public class RegisterStep1Fragment extends Fragment
                     if(validInput()) {
 
                         registerActivity.openFragment(new RegisterStep2Fragment());
-
                     }
                 break;
 
