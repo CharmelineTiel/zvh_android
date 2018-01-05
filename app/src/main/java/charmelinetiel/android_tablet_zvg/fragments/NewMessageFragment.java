@@ -113,7 +113,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
             case R.id.backBtn:
 
-                getChildFragmentManager().popBackStack();
+                mainActivity.openFragment(new HomeFragment());
 
                 break;
         }
