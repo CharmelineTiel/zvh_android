@@ -46,7 +46,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
             public void renderParent(View view, String s, boolean b, int i) {
 
                 ((TextView) view.findViewById(R.id.question)).setText(s);
-                view.findViewById(R.id.arrow).setBackgroundResource(b ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_chevron_right_black_24dp);
+                view.findViewById(R.id.arrow).setBackgroundResource(b ? R.drawable.ic_chevron_right_black_24dp : R.drawable.ic_expand_more_black_24dp);
 
             }
 
@@ -88,7 +88,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         section.parent = q;
         section.children.add(a);
 
-        section.expanded = true;
+        section.expanded = false;
         return section;
     }
 

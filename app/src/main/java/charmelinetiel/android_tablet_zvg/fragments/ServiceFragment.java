@@ -51,6 +51,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
         veelgesteldeVragen = findPreference("veelgesteldeVragen");
         disclaimer = findPreference("disclaimer");
 
+        getActivity().setTheme(R.style.preferenceTheme);
 
         //initialize notificationManager and alarmManager
         mNotificationManager = (NotificationManager) (getActivity()).getSystemService(NOTIFICATION_SERVICE);

@@ -1,10 +1,12 @@
 <android.support.v7.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
+        android:theme="@style/preferenceTheme"
         android:title="Mijn instellingen">
 
         <android.support.v7.preference.SwitchPreferenceCompat
+            android:theme="@style/preferenceTheme"
             android:defaultValue="false"
             android:key="dailyReminders"
             android:summary="Dagelijkse herinnering voor uw metingen"
@@ -12,13 +14,16 @@
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
+            android:theme="@style/preferenceTheme"
             android:key="sendMeasurementsWeekly"
             android:summary="Wekelijks uw metingen opsturen naar uw consulent"
             android:title="Wekelijkse metingen" />
 
-    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Mijn account">
+    <android.support.v7.preference.PreferenceCategory
+        android:theme="@style/preferenceTheme"
+        android:title="Mijn account">
 
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="true"
@@ -29,14 +34,18 @@
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="autoLogin"
+            android:theme="@style/preferenceTheme"
             android:title="Automatisch inloggen" />
 
         <android.support.v7.preference.Preference
             android:key="logout"
             android:title="Uitloggen" />
 
-    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
-    <com.codevscolor.materialpreference.widget.MaterialPreferenceCategory android:title="Informatie">
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+        android:theme="@style/preferenceTheme"
+        android:title="Informatie">
 
         <android.support.v7.preference.Preference
             android:key="veelgesteldeVragen"
@@ -44,10 +53,10 @@
 
         <android.support.v7.preference.Preference
             android:key="disclaimer"
-            android:summary="Disclaimer text hier"
+            android:summary="copyright 2018"
             android:title="Disclaimer"/>
 
-    </com.codevscolor.materialpreference.widget.MaterialPreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
 
     </android.support.v7.preference.PreferenceScreen>

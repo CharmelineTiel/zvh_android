@@ -26,6 +26,7 @@ public class DisclaimerFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_disclaimer, container, false);
 
+        getActivity().setTitle("Disclaimer");
 
         return v;
     }

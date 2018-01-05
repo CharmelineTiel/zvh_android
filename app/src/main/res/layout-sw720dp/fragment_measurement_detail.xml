@@ -74,32 +74,34 @@
 
             <Button
                 android:padding="@dimen/padding_20"
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terug"
+                android:layout_marginTop="@dimen/margin_20"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/bigger_text_tablet"
+                android:background="@color/colorAccent"
+                android:textAllCaps="false"
+                android:width="@dimen/button_tablet"
+                />
+
+            <Button
+                android:padding="@dimen/padding_20"
                 android:id="@+id/editBtn"
+                android:layout_toEndOf="@+id/backBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bewerken"
                 android:layout_marginTop="@dimen/margin_20"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/whiteText"
                 android:textSize="@dimen/bigger_text_tablet"
                 android:background="@color/lightGrey"
                 android:textAllCaps="false"
                 android:width="@dimen/button_tablet"
                 />
-        <Button
-            android:padding="@dimen/padding_20"
-            android:id="@+id/backBtn"
-            android:layout_toEndOf="@+id/editBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Terug"
-            android:layout_marginTop="@dimen/margin_20"
-            android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_tablet"
-            android:background="@color/colorAccent"
-            android:textAllCaps="false"
-            android:width="@dimen/button_tablet"
-            />
+
 
         </RelativeLayout>
 </LinearLayout>

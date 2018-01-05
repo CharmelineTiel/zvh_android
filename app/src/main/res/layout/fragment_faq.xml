@@ -41,7 +41,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact Opnemen"
-
             android:textColor="@color/whiteText"
             android:textSize="@dimen/bigger_text_mobile"
             android:background="@color/colorAccent"
