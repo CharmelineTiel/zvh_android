@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
                     openFragment(new ServiceFragment());
                     return true;
             }
-
-
             return false;
         }
     };
@@ -99,8 +97,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
+        
+        if (getUser().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())){
 
-        if (getUser().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
             apiService.getAllHealthIssues(getUser().getAuthToken()).enqueue(this);
         } else {
 
