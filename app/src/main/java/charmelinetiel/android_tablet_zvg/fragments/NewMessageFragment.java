@@ -37,7 +37,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
     private Button sendBtn, backBtn;
     private EditText message,subject, consultantEmail, consultantName;
     private FormErrorHandling validateForm;
-    private static MainActivity mainActivity;
+    private MainActivity mainActivity;
     private ProgressBar progressBar;
     private ScrollView contactPage;
 
@@ -65,8 +65,8 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         consultantEmail = view.findViewById(R.id.consultantEmail);
         consultantName = view.findViewById(R.id.consultantName);
 
-//        progressBar = view.findViewById(R.id.progressBar);
-//        contactPage = view.findViewById(R.id.contactPage);
+        progressBar = view.findViewById(R.id.progressBar);
+        contactPage = view.findViewById(R.id.contactPage);
 
 
         consultantEmail.setText(mainActivity.getUser().getConsultant().getEmailAddress());
@@ -90,7 +90,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
             case R.id.sendMessageBtn:
 
                 if(validInput()) {
-                    //showProgressBar();
+                    showProgressBar();
                     messageObj = new Message();
                     messageObj.setSubject(subject.getText().toString());
                     messageObj.setMessage(message.getText().toString());
@@ -115,14 +115,14 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         }else{
             Toast.makeText(getActivity(), "Er is iets fout gegaan, controleer alstublieft alle velden",
                     Toast.LENGTH_LONG).show();
-            //hideProgressBar();
+            hideProgressBar();
         }
     }
 
     @Override
     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-        //hideProgressBar();
+        hideProgressBar();
         Toast.makeText(getActivity(), "server error.. probeer het opnieuw",
                 Toast.LENGTH_LONG).show();
     }

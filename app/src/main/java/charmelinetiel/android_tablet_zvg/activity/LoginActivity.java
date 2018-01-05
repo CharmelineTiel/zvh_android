@@ -24,6 +24,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.android_tablet_zvg.models.AuthToken;
 import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.User;
 import charmelinetiel.android_tablet_zvg.webservices.APIService;
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         data = intent.getData();
 
+
         //If the activity was entered by deep link, show the 'account activated' page
         if(data != null){
 
@@ -75,7 +77,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
         //Else show the normal login page
         }else {
-        autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
 
         validateForm = new FormErrorHandling();
 
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     user.setEmailAddress(email.getText().toString());
 
                     if(user != null && validInput()) {
-                        //showProgressBar();
+                        showProgressBar();
                         apiService.login(user).enqueue(this);
                     }
                 }
@@ -141,10 +142,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 LinearLayout emailSent = dialog.findViewById(R.id.emailSent);
                 Button closeDialogButton = dialog.findViewById(R.id.closeDialogButton);
 
-                closeDialogButton.setOnClickListener(view -> {
-                    dialog.dismiss();
-                });
-
                 cancelForgotPassword.setOnClickListener(view -> {
                     dialog.dismiss();
                 });
@@ -153,6 +150,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 sendForgotPasswordEmail.setOnClickListener(view -> {
 
                     if (validateForm.inputGiven(forgotPasswordEmailInput)) {
+                        iForgotLbl.setVisibility(View.GONE);
+                        forgotPasswordText.setVisibility(View.GONE);
+                        buttonsPanel.setVisibility(View.GONE);
+                        forgotPasswordEmailInput.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
 
                         apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
                             @Override
@@ -161,6 +163,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (response.body() != null && response.isSuccessful()) {
                                     progressBar.setVisibility(View.GONE);
                                     emailSent.setVisibility(View.VISIBLE);
+                                    closeDialogButton.setVisibility(View.VISIBLE);
                                 }else {
                                     iForgotLbl.setVisibility(View.VISIBLE);
                                     forgotPasswordText.setVisibility(View.VISIBLE);
@@ -218,6 +221,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (response.body() != null && response.isSuccessful()) {
 
             User loggedInUser = response.body();
+
+            AuthToken.getInstance().setAuthToken(response.body().getAuthToken());
 
             loggedInUser.setAuthToken(response.body().getAuthToken());
             Intent intent = new Intent(this, MainActivity.class);
