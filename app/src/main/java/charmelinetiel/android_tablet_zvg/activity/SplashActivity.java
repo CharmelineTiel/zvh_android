@@ -111,11 +111,12 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
     public void onResponse(Call<User> call, Response<User> response) {
         if (response.body() != null && response.isSuccessful()){
 
+            AuthToken.getInstance().setAuthToken(response.body().getAuthToken());
+
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("user", response.body());
             startActivity(intent);
 
-            AuthToken.getInstance().setAuthToken(response.body().getAuthToken());
         }
     }
 

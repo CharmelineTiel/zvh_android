@@ -173,7 +173,6 @@ public class DiaryFragment extends Fragment {
 
                     try {
 
-                        ExceptionHandler.exceptionThrower(new Exception());
                         measurements = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
@@ -183,8 +182,6 @@ public class DiaryFragment extends Fragment {
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 progressBar.setVisibility(View.GONE);
-
-
                             }
 
                         });
@@ -215,7 +212,6 @@ public class DiaryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
-
                 try {
                     ExceptionHandler.exceptionThrower(new Exception());
                 } catch (Exception e) {
