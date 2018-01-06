@@ -14,6 +14,7 @@ import android.widget.TextView;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.adapters.CheckboxAdapter;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
 import charmelinetiel.android_tablet_zvg.models.Measurement;
 
 public class MeasurementStep2Fragment extends Fragment {
@@ -27,7 +28,7 @@ public class MeasurementStep2Fragment extends Fragment {
     private RadioGroup measurementRadioGroup;
     private MainActivity mainActivity;
     private CheckboxAdapter measurementCheckboxAdapter;
-
+    private FormErrorHandling errorHandling;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -41,6 +42,7 @@ public class MeasurementStep2Fragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
         mainActivity = (MainActivity) getActivity();
+        errorHandling = new FormErrorHandling();
 
         final ListView listView = v.findViewById(R.id.checkboxList);
 
@@ -51,7 +53,9 @@ public class MeasurementStep2Fragment extends Fragment {
         }
 
 
-        measurementCheckboxAdapter = new CheckboxAdapter(mainActivity, R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), mainActivity.getMeasurement().getHealthIssueIds());
+        measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
+                R.layout.checkbox_listview_item, mainActivity.getHealthIssues(),
+                mainActivity.getMeasurement().getHealthIssueIds());
 
         checkboxList = v.findViewById(R.id.checkboxList);
         checkboxList.setAdapter(measurementCheckboxAdapter);
@@ -66,6 +70,7 @@ public class MeasurementStep2Fragment extends Fragment {
         date = v.findViewById(R.id.dateTimeNow);
 
 
+
         if(mainActivity.isEditingMeasurement()){
             mainActivity.setTitle("Meting bewerken stap 2 van 3");
         }else{
@@ -78,7 +83,6 @@ public class MeasurementStep2Fragment extends Fragment {
                     mainActivity.getHealthIssues(),
                     mainActivity.getMeasurement().getHealthIssueIds());
                     listView.setAdapter(measurementCheckboxAdapter);
-
 
         } catch (Exception e) {
             measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
@@ -96,6 +100,8 @@ public class MeasurementStep2Fragment extends Fragment {
 
 
         CheckboxAdapter finalMeasurementCheckboxAdapter = measurementCheckboxAdapter;
+
+
         nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -105,9 +111,17 @@ public class MeasurementStep2Fragment extends Fragment {
 
                 measurement.setHealthIssueIds(finalMeasurementCheckboxAdapter.getSelectedIssues());
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
+                boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
-                mainActivity.openFragment(new MeasurementStep3Fragment());
-            }
+                if (finalMeasurementCheckboxAdapter.getSelectedIssues().size() == 0
+                        && yesNamelySelected && !errorHandling.inputGiven(otherNamelyInput)){
+
+                    mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
+
+                }else
+                    mainActivity.openFragment(new MeasurementStep3Fragment());
+                }
+
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener(){
@@ -137,6 +151,7 @@ public class MeasurementStep2Fragment extends Fragment {
                         otherNamelyLbl.setVisibility(View.VISIBLE);
                         otherNamelyInput.setVisibility(View.VISIBLE);
                         noIssues.setVisibility(View.GONE);
+
                         break;
                 }
             }

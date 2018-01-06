@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,9 +19,12 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
     private ArrayList<HealthIssue> healthIssues;
     private List<String> selectedIssues;
+    private int amountOfBoxesChecked;
 
     public CheckboxAdapter(@NonNull Context context, int resource, List<HealthIssue> healthIssues, List<String> selectedIssues) {
         super(context, resource, healthIssues);
+
+        amountOfBoxesChecked = 0;
 
         this.selectedIssues = selectedIssues;
         this.healthIssues = new ArrayList<HealthIssue>();
@@ -38,12 +40,14 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
         CheckBox box;
         View view;
+        TextView warningMessage;
 
         if (convertView == null) {
-            LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(getContext());
             convertView = vi.inflate(R.layout.checkbox_listview_item, null);
             view = vi.inflate(R.layout.fragment_measurement_step2, parent,false);
+            warningMessage = view.findViewById(R.id.warningMessage);
+
             box = convertView.findViewById(R.id.checkBox1);
             convertView.setTag(box);
 
@@ -55,6 +59,7 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
                 }else{
                     box.setChecked(false);
                 }
+
             }else{
                 selectedIssues = new ArrayList<>();
             }
@@ -69,9 +74,19 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
                     final boolean isChecked = box.isChecked();
 
+                    countCheck(isChecked);
+
                     if (isChecked){
 
                         selectedIssues.add(v.getTag().toString());
+                        countCheck(isChecked);
+
+                        if (amountOfBoxesChecked >= 2) {
+
+                            warningMessage.setVisibility(View.VISIBLE);
+                            warningMessage.setText("Mochten deze klachten aanhouden, dan is het verstandig om contact op te nemen met uw consulent");
+
+                        }
 
 //                        if (issue.getHealthIssueId() == v.getTag()){
 //
@@ -89,13 +104,19 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
                     }
                 }
             });
+
         }
 
         return convertView;
 
     }
 
+    private void countCheck(boolean isChecked) {
+
+        amountOfBoxesChecked += isChecked ? 1 : -1 ;
+    }
     public List<String> getSelectedIssues(){
+
         return selectedIssues;
     }
 

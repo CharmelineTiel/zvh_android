@@ -23,10 +23,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="checkboxTheme" parent="Theme.AppCompat.Light">
+
+        <item name="android:colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/DarkGrey</item>
+        <item name="android:textAllCaps">false</item>
+
+    </style>
 
     <style name="preferenceTheme" parent="Theme.AppCompat.Light">
 
-        <item name="android:colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:colorControlActivated">#0ec842</item>
         <item name="android:colorAccent">@color/DarkGrey</item>
         <item name="android:textAllCaps">false</item>
 
