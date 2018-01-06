@@ -1,6 +1,5 @@
 package charmelinetiel.android_tablet_zvg.models;
 
-import android.text.TextUtils;
 import android.widget.EditText;
 
 /**
@@ -46,10 +45,12 @@ public class FormErrorHandling {
     }
 
     public boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
-        boolean isInt = TextUtils.isDigitsOnly(editText.getText());
+
         int bloodPressure = 0;
         try {
-            bloodPressure = Integer.parseInt(editText.getText().toString());
+
+            inputValidInt(editText.getText().toString());
+
         }catch (Exception e){
             return false;
         }
@@ -58,6 +59,20 @@ public class FormErrorHandling {
             return false;
         }
         else if(!isUpperBloodPressure && (bloodPressure > 150 || bloodPressure < 30)){
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean inputValidInt(String text){
+
+
+        try {
+
+            Integer.parseInt(text);
+
+        }catch (Exception e){
             return false;
         }
 

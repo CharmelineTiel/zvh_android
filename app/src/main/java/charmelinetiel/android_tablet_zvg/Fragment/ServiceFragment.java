@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.app.AlarmManager;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
@@ -19,6 +20,15 @@ import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
 import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 import charmelinetiel.android_tablet_zvg.models.AlarmReceiver;
+import charmelinetiel.android_tablet_zvg.models.FormErrorHandling;
+import charmelinetiel.android_tablet_zvg.models.User;
+import charmelinetiel.android_tablet_zvg.models.UserLengthWeight;
+import charmelinetiel.android_tablet_zvg.webservices.APIService;
+import charmelinetiel.android_tablet_zvg.webservices.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -33,7 +43,10 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     private NotificationManager mNotificationManager;
     private static final int NOTIFICATION_ID = 0;
     private Preference logout, dailyReminder, sendWeekly, veelgesteldeVragen, disclaimer;
+    private EditTextPreference editLength, editWeight;
     private MainActivity mainActivity;
+    private FormErrorHandling formErrorHandling;
+    private APIService apiService;
 
     public ServiceFragment() {
         // Required empty public constructor
@@ -45,11 +58,25 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
         addPreferencesFromResource(R.xml.app_preferences);
 
         mainActivity = (MainActivity) getActivity();
+        formErrorHandling = new FormErrorHandling();
+
+
+        Retrofit retrofit = RetrofitClient.getClient();
+        apiService = retrofit.create(APIService.class);
+
 
         logout = findPreference("logout");
         dailyReminder= findPreference("dailyReminders");
         veelgesteldeVragen = findPreference("veelgesteldeVragen");
         disclaimer = findPreference("disclaimer");
+        editLength = (EditTextPreference) findPreference("editLength");
+        editWeight = (EditTextPreference) findPreference("editWeight");
+
+        editLength.setText(mainActivity.getUser().getLength().toString());
+        editWeight.setText(mainActivity.getUser().getWeight().toString());
+
+        editWeight.setSummary("Gewicht: " + mainActivity.getUser().getWeight().toString());
+        editLength.setSummary("Lengte: " + mainActivity.getUser().getLength().toString());
 
         getActivity().setTheme(R.style.preferenceTheme);
 
@@ -87,7 +114,6 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                 String toastMessage;
                 boolean isReminderOn = (Boolean) newValue;
                 if (isReminderOn) {
-
 
                     Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(400);
@@ -144,17 +170,118 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
             }
         });
 
+        editLength.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newLength) {
+
+                if (preference instanceof EditTextPreference){
+                    EditTextPreference length =  (EditTextPreference)preference;
+                    if (length.getText().trim().length() > 0 && formErrorHandling.inputValidInt(newLength.toString())){
+
+                        length.setSummary("Huidige Lengte:" + newLength.toString());
+                        editLength.setText(newLength.toString());
+
+                        UserLengthWeight userLength = new UserLengthWeight();
+
+                        try {
+                            userLength.setLength(Integer.parseInt(newLength.toString()));
+                        }catch (Exception e)
+                        {
+
+                        }
+
+                        apiService.updateUserLenghtWeight(userLength, mainActivity.getUser().getAuthToken()).enqueue(new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+
+                                if (response.body() != null && response.isSuccessful()){
+
+                                }else{
+
+                                    mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
+
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+
+                            }
+                        });
+
+                        Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
+                                .show();
+                    }else{
+
+
+                        length.setSummary("Lengte: " +  editLength.getText());
+                    }
+                }
+                return false;
+            }
+        });
+
+        editWeight.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newWeight) {
+
+                if (preference instanceof EditTextPreference){
+                    EditTextPreference weight =  (EditTextPreference)preference;
+                    if (weight.getText().trim().length() > 0){
+
+                        weight.setSummary("Huidige Gewicht:" + newWeight);
+                        editWeight.setText(newWeight.toString());
+
+                        UserLengthWeight userWeight = new UserLengthWeight();
+
+                        try {
+                            userWeight.setWeight(Integer.parseInt(newWeight.toString()));
+                        }catch (Exception e){
+
+                        }
+
+                        apiService.updateUserLenghtWeight(userWeight, mainActivity.getUser().getAuthToken()).enqueue(new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+
+                                if (response.body() != null && response.isSuccessful()){
+
+                                }else{
+
+                                    mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+
+                            }
+                        });
+                        Toast.makeText(getActivity(), "Uw gewicht is aangepast", Toast.LENGTH_SHORT)
+                                .show();
+                    }else{
+                        weight.setSummary("Gewicht: " + editWeight.getText());
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-        if (key.equals("kjh")) {
-            Preference connectionPref = findPreference(key);
-            // Set summary to be the user-description for the selected value
-            connectionPref.setSummary(sharedPreferences.getString(key, ""));
-        }
 
+        //hmm
     }
+
+
+
 
 }

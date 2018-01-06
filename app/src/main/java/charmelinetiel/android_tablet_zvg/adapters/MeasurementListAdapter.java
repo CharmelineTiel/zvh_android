@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -54,6 +55,10 @@ public class MeasurementListAdapter extends BaseAdapter {
         this.data.addAll(data);
     }
 
+    public void setDataWeek(List<Measurement> data){
+        this.data = new ArrayList<>();
+        this.data.addAll(data);
+    }
     @Override
     public Object getItem(int position) {
         return position;
@@ -109,4 +114,5 @@ public class MeasurementListAdapter extends BaseAdapter {
 
 
     }
+
 }

@@ -3,10 +3,29 @@
 
     <android.support.v7.preference.PreferenceCategory
         android:theme="@style/preferenceTheme"
+        android:title="Mijn account">
+
+        <android.support.v7.preference.EditTextPreference
+            android:key="editLength"
+            android:textSize="18dp"
+            android:title="Lengte wijzigen" />
+
+        <android.support.v7.preference.EditTextPreference
+            android:key="editWeight"
+            android:title="Gewicht wijzigen" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="autoLogin"
+            android:title="Automatisch inloggen" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+        android:theme="@style/preferenceTheme"
         android:title="Mijn instellingen">
 
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:theme="@style/preferenceTheme"
             android:defaultValue="false"
             android:key="dailyReminders"
             android:summary="Dagelijkse herinnering voor uw metingen"
@@ -14,34 +33,13 @@
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
-            android:theme="@style/preferenceTheme"
             android:key="sendMeasurementsWeekly"
             android:summary="Wekelijks uw metingen opsturen naar uw consulent"
             android:title="Wekelijkse metingen" />
 
-    </android.support.v7.preference.PreferenceCategory>
-
-    <android.support.v7.preference.PreferenceCategory
-        android:theme="@style/preferenceTheme"
-        android:title="Mijn account">
-
-        <android.support.v7.preference.EditTextPreference
-            android:defaultValue="true"
-            android:key="editLengthWeight"
-            android:summary="Uw kunt hier uw lengte en gewicht aanpassen"
-            android:title="Lengte en gewicht" />
-
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="autoLogin"
-            android:theme="@style/preferenceTheme"
-            android:title="Automatisch inloggen" />
-
-        <android.support.v7.preference.Preference
-            android:key="logout"
-            android:title="Uitloggen" />
 
     </android.support.v7.preference.PreferenceCategory>
+
 
     <android.support.v7.preference.PreferenceCategory
         android:theme="@style/preferenceTheme"
@@ -58,5 +56,16 @@
 
     </android.support.v7.preference.PreferenceCategory>
 
+
+    <android.support.v7.preference.PreferenceCategory
+        android:theme="@style/preferenceTheme"
+        android:title="Uitloggen">
+
+        <android.support.v7.preference.Preference
+            android:key="logout"
+            android:summary="Hiermee wordt uw account uitgelogd"
+            android:title="Uitloggen" />
+
+    </android.support.v7.preference.PreferenceCategory>
 
     </android.support.v7.preference.PreferenceScreen>

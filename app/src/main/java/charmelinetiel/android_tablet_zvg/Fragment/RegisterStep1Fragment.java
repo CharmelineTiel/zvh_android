@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.app.DatePickerDialog;
@@ -75,7 +75,7 @@ public class RegisterStep1Fragment extends Fragment
     @Override
     public void onStart(){
         super.onStart();
-        // Apply any required UI change now that the Fragment is visible.
+        // Apply any required UI change now that the DiaryMonthFragment is visible.
 
     }
 

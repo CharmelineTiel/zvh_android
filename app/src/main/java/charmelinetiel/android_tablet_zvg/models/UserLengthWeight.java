@@ -1,11 +1,11 @@
 
-package charmelinetiel.android_tablet_zvg.models; ;
-
-import android.os.Parcel;
+package charmelinetiel.android_tablet_zvg.models; import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+;
 
 public class UserLengthWeight implements Parcelable
 {
