@@ -151,7 +151,7 @@ public class RegisterStep1Fragment extends Fragment
             return false;
         }else if(!validateForm.inputValidString(firstName)) {
 
-            validateForm.showError("Geen geldige voornaam in");
+            validateForm.showError("Geen geldige voornaam");
             return false;
         }
 

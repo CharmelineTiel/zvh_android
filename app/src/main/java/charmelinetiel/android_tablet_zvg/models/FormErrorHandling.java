@@ -1,5 +1,6 @@
 package charmelinetiel.android_tablet_zvg.models;
 
+import android.text.TextUtils;
 import android.widget.EditText;
 
 /**
@@ -26,7 +27,6 @@ public class FormErrorHandling {
         String regexString = "^[0-9]*$";
         if(editText.getText().toString().trim().matches(regexString))
         {
-            editText.setError("Vul een geldige voornaam in");
             return false;
         }
 
@@ -43,5 +43,24 @@ public class FormErrorHandling {
         this.editText = editText;
         return android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText().toString()).matches();
 
+    }
+
+    public boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
+        boolean isInt = TextUtils.isDigitsOnly(editText.getText());
+        int bloodPressure = 0;
+        try {
+            bloodPressure = Integer.parseInt(editText.getText().toString());
+        }catch (Exception e){
+            return false;
+        }
+
+        if(isUpperBloodPressure && (bloodPressure > 250 || bloodPressure < 70)){
+            return false;
+        }
+        else if(!isUpperBloodPressure && (bloodPressure > 150 || bloodPressure < 30)){
+            return false;
+        }
+
+        return true;
     }
 }
