@@ -54,16 +54,16 @@ public class MeasurementStep1Fragment extends Fragment {
     {
         validateForm = new FormErrorHandling();
 
-        if(!validateForm.inputGiven(upperBloodPressure)){
-
-            validateForm.showError("Bovendruk mag niet leeg zijn");
+        if(!validateForm.inputValidBloodPressure(lowerBloodPressure, false)){
+            lowerBloodPressure.setError("Ongeldige waarde, controleer uw onderdruk");
             return false;
         }
-        if(!validateForm.inputGiven(lowerBloodPressure)){
 
-            validateForm.showError("Onderdruk mag niet leeg zijn");
+        if(!validateForm.inputValidBloodPressure(upperBloodPressure, true)){
+            upperBloodPressure.setError("Ongeldige waarde, controleer uw bovendruk");
             return false;
         }
+        
         return true;
     }
 
