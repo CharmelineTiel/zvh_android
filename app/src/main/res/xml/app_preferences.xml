@@ -17,7 +17,7 @@
             android:theme="@style/preferenceTheme"
             android:key="sendMeasurementsWeekly"
             android:summary="Wekelijks uw metingen opsturen naar uw consulent"
-            android:title="Wekelijkse metingen" />
+            android:title="Metingen opsturen" />
 
     </android.support.v7.preference.PreferenceCategory>
 

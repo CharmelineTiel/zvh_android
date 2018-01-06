@@ -50,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/emailLbl"
                 android:width="@dimen/form_field_mobile"
-                android:layout_marginTop="@dimen/padding_10"
                 android:background="@color/lighterGrey"
                 android:editable="false"
                 android:padding="@dimen/padding_10" />

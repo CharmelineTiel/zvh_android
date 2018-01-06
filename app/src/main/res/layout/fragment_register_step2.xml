@@ -25,9 +25,9 @@
         android:text="Emailadres"/>
 
         <EditText
+            android:id="@+id/email"
             android:width="@dimen/form_field_mobile"
             android:background="@color/lighterGrey"
-            android:id="@+id/email"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_marginRight="@dimen/margin_15"
             android:padding="@dimen/padding_10"
@@ -48,15 +48,15 @@
         <EditText
             android:id="@+id/pass1"
             android:width="@dimen/form_field_mobile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:background="@color/lighterGrey"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_marginRight="@dimen/margin_15"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/padding_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_mobile"
-            android:inputType="textPassword"
             android:textColor="@color/lightGrey"
+            android:inputType="textPassword"
             android:hint="Vul een wachtwoord in"/>
 
     <TextView

@@ -13,6 +13,7 @@
             android:layout_height="match_parent">
 
     <TextView
+        android:layout_marginTop="@dimen/margin_15"
         android:layout_marginLeft="@dimen/margin_15"
         android:textStyle="bold"
         android:textSize="20dp"
@@ -68,7 +69,6 @@
                 android:paddingLeft="@dimen/margin_15"
                 android:text="Geboortedatum"/>
         <EditText
-            android:editable="false"
             android:width="@dimen/form_field_mobile"
             android:background="@color/lighterGrey"
             android:id="@+id/dateOfBirth"
@@ -78,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_mobile"
+            android:inputType="none"
             android:textColor="@color/lightGrey"
             android:hint="Vul uw geboortedatum in"/>
 
@@ -166,7 +167,8 @@
 
             <RelativeLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+                android:paddingBottom="15dp">
 
     <Button
         android:padding="10dp"

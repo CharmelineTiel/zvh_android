@@ -14,7 +14,7 @@ public class FormErrorHandling {
     public boolean inputGiven(EditText editText)
     {
         this.editText = editText;
-        if("".equals(editText.getText().toString())) {
+        if("".equals(editText.getText().toString().trim())) {
 
             return false;
         }
