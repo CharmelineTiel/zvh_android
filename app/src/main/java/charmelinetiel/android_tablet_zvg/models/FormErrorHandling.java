@@ -49,7 +49,7 @@ public class FormErrorHandling {
         int bloodPressure = 0;
         try {
 
-            inputValidInt(editText.getText().toString());
+            bloodPressure = Integer.parseInt(editText.getText().toString());
 
         }catch (Exception e){
             return false;
@@ -66,7 +66,6 @@ public class FormErrorHandling {
     }
 
     public boolean inputValidInt(String text){
-
 
         try {
 
