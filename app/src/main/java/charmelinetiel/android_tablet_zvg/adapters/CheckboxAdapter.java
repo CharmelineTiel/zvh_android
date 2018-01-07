@@ -88,19 +88,10 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
                         }
 
-//                        if (issue.getHealthIssueId() == v.getTag()){
-//
-//                            otherNamely.setVisibility(View.VISIBLE);
-//                            otherNamelyInput.setVisibility(View.VISIBLE);
-//                        }
                     }else
                     {
                         selectedIssues.remove(v.getTag().toString());
 
-//                        if (issue.getHealthIssueId() == v.getTag()){
-//                        otherNamely.setVisibility(View.GONE);
-//                        otherNamelyInput.setVisibility(View.GONE);
-//                        }
                     }
                 }
             });
