@@ -57,11 +57,12 @@ public class RegisterActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
             super.onBackPressed();
-
+        }
     }
-
     public void setUser(User user)
     {
         this.user = user;

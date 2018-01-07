@@ -236,8 +236,10 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
     @Override
     public void onBackPressed() {
-
-        super.onBackPressed();
-
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
