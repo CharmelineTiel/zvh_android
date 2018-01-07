@@ -52,6 +52,7 @@ public class MeasurementListAdapter extends BaseAdapter {
     }
 
     public void setData(List<Measurement> data){
+        this.data = new ArrayList<>();
         this.data.addAll(data);
     }
 

@@ -85,11 +85,6 @@ public class DiaryFragment extends Fragment {
 
 
 
-//        weekButton.setTextColor(getResources().getColor(R.color.ms_black));
-//        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
-//        graphButton.setTextColor(getResources().getColor(R.color.lightGrey));
-
-
         //check if mobile or not
         if(screenResolution.equals("mobile")) {
 
@@ -153,25 +148,37 @@ public class DiaryFragment extends Fragment {
             public void onClick(View v) {
 
 
-                if (!weekSelected && ExceptionHandler.isConnectedToInternet(mainActivity)) {
+                if (!weekSelected) {
 
-                    weekSelected = true;
-                    monthSelected = false;
-                    graphSelected = false;
-                    adapter.setDataWeek(measurements.subList(0, 6));
-                    adapter.notifyDataSetChanged();
-                    mListView.setVisibility(View.VISIBLE);
-                    chart.setVisibility(View.GONE);
-                    weekButton.setTextColor(getResources().getColor(R.color.ms_black));
-                    monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
-                    monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
-                    Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
+                    if (ExceptionHandler.isConnectedToInternet(mainActivity) && measurements.size() != 0) {
 
-                }else{
+                        weekSelected = true;
+                        monthSelected = false;
+                        graphSelected = false;
 
-                    mainActivity.makeSnackBar(getString(R.string.noInternetConnection),mainActivity);
+                        if (measurements.size() > 7) {
 
+                            adapter.setDataWeek(measurements.subList(0, 6));
+                            adapter.notifyDataSetChanged();
+                        }else{
+
+                            adapter.setData(measurements);
+                        }
+                        mListView.setVisibility(View.VISIBLE);
+                        chart.setVisibility(View.GONE);
+                        weekButton.setTextColor(getResources().getColor(R.color.ms_black));
+                        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                        Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+
+                        Toast.makeText(getContext(), "Uw metingen kunnen momenteel niet worden geladen, probeer het opnieuw", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
+
 
             }
         });
@@ -180,7 +187,7 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View v){
 
-                if (!monthSelected && ExceptionHandler.isConnectedToInternet(mainActivity)) {
+                if (!monthSelected) {
 
                     monthSelected = true;
                     graphSelected = false;
@@ -196,10 +203,6 @@ public class DiaryFragment extends Fragment {
                     weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
                     graphButton.setTextColor(getResources().getColor(R.color.lightGrey));
 
-                }else{
-
-                    mainActivity.makeSnackBar(getString(R.string.noInternetConnection),mainActivity);
-
                 }
             }
         });
@@ -207,7 +210,7 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View v){
 
-                if (!graphSelected && ExceptionHandler.isConnectedToInternet(mainActivity)) {
+                if (!graphSelected) {
 
                     graphSelected = true;
                     monthSelected = false;
@@ -224,10 +227,6 @@ public class DiaryFragment extends Fragment {
                     monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
                     weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
 
-
-                }else{
-
-                    mainActivity.makeSnackBar(getString(R.string.noInternetConnection),mainActivity);
 
                 }
             }
