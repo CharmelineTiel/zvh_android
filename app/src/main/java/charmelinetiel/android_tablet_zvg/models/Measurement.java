@@ -32,6 +32,9 @@ public class Measurement implements Parcelable
     @SerializedName("userId")
     @Expose
     private String userId;
+    @SerializedName("feedback")
+    @Expose
+    private String feedback;
     @SerializedName("measurementDateTime")
     @Expose
     private String measurementDateTime;
@@ -63,6 +66,7 @@ public class Measurement implements Parcelable
         this.healthIssueOther = ((String) in.readValue((String.class.getClassLoader())));
         this.comment = ((String) in.readValue((String.class.getClassLoader())));
         this.userId = ((String) in.readValue((String.class.getClassLoader())));
+        this.feedback = ((String) in.readValue((String.class.getClassLoader())));
         this.measurementDateTime = ((String) in.readValue((String.class.getClassLoader())));
         this.measurementDateFormatted = ((String) in.readValue((String.class.getClassLoader())));
     }
@@ -73,6 +77,7 @@ public class Measurement implements Parcelable
      */
     public Measurement() {
     }
+
 
     /**
      *
@@ -86,7 +91,7 @@ public class Measurement implements Parcelable
      * @param healthIssueOther
      * @param comment
      */
-    public Measurement(String id, List<String> healthIssueIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String comment, String userId, String measurementDateTime, String measurementDateFormatted) {
+    public Measurement(String id, List<String> healthIssueIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String comment, String userId, String feedback, String measurementDateTime, String measurementDateFormatted) {
         super();
         this.id = id;
         this.healthIssueIds = healthIssueIds;
@@ -95,6 +100,7 @@ public class Measurement implements Parcelable
         this.healthIssueOther = healthIssueOther;
         this.comment = comment;
         this.userId = userId;
+        this.feedback = feedback;
         this.measurementDateTime = measurementDateTime;
         this.measurementDateFormatted = measurementDateFormatted;
     }
@@ -163,6 +169,15 @@ public class Measurement implements Parcelable
         this.measurementDateTime = measurementDateTime;
     }
 
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+
     public String getMeasurementDateFormatted() {
         return measurementDateFormatted;
     }
@@ -179,6 +194,7 @@ public class Measurement implements Parcelable
         dest.writeValue(healthIssueOther);
         dest.writeValue(comment);
         dest.writeValue(userId);
+        dest.writeValue(feedback);
         dest.writeValue(measurementDateTime);
         dest.writeValue(measurementDateFormatted);
     }

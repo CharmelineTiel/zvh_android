@@ -111,7 +111,6 @@ public class AllMessagesFragment extends Fragment {
 
 
                     try{
-                        ExceptionHandler.exceptionThrower(new Exception());
                         messages = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {

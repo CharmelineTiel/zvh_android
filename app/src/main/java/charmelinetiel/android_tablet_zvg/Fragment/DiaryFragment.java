@@ -162,11 +162,10 @@ public class DiaryFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     mListView.setVisibility(View.VISIBLE);
                     chart.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT);
-
                     weekButton.setTextColor(getResources().getColor(R.color.ms_black));
                     monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
                     monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                    Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
                 }else{
 
@@ -191,7 +190,7 @@ public class DiaryFragment extends Fragment {
                     mListView.setVisibility(View.VISIBLE);
                     chart.setVisibility(View.GONE);
 
-                    Toast.makeText(getContext(), "maandoverzicht geselecteerd", Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(), "maandoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
                     monthButton.setTextColor(getResources().getColor(R.color.ms_black));
                     weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
@@ -218,7 +217,7 @@ public class DiaryFragment extends Fragment {
                     initGraph();
                     mListView.setVisibility(View.GONE);
 
-                    Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
 
                     graphButton.setTextColor(getResources().getColor(android.R.color.black));

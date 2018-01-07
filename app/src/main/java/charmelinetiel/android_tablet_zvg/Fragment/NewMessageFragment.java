@@ -128,7 +128,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         }else{
 
             try {
-                ExceptionHandler.exceptionThrower(new Exception());
+
             } catch (Exception e) {
 
                 mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
