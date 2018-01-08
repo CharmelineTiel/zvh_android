@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -54,6 +55,7 @@ public class MeasurementStep2Fragment extends Fragment {
         measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
         date = v.findViewById(R.id.dateTimeNow);
         warningMessage = v.findViewById(R.id.warningMessage);
+        checkboxList = v.findViewById(R.id.checkboxList);
 
 
 
@@ -143,19 +145,7 @@ public class MeasurementStep2Fragment extends Fragment {
             }
         });
 
+
         return v;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        checkboxList.setOnClickListener(view -> {
-            warningMessage.setVisibility(View.VISIBLE);
-        });
-
-
-    }
-
-
 }
