@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.LoginActivity;
+import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +21,7 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
 
     private View view;
     private TextView email;
+    private RegisterActivity registerActivity;
 
     public RegisterCompletedFragment() {
         // Required empty public constructor
@@ -29,6 +31,9 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        registerActivity = (RegisterActivity) getActivity();
+        registerActivity.setTitle("Registratie afgerond");
 
         view = inflater.inflate(R.layout.fragment_register_completed, container, false);
         Button btn = view.findViewById(R.id.toLoginBtn);
