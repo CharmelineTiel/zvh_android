@@ -62,7 +62,6 @@
         android:layout_marginTop="@dimen/padding_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:textSize="@dimen/normal_text_tablet"
         android:text="@string/otherNamely"
         android:layout_below="@id/checkboxList"/>
