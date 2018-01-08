@@ -63,7 +63,6 @@
 
     <TextView
         android:id="@+id/insertMeasurementText"
-        android:textStyle="bold"
         android:layout_centerVertical="true"
         android:textSize="@dimen/bigger_text_mobile"
         android:textAlignment="center"
@@ -83,7 +82,7 @@
         android:textAllCaps="false"
         android:textSize="@dimen/bigger_text_mobile"
         android:background="@color/colorAccent"
-        android:layout_width="@dimen/button_mobile"
+        android:layout_width="@dimen/button_tablet"
         android:layout_height="wrap_content" />
 
     <com.github.mikephil.charting.charts.BarChart

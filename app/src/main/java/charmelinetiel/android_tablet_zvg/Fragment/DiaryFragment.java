@@ -212,21 +212,24 @@ public class DiaryFragment extends Fragment {
 
                 if (!graphSelected) {
 
-                    graphSelected = true;
-                    monthSelected = false;
-                    weekSelected = false;
-                    chart.setVisibility(View.VISIBLE);
-                    adapter.notifyDataSetChanged();
-                    initGraph();
-                    mListView.setVisibility(View.GONE);
+                    if(measurements.size() > 0) {
+                        graphSelected = true;
+                        monthSelected = false;
+                        weekSelected = false;
+                        chart.setVisibility(View.VISIBLE);
+                        adapter.notifyDataSetChanged();
+                        initGraph();
+                        mListView.setVisibility(View.GONE);
+                    }else{
 
+                        chart.setVisibility(View.GONE);
+                    }
                     Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
 
                     graphButton.setTextColor(getResources().getColor(android.R.color.black));
                     monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
                     weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
-
 
                 }
             }

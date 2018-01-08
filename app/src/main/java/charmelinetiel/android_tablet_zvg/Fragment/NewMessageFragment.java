@@ -102,11 +102,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
                         mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
                     }
-                    showProgressBar();
-                    messageObj = new Message();
-                    messageObj.setSubject(subject.getText().toString());
-                    messageObj.setMessage(message.getText().toString());
-                    apiService.postMessage(messageObj, AuthToken.getInstance().getAuthToken()).enqueue(this);
+
                 }
                 break;
 
