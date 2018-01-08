@@ -22,6 +22,11 @@ public class Message implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
+
+    @SerializedName("dateTime")
+    @Expose
+    private String dateTime;
+
     @SerializedName("subject")
     @Expose
     private String subject;
@@ -39,8 +44,7 @@ public class Message implements Parcelable
             return (new Message[size]);
         }
 
-    }
-            ;
+    };
 
     protected Message(Parcel in) {
         this._id = ((String) in.readValue((String.class.getClassLoader())));
@@ -48,9 +52,15 @@ public class Message implements Parcelable
         this.consultantId = ((String) in.readValue((String.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
         this.subject = ((String) in.readValue((String.class.getClassLoader())));
+        this.dateTime = ((String) in.readValue((String.class.getClassLoader())));
     }
 
     public Message() {
+    }
+
+    public String getDateTime(){
+
+        return dateTime;
     }
 
     public String getMessageId() {
@@ -99,6 +109,7 @@ public class Message implements Parcelable
         dest.writeValue(consultantId);
         dest.writeValue(message);
         dest.writeValue(subject);
+        dest.writeValue(dateTime);
     }
 
     public int describeContents() {

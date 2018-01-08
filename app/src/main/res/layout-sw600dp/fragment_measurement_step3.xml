@@ -31,7 +31,7 @@
         android:id="@+id/extraRemarksInput"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:background="@color/lighterGrey"
+        android:background="@color/grey"
         android:layout_below="@id/dateTimeNow"/>
 
     <RelativeLayout

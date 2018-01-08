@@ -101,7 +101,6 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
                     }else{
 
                         mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
-
                     }
                     showProgressBar();
                     messageObj = new Message();

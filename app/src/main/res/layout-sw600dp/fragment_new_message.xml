@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailLbl"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:editable="false"
             android:padding="@dimen/padding_20" />
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/consultantName"
             android:layout_marginTop="@dimen/padding_20"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:editable="false"
             android:padding="@dimen/padding_20" />
 
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/subjectLbl"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:textSize="@dimen/normal_text_tablet"
             android:hint="Vul een onderwerp in"
             android:padding="@dimen/padding_20" />
@@ -108,7 +108,7 @@
             android:layout_below="@+id/messageLbl"
             android:width="@dimen/button_tablet"
             android:hint="Vul een bericht in"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:paddingTop="@dimen/padding_20"
             android:paddingLeft="@dimen/padding_20"
             android:paddingBottom="50dp" />

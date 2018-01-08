@@ -19,11 +19,6 @@
             android:key="autoLogin"
             android:title="Automatisch inloggen" />
 
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:theme="@style/preferenceTheme"
-            android:key="sendMeasurementsWeekly"
-            android:summary="Wekelijks uw metingen opsturen naar uw consulent"
-            android:title="Metingen opsturen" />
 
     </android.support.v7.preference.PreferenceCategory>
 
@@ -38,10 +33,10 @@
             android:title="Dagelijkse herinnering" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
+            android:theme="@style/preferenceTheme"
             android:key="sendMeasurementsWeekly"
             android:summary="Wekelijks uw metingen opsturen naar uw consulent"
-            android:title="Wekelijkse metingen" />
+            android:title="Metingen opsturen" />
 
 
     </android.support.v7.preference.PreferenceCategory>

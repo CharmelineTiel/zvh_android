@@ -24,7 +24,7 @@
 
         <EditText
             android:id="@+id/email"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
             android:padding="@dimen/padding_20"
@@ -47,7 +47,7 @@
             android:id="@+id/pass1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
             android:padding="@dimen/margin_20"
@@ -67,7 +67,7 @@
 
         <EditText
             android:id="@+id/pass2"
-            android:background="@color/lighterGrey"
+            android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
             android:layout_marginBottom="@dimen/margin_20"

@@ -264,6 +264,8 @@ public class DiaryFragment extends Fragment {
 
         BarDataSet upperBP = new BarDataSet(bloodPressureUpper, "Bovendruk");
         BarDataSet lowerBP = new BarDataSet(bloodPressureLower, "Onderdruk");
+        upperBP.setValueTextSize(18f);
+        lowerBP.setValueTextSize(18f);
 
         int color1 = getResources().getColor(R.color.chart2);
         int color2 = getResources().getColor(R.color.chart1);
@@ -272,10 +274,10 @@ public class DiaryFragment extends Fragment {
         upperBP.setColors(color2);
 
         BarData data = new BarData(upperBP,lowerBP);
-        data.setBarWidth(0.5f); // set custom bar width
+        data.setBarWidth(0.2f); // set custom bar width
         chart.setDrawGridBackground(false);
         chart.setData(data);
-        chart.animateXY(2000, 2000);
+        chart.animateXY(1000, 1000);
         chart.setFitBars(true); // make the x-axis fit exactly all bars
         chart.invalidate(); // refresh
     }
