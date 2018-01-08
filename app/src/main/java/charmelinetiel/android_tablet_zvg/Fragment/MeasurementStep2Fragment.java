@@ -1,10 +1,12 @@
 package charmelinetiel.android_tablet_zvg.Fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,6 +31,7 @@ public class MeasurementStep2Fragment extends Fragment {
     private MainActivity mainActivity;
     private CheckboxAdapter measurementCheckboxAdapter;
     private FormErrorHandling errorHandling;
+    private TextView warningMessage;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -44,23 +47,6 @@ public class MeasurementStep2Fragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
         errorHandling = new FormErrorHandling();
 
-        final ListView listView = v.findViewById(R.id.checkboxList);
-
-        if(mainActivity.isEditingMeasurement()){
-            mainActivity.setTitle("Meting bewerken stap 2 van 3");
-        }else{
-            mainActivity.setTitle("Meting stap 2 van 3");
-        }
-
-
-        measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
-                R.layout.checkbox_listview_item, mainActivity.getHealthIssues(),
-                mainActivity.getMeasurement().getHealthIssueIds());
-
-        checkboxList = v.findViewById(R.id.checkboxList);
-        checkboxList.setAdapter(measurementCheckboxAdapter);
-
-
         cancelButton = v.findViewById(R.id.cancel_measurement2_button);
         nextButton = v.findViewById(R.id.to_measurement_step3_button);
         otherNamelyInput = v.findViewById(R.id.otherNamelyInput);
@@ -68,6 +54,8 @@ public class MeasurementStep2Fragment extends Fragment {
         noIssues = v.findViewById(R.id.noIssues);
         measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
         date = v.findViewById(R.id.dateTimeNow);
+        warningMessage = v.findViewById(R.id.warningMessage);
+        checkboxList = v.findViewById(R.id.checkboxList);
 
 
 
@@ -82,7 +70,7 @@ public class MeasurementStep2Fragment extends Fragment {
                     R.layout.checkbox_listview_item,
                     mainActivity.getHealthIssues(),
                     mainActivity.getMeasurement().getHealthIssueIds());
-                    listView.setAdapter(measurementCheckboxAdapter);
+                    checkboxList.setAdapter(measurementCheckboxAdapter);
 
         } catch (Exception e) {
             measurementCheckboxAdapter = new CheckboxAdapter(mainActivity,
@@ -157,8 +145,7 @@ public class MeasurementStep2Fragment extends Fragment {
             }
         });
 
+
         return v;
     }
-
-
 }

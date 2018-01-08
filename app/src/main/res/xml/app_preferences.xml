@@ -38,6 +38,12 @@
             android:summary="Wekelijks uw metingen opsturen naar uw consulent"
             android:title="Metingen opsturen" />
 
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="autoLogin"
+            android:theme="@style/preferenceTheme"
+            android:title="Ingelogd blijven" />
+
 
     </android.support.v7.preference.PreferenceCategory>
 

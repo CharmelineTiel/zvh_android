@@ -90,7 +90,7 @@
         android:layout_marginLeft="@dimen/padding_20"
         android:layout_height="wrap_content"
         android:textSize="@dimen/normal_text_tablet"
-        android:text="Automatisch inloggen" />
+        android:text="Ingelogd blijven" />
 
         <RelativeLayout
             android:id="@+id/loginLayout"

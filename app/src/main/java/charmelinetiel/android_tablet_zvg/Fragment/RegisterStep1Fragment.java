@@ -47,7 +47,7 @@ public class RegisterStep1Fragment extends Fragment
                              Bundle savedInstanceState) {
 
         registerActivity = (RegisterActivity) getActivity();
-
+        registerActivity.getSupportActionBar().show();
         registerActivity.setTitle("Registreren stap 1 van 3");
 
         v = inflater.inflate(R.layout.fragment_register_step1, container, false);
