@@ -46,7 +46,7 @@ public class MessageDetailFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.backBtn:
+            case R.id.cancelButton:
 
                  getFragmentManager().popBackStack();
 

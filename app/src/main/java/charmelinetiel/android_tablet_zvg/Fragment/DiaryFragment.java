@@ -156,9 +156,9 @@ public class DiaryFragment extends Fragment {
                         monthSelected = false;
                         graphSelected = false;
 
-                        if (measurements.size() > 7) {
+                        if (measurements.size() >= 7) {
 
-                            adapter.setDataWeek(measurements.subList(0, 6));
+                            adapter.setDataWeek(measurements.subList(0, 7));
                             adapter.notifyDataSetChanged();
                         }else{
 
@@ -301,6 +301,16 @@ public class DiaryFragment extends Fragment {
                             public void run() {
 
                                 adapter = new MeasurementListAdapter(getContext(), diaryFragment, measurements);
+
+                                if (measurements.size() != 0 && measurements.size() >= 7) {
+
+                                    adapter.setDataWeek(measurements.subList(0, 7));
+                                    adapter.notifyDataSetChanged();
+                                }else{
+
+                                    adapter.setData(measurements);
+                                }
+
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 progressBar.setVisibility(View.GONE);

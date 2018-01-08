@@ -42,8 +42,8 @@
     <string name="accountLbl">Mijn account</string>
     <string name="disclaimerLbl">Disclaimer</string>
     <string name="disclaimerText">
-        Deze app is met de grootst mogelijke zorgvuldigheid samengesteld. Wij kunnen \n\n
-        echter niet garanderen dat de app altijd zonder onderbreking, fouten of gebreken beschikbaar zal zijn\n\n
+        Deze app is met de grootst mogelijke zorgvuldigheid samengesteld. Wij kunnen
+        echter niet garanderen dat de app altijd zonder onderbreking, fouten of gebreken beschikbaar zal zijn
         of werken en dat de verschafte informatie volledig, juist of up-to-date is.
     </string>
     <string name="title_activity_service">ServiceActivity</string>

@@ -7,7 +7,7 @@
     <dimen name="bigger_text_tablet">22sp</dimen>
     <dimen name="normal_text_tablet">18sp</dimen>
     <dimen name="buttonSize">300dp</dimen>
-    <dimen name="button_tablet">250dp</dimen>
+    <dimen name="button_tablet">200dp</dimen>
     <dimen name="button_mobile">150dp</dimen>
     <dimen name="form_field_mobile">600dp</dimen>
 

@@ -70,8 +70,8 @@
     <EditText
         android:id="@+id/otherNamelyInput"
         android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_width="400dp"
+        android:layout_height="120dp"
         android:background="@color/grey"
         android:layout_below="@id/otherNamely"/>
 

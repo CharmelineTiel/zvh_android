@@ -19,7 +19,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="200dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_15"
                 android:padding="@dimen/padding_20"
-                android:width="500dp"
+                android:width="300dp"
                 android:background="@color/colorAccent"
                 android:text="Inloggen"
                 android:textAllCaps="false"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/loginBtn"
-                android:width="500dp"
+                android:width="300dp"
                 android:text="of"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:textAlignment="center"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/orLbl"
                 android:layout_margin="@dimen/margin_15"
-                android:width="500dp"
+                android:width="300dp"
                 android:background="@color/RegisterColor"
                 android:text="Registreren"
                 android:textAllCaps="false"

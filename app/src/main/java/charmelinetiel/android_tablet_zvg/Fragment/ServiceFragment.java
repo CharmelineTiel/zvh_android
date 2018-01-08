@@ -77,8 +77,8 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
         editLength.setText(mainActivity.getUser().getLength().toString());
         editWeight.setText(mainActivity.getUser().getWeight().toString());
 
-        editWeight.setSummary("Gewicht: " + mainActivity.getUser().getWeight().toString());
-        editLength.setSummary("Lengte: " + mainActivity.getUser().getLength().toString());
+        editWeight.setSummary("Uw gewicht: " + mainActivity.getUser().getWeight().toString());
+        editLength.setSummary("Uw lengte: " + mainActivity.getUser().getLength().toString());
 
         getActivity().setTheme(R.style.preferenceTheme);
 
@@ -203,7 +203,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                     EditTextPreference length =  (EditTextPreference)preference;
                     if (length.getText().trim().length() > 0 && formErrorHandling.inputValidInt(newLength.toString())){
 
-                        length.setSummary("Huidige Lengte:" + newLength.toString());
+                        length.setSummary("Uw lengte: " + newLength.toString());
                         editLength.setText(newLength.toString());
 
                         UserLengthWeight userLength = new UserLengthWeight();
@@ -242,7 +242,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                     }else{
 
 
-                        length.setSummary("Lengte: " +  editLength.getText());
+                        length.setSummary("Uw lengte: " +  editLength.getText());
                     }
                 }
                 return false;
@@ -258,7 +258,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                     EditTextPreference weight =  (EditTextPreference)preference;
                     if (weight.getText().trim().length() > 0){
 
-                        weight.setSummary("Huidige Gewicht:" + newWeight);
+                        weight.setSummary("Uw gewicht: " + newWeight);
                         editWeight.setText(newWeight.toString());
 
                         UserLengthWeight userWeight = new UserLengthWeight();
@@ -291,7 +291,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                         Toast.makeText(getActivity(), "Uw gewicht is aangepast", Toast.LENGTH_SHORT)
                                 .show();
                     }else{
-                        weight.setSummary("Gewicht: " + editWeight.getText());
+                        weight.setSummary("Uw gewicht: " + editWeight.getText());
                     }
                 }
                 return false;
