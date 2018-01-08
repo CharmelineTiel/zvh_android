@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.os.Bundle;
@@ -111,7 +111,6 @@ public class AllMessagesFragment extends Fragment {
 
 
                     try{
-                        ExceptionHandler.exceptionThrower(new Exception());
                         messages = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {

@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.os.Bundle;
@@ -128,7 +128,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         }else{
 
             try {
-                ExceptionHandler.exceptionThrower(new Exception());
+
             } catch (Exception e) {
 
                 mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);

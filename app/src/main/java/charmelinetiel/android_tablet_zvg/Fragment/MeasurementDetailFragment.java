@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.os.Bundle;
@@ -128,19 +128,16 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
         date.setText(m.getMeasurementDateFormatted());
         bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper() + ", " + "Onderdruk: " + m.getBloodPressureLower());
+        feedback.setText(m.getFeedback());
 
-        if (m.getBloodPressureLower() <= 80 && m.getBloodPressureUpper()
-                <= 130) {
-
-            feedback.setTextColor(getResources().getColor(R.color.positiveFeedbackTxt));
-            feedback.setText("Uw bloeddruk is prima");
-            layout.setBackgroundColor(getResources().getColor(R.color.positiveFeedback));
-        }else{
-
+        if (m.getBloodPressureLower() > 89 || m.getBloodPressureUpper()
+                > 139) {
             feedback.setTextColor(getResources().getColor(R.color.negativeFeedbackTxt));
-            feedback.setText("Houd uw bloeddruk goed in de gaten");
             layout.setBackgroundColor(getResources().getColor(R.color.negativeFeedback));
 
+        }else{
+            feedback.setTextColor(getResources().getColor(R.color.positiveFeedbackTxt));
+            layout.setBackgroundColor(getResources().getColor(R.color.positiveFeedback));
         }
 
     }

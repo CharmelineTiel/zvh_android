@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.app.DatePickerDialog;
@@ -54,6 +54,14 @@ public class RegisterStep1Fragment extends Fragment
 
         dateOfBirth = v.findViewById(R.id.dateOfBirth);
         dateOfBirth.setOnClickListener(this);
+        dateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    setDate();
+                }
+            }
+        });
 
         btn1 = v.findViewById(R.id.firstBtn);
         btn1.setOnClickListener(this);
@@ -75,7 +83,7 @@ public class RegisterStep1Fragment extends Fragment
     @Override
     public void onStart(){
         super.onStart();
-        // Apply any required UI change now that the Fragment is visible.
+        // Apply any required UI change now that the DiaryMonthFragment is visible.
 
     }
 
@@ -109,12 +117,10 @@ public class RegisterStep1Fragment extends Fragment
 
 
                 try {
-                    ExceptionHandler.exceptionThrower(new NumberFormatException());
                     user.setLength(Integer.parseInt(length.getText().toString()));
                     user.setWeight(Integer.parseInt(weight.getText().toString()));
                 }catch (Exception e){
 
-                    registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
 
                 }
                 user = new User();
@@ -187,10 +193,11 @@ public class RegisterStep1Fragment extends Fragment
     public void setDate(){
 
         final Calendar calendar = Calendar.getInstance();
-        int yy = calendar.get(Calendar.YEAR);
+        int yy = calendar.get(Calendar.YEAR) -65;
         int mm = calendar.get(Calendar.MONTH);
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
+            monthOfYear += 1;
             String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
                     + "-" + String.valueOf(dayOfMonth);
             dateOfBirth.setText(date);

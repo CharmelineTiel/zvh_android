@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -51,9 +52,14 @@ public class MeasurementListAdapter extends BaseAdapter {
     }
 
     public void setData(List<Measurement> data){
+        this.data = new ArrayList<>();
         this.data.addAll(data);
     }
 
+    public void setDataWeek(List<Measurement> data){
+        this.data = new ArrayList<>();
+        this.data.addAll(data);
+    }
     @Override
     public Object getItem(int position) {
         return position;
@@ -91,22 +97,22 @@ public class MeasurementListAdapter extends BaseAdapter {
         viewHolder.bloodPressure.setText("Bovendruk:" + m.getBloodPressureUpper().toString() + "," + " " +
                 "Onderdruk:" +
                 m.getBloodPressureLower().toString());
-        //viewHolder.date.setText(m.getMeasurementDateTime());
 
-        if (m.getBloodPressureLower() <= 100 && m.getBloodPressureUpper()
-                <= 130) {
+        viewHolder.feedbackMessage.setText(m.getFeedback());
 
-            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
-            viewHolder.feedbackMessage.setText("Bloeddruk feedback");
-            viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
-        }else{
+        if (m.getBloodPressureLower() > 89 || m.getBloodPressureUpper()
+                > 139) {
 
             viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
-            viewHolder.feedbackMessage.setText("Bloeddruk feedback");
             viewHolder.layout.setBackgroundResource(R.color.negativeFeedback);
+        }else{
+
+            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
+            viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
         }
             return convertView;
 
 
     }
+
 }

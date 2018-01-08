@@ -3,8 +3,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="charmelinetiel.android_tablet_zvg.fragments.DiaryFragment">
+    tools:context="charmelinetiel.android_tablet_zvg.Fragment.DiaryFragment">
 
+    <LinearLayout
+        android:id="@+id/selectDiaryView"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/padding_20"
+        android:layout_marginBottom="@dimen/padding_20"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/weekOverview"
+            android:text="Weekoverzicht"
+            android:paddingRight="@dimen/margin_15"
+            android:paddingLeft="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/padding_20"
+            android:background="@color/lighterGrey"
+            android:textColor="@color/ms_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/monthOverview"
+            android:text="Maandoverzicht"
+            android:paddingRight="@dimen/margin_15"
+            android:paddingLeft="@dimen/margin_15"
+            android:background="@color/lighterGrey"
+            android:textColor="@color/lightGrey"
+            android:layout_marginLeft="@dimen/padding_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/graphOverview"
+            android:text="Grafiek overzicht"
+            android:paddingRight="@dimen/margin_15"
+            android:paddingLeft="@dimen/margin_15"
+            android:background="@color/lighterGrey"
+            android:textColor="@color/lightGrey"
+            android:layout_marginLeft="@dimen/padding_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar_cyclic"
@@ -47,18 +89,19 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_margin="@dimen/margin_20"
-        android:layout_below="@+id/insertMeasurementText"
+        android:visibility="gone"
+        android:layout_below="@+id/selectDiaryView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"/>
 
         <ListView
             android:id="@+id/measurement_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_15"
             android:dividerHeight="8dp"
-            android:layout_below="@+id/chart"
+            android:layout_below="@+id/selectDiaryView"
             android:divider="@android:color/transparent"
             />
-
 </RelativeLayout>

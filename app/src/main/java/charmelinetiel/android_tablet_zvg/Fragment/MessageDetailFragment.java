@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.os.Bundle;
@@ -48,7 +48,7 @@ public class MessageDetailFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.backBtn:
 
-                 mainActivity.openFragment(new ContactHostFragment());
+                 getFragmentManager().popBackStack();
 
                 break;
         }

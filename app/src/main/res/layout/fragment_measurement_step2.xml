@@ -1,11 +1,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    >
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp">
@@ -25,6 +26,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         />
+
+    <TextView
+        android:id="@+id/warningMessage"
+        android:visibility="gone"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 
     <RadioGroup
         android:id="@+id/measurementRadioGroup"

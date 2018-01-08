@@ -11,8 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.LoginOrRegisterFragment;
-import charmelinetiel.android_tablet_zvg.fragments.ResetPasswordFragment;
+import charmelinetiel.android_tablet_zvg.Fragment.LoginOrRegisterFragment;
+import charmelinetiel.android_tablet_zvg.Fragment.ResetPasswordFragment;
 import charmelinetiel.android_tablet_zvg.models.User;
 
 public class RegisterActivity extends AppCompatActivity{
@@ -58,11 +58,12 @@ public class RegisterActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
             super.onBackPressed();
-
+        }
     }
-
     public void setUser(User user)
     {
         this.user = user;

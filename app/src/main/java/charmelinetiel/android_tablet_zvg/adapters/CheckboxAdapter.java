@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,13 +36,11 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         CheckBox box;
-        View view;
 
         if (convertView == null) {
-            LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = LayoutInflater.from(getContext());
             convertView = vi.inflate(R.layout.checkbox_listview_item, null);
-            view = vi.inflate(R.layout.fragment_measurement_step2, parent,false);
+
             box = convertView.findViewById(R.id.checkBox1);
             convertView.setTag(box);
 
@@ -55,6 +52,7 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
                 }else{
                     box.setChecked(false);
                 }
+
             }else{
                 selectedIssues = new ArrayList<>();
             }
@@ -73,22 +71,14 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
 
                         selectedIssues.add(v.getTag().toString());
 
-//                        if (issue.getHealthIssueId() == v.getTag()){
-//
-//                            otherNamely.setVisibility(View.VISIBLE);
-//                            otherNamelyInput.setVisibility(View.VISIBLE);
-//                        }
                     }else
                     {
                         selectedIssues.remove(v.getTag().toString());
 
-//                        if (issue.getHealthIssueId() == v.getTag()){
-//                        otherNamely.setVisibility(View.GONE);
-//                        otherNamelyInput.setVisibility(View.GONE);
-//                        }
                     }
                 }
             });
+
         }
 
         return convertView;
@@ -96,6 +86,7 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
     }
 
     public List<String> getSelectedIssues(){
+
         return selectedIssues;
     }
 

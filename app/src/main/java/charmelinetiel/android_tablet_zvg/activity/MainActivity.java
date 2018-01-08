@@ -23,11 +23,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import charmelinetiel.android_tablet_zvg.Fragment.ContactHostFragment;
+import charmelinetiel.android_tablet_zvg.Fragment.DiaryFragment;
+import charmelinetiel.android_tablet_zvg.Fragment.HomeFragment;
+import charmelinetiel.android_tablet_zvg.Fragment.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.android_tablet_zvg.fragments.ContactHostFragment;
-import charmelinetiel.android_tablet_zvg.fragments.DiaryFragment;
-import charmelinetiel.android_tablet_zvg.fragments.HomeFragment;
-import charmelinetiel.android_tablet_zvg.fragments.ServiceFragment;
 import charmelinetiel.android_tablet_zvg.helpers.BottomNavigationViewHelper;
 import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.HealthIssue;
@@ -193,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         });
     }
 
-
     @Override
     public void onFailure(Call call, Throwable t) {
 
@@ -235,11 +234,12 @@ public class MainActivity extends AppCompatActivity implements  Callback {
                 messageText, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
-
     @Override
     public void onBackPressed() {
-
-        super.onBackPressed();
-
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

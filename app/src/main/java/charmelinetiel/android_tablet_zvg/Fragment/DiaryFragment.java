@@ -1,4 +1,4 @@
-package charmelinetiel.android_tablet_zvg.fragments;
+package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -44,12 +45,14 @@ public class DiaryFragment extends Fragment {
     private BarChart chart;
     private ListView mListView;
     private TextView insertMeasurementText;
-    private Button goToMeasurementBtn;
+    private Button goToMeasurementBtn, weekButton,monthButton, graphButton;
     private View v;
     private MainActivity mainActivity;
     private List<Measurement> measurements;
     private APIService apiService;
     private MeasurementListAdapter adapter;
+    private String screenResolution;
+    private boolean weekSelected, monthSelected, graphSelected;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -67,6 +70,10 @@ public class DiaryFragment extends Fragment {
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
         mainActivity = (MainActivity) getActivity();
         progressBar = v.findViewById(R.id.progressBar_cyclic);
+        graphButton = v.findViewById(R.id.graphOverview);
+        weekButton = v.findViewById(R.id.weekOverview);
+        monthButton = v.findViewById(R.id.monthOverview);
+        screenResolution = getString(R.string.screen_type);
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -76,7 +83,18 @@ public class DiaryFragment extends Fragment {
         measurements = new ArrayList<>();
         chart.setNoDataText("");
 
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+
+        //check if mobile or not
+        if(screenResolution.equals("mobile")) {
+
+            graphButton.setVisibility(View.GONE);
+        }else{
+
+            graphButton.setVisibility(View.VISIBLE);
+        }
+
+            mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -94,13 +112,22 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Measurement selection = getMeasurements().get(position);
 
-                Bundle bundle=new Bundle();
-                bundle.putParcelable("measurement",selection);
-                MeasurementDetailFragment fg = new MeasurementDetailFragment();
-                fg.setArguments(bundle);
-                mainActivity.openFragment(fg);
+                if (ExceptionHandler.isConnectedToInternet(mainActivity)){
+
+                    Measurement selection = getMeasurements().get(position);
+
+                    Bundle bundle=new Bundle();
+                    bundle.putParcelable("measurement",selection);
+                    MeasurementDetailFragment fg = new MeasurementDetailFragment();
+                    fg.setArguments(bundle);
+                    mainActivity.openFragment(fg);
+
+                }else{
+
+                    mainActivity.makeSnackBar(getString(R.string.noInternetConnection),mainActivity);
+                }
+
             }
 
         });
@@ -116,6 +143,96 @@ public class DiaryFragment extends Fragment {
             }
         });
 
+        weekButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+
+                if (!weekSelected) {
+
+                    if (ExceptionHandler.isConnectedToInternet(mainActivity) && measurements.size() != 0) {
+
+                        weekSelected = true;
+                        monthSelected = false;
+                        graphSelected = false;
+
+                        if (measurements.size() > 7) {
+
+                            adapter.setDataWeek(measurements.subList(0, 6));
+                            adapter.notifyDataSetChanged();
+                        }else{
+
+                            adapter.setData(measurements);
+                        }
+                        mListView.setVisibility(View.VISIBLE);
+                        chart.setVisibility(View.GONE);
+                        weekButton.setTextColor(getResources().getColor(R.color.ms_black));
+                        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                        Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+
+                        Toast.makeText(getContext(), "Uw metingen kunnen momenteel niet worden geladen, probeer het opnieuw", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+
+            }
+        });
+
+        monthButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                if (!monthSelected) {
+
+                    monthSelected = true;
+                    graphSelected = false;
+                    weekSelected = false;
+                    adapter.setData(measurements);
+                    adapter.notifyDataSetChanged();
+                    mListView.setVisibility(View.VISIBLE);
+                    chart.setVisibility(View.GONE);
+
+                    Toast.makeText(getContext(), "maandoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
+
+                    monthButton.setTextColor(getResources().getColor(R.color.ms_black));
+                    weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                    graphButton.setTextColor(getResources().getColor(R.color.lightGrey));
+
+                }
+            }
+        });
+        graphButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                if (!graphSelected) {
+
+                    graphSelected = true;
+                    monthSelected = false;
+                    weekSelected = false;
+                    chart.setVisibility(View.VISIBLE);
+                    adapter.notifyDataSetChanged();
+                    initGraph();
+                    mListView.setVisibility(View.GONE);
+
+                    Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT).show();
+
+
+                    graphButton.setTextColor(getResources().getColor(android.R.color.black));
+                    monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                    weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
+
+
+                }
+            }
+        });
+
+
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
 
                 loadMeasurements(this);
@@ -128,6 +245,8 @@ public class DiaryFragment extends Fragment {
     }
 
     public void initGraph(){
+
+        adapter.notifyDataSetChanged();
 
         //bovendruk
         List<BarEntry> bloodPressureUpper = new ArrayList<>();
@@ -153,7 +272,7 @@ public class DiaryFragment extends Fragment {
         upperBP.setColors(color2);
 
         BarData data = new BarData(upperBP,lowerBP);
-        data.setBarWidth(0.3f); // set custom bar width
+        data.setBarWidth(0.5f); // set custom bar width
         chart.setDrawGridBackground(false);
         chart.setData(data);
         chart.animateXY(2000, 2000);
@@ -172,12 +291,10 @@ public class DiaryFragment extends Fragment {
                 if(response.isSuccessful() && response.body() != null) {
 
                     try {
-
                         measurements = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
                             public void run() {
 
-                                initGraph();
                                 adapter = new MeasurementListAdapter(getContext(), diaryFragment, measurements);
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();

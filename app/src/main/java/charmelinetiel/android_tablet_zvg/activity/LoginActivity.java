@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.models.ExceptionHandler;
 import charmelinetiel.android_tablet_zvg.models.AuthToken;
@@ -175,12 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     forgotPasswordEmailInput.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.INVISIBLE);
 
-                                    try {
-                                        ExceptionHandler.exceptionThrower(new Exception());
-                                    } catch (Exception e) {
-
-                                        makeSnackBar(ExceptionHandler.getMessage(e), LoginActivity.this);
-                                    }
+                                    forgotPasswordEmailInput.setError("Er is iets fout gegaan, controleer uw e-mail en probeer het opnieuw.");
                                 }
                             }
 
@@ -203,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
 
-                        validateForm.showError("Vul een geldige email in");
+                        forgotPasswordEmailInput.setError("Vul een geldige email in");
                     }
                 });
                 dialog.show();
@@ -211,6 +208,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private boolean validInput(){
@@ -256,14 +262,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             hideProgressBar();
 
             try {
-                ExceptionHandler.exceptionThrower(new Exception());
+                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                makeSnackBar(jObjError.getString("error"), this);
             } catch (Exception e) {
-
-                makeSnackBar(ExceptionHandler.getMessage(e), this);
             }
-
         }
-
     }
 
     @Override
