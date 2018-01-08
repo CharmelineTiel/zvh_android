@@ -18,7 +18,7 @@
 
 
         <RelativeLayout
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="100dp"
             android:paddingBottom="@dimen/margin_15"
             android:gravity="center_horizontal"
             android:layout_gravity="bottom"
@@ -55,7 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registreren"
-        android:layout_margin="@dimen/margin_15"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/margin_15"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/bigger_text_mobile"
         android:background="@color/RegisterColor"

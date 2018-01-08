@@ -55,7 +55,7 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lighterGrey"
+        android:background="@color/grey"
         android:layout_marginLeft="@dimen/margin_20"
         android:layout_marginRight="@dimen/margin_20"
         android:padding="@dimen/padding_20"
@@ -73,7 +73,7 @@
         android:text="Wachtwoord"/>
     <EditText
         android:layout_below="@+id/username"
-        android:background="@color/lighterGrey"
+        android:background="@color/grey"
         android:id="@+id/password"
         android:layout_marginLeft="@dimen/margin_20"
         android:layout_marginRight="@dimen/margin_20"

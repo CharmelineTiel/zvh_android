@@ -2,9 +2,11 @@ package charmelinetiel.android_tablet_zvg.Fragment;
 
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -97,10 +99,32 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
             @Override
             public boolean onPreferenceClick(Preference preference) {
 
-                Intent myIntent = new Intent(mainActivity, RegisterActivity.class);
-                mainActivity.startActivity(myIntent);
-                mainActivity.finish();
-                mainActivity.setUser(null);
+                AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
+                alertDialog.setTitle("Uitloggen");
+                alertDialog.setMessage("Weet u zeker dat u wilt uitloggen?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Uitloggen",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                                Intent myIntent = new Intent(mainActivity, RegisterActivity.class);
+                                mainActivity.startActivity(myIntent);
+                                mainActivity.finish();
+                                mainActivity.setUser(null);
+
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuleren", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+
 
                 return true;
             }
@@ -190,6 +214,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                         {
 
                         }
+
 
                         apiService.updateUserLenghtWeight(userLength, mainActivity.getUser().getAuthToken()).enqueue(new Callback<User>() {
                             @Override

@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Uw consulent bij het St. Antonius Ziekenhuis"/>
     <Spinner
-        android:background="@color/lighterGrey"
+        android:background="@color/grey"
         android:spinnerMode="dialog"
         android:id="@+id/consultants"
         android:layout_width="fill_parent"

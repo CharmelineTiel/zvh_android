@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -81,7 +82,8 @@ public class MessageListAdapter extends BaseAdapter {
         }
 
         viewHolder.title.setText(m.getSubject());
-        viewHolder.date.setText("4-1-2018");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        viewHolder.date.setText(m.getDateTime());
 
 
             return convertView;
