@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity{
         }
 
     }
+
     public void openFragment(final Fragment fg)
     {
         FragmentManager fragmentManager = getSupportFragmentManager();

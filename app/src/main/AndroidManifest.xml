@@ -42,7 +42,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "zvh-app://login” -->
+                <!-- Accepts URIs that begin with "zvh-app://resetpassword” -->
                 <data
                     android:host="resetpassword"
                     android:scheme="zvh-app" />

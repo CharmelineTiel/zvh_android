@@ -41,6 +41,8 @@ public class ResetPasswordFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_reset_password, container, false);
 
         registerActivity = (RegisterActivity) getActivity();
+        registerActivity.getSupportActionBar().show();
+
         if (getArguments() != null) {
             token = getArguments().getString("token");
         }

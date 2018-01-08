@@ -87,7 +87,7 @@
         android:layout_gravity="left"
         android:layout_marginLeft="@dimen/padding_10"
         android:layout_height="wrap_content"
-        android:text="Automatisch inloggen" />
+        android:text="Ingelogd blijven" />
 
         <RelativeLayout
             android:id="@+id/loginLayout"
