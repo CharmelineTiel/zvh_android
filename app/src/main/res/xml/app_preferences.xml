@@ -14,11 +14,6 @@
             android:key="editWeight"
             android:title="Gewicht wijzigen" />
 
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="autoLogin"
-            android:title="Automatisch inloggen" />
-
 
     </android.support.v7.preference.PreferenceCategory>
 

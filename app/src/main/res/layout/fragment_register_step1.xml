@@ -86,41 +86,6 @@
             <TextView
                 android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_15"
-                android:text="Geslacht bij geboorte"/>
-
-        <RadioGroup
-            android:buttonTint="@color/colorPrimaryDark"
-            android:layout_below="@+id/genderLbl"
-            android:id="@+id/radioGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15">
-
-            <RadioButton
-                android:buttonTint="@color/colorPrimaryDark"
-                android:id="@+id/radioMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Man"
-                android:textSize="@dimen/normal_text_mobile"
-                android:checked="true" />
-
-            <RadioButton
-                android:buttonTint="@color/colorPrimaryDark"
-                android:id="@+id/radioFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/normal_text_mobile"
-                android:text="Vrouw" />
-        </RadioGroup>
-
-
-            <TextView
-                android:layout_marginTop="@dimen/margin_15"
-                android:textStyle="bold"
                 android:id="@+id/weightLbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,6 +129,41 @@
                 android:inputType="number"
                 android:textColor="@color/lightGrey"
                 android:hint="Vul uw lengte in"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_15"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_15"
+                android:text="Geslacht bij geboorte"/>
+
+            <RadioGroup
+                android:buttonTint="@color/colorPrimaryDark"
+                android:layout_below="@+id/genderLbl"
+                android:id="@+id/radioGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_15">
+
+                <RadioButton
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Man"
+                    android:textSize="@dimen/normal_text_mobile"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text_mobile"
+                    android:text="Vrouw" />
+            </RadioGroup>
+
 
             <RelativeLayout
     android:layout_width="wrap_content"

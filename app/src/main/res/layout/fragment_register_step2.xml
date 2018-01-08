@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/margin_15"
-        android:text="Emailadres"/>
+        android:text="E-mailadres"/>
 
         <EditText
             android:id="@+id/email"
@@ -36,7 +36,7 @@
             android:textSize="@dimen/normal_text_mobile"
             android:textColor="@color/lightGrey"
             android:inputType="textEmailAddress"
-            android:hint="Vul uw email in"/>
+            android:hint="Vul uw e-mail in"/>
 
     <TextView
         android:layout_marginTop="@dimen/margin_15"

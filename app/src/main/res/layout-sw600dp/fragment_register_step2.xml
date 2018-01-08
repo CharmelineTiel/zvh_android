@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/normal_text_tablet"
         android:paddingLeft="@dimen/margin_20"
-        android:text="Emailadres"/>
+        android:text="E-mailadres"/>
 
         <EditText
             android:id="@+id/email"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_tablet"
             android:textColor="@color/lightGrey"
-            android:hint="Vul uw email in"/>
+            android:hint="Vul uw e-mail in"/>
 
     <TextView
         android:layout_marginTop="@dimen/margin_20"

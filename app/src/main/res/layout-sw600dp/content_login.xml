@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/normal_text_tablet"
         android:paddingLeft="@dimen/margin_20"
-        android:text="Email"/>
+        android:text="E-mail"/>
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         android:padding="@dimen/padding_20"
         android:textSize="@dimen/normal_text_tablet"
         android:inputType="textEmailAddress"
-        android:hint="Vul uw email in"/>
+        android:hint="Vul uw e-mail in"/>
 
     <TextView
         android:layout_marginTop="@dimen/margin_20"
