@@ -28,6 +28,7 @@ public class MeasurementSavedFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_measurement_saved, container, false);
 
         mainActivity = (MainActivity) getActivity();
+        mainActivity.setTitle("Meting afgerond");
         toDiary = v.findViewById(R.id.toDiary);
         toHome = v.findViewById(R.id.toHome);
 

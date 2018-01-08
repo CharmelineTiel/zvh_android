@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/margin_15"
-        android:text="Email"/>
+        android:text="E-mail"/>
     <EditText
         android:id="@+id/username"
         android:width="@dimen/form_field_mobile"
@@ -59,7 +59,7 @@
         android:padding="@dimen/padding_10"
         android:textSize="@dimen/normal_text_mobile"
         android:inputType="textEmailAddress"
-        android:hint="Vul uw email in"/>
+        android:hint="Vul uw e-mail in"/>
 
     <TextView
         android:layout_marginTop="@dimen/margin_15"

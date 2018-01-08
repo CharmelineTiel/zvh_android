@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import charmelinetiel.android_tablet_zvg.R;
 
@@ -15,6 +16,7 @@ import charmelinetiel.android_tablet_zvg.R;
 public class DisclaimerFragment extends Fragment {
 
     public View v;
+    public Button backToSettings;
 
     public DisclaimerFragment(){
 
@@ -27,6 +29,11 @@ public class DisclaimerFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_disclaimer, container, false);
 
         getActivity().setTitle("Disclaimer");
+
+        backToSettings = v.findViewById(R.id.backToSettings);
+        backToSettings.setOnClickListener(view -> {
+            getActivity().onBackPressed();
+        });
 
         return v;
     }

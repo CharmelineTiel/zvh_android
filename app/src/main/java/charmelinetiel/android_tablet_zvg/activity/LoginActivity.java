@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
 
-                        forgotPasswordEmailInput.setError("Vul een geldige email in");
+                        forgotPasswordEmailInput.setError("Vul een geldig e-mail adres in");
                     }
                 });
                 dialog.show();
@@ -222,11 +222,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean validInput(){
 
         if (!validateForm.inputGiven(email)) {
-            validateForm.showError("Vul uw email in");
+            validateForm.showError("Vul uw e-mail in");
             return false;
         }else if(!validateForm.InputValidEmail(email)){
 
-            validateForm.showError("Geen geldige email");
+            validateForm.showError("Geen geldige e-mail");
             return false;
         }
         if(!validateForm.inputGiven(password)){

@@ -11,4 +11,17 @@
         android:layout_margin="@dimen/margin_20"
         android:text="@string/disclaimerText"/>
 
+    <Button
+        android:id="@+id/backToSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disclaimerText"
+        android:layout_centerHorizontal="true"
+        android:text="Terug"
+        android:textAllCaps="false"
+        android:width="@dimen/button_mobile"
+        android:background="@color/lightGrey"
+        android:textColor="@color/whiteText"
+        android:textSize="@dimen/bigger_text_mobile"/>
+
 </RelativeLayout>

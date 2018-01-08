@@ -108,7 +108,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
            return false;
         }else if(!validateForm.inputGiven(email)){
 
-            validateForm.showError("Vul uw email in");
+            validateForm.showError("Vul uw e-mail in");
             return false;
         }
 
