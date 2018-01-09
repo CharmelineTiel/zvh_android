@@ -27,7 +27,7 @@
             android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
-            android:padding="@dimen/padding_20"
+            android:padding="@dimen/padding_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_tablet"
@@ -50,7 +50,7 @@
             android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
-            android:padding="@dimen/margin_20"
+            android:padding="@dimen/margin_15"
             android:textSize="@dimen/normal_text_tablet"
             android:inputType="textPassword"
             android:textColor="@color/lightGrey"
@@ -71,7 +71,7 @@
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
             android:layout_marginBottom="@dimen/margin_20"
-            android:padding="@dimen/padding_20"
+            android:padding="@dimen/padding_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_tablet"
@@ -88,7 +88,7 @@
 
 
             <Button
-            android:padding="20dp"
+            android:padding="@dimen/padding_15"
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
             android:width="@dimen/button_tablet"
             />
         <Button
-            android:padding="20dp"
+            android:padding="@dimen/padding_15"
             android:id="@+id/nextScreenBtn"
             android:layout_toEndOf="@+id/backBtn"
             android:layout_width="wrap_content"

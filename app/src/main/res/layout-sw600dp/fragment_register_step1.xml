@@ -38,7 +38,7 @@
                 android:layout_marginRight="@dimen/margin_20"
                 android:background="@color/grey"
                 android:hint="Vul uw voornaam in"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_10"
                 android:textColor="@color/lightGrey"
                 android:textSize="@dimen/normal_text_tablet" />
 
@@ -59,7 +59,7 @@
                 android:layout_marginRight="@dimen/margin_20"
                 android:background="@color/grey"
                 android:hint="Vul uw achternaam in"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_10"
                 android:textColor="@color/lightGrey"
                 android:textSize="@dimen/normal_text_tablet" />
 
@@ -81,7 +81,7 @@
                 android:background="@color/grey"
                 android:inputType="none"
                 android:hint="Vul uw geboortedatum in"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_10"
                 android:textColor="@color/lightGrey"
                 android:textSize="@dimen/normal_text_tablet" />
 
@@ -106,7 +106,7 @@
                 android:baselineAligned="false"
                 android:hint="Vul uw gewicht in"
                 android:inputType="number"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_10"
                 android:textColor="@color/lightGrey"
                 android:textSize="@dimen/normal_text_tablet" />
 
@@ -129,14 +129,14 @@
                 android:background="@color/grey"
                 android:hint="Vul uw lengte in"
                 android:inputType="number"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_10"
                 android:textColor="@color/lightGrey"
                 android:textSize="@dimen/normal_text_tablet" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_15"
                 android:paddingLeft="@dimen/margin_20"
                 android:textSize="@dimen/normal_text_tablet"
                 android:text="Geslacht bij geboorte"
@@ -165,6 +165,7 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorPrimaryDark"
                     android:text="Vrouw"
+                    android:layout_marginBottom="@dimen/padding_15"
                     android:textSize="@dimen/normal_text_tablet" />
             </RadioGroup>
 
@@ -182,7 +183,7 @@
                     android:layout_marginLeft="@dimen/margin_20"
                     android:layout_marginRight="@dimen/margin_20"
                     android:background="@color/lightGrey"
-                    android:padding="@dimen/margin_20"
+                    android:padding="@dimen/margin_15"
                     android:text="Annuleren"
                     android:textAllCaps="false"
                     android:textColor="@color/whiteText"
@@ -199,7 +200,7 @@
                     android:background="@color/RegisterColor"
                     android:text="Volgende"
                     android:textAllCaps="false"
-                    android:padding="@dimen/margin_20"
+                    android:padding="@dimen/margin_15"
                     android:textColor="@color/whiteText"
                     android:textSize="@dimen/bigger_text_tablet" />
             </RelativeLayout>

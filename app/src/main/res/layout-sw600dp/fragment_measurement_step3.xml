@@ -49,7 +49,7 @@
             android:width="@dimen/button_tablet"
             android:background="@color/lightGrey"
             android:text="Terug"
-            android:padding="@dimen/padding_20"
+            android:padding="@dimen/padding_15"
             android:textAllCaps="false"
             android:textColor="@color/whiteText"
             android:textSize="@dimen/bigger_text_tablet" />
@@ -62,7 +62,7 @@
             android:layout_alignBottom="@+id/cancel_measurement3_button"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:padding="@dimen/padding_20"
+            android:padding="@dimen/padding_15"
             android:layout_toRightOf="@id/cancel_measurement3_button"
             android:width="@dimen/button_tablet"
             android:background="@color/colorAccent"

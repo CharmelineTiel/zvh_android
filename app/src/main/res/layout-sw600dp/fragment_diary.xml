@@ -16,8 +16,8 @@
         <Button
             android:id="@+id/weekOverview"
             android:text="Weekoverzicht"
-            android:paddingRight="@dimen/margin_15"
-            android:paddingLeft="@dimen/margin_15"
+            android:paddingRight="@dimen/padding_15"
+            android:paddingLeft="@dimen/padding_15"
             android:layout_marginLeft="@dimen/padding_20"
             android:background="@color/grey"
             android:textColor="@color/ms_black"

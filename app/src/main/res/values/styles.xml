@@ -38,7 +38,6 @@
     <style name="preferenceTheme" parent="Theme.AppCompat.Light">
         <item name="android:colorAccent">@color/DarkGrey</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:colorControlActivated">#0ec842</item>
     </style>
 
 </resources>

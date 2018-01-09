@@ -46,7 +46,7 @@
             android:width="@dimen/button_tablet"
             android:layout_margin="@dimen/margin_20"
             android:text="Klaar"
-            android:padding="@dimen/padding_20"
+            android:padding="@dimen/padding_15"
             android:textSize="@dimen/bigger_text_tablet"
             android:textAllCaps="false"
             android:textColor="@color/whiteText"

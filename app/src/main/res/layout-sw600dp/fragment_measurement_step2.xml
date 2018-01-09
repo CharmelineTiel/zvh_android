@@ -98,7 +98,7 @@
         android:width="@dimen/button_tablet"
         android:background="@color/lightGrey"
         android:text="Terug"
-        android:padding="@dimen/padding_20"
+        android:padding="@dimen/padding_15"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/bigger_text_tablet" />
@@ -115,7 +115,7 @@
         android:width="@dimen/button_tablet"
         android:background="@color/colorAccent"
         android:text="Volgende"
-        android:padding="@dimen/padding_20"
+        android:padding="@dimen/padding_15"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/bigger_text_tablet" />

@@ -55,17 +55,17 @@
             android:layout_below="@+id/emailLbl"
             android:background="@color/grey"
             android:editable="false"
-            android:padding="@dimen/padding_20" />
+            android:padding="@dimen/padding_10" />
 
         <EditText
             android:id="@+id/consultantEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/consultantName"
-            android:layout_marginTop="@dimen/padding_20"
+            android:layout_marginTop="@dimen/padding_10"
             android:background="@color/grey"
             android:editable="false"
-            android:padding="@dimen/padding_20" />
+            android:padding="@dimen/padding_10" />
 
         <TextView
             android:id="@+id/subjectLbl"
@@ -85,7 +85,7 @@
             android:background="@color/grey"
             android:textSize="@dimen/normal_text_tablet"
             android:hint="Vul een onderwerp in"
-            android:padding="@dimen/padding_20" />
+            android:padding="@dimen/padding_10" />
 
 
         <TextView
@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Annuleren"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_15"
                 android:textColor="@color/whiteText"
                 android:textSize="@dimen/bigger_text_tablet"
                 android:background="@color/lightGrey"
@@ -140,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Verzenden"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_15"
                 android:textColor="@color/whiteText"
                 android:textSize="@dimen/bigger_text_tablet"
                 android:background="@color/colorAccent"

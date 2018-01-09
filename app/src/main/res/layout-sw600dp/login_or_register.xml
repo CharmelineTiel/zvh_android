@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_15"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_15"
                 android:width="300dp"
                 android:background="@color/colorAccent"
                 android:text="Inloggen"
@@ -54,7 +54,7 @@
 
             <Button
                 android:id="@+id/registerBtn"
-                android:padding="@dimen/padding_20"
+                android:padding="@dimen/padding_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/orLbl"
