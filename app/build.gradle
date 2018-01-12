@@ -10,7 +10,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "charmelinetiel.android_tablet_zvg"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
