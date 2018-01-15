@@ -8,23 +8,12 @@ import android.widget.EditText;
 
 public class FormErrorHandling {
 
-    private EditText editText;
-
-    public boolean inputGiven(EditText editText)
-    {
-        this.editText = editText;
-        if("".equals(editText.getText().toString().trim())) {
-
-            return false;
-        }
-        return true;
-    }
 
     public boolean inputValidString(EditText editText){
 
-        this.editText = editText;
         String regexString = "^[0-9]*$";
-        if(editText.getText().toString().trim().matches(regexString))
+        if(editText.getText().toString().trim().matches(regexString) ||
+                "".equals(editText.getText().toString().trim()))
         {
             return false;
         }
@@ -32,24 +21,20 @@ public class FormErrorHandling {
         return true;
     }
 
-    public void showError(String errorMessage){
-
-        editText.setError(errorMessage);
-    }
 
     public boolean InputValidEmail(EditText editText){
 
-        this.editText = editText;
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText().toString()).matches();
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText().toString().trim()).matches();
 
     }
 
     public boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
 
-        int bloodPressure = 0;
+        int bloodPressure;
+
         try {
 
-            bloodPressure = Integer.parseInt(editText.getText().toString());
+            bloodPressure = Integer.parseInt(editText.getText().toString().trim());
 
         }catch (Exception e){
             return false;
@@ -69,7 +54,7 @@ public class FormErrorHandling {
 
         try {
 
-            Integer.parseInt(text);
+            Integer.parseInt(text.trim());
 
         }catch (Exception e){
             return false;

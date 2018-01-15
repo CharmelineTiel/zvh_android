@@ -137,39 +137,31 @@ public class RegisterStep1Fragment extends Fragment
     {
         validateForm = new FormErrorHandling();
 
-        if(!validateForm.inputGiven(firstName)){
+        if(!validateForm.inputValidString(firstName)){
 
-            validateForm.showError("Vul uw voornaam in");
+            firstName.setError("Vul uw voornaam in");
             return false;
-        }else if(!validateForm.inputValidString(firstName)) {
+        }
+        if(!validateForm.inputValidString(lastName)){
 
-            validateForm.showError("Geen geldige voornaam");
+            lastName.setError("Vul uw achternaam in");
+            return false;
+        }
+        if(!validateForm.inputValidString(dateOfBirth)){
+
+            dateOfBirth.setError("Vul uw geboortedatum in");
             return false;
         }
 
-        if(!validateForm.inputGiven(lastName)){
+        if(!validateForm.inputValidInt(length.getText().toString().trim())){
 
-            validateForm.showError("Vul uw achternaam in");
-            return false;
-        }else if(!validateForm.inputValidString(lastName)) {
-            validateForm.showError("Geen geldige achternaam");
-        }
-
-        if(!validateForm.inputGiven(dateOfBirth)){
-
-            validateForm.showError("Vul uw geboortedatum in");
+            length.setError("Vul uw lengte in");
             return false;
         }
 
-        if(!validateForm.inputGiven(length)){
+        if(!validateForm.inputValidInt(weight.getText().toString().trim())){
 
-            validateForm.showError("Vul uw lengte in");
-            return false;
-        }
-
-        if(!validateForm.inputGiven(weight)){
-
-            validateForm.showError("Vul uw gewicht in");
+            weight.setError("Vul uw gewicht in");
             return false;
         }
 

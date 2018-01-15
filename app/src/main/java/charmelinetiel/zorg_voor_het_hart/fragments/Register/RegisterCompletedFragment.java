@@ -13,6 +13,7 @@ import android.widget.TextView;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.LoginActivity;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
+import charmelinetiel.zorg_voor_het_hart.models.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,10 +42,8 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
 
         email = view.findViewById(R.id.emailAdress);
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            email.setText(bundle.getString("email"));
-        }
+            email.setText(User.getInstance().getEmailAddress());
+
 
         return view;
     }

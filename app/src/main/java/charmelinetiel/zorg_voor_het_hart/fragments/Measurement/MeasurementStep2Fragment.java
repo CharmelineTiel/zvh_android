@@ -91,7 +91,7 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.to_measurement_step3_button:
                 MainActivity activity = (MainActivity) getActivity();
                 Measurement measurement = activity.getMeasurement();
@@ -100,19 +100,26 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
-                if (measurementCheckboxAdapter.getSelectedIssues().size() == 0
-                        && yesNamelySelected && !errorHandling.inputGiven(otherNamelyInput)){
 
-                    mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
+                if (finalMeasurementCheckboxAdapter.getSelectedIssues().size() == 0
+                        && yesNamelySelected && !errorHandling.inputValidString(otherNamelyInput)) {
 
-                }else
-                    mainActivity.openFragment(new MeasurementStep3Fragment());
-                break;
-            case R.id.cancel_measurement2_button:
-                getFragmentManager().popBackStack();
-                break;
+                    if (measurementCheckboxAdapter.getSelectedIssues().size() == 0
+                            && yesNamelySelected && !errorHandling.inputValidString(otherNamelyInput)) {
+
+
+                        mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
+
+                    } else {
+                        mainActivity.openFragment(new MeasurementStep3Fragment());
+                    }
+                }
+                    break;
+                    case R.id.cancel_measurement2_button:
+                        getFragmentManager().popBackStack();
+                        break;
+                }
         }
-    }
 
     private void configureRadioGroup() {
         measurementRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

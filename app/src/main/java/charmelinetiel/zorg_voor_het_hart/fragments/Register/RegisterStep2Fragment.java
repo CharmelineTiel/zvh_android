@@ -97,11 +97,11 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
         if (!validateForm.InputValidEmail(email)){
 
-            validateForm.showError("Geen geldige email");
+            email.setError("Geen geldige email");
            return false;
-        }else if(!validateForm.inputGiven(email)){
+        }else if(!validateForm.inputValidString(email)){
 
-            validateForm.showError("Vul uw e-mail in");
+            email.setError("Vul uw e-mail in");
             return false;
         }
 
@@ -118,7 +118,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 if (charSequence.length() > 0 && pass.length() > 0) {
                     if(!pass2.getText().toString().equals(pass)){
 
-                        validateForm.showError("Uw wachtwoord komt niet overeen");
+                        pass2.setError("Uw wachtwoord komt niet overeen");
                     }
 
                 }
@@ -130,26 +130,37 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 if (editable.length() > 0 && pass.length() > 0) {
                     if(!pass2.getText().toString().equals(pass)){
 
-                        validateForm.showError("De ingevoerde wachtwoorden komen niet overeen.");
+                        pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
                     }
 
                 }
             }
         });
 
-        if (!validateForm.inputGiven(pass1)) {
-            validateForm.showError("Vul een wachtwoord in");
-            return false;
-        }
-        if (!validateForm.inputGiven(pass2)){
-            validateForm.showError("Herhaal uw wachtwoord in");
-            return false;
-        }else if(!pass1.getText().toString().equals(pass2.getText().toString())){
-            validateForm.showError("De ingevoerde wachtwoorden komen niet overeen.");
-            return false;
-        }
+        if (pass1.getText().toString().trim().equals("")) {
 
+            pass1.setError("Vul een wachtwoord in");
+
+            if (!validateForm.inputValidString(pass1)) {
+                pass1.setError("Vul een wachtwoord in");
+
+                return false;
+            }
+            if (pass2.getText().toString().trim().equals("")) {
+                pass2.setError("Herhaal uw wachtwoord in");
+                return false;
+            } else if (!pass1.getText().toString().equals(pass2.getText().toString())) {
+
+
+                pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+                pass1.setError("De ingevoerde wachtwoorden komen niet overeen.");
+
+                return false;
+            }
+
+        }
         return true;
     }
 
 }
+
