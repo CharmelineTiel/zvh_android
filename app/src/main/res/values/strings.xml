@@ -137,5 +137,6 @@
     <!-- Error messages -->
     <string name="noInternetConnection">Geen internet verbinding</string>
 
+    <string name="toolTipRegister">Wij hebben een aantal gegevens van u nodig zodat wij u beter kunnen assisteren</string>
 
 </resources>

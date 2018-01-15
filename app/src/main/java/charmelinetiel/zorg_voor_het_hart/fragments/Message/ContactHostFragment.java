@@ -43,7 +43,7 @@ public class ContactHostFragment extends Fragment
             view = inflater.inflate(R.layout.fragment_new_message, container, false);
 
             tabHost = new FragmentTabHost(mainActivity);
-            tabHost.setup(getActivity(), mainActivity.getSupportFragmentManager(), R.layout.fragment_new_message);
+            tabHost.setup(getActivity(), getChildFragmentManager(), R.layout.fragment_new_message);
 
             tabHost.addTab(tabHost.newTabSpec("Tab1").setIndicator("Nieuw bericht"),
                     NewMessageFragment.class, null);
