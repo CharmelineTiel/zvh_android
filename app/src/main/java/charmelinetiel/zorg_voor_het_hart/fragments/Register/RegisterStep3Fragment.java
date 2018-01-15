@@ -33,7 +33,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
     private View v;
     private APIService apiService;
-    private Button btn1, btn2;
+    private Button registerButton, backButton;
     private Spinner consultantsView;
     private List<Consultant> allConsultants;
     private ArrayAdapter<String> adapter;
@@ -62,8 +62,11 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        v.findViewById(R.id.registerBtn).setOnClickListener(this);
-        v.findViewById(R.id.backBtn).setOnClickListener(this);
+        registerButton = v.findViewById(R.id.registerBtn);
+        registerButton.setOnClickListener(this);
+
+        backButton = v.findViewById(R.id.backBtn);
+        backButton.setOnClickListener(this);
 
         consultantsView =  v.findViewById(R.id.consultants);
 
@@ -117,7 +120,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         }else{
             try {
                 hideProgressBar();
-                ExceptionHandler.exceptionThrower(new Exception());
             } catch (Exception e) {
 
                 registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
@@ -130,7 +132,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         hideProgressBar();
         try {
-            ExceptionHandler.exceptionThrower(new Exception());
+
         } catch (Exception e) {
 
             registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
@@ -174,8 +176,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
     public void showProgressBar(){
         progressBar.setVisibility(View.VISIBLE);
-        btn1.setVisibility(View.GONE);
-        btn2.setVisibility(View.GONE);
+        registerButton.setVisibility(View.GONE);
+        backButton.setVisibility(View.GONE);
         consultantsView.setVisibility(View.GONE);
         consultantTitle.setVisibility(View.GONE);
         consultantText.setVisibility(View.GONE);
@@ -183,8 +185,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
     public void hideProgressBar(){
         progressBar.setVisibility(View.GONE);
-        btn1.setVisibility(View.VISIBLE);
-        btn2.setVisibility(View.VISIBLE);
+        registerButton.setVisibility(View.VISIBLE);
+        backButton.setVisibility(View.VISIBLE);
         consultantsView.setVisibility(View.VISIBLE);
         consultantTitle.setVisibility(View.VISIBLE);
         consultantText.setVisibility(View.VISIBLE);
