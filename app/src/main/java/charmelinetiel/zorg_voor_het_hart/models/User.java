@@ -252,4 +252,6 @@ public class User implements Parcelable
         return 0;
     }
 
+
+
 }

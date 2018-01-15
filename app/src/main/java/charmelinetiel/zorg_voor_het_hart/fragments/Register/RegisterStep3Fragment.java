@@ -117,9 +117,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         if (response.isSuccessful()){
             Fragment fg = new RegisterCompletedFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("email", User.getInstance().getEmailAddress());
-            fg.setArguments(bundle);
             registerActivity.openFragment(fg);
 
         }else{

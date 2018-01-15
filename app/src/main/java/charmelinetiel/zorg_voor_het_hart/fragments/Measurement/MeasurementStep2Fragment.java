@@ -100,7 +100,7 @@ public class MeasurementStep2Fragment extends Fragment {
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
                 if (finalMeasurementCheckboxAdapter.getSelectedIssues().size() == 0
-                        && yesNamelySelected && !errorHandling.inputGiven(otherNamelyInput)){
+                        && yesNamelySelected && !errorHandling.inputValidString(otherNamelyInput)){
 
                     mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
 

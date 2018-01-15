@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Button sendForgotPasswordEmail = dialog.findViewById(R.id.send_forgot_password_email);
                 sendForgotPasswordEmail.setOnClickListener(view -> {
 
-                    if (validateForm.inputGiven(forgotPasswordEmailInput)) {
+                    if (validateForm.inputValidString(forgotPasswordEmailInput)) {
                         iForgotLbl.setVisibility(View.INVISIBLE);
                         forgotPasswordText.setVisibility(View.INVISIBLE);
                         buttonsPanel.setVisibility(View.INVISIBLE);
@@ -249,17 +249,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean validInput(){
 
-        if (!validateForm.inputGiven(email)) {
-            validateForm.showError("Vul uw e-mail in");
+        if (!validateForm.inputValidString(email)) {
+            email.setError("Vul uw e-mail in");
             return false;
         }else if(!validateForm.InputValidEmail(email)){
 
-            validateForm.showError("Geen geldige e-mail");
+            email.setError("Geen geldige e-mail");
             return false;
         }
-        if(!validateForm.inputGiven(password)){
+        if(!password.getText().toString().trim().equals(" ")){
 
-            validateForm.showError("Vul uw wachtwoord in");
+            password.setError("Vul uw wachtwoord in");
             return false;
         }
         return true;

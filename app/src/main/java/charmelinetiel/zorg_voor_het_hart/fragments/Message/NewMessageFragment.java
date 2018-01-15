@@ -150,14 +150,14 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
     public boolean validInput()
     {
-        if(!validateForm.inputGiven(subject)){
+        if(!validateForm.inputValidString(subject)){
 
-            validateForm.showError("Onderwerp mag niet leeg zijn");
+            subject.setError("Onderwerp mag niet leeg zijn");
             return false;
 
-        }else if (!validateForm.inputGiven(message)) {
+        }else if (!validateForm.inputValidString(message)) {
 
-            validateForm.showError("Bericht mag niet leeg zijn");
+            message.setError("Bericht mag niet leeg zijn");
             return false;
         }
         return true;
