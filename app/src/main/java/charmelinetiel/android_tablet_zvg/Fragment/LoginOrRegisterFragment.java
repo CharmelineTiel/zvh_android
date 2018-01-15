@@ -3,6 +3,8 @@ package charmelinetiel.android_tablet_zvg.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,7 +21,6 @@ import charmelinetiel.android_tablet_zvg.activity.RegisterActivity;
  */
 public class LoginOrRegisterFragment extends Fragment implements View.OnClickListener{
 
-
     private View v;
     private Button loginButton, registerButton;
     private RegisterActivity registerActivity;
@@ -27,7 +28,6 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
     public LoginOrRegisterFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,11 +39,8 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
         registerActivity = (RegisterActivity) getActivity();
         registerActivity.getSupportActionBar().hide();
 
-        loginButton = v.findViewById(R.id.loginBtn);
-        loginButton.setOnClickListener(this);
-
-        registerButton = v.findViewById(R.id.registerBtn);
-        registerButton.setOnClickListener(this);
+        v.findViewById(R.id.loginBtn).setOnClickListener(this);
+        v.findViewById(R.id.registerBtn).setOnClickListener(this);
 
         return v;
     }
@@ -57,9 +54,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
                 startActivity(loginIntent);
                 break;
             case R.id.registerBtn:
-
                 registerActivity.openFragment(new RegisterStep1Fragment());
-
                 break;
         }
     }

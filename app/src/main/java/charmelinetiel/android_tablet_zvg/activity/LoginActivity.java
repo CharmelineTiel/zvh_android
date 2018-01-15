@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_READ = 3;
     private static final String IS_RESOLVING = "is_resolving";
     private static final String IS_REQUESTING = "is_requesting";
-    private static final String ACCOUNT_TYPE = "zorgvoorhethart.account";
 
     private APIService apiService;
     private TextView forgotPassword;
@@ -73,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private User loggedInUser;
     private boolean mIsResolving;
     private boolean mIsRequesting;
+    private User user;
 
 
     @Override
@@ -85,12 +85,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mIsResolving = savedInstanceState.getBoolean(IS_RESOLVING);
             mIsRequesting = savedInstanceState.getBoolean(IS_REQUESTING);
         }
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .enableAutoManage(this, 0, this)
-                .addApi(Auth.CREDENTIALS_API)
-                .build();
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -126,6 +120,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             progressBar = findViewById(R.id.progressBar);
             loginPage = findViewById(R.id.loginPage);
+            email = findViewById(R.id.username);
+            password = findViewById(R.id.password);
 
             forgotPassword = findViewById(R.id.iForgot);
             forgotPassword.setOnClickListener(this);
@@ -138,6 +134,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
         }
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .enableAutoManage(this, 0, this)
+                .addApi(Auth.CREDENTIALS_API)
+                .build();
     }
 
     @Override
@@ -148,9 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
 
-                        User user = new User();
-                        email = findViewById(R.id.username);
-                        password = findViewById(R.id.password);
+                        user = new User();
                         user.setPassword(password.getText().toString());
                         user.setEmailAddress(email.getText().toString());
 
@@ -275,28 +275,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
+        Credential credential = new Credential.Builder(user.getEmailAddress())
+                .setPassword(user.getPassword())
+                .build();
+
         if (response.body() != null && response.isSuccessful()) {
 
             loggedInUser = response.body();
-
             AuthToken.getInstance().setAuthToken(response.body().getAuthToken());
-
             loggedInUser.setAuthToken(response.body().getAuthToken());
 
-            if (autoLoginCheckBox.isChecked()) {
+            goToMainActivity();
 
-                Credential credential = new Credential.Builder(email.getText().toString())
-                        .setPassword(password.getText().toString())
-                        .build();
-                        .build();
-                saveCredential(credential);
-            }else{
-                goToMainActivity();
+            saveCredential(credential);
 
-            }
         } else {
+            //Credentials were invalid, hide progress bar/ delete credentials from google smart lock / show error message
             hideProgressBar();
 
+            deleteCredential(credential);
             try {
                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                 makeSnackBar(jObjError.getString("error"), this);
@@ -347,7 +344,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } else {
                 Log.e(TAG, "Credential Save Failed");
             }
-            goToMainActivity();
         }
         mIsResolving = false;
     }
@@ -387,7 +383,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResult(Status status) {
                 if (status.isSuccess()) {
                     Log.d(TAG, "Credential saved");
-                    goToMainActivity();
                 } else {
                     Log.d(TAG, "Attempt to save credential failed " +
                             status.getStatusMessage() + " " +
@@ -437,43 +432,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void processRetrievedCredential(Credential credential) {
+        showProgressBar();
         String accountType = credential.getAccountType();
         if(accountType == null) {
-            User user = new User();
+            user = new User();
             user.setEmailAddress(credential.getId());
             user.setPassword(credential.getPassword());
             apiService.login(user).enqueue(this);
-
-            //TODO: iets doen als de opgehaalde credentials niet goed zijn
-            if(!true) {
-                // This is likely due to the credential being changed outside of
-                // Smart Lock,
-                // ie: away from Android or Chrome. The credential should be deleted
-                // and the user allowed to enter a valid credential.
-                Log.d(TAG, "Retrieved credential invalid, so delete retrieved" +
-                        " credential.");
-                Toast.makeText(this, "Retrieved credentials are invalid, so will be deleted.", Toast.LENGTH_LONG).show();
-                deleteCredential(credential);
-                requestCredentials();
-//                mSignInButton.setEnabled(false);
-            }
-        }
-        else if (accountType.equals(IdentityProviders.GOOGLE)) {
-            // The user has previously signed in with Google Sign-In. Silently
-            // sign in the user with the same ID.
-            // See https://developers.google.com/identity/sign-in/android/
-//                    GoogleSignInOptions gso =
-//                            new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                                    .requestEmail()
-//                                    .build();
-//                    mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                            .enableAutoManage(this, this)
-//                            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-//                            .setAccountName(credential.getId())
-//                            .build();
-//                    OptionalPendingResult<GoogleSignInResult> opr =
-//                            Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-            // ...
         }
     }
 
@@ -498,19 +463,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Credential credential = credentialRequestResult.getCredential();
                             processRetrievedCredential(credential);
                         } else if (status.getStatusCode() == CommonStatusCodes.RESOLUTION_REQUIRED) {
-//                            setFragment(null);
                             // This is most likely the case where the user has multiple saved
                             // credentials and needs to pick one.
                             resolveResult(status, RC_READ);
                         } else if (status.getStatusCode() == CommonStatusCodes.SIGN_IN_REQUIRED) {
-//                            setFragment(null);
                             // This is most likely the case where the user does not currently
                             // have any saved credentials and thus needs to provide a username
                             // and password to sign in.
                             Log.d(TAG, "Sign in required");
                         } else {
                             Log.w(TAG, "Unrecognized status code: " + status.getStatusCode());
-//                            setFragment(null);
                         }
                     }
                 }

@@ -12,11 +12,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.android_tablet_zvg.activity.MainActivity;
@@ -39,16 +46,18 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServiceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class ServiceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
-
-    private NotificationManager mNotificationManager;
     private static final int NOTIFICATION_ID = 0;
+    private static final String TAG = "ServiceFragment";
+    private NotificationManager mNotificationManager;
     private Preference logout, dailyReminder, sendWeekly, veelgesteldeVragen, disclaimer;
     private EditTextPreference editLength, editWeight;
     private MainActivity mainActivity;
     private FormErrorHandling formErrorHandling;
     private APIService apiService;
+    private GoogleApiClient mGoogleApiClient;
 
     public ServiceFragment() {
         // Required empty public constructor
@@ -62,6 +71,10 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
         mainActivity = (MainActivity) getActivity();
         formErrorHandling = new FormErrorHandling();
 
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addConnectionCallbacks(this)
+                .addApi(Auth.CREDENTIALS_API)
+                .build();
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -93,8 +106,6 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
         final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
                 (getActivity(), NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-
         logout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -106,7 +117,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-
+                                Auth.CredentialsApi.disableAutoSignIn(mGoogleApiClient);
                                 Intent myIntent = new Intent(mainActivity, RegisterActivity.class);
                                 mainActivity.startActivity(myIntent);
                                 mainActivity.finish();
@@ -118,7 +129,6 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuleren", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 dialog.dismiss();
                             }
                         });
@@ -300,6 +310,18 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
 
@@ -307,6 +329,18 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     }
 
 
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.d(TAG, "GoogleApiClient connected");
+    }
 
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.d(TAG, "GoogleApiClient is suspended with cause code: " + cause);
+    }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "GoogleApiClient failed to connect: " + connectionResult);
+    }
 }
