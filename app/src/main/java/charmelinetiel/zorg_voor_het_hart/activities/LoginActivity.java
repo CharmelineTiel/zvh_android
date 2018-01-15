@@ -23,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
@@ -70,7 +69,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleApiClient mGoogleApiClient;
     private boolean mIsResolving;
     private boolean mIsRequesting;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,8 +145,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
 
-                    User.getInstance().setEmailAddress(email.getText().toString());
                     User.getInstance().setPassword(password.getText().toString());
+                    User.getInstance().setEmailAddress(email.getText().toString());
+
+                    email = findViewById(R.id.username);
+                    password = findViewById(R.id.password);
 
                     if(validInput()) {
                         showProgressBar();
