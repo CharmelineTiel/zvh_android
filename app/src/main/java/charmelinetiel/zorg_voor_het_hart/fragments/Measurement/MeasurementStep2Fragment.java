@@ -17,7 +17,7 @@ import charmelinetiel.zorg_voor_het_hart.adapters.CheckboxAdapter;
 import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 
-public class MeasurementStep2Fragment extends Fragment {
+public class MeasurementStep2Fragment extends Fragment implements View.OnClickListener {
 
     private View v;
     private Button cancelButton;
@@ -30,6 +30,7 @@ public class MeasurementStep2Fragment extends Fragment {
     private CheckboxAdapter measurementCheckboxAdapter;
     private FormErrorHandling errorHandling;
     private TextView warningMessage;
+    private CheckboxAdapter finalMeasurementCheckboxAdapter;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -38,24 +39,12 @@ public class MeasurementStep2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
         mainActivity = (MainActivity) getActivity();
         errorHandling = new FormErrorHandling();
 
-        cancelButton = v.findViewById(R.id.cancel_measurement2_button);
-        nextButton = v.findViewById(R.id.to_measurement_step3_button);
-        otherNamelyInput = v.findViewById(R.id.otherNamelyInput);
-        otherNamelyLbl = v.findViewById(R.id.otherNamely);
-        noIssues = v.findViewById(R.id.noIssues);
-        measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
-        date = v.findViewById(R.id.dateTimeNow);
-        warningMessage = v.findViewById(R.id.warningMessage);
-        checkboxList = v.findViewById(R.id.checkboxList);
-
-
+        initViews();
 
         if(mainActivity.isEditingMeasurement()){
             mainActivity.setTitle("Meting bewerken stap 2 van 3");
@@ -75,48 +64,57 @@ public class MeasurementStep2Fragment extends Fragment {
                     R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
         }
 
-
         measurementRadioGroup.check(R.id.yesNamelyRadio);
         mainActivity.setDateOfToday(date);
-
 
         if (container != null) {
             container.removeAllViews();
         }
 
+        v.findViewById(R.id.to_measurement_step3_button).setOnClickListener(this);
+        v.findViewById(R.id.cancel_measurement2_button).setOnClickListener(this);
 
-        CheckboxAdapter finalMeasurementCheckboxAdapter = measurementCheckboxAdapter;
+        configureRadioGroup();
 
+        return v;
+    }
 
-        nextButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+    private void initViews() {
+        otherNamelyInput = v.findViewById(R.id.otherNamelyInput);
+        otherNamelyLbl = v.findViewById(R.id.otherNamely);
+        noIssues = v.findViewById(R.id.noIssues);
+        measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
+        date = v.findViewById(R.id.dateTimeNow);
+        warningMessage = v.findViewById(R.id.warningMessage);
+        checkboxList = v.findViewById(R.id.checkboxList);
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.to_measurement_step3_button:
                 MainActivity activity = (MainActivity) getActivity();
                 Measurement measurement = activity.getMeasurement();
 
-                measurement.setHealthIssueIds(finalMeasurementCheckboxAdapter.getSelectedIssues());
+                measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
-                if (finalMeasurementCheckboxAdapter.getSelectedIssues().size() == 0
+                if (measurementCheckboxAdapter.getSelectedIssues().size() == 0
                         && yesNamelySelected && !errorHandling.inputGiven(otherNamelyInput)){
 
                     mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
 
                 }else
                     mainActivity.openFragment(new MeasurementStep3Fragment());
-                }
-
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+                break;
+            case R.id.cancel_measurement2_button:
                 getFragmentManager().popBackStack();
-            }
-        });
+                break;
+        }
+    }
 
+    private void configureRadioGroup() {
         measurementRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -142,8 +140,5 @@ public class MeasurementStep2Fragment extends Fragment {
                 }
             }
         });
-
-
-        return v;
     }
 }

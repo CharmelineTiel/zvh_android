@@ -16,7 +16,7 @@ import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 
 
-public class MeasurementStep1Fragment extends Fragment {
+public class MeasurementStep1Fragment extends Fragment implements View.OnClickListener {
 
     private View v;
     private Button cancelButton;
@@ -36,16 +36,17 @@ public class MeasurementStep1Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mainActivity = (MainActivity) getActivity();
-        mainActivity.setTitle("Meting stap 1 van 3");
+        if(mainActivity.isEditingMeasurement()){
+            mainActivity.setTitle("Meting bewerken stap 1 van 3");
+        }else{
+            mainActivity.setTitle("Meting stap 1 van 3");
+        }
 
         v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
-
 
         if (container != null) {
             container.removeAllViews();
         }
-
-
         return v;
 
     }
@@ -72,18 +73,8 @@ public class MeasurementStep1Fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-
-        if(mainActivity.isEditingMeasurement()){
-            mainActivity.setTitle("Meting bewerken stap 1 van 3");
-        }else{
-            mainActivity.setTitle("Meting stap 1 van 3");
-        }
-
-
-
-        cancelButton = v.findViewById(R.id.cancel_measurement1_button);
-        nextButton = v.findViewById(R.id.to_measurement_step2_button);
+        v.findViewById(R.id.cancel_measurement1_button).setOnClickListener(this);
+        v.findViewById(R.id.to_measurement_step2_button).setOnClickListener(this);
 
         upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
@@ -96,38 +87,30 @@ public class MeasurementStep1Fragment extends Fragment {
         }
 
         dateTimeNow = v.findViewById(R.id.dateTimeNow);
-
         mainActivity.setDateOfToday(dateTimeNow);
 
-        nextButton.setOnClickListener(v -> {
+    }
 
-            Measurement measurement = mainActivity.getMeasurement();
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cancel_measurement1_button:
+                Measurement measurement = mainActivity.getMeasurement();
+                try {
+                    measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
+                    measurement.setBloodPressureLower(Integer.parseInt(lowerBloodPressure.getText().toString()));
+                } catch (Exception e) {
 
+                }
+                mainActivity.setMeasurement(measurement);
 
-            try {
-                measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
-                measurement.setBloodPressureLower(Integer.parseInt(lowerBloodPressure.getText().toString()));
-            } catch (Exception e) {
-
-            }
-
-            mainActivity.setMeasurement(measurement);
-
-            if (validInput()) {
-
-                mainActivity.openFragment(new MeasurementStep2Fragment());
-            }
-        });
-
-        cancelButton.setOnClickListener(v -> {
-
-            mainActivity.openFragment(new HomeFragment());
-
-            mainActivity.setTitle("Meting");
-
-        });
-
-
-
+                if (validInput()) {
+                    mainActivity.openFragment(new MeasurementStep2Fragment());
+                }
+                break;
+            case R.id.to_measurement_step2_button:
+                mainActivity.openFragment(new HomeFragment());
+                break;
+        }
     }
 }

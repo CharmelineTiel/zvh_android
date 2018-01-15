@@ -54,20 +54,10 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
         mainActivity = (MainActivity)getActivity();
 
-        sendBtn = view.findViewById(R.id.sendMessageBtn);
-        sendBtn.setOnClickListener(this);
+        view.findViewById(R.id.sendMessageBtn).setOnClickListener(this);
+        view.findViewById(R.id.backBtn).setOnClickListener(this);
 
-        backBtn = view.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(this);
-
-        message = view.findViewById(R.id.message);
-        subject = view.findViewById(R.id.subject);
-        consultantEmail = view.findViewById(R.id.consultantEmail);
-        consultantName = view.findViewById(R.id.consultantName);
-
-        progressBar = view.findViewById(R.id.progressBar);
-        contactPage = view.findViewById(R.id.contactPage);
-
+        initViews();
 
         consultantEmail.setText(User.getInstance().getConsultant().getEmailAddress());
         consultantName.setText(User.getInstance().getConsultant().getFirstname()
@@ -76,11 +66,18 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-
         validateForm = new FormErrorHandling();
 
-
         return view;
+    }
+
+    private void initViews() {
+        message = view.findViewById(R.id.message);
+        subject = view.findViewById(R.id.subject);
+        consultantEmail = view.findViewById(R.id.consultantEmail);
+        consultantName = view.findViewById(R.id.consultantName);
+        progressBar = view.findViewById(R.id.progressBar);
+        contactPage = view.findViewById(R.id.contactPage);
     }
 
     @Override

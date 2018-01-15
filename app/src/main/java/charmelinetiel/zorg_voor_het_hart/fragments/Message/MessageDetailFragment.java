@@ -31,9 +31,9 @@ public class MessageDetailFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-         m = getArguments().getParcelable("message");
+        m = getArguments().getParcelable("message");
 
-         mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
 
         v = inflater.inflate(R.layout.fragment_message_detail, container, false);
 

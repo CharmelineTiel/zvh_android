@@ -24,7 +24,6 @@ import java.util.List;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.adapters.MeasurementListAdapter;
-import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementDetailFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementStep1Fragment;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
@@ -64,17 +63,10 @@ public class DiaryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_diary, container, false);
-        mListView = v.findViewById(R.id.measurement_list_view);
-        chart = v.findViewById(R.id.chart);
-        insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
-        goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
-        mainActivity = (MainActivity) getActivity();
-        MainActivity.progressBar = v.findViewById(R.id.progressBar_cyclic);
-        graphButton = v.findViewById(R.id.graphOverview);
-        weekButton = v.findViewById(R.id.weekOverview);
-        monthButton = v.findViewById(R.id.monthOverview);
-        screenResolution = getString(R.string.screen_type);
 
+        initViews(v);
+
+        screenResolution = getString(R.string.screen_type);
         MainActivity.progressBar.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = RetrofitClient.getClient();
@@ -82,8 +74,6 @@ public class DiaryFragment extends Fragment {
 
         measurements = new ArrayList<>();
         chart.setNoDataText("");
-
-
 
         //check if mobile or not
         if(screenResolution.equals("mobile")) {
@@ -245,6 +235,18 @@ public class DiaryFragment extends Fragment {
         }
 
         return v;
+    }
+
+    private void initViews(View v) {
+        mListView = v.findViewById(R.id.measurement_list_view);
+        chart = v.findViewById(R.id.chart);
+        insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
+        goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
+        mainActivity = (MainActivity) getActivity();
+        MainActivity.progressBar = v.findViewById(R.id.progressBar_cyclic);
+        graphButton = v.findViewById(R.id.graphOverview);
+        weekButton = v.findViewById(R.id.weekOverview);
+        monthButton = v.findViewById(R.id.monthOverview);
     }
 
     public void initGraph(){

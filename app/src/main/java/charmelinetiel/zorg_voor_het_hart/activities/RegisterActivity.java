@@ -24,9 +24,11 @@ public class RegisterActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_register);
 
+        //Get the intent and data to determine if the activity was entered by deep link
         Intent intent = getIntent();
         data = intent.getData();
 
+        //If the activity was entered through deep link, open the ResetPassword fragment
         if(data != null){
             String token = data.getLastPathSegment();
 

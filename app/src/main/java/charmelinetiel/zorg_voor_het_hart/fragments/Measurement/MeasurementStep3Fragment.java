@@ -18,7 +18,7 @@ import charmelinetiel.zorg_voor_het_hart.models.Measurement;
  * Created by youp on 28-11-2017.
  */
 
-public class MeasurementStep3Fragment extends Fragment {
+public class MeasurementStep3Fragment extends Fragment implements View.OnClickListener {
 
     private View v;
     private Button cancelButton;
@@ -34,12 +34,14 @@ public class MeasurementStep3Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        mainActivity = (MainActivity) getActivity();
-
         v = inflater.inflate(R.layout.fragment_measurement_step3, container, false);
 
+        date = v.findViewById(R.id.dateTimeNow);
+        extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
+
+        mainActivity = (MainActivity) getActivity();
         mainActivity.setTitle("Meting stap 3 van 3");
+        mainActivity.setDateOfToday(date);
 
         if(mainActivity.isEditingMeasurement()){
             mainActivity.setTitle("Meting bewerken stap 3 van 3");
@@ -47,11 +49,8 @@ public class MeasurementStep3Fragment extends Fragment {
             mainActivity.setTitle("Meting stap 3 van 3");
         }
 
-        cancelButton = v.findViewById(R.id.cancel_measurement3_button);
-        completeButton = v.findViewById(R.id.complete_measurement_button);
-        extraRemarksInput = v.findViewById(R.id.extraRemarksInput);
-        date = v.findViewById(R.id.dateTimeNow);
-        mainActivity.setDateOfToday(date);
+        v.findViewById(R.id.cancel_measurement3_button).setOnClickListener(this);
+        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
 
         extraRemarksInput.setText(mainActivity.getMeasurement().getComment());
 
@@ -59,30 +58,31 @@ public class MeasurementStep3Fragment extends Fragment {
             container.removeAllViews();
         }
 
-        completeButton.setOnClickListener(v -> {
-
-            if (ExceptionHandler.isConnectedToInternet(getContext())) {
-
-                Measurement measurement = mainActivity.getMeasurement();
-                measurement.setComment(extraRemarksInput.getText().toString());
-
-                if (mainActivity.isEditingMeasurement()) {
-                    mainActivity.putMeasurement();
-                } else {
-                    mainActivity.postMeasurement();
-                }
-
-                mainActivity.openFragment(new MeasurementSavedFragment());
-
-            }else{
-
-                mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
-
-            }
-        });
-
-        cancelButton.setOnClickListener(v -> getFragmentManager().popBackStack());
-
         return v;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.complete_measurement_button:
+                if (ExceptionHandler.isConnectedToInternet(getContext())) {
+                    Measurement measurement = mainActivity.getMeasurement();
+                    measurement.setComment(extraRemarksInput.getText().toString());
+
+                    if (mainActivity.isEditingMeasurement()) {
+                        mainActivity.putMeasurement();
+                    } else {
+                        mainActivity.postMeasurement();
+                    }
+                    mainActivity.openFragment(new MeasurementSavedFragment());
+
+                }else{
+                    mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
+                }
+                break;
+            case R.id.cancel_measurement3_button:
+                getFragmentManager().popBackStack();
+                break;
+        }
     }
 }

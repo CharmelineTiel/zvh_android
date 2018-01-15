@@ -70,7 +70,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleApiClient mGoogleApiClient;
     private boolean mIsResolving;
     private boolean mIsRequesting;
-    private User user;
 
 
     @Override
@@ -148,12 +147,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
 
-                    user = new User();
-                    user.setPassword(password.getText().toString());
-                    user.setEmailAddress(email.getText().toString());
-
-                    email = findViewById(R.id.username);
-                    password = findViewById(R.id.password);
+                    User.getInstance().setEmailAddress(email.getText().toString());
+                    User.getInstance().setPassword(password.getText().toString());
 
                     if(validInput()) {
                         showProgressBar();
@@ -270,8 +265,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
-        Credential credential = new Credential.Builder(user.getEmailAddress())
-                .setPassword(user.getPassword())
+        Credential credential = new Credential.Builder(User.getInstance().getEmailAddress())
+                .setPassword(User.getInstance().getPassword())
                 .build();
 
         if (response.body() != null && response.isSuccessful()) {
@@ -428,10 +423,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void processRetrievedCredential(Credential credential) {
         showProgressBar();
 
-        user = new User();
-        user.setEmailAddress(credential.getId());
-        user.setPassword(credential.getPassword());
-        apiService.login(user).enqueue(this);
+        User.getInstance().setEmailAddress(credential.getId());
+        User.getInstance().setPassword(credential.getPassword());
+        apiService.login(User.getInstance()).enqueue(this);
 
     }
 

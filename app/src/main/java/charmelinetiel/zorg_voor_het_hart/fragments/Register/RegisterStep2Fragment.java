@@ -49,12 +49,9 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
         v = inflater.inflate(R.layout.fragment_register_step2, container, false);
 
+        v.findViewById(R.id.nextScreenBtn).setOnClickListener(this);
+        v.findViewById(R.id.backBtn).setOnClickListener(this);
 
-        btn1 = v.findViewById(R.id.nextScreenBtn);
-        btn1.setOnClickListener(this);
-
-        btn2 = v.findViewById(R.id.backBtn);
-        btn2.setOnClickListener(this);
 
         email = v.findViewById(R.id.email);
         pass1 = v.findViewById(R.id.pass1);
@@ -141,7 +138,6 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         });
 
         if (!validateForm.inputGiven(pass1)) {
-
             validateForm.showError("Vul een wachtwoord in");
             return false;
         }
@@ -149,11 +145,9 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             validateForm.showError("Herhaal uw wachtwoord in");
             return false;
         }else if(!pass1.getText().toString().equals(pass2.getText().toString())){
-
             validateForm.showError("De ingevoerde wachtwoorden komen niet overeen.");
             return false;
         }
-
 
         return true;
     }
