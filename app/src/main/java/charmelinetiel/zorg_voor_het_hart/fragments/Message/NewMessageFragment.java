@@ -90,7 +90,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
                     if (ExceptionHandler.isConnectedToInternet(getContext())) {
 
-                        //showProgressBar();
+                        showProgressBar();
                         messageObj = new Message();
                         messageObj.setSubject(subject.getText().toString());
                         messageObj.setMessage(message.getText().toString());
@@ -141,9 +141,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         }
 
         hideProgressBar();
-
     }
-
 
     public boolean validInput()
     {
