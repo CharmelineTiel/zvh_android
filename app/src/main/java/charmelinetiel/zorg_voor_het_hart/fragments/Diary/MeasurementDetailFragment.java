@@ -1,4 +1,4 @@
-package charmelinetiel.zorg_voor_het_hart.fragments.Measurement;
+package charmelinetiel.zorg_voor_het_hart.fragments.Diary;
 
 
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import java.util.List;
 import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
+import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementStep1Fragment;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
 import charmelinetiel.zorg_voor_het_hart.models.HealthIssue;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
@@ -26,37 +27,37 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
 
     private View v;
     private Measurement m;
-    private TextView issues, extra, extraLbl, issuesLbl;
+    private TextView issues, extra, extraLbl, issuesLbl, date, bloodPressure, feedback;
     private MainActivity mainActivity;
     private List<HealthIssue> healthIssues;
+    private RelativeLayout layout;
 
     public MeasurementDetailFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         m = getArguments().getParcelable("measurement");
-
         mainActivity = (MainActivity) getActivity();
 
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
-
             healthIssues = mainActivity.getHealthIssues();
         }else{
-
             mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
         }
 
         v = inflater.inflate(R.layout.fragment_measurement_detail, container, false);
+        v.findViewById(R.id.backBtn).setOnClickListener(this);
+        v.findViewById(R.id.editBtn).setOnClickListener(this);
 
-        Button backButton = v.findViewById(R.id.backBtn);
-        backButton.setOnClickListener(this);
+        initViews(v);
 
-        Button editButton = v.findViewById(R.id.editBtn);
-        editButton.setOnClickListener(this);
+        setHealthIssueText();
+        setLabels();
+        setTexts();
+        setBloodPressure();
 
         return v;
     }
@@ -84,27 +85,26 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
                 break;
         }
     }
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
 
-        TextView date = v.findViewById(R.id.titleLbl);
-        TextView bloodPressure = v.findViewById(R.id.bloodPressureLbl);
-        TextView feedback = v.findViewById(R.id.feedbackLbl);
-        RelativeLayout layout = v.findViewById(R.id.measurement_list_item);
+    private void initViews(View v) {
+        date = v.findViewById(R.id.titleLbl);
+        bloodPressure = v.findViewById(R.id.bloodPressureLbl);
+        feedback = v.findViewById(R.id.feedbackLbl);
+        layout = v.findViewById(R.id.measurement_list_item);
 
         issues = v.findViewById(R.id.issues);
         extra = v.findViewById(R.id.extra);
         extraLbl = v.findViewById(R.id.extraLbl);
         issuesLbl = v.findViewById(R.id.issuesLbl);
+    }
 
+    private void setHealthIssueText() {
         String healthIssuesText = "";
 
         for (int i = 0; i < m.getHealthIssueIds().size(); i++){
             for(int j = 0; j < healthIssues.size(); j++){
                 if(m.getHealthIssueIds().get(i).equals(healthIssues.get(j).getHealthIssueId())){
                     healthIssuesText += healthIssues.get(j).getName();
-
                 }
             }
             //Add a comma if needed
@@ -115,7 +115,9 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
         healthIssuesText += m.getHealthIssueOther();
 
         issues.setText(healthIssuesText);
+    }
 
+    private void setLabels() {
         if(m.getComment().equals("") || m.getComment() == null){
             extraLbl.setVisibility(View.GONE);
             extra.setVisibility(View.GONE);
@@ -124,13 +126,16 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
             issuesLbl.setVisibility(View.GONE);
             issues.setVisibility(View.GONE);
         }
+    }
 
+    private void setTexts() {
         extra.setText(m.getComment());
-
         date.setText(m.getMeasurementDateFormatted());
         bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper() + ", " + "Onderdruk: " + m.getBloodPressureLower());
         feedback.setText(m.getFeedback());
+    }
 
+    private void setBloodPressure() {
         if (m.getBloodPressureLower() > 89 || m.getBloodPressureUpper()
                 > 139) {
             feedback.setTextColor(getResources().getColor(R.color.negativeFeedbackTxt));
@@ -140,7 +145,6 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
             feedback.setTextColor(getResources().getColor(R.color.positiveFeedbackTxt));
             layout.setBackgroundColor(getResources().getColor(R.color.positiveFeedback));
         }
-
     }
 
 }

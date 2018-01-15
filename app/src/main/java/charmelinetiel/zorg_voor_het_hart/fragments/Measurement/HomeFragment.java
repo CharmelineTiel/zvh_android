@@ -37,16 +37,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
         progressBar = view.findViewById(R.id.progressBar_cyclic);
 
-        Button measurementBtn = view.findViewById(R.id.metingBtn);
-        measurementBtn.setOnClickListener(this);
-
+        view.findViewById(R.id.metingBtn).setOnClickListener(this);
         greetUser = view.findViewById(R.id.greetingsText);
-
         mainActivity = (MainActivity) getActivity();
-
+        mainActivity.setTitle("Meting");
 
         greetUser();
 
@@ -63,15 +59,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             prefix = "mevrouw";
         }
-
         greetUser.setText( timeOfDay() + " " + prefix + " " + User.getInstance().getLastname());
-
     }
 
     public String timeOfDay()
     {
         String greeting = null;
-
         Date date = new Date();
 
         if (date.getHours() < 12){

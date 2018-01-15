@@ -62,19 +62,14 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        btn1 = v.findViewById(R.id.registerBtn);
-        btn1.setOnClickListener(this);
-
-        btn2 = v.findViewById(R.id.backBtn);
-        btn2.setOnClickListener(this);
+        v.findViewById(R.id.registerBtn).setOnClickListener(this);
+        v.findViewById(R.id.backBtn).setOnClickListener(this);
 
         consultantsView =  v.findViewById(R.id.consultants);
 
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
-
             ConsultantsDropdown();
         }else{
-
             registerActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), registerActivity);
         }
 

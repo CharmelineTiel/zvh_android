@@ -61,21 +61,12 @@ public class RegisterStep1Fragment extends Fragment
             }
         });
 
-        btn1 = v.findViewById(R.id.firstBtn);
-        btn1.setOnClickListener(this);
+        v.findViewById(R.id.firstBtn).setOnClickListener(this);
+        v.findViewById(R.id.secondBtn).setOnClickListener(this);
 
-        btn2 = v.findViewById(R.id.secondBtn);
-        btn2.setOnClickListener(this);
-
-        length = v.findViewById(R.id.length_input);
-        weight = v.findViewById(R.id.weight_input);
-        firstName = v.findViewById(R.id.firstName);
-        lastName = v.findViewById(R.id.lastName);
-        email = v.findViewById(R.id.email);
-        gender = v.findViewById(R.id.radioGender);
+        initViews();
 
         return v;
-
     }
 
     @Override
@@ -190,6 +181,15 @@ public class RegisterStep1Fragment extends Fragment
             dateOfBirth.setText(date);
         }, yy, mm, dd);
         datePicker.show();
+    }
+
+    private void initViews() {
+        length = v.findViewById(R.id.length_input);
+        weight = v.findViewById(R.id.weight_input);
+        firstName = v.findViewById(R.id.firstName);
+        lastName = v.findViewById(R.id.lastName);
+        email = v.findViewById(R.id.email);
+        gender = v.findViewById(R.id.radioGender);
     }
 
 }

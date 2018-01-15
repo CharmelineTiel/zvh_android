@@ -36,7 +36,6 @@ public class ContactHostFragment extends Fragment
         mainActivity = (MainActivity)getActivity();
 
         if(screenResolution.equals("mobile")) {
-
             mainActivity.openFragment(new NewMessageFragment());
 
         }else if(screenResolution.equals("tablet")) {

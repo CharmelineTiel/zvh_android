@@ -12,7 +12,7 @@ import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 
 
-public class MeasurementSavedFragment extends Fragment {
+public class MeasurementSavedFragment extends Fragment implements View.OnClickListener {
 
     private View v;
     private Button toDiary, toHome;
@@ -30,27 +30,22 @@ public class MeasurementSavedFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
         mainActivity.setTitle("Meting afgerond");
-        toDiary = v.findViewById(R.id.toDiary);
-        toHome = v.findViewById(R.id.toHome);
+        v.findViewById(R.id.toDiary).setOnClickListener(this);
+        v.findViewById(R.id.toHome).setOnClickListener(this);
 
-        toDiary.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                mainActivity.openFragment(new DiaryFragment());
-
-            }
-        });
-
-        toHome.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                mainActivity.openFragment(new HomeFragment());
-            }
-        });
         return v;
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.toDiary:
+                mainActivity.openFragment(new DiaryFragment());
+                break;
+            case R.id.toHome:
+                mainActivity.openFragment(new HomeFragment());
+                break;
+        }
+    }
 }

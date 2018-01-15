@@ -89,10 +89,8 @@ public class AllMessagesFragment extends Fragment {
         });
 
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
-
             loadMessages();
         }else{
-
             mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
         }
 

@@ -49,12 +49,9 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
         v = inflater.inflate(R.layout.fragment_register_step2, container, false);
 
+        v.findViewById(R.id.nextScreenBtn).setOnClickListener(this);
+        v.findViewById(R.id.backBtn).setOnClickListener(this);
 
-        btn1 = v.findViewById(R.id.nextScreenBtn);
-        btn1.setOnClickListener(this);
-
-        btn2 = v.findViewById(R.id.backBtn);
-        btn2.setOnClickListener(this);
 
         email = v.findViewById(R.id.email);
         pass1 = v.findViewById(R.id.pass1);
@@ -143,20 +140,27 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         if (pass1.getText().toString().trim().equals("")) {
 
             pass1.setError("Vul een wachtwoord in");
-            return false;
+
+            if (!validateForm.inputValidString(pass1)) {
+                pass1.setError("Vul een wachtwoord in");
+
+                return false;
+            }
+            if (pass2.getText().toString().trim().equals("")) {
+                pass2.setError("Herhaal uw wachtwoord in");
+                return false;
+            } else if (!pass1.getText().toString().equals(pass2.getText().toString())) {
+
+
+                pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+                pass1.setError("De ingevoerde wachtwoorden komen niet overeen.");
+
+                return false;
+            }
+
         }
-        if (pass2.getText().toString().trim().equals("")){
-            pass2.setError("Herhaal uw wachtwoord in");
-            return false;
-        }else if(!pass1.getText().toString().equals(pass2.getText().toString())){
-
-            pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
-            pass1.setError("De ingevoerde wachtwoorden komen niet overeen.");
-            return false;
-        }
-
-
         return true;
     }
 
 }
+

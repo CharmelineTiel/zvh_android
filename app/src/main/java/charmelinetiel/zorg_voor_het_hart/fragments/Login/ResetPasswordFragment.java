@@ -1,5 +1,6 @@
 package charmelinetiel.zorg_voor_het_hart.fragments.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.zorg_voor_het_hart.activities.LoginActivity;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
 import charmelinetiel.zorg_voor_het_hart.models.ResetPasswordBody;
 import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
@@ -20,9 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ResetPasswordFragment extends Fragment {
+public class ResetPasswordFragment extends Fragment implements View.OnClickListener, Callback<ResponseBody> {
 
-    private Button cancelButton, resetPasswordButton;
     private EditText password, confirmedPassword;
     private String token;
     private View v;
@@ -52,35 +53,39 @@ public class ResetPasswordFragment extends Fragment {
         password = v.findViewById(R.id.passwordInput);
         confirmedPassword = v.findViewById(R.id.confirmedPasswordInput);
 
+        v.findViewById(R.id.cancel_reset_password_button).setOnClickListener(this);
+        v.findViewById(R.id.reset_password_button).setOnClickListener(this);
 
-        cancelButton = v.findViewById(R.id.cancel_reset_password_button);
-        cancelButton.setOnClickListener(view -> {
-        });
-
-        resetPasswordButton = v.findViewById(R.id.reset_password_button);
-        resetPasswordButton.setOnClickListener(view -> {
-            ResetPasswordBody passwordReset = new ResetPasswordBody();
-            passwordReset.setPassword(password.getText().toString());
-            passwordReset.setConfirmedPassword(confirmedPassword.getText().toString());
-            passwordReset.setToken(token);
-            apiService.resetPassword(passwordReset).enqueue(new Callback<ResponseBody>() {
-
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                    registerActivity.openFragment(new ResetPasswordCompletedFragment());
-
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getContext(), "Er is iets fout gegaan",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
-        });
         return v;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cancel_reset_password_button:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
 
+                break;
+            case R.id.reset_password_button:
+                ResetPasswordBody passwordReset = new ResetPasswordBody();
+                passwordReset.setPassword(password.getText().toString());
+                passwordReset.setConfirmedPassword(confirmedPassword.getText().toString());
+                passwordReset.setToken(token);
+                apiService.resetPassword(passwordReset).enqueue(this);
+                break;
+        }
+    }
+
+    @Override
+    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        registerActivity.openFragment(new ResetPasswordCompletedFragment());
+    }
+
+    @Override
+    public void onFailure(Call<ResponseBody> call, Throwable t) {
+        Toast.makeText(getContext(), "Er is iets fout gegaan",
+                Toast.LENGTH_LONG).show();
+    }
 }
