@@ -35,10 +35,10 @@ public class Measurement implements Parcelable
     private String userId;
     @SerializedName("feedback")
     @Expose
-    private int result;
+    private String feedback;
     @SerializedName("result")
     @Expose
-    private String feedback;
+    private Integer result;
     @SerializedName("measurementDateTime")
     @Expose
     private String measurementDateTime;
