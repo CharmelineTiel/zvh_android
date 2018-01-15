@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.activity.MainActivity"
+    tools:context="charmelinetiel.android_tablet_zvg.charmelinetiel.zorgVoorHetHart.activities.MainActivity"
     android:orientation="horizontal">
 
 

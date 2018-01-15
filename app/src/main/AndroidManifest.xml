@@ -20,10 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="charmelinetiel.zorg_voor_het_hart.activities.MainActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="charmelinetiel.zorg_voor_het_hart.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity"
             android:label="@string/title_login_or_register"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
@@ -48,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="charmelinetiel.zorg_voor_het_hart.activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
@@ -63,13 +63,10 @@
                     android:scheme="zvh-app" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.DiaryActivity"
-            android:windowSoftInputMode="adjustPan" />
 
         <!-- turn on receiver for the notifications -->
         <receiver
-            android:name=".models.AlarmReceiver"
+            android:name="charmelinetiel.zorg_voor_het_hart.models.AlarmReceiver"
             android:enabled="true"
             android:exported="false"></receiver>
 

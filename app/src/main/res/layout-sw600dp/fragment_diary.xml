@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="charmelinetiel.android_tablet_zvg.Fragment.DiaryFragment">
+    tools:context="charmelinetiel.android_tablet_zvg.charmelinetiel.zorgVoorHetHart.fragments.Diary.DiaryFragment">
 
     <LinearLayout
         android:id="@+id/selectDiaryView"

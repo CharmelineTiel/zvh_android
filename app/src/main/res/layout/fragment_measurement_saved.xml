@@ -1,9 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.Fragment.MessageSentFragment">
-
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:gravity="center_horizontal"
@@ -39,37 +36,40 @@
             android:textAlignment="center"
             android:textSize="@dimen/normal_text_mobile" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginTop="@dimen/padding_15"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
             <Button
-                android:id="@+id/toDiary"
+                android:id="@+id/toHome"
+                android:layout_marginRight="@dimen/margin_20"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/lightGrey"
                 android:width="@dimen/button_mobile"
-                android:layout_toEndOf="@+id/toHome"
-                android:layout_marginTop="@dimen/padding_10"
-                android:text="Bekijk dagboek"
+                android:text="Niet nu"
                 android:textSize="@dimen/bigger_text_mobile"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteText"
                 />
-        <Button
-            android:id="@+id/toHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/lightGrey"
-            android:width="@dimen/button_mobile"
-            android:layout_marginTop="@dimen/padding_10"
-            android:layout_marginRight="@dimen/margin_15"
-            android:text="Niet nu"
-            android:textSize="@dimen/bigger_text_mobile"
-            android:textAllCaps="false"
-            android:textColor="@color/whiteText"
-            />
 
-        </RelativeLayout>
+            <Button
+                android:id="@+id/toDiary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="@dimen/button_mobile"
+                android:background="@color/colorAccent"
+                android:text="Bekijk dagboek"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/bigger_text_mobile" />
+
+
+
+        </LinearLayout>
     </LinearLayout>
 
 
