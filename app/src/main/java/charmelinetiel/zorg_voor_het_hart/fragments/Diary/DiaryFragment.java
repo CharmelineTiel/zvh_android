@@ -77,13 +77,10 @@ public class DiaryFragment extends Fragment {
 
         //check if mobile or not
         if(screenResolution.equals("mobile")) {
-
             graphButton.setVisibility(View.GONE);
         }else{
-
             graphButton.setVisibility(View.VISIBLE);
         }
-
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -216,7 +213,6 @@ public class DiaryFragment extends Fragment {
                     }
                     Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
-
                     graphButton.setTextColor(getResources().getColor(android.R.color.black));
                     monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
                     weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
@@ -224,7 +220,6 @@ public class DiaryFragment extends Fragment {
                 }
             }
         });
-
 
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
 
@@ -293,10 +288,7 @@ public class DiaryFragment extends Fragment {
         apiService.getMeasurements(User.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
-
-
                 if(response.isSuccessful() && response.body() != null) {
-
                     try {
                         measurements = response.body();
                         mainActivity.runOnUiThread(new Runnable() {
@@ -309,10 +301,8 @@ public class DiaryFragment extends Fragment {
                                     adapter.setDataWeek(measurements.subList(0, 7));
                                     adapter.notifyDataSetChanged();
                                 }else{
-
                                     adapter.setData(measurements);
                                 }
-
                                 mListView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 MainActivity.progressBar.setVisibility(View.GONE);
