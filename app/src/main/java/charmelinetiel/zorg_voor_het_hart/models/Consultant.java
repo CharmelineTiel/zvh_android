@@ -6,8 +6,14 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Consultant implements Parcelable
 {
+
+    private static List<Consultant> consultants;
+
     @SerializedName("_id")
     @Expose
     private String _id;
@@ -93,5 +99,16 @@ public class Consultant implements Parcelable
 
     public String toString() {
         return getFirstname() + " " + getLastname();
+    }
+
+    public static void setConsultants(List<Consultant> newConsultants){
+        consultants = newConsultants;
+    }
+
+    public static List<Consultant> getConsultants(){
+        if(consultants == null){
+            return new ArrayList<Consultant>();
+        }
+        return consultants;
     }
 }

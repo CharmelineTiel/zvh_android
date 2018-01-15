@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
                 @Override
                 public void onResponse(Call<List<Faq>> call, Response<List<Faq>> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        faqList = response.body();
+                        Faq.setFaqList(response.body());
                     }
                 }
 
@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
             apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
                 @Override
                 public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
-
+                    Consultant.setConsultants(response.body());
                 }
 
                 @Override

@@ -22,6 +22,9 @@ import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 
 public class MeasurementListAdapter extends BaseAdapter {
 
+    private final int BLOODPRESSURE_GOOD = 0;
+    private final int BLOODPRESSURE_MEDIUM = 1;
+    private final int BLOODPRESSURE_BAD = 2;
     private static LayoutInflater inflater = null;
     private Fragment fg;
     private Context context;
@@ -100,15 +103,15 @@ public class MeasurementListAdapter extends BaseAdapter {
 
         viewHolder.feedbackMessage.setText(m.getFeedback());
 
-        if (m.getBloodPressureLower() > 89 || m.getBloodPressureUpper()
-                > 139) {
-
-            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
-            viewHolder.layout.setBackgroundResource(R.color.negativeFeedback);
-        }else{
-
+        if (m.getResult() == BLOODPRESSURE_GOOD) {
             viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
             viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
+        }else if(m.getResult() == BLOODPRESSURE_MEDIUM){
+            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.mediumFeedback));
+            viewHolder.layout.setBackgroundResource(R.color.mediumFeedback);
+        }else if(m.getResult() == BLOODPRESSURE_BAD){
+            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
+            viewHolder.layout.setBackgroundResource(R.color.negativeFeedback);
         }
             return convertView;
 

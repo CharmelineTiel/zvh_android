@@ -95,6 +95,9 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.cancel_measurement1_button:
+                mainActivity.openFragment(new HomeFragment());
+                break;
+            case R.id.to_measurement_step2_button:
                 Measurement measurement = mainActivity.getMeasurement();
                 try {
                     measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
@@ -107,9 +110,6 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
                 if (validInput()) {
                     mainActivity.openFragment(new MeasurementStep2Fragment());
                 }
-                break;
-            case R.id.to_measurement_step2_button:
-                mainActivity.openFragment(new HomeFragment());
                 break;
         }
     }

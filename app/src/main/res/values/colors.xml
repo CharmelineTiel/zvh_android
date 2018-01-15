@@ -15,10 +15,13 @@
     <color name="RegisterColor">#0067e4</color>
 
     <color name="negativeFeedbackTxt">#fe5c26</color>
+    <color name="mediumFeedbackTxt">#6e5c26</color>
     <color name="positiveFeedbackTxt">#2ebc48</color>
 
     <color name="negativeFeedback">#11f56d18</color>
+    <color name="mediumFeedback">#41f56d18</color>
     <color name="positiveFeedback">#0b2ebc48</color>
+
 
     <color name="chart1">#026fc8</color>
     <color name="chart2">#7327c0</color>

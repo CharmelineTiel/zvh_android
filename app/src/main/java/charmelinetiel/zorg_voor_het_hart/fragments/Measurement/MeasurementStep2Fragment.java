@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.xml.sax.ErrorHandler;
+
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.adapters.CheckboxAdapter;
@@ -98,26 +100,23 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
                 measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
+
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
-
-                if (finalMeasurementCheckboxAdapter.getSelectedIssues().size() == 0
-                        && yesNamelySelected && !errorHandling.inputValidString(otherNamelyInput)) {
-
+                if (yesNamelySelected ) {
                     if (measurementCheckboxAdapter.getSelectedIssues().size() == 0
-                            && yesNamelySelected && !errorHandling.inputValidString(otherNamelyInput)) {
-
-
+                            && !errorHandling.inputValidString(otherNamelyInput)) {
                         mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
-
                     } else {
                         mainActivity.openFragment(new MeasurementStep3Fragment());
                     }
+                }else {
+                    mainActivity.openFragment(new MeasurementStep3Fragment());
                 }
                     break;
-                    case R.id.cancel_measurement2_button:
-                        getFragmentManager().popBackStack();
-                        break;
+            case R.id.cancel_measurement2_button:
+                    getFragmentManager().popBackStack();
+                    break;
                 }
         }
 

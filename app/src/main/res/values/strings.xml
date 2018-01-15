@@ -51,57 +51,6 @@
     <string name="tab_title" />
     <string name="go_to_summary" />
 
-
-    <string name="q1">
-        Hoe moet ik mijn bloeddruk meten?
-    </string>
-    <string name="q2">
-        Hoe vaak moet ik mijn bloeddruk meten?
-    </string>
-    <string name="q3">
-        Wat is een 24-uurs bloeddrukmeting?
-    </string>
-    <string name="q4">
-        Moet ik mijn bloeddruk links of rechts meten?
-    </string>
-
-    <string name="a1">
-        Het meten van de bloeddruk kan op verschillende manieren.
-        De meest gangbare methode is het meten met een bloeddrukmeter.
-        De klassieke bloeddrukmeter is met een rubberen slang verbonden aan een  \n\n
-        dikke band. Die band moet aan de bovenarm verbonden worden. De band wordt
-        dan met een pompje opgepompt waardoor de slagaders afgesloten worden.
-        Daardoor is ook de polsslag niet meer voelbaar.                  \n
-        Als het bloedvat volledig afgesloten is wordt het pompen gestopt.
-        De band loopt dan weer langzaam leeg.             \n\n
-        Op het moment dat het bloed weer door de aderen loopt (en de polsslag weer gevoeld kan worden) wordt de bovendruk gemeten.
-        De band loopt verder leeg en als het bloed weer vrij kan stromen, wordt de onderdruk gemeten.
-        Het bloeddruk meten levert dus altijd twee getallen/waarden op.    \n
-        Gebruikelijk is dat deze waarden met een streepje ertussen genoteerd worden,
-        eerst de bovendruk en dan de onderdruk. Bijvoorbeeld 120-90 of 120/90.
-    </string>
-    <string name="a2">
-        Nadat één keer vastgesteld is dat de bloeddruk te hoog is, is naar medische begrippen nog geen sprake van
-        verhoogde bloeddruk (hypertensie). Daarvoor zijn meer metingen nodig.        \n
-        In de regel wordt pas gesproken van verhoogde bloeddruk als 3 tot 5 metingen een te hoge bloeddruk uitwijzen.
-        Daarbij wordt ook beoordeeld of die metingen onder vergelijkbare omstandigheden uitgevoerd zijn.         \n
-        Als de patient nerveus is en niet uitgerust, kan dat de bloeddrukmeting minder betrouwbaar maken.
-    </string>
-    <string name="a3">
-        De bloeddrukmeting kan zowel bij de rechter als de linkerarm gedaan worden. Er kan sprake zijn van klein verschil,
-        maar dit zal normaalgesproken nooit meer dan 10 punten zijn. Een hoger verschil kan wijzen op een afwijking,       \n
-        bijvoorbeeld het bestaan van vernauwingen in de bloedvaten. In geval van twijfel is het altijd goed een arts te consulteren.\n
-        De bloeddruk kan ook in de benen gemeten worden. Daarvoor is dan vaak wel een speciale band nodig die dikker is dan de ‘normale‘ band.
-    </string>
-    <string name="a4">
-       Een methode die regelmatig bij patienten wordt gehanteerd is de 24-uurs bloeddrukmeting.
-        In korte tijd kan een arts dan zien hoe de ontwikkeling van de bloeddruk is.       \n
-        De meting van de bloeddruk op deze manier wordt gedaan met een apparaat dat vrijwel identiek is
-        aan een gewone bloeddrukmeter. Aan dit apparaat is alleen een regelaar toegevoegd die periodiek \n
-        (bijvoorbeeld elke 10 minuten) de bloeddruk opmeet en deze registreert. Daarnaast heeft een 24-uurs
-        bloeddrukmeter uiteraard een pompje op batterijen zodat de meting volledig automatisch verloopt.\n
-        De huisarts heeft met deze metingen een nauwkeurig beeld van de bloeddruk en het verloop.
-    </string>
     <string name="contactPageTxt">Heeft u vragen of wilt u een afspraak maken? Dan kunt u via dit formulier een bericht sturen naar uw consulent. In geval van spoed kunt u het beste telefonisch contact opnemen met uw ziekenhuis of 112 bellen.</string>
 
 

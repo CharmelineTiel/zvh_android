@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
+import charmelinetiel.zorg_voor_het_hart.models.Faq;
 import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
@@ -25,6 +29,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
     private View v;
     private Button contactBtn;
     private MainActivity mainActivity;
+    ExpandableLayout sectionLinearLayout;
 
     public FAQFragment() {
         // Required empty public constructor
@@ -38,7 +43,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
 
         mainActivity = (MainActivity) getActivity();
-        ExpandableLayout sectionLinearLayout = v.findViewById(R.id.el);
+        sectionLinearLayout = v.findViewById(R.id.el);
         contactBtn = v.findViewById(R.id.contactBtn);
         contactBtn.setOnClickListener(this);
 
@@ -58,15 +63,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
-        sectionLinearLayout.addSection(getSection(getResources().getString(R.string.q1),
-                getResources().getString(R.string.a1)));
-        sectionLinearLayout.addSection(getSection(getResources().getString(R.string.q2),
-                getResources().getString(R.string.a2)));
-        sectionLinearLayout.addSection(getSection(getResources().getString(R.string.q3),
-                getResources().getString(R.string.a3)));
-        sectionLinearLayout.addSection(getSection(getResources().getString(R.string.q4),
-                getResources().getString(R.string.a4)));
+        initFAQ();
 
         sectionLinearLayout.setExpandListener((ExpandCollapseListener.ExpandListener<String>) (parentIndex, parent, view) -> {
 
@@ -78,6 +75,15 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         return v;
 
         }
+
+    private void initFAQ() {
+
+        List<Faq> faqList = Faq.getFaqList();
+        for(int i = 0; i < faqList.size(); i++){
+            sectionLinearLayout.addSection(getSection(faqList.get(i).getQuestion(),
+                    faqList.get(i).getAnswer()));
+        }
+    }
 
 
     public Section<String, String> getSection(String question, String answer) {

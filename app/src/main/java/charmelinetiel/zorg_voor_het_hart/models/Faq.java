@@ -8,8 +8,12 @@ import android.os.Parcel;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Faq implements Parcelable
 {
+    private static List<Faq> faqList;
 
     @SerializedName("_id")
     @Expose
@@ -95,6 +99,17 @@ public class Faq implements Parcelable
 
     public int describeContents() {
         return 0;
+    }
+
+    public static void setFaqList(List<Faq> newFaqList){
+        faqList = newFaqList;
+    }
+
+    public static List<Faq> getFaqList(){
+        if(faqList == null){
+            return new ArrayList<Faq>();
+        }
+        return faqList;
     }
 
 }
