@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         //If the activity was entered through deep link, open the ResetPassword fragment
         if(data != null){
+            setTitle("Wachtwoord herstellen");
             String token = data.getLastPathSegment();
 
             Bundle bundle = new Bundle();
