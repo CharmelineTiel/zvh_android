@@ -14,13 +14,13 @@
     <color name="offWhite">#F8F8F8</color>
     <color name="registerColor">#0067e4</color>
 
-    <color name="negativeFeedbackTxt">#c1152f</color>
-    <color name="mediumFeedbackTxt">#fe5c26</color>
+    <color name="negativeFeedbackTxt">#f60b2d</color>
+    <color name="mediumFeedbackTxt">#e98d2c</color>
     <color name="positiveFeedbackTxt">#2ebc48</color>
 
-    <color name="negativeFeedback">#42c1152f</color>
-    <color name="mediumFeedback">#4dfe5c26</color>
-    <color name="positiveFeedback">#0b2ebc48</color>
+    <color name="negativeFeedback">#0ced1333</color>
+    <color name="mediumFeedback">#0cf98d1a</color>
+    <color name="positiveFeedback">#0c2ebc48</color>
 
     <color name="chart1">#026fc8</color>
     <color name="chart2">#7327c0</color>

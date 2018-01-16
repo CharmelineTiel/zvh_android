@@ -97,8 +97,8 @@ public class MeasurementListAdapter extends BaseAdapter {
         }
 
         viewHolder.title.setText(m.getMeasurementDateFormatted());
-        viewHolder.bloodPressure.setText("Bovendruk:" + m.getBloodPressureUpper().toString() + "," + " " +
-                "Onderdruk:" +
+        viewHolder.bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper().toString() + "," + " " +
+                "Onderdruk: " +
                 m.getBloodPressureLower().toString());
 
         viewHolder.feedbackMessage.setText(m.getFeedback());
@@ -107,7 +107,7 @@ public class MeasurementListAdapter extends BaseAdapter {
             viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
             viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
         }else if(m.getResult() == BLOODPRESSURE_MEDIUM){
-            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.mediumFeedback));
+            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.mediumFeedbackTxt));
             viewHolder.layout.setBackgroundResource(R.color.mediumFeedback);
         }else if(m.getResult() == BLOODPRESSURE_BAD){
             viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
