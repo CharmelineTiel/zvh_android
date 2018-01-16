@@ -212,7 +212,6 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                 if (preference instanceof EditTextPreference){
                     EditTextPreference length =  (EditTextPreference)preference;
                     if (length.getText().trim().length() > 0 && formErrorHandling.inputValidInt(newLength.toString())){
-
                         length.setSummary("Uw lengte: " + newLength.toString());
                         editLength.setText(newLength.toString());
 

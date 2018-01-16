@@ -7,7 +7,6 @@
 
         <android.support.v7.preference.EditTextPreference
             android:key="editLength"
-            android:textSize="18dp"
             android:title="Lengte wijzigen" />
 
         <android.support.v7.preference.EditTextPreference
