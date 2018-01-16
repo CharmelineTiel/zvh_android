@@ -148,9 +148,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     User.getInstance().setPassword(password.getText().toString());
                     User.getInstance().setEmailAddress(email.getText().toString());
 
-                    email = findViewById(R.id.username);
-                    password = findViewById(R.id.password);
-
                     if(validInput()) {
                         showProgressBar();
                         apiService.login(User.getInstance()).enqueue(this);
@@ -257,7 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             email.setError("Geen geldige e-mail");
             return false;
         }
-        if(!password.getText().toString().trim().equals(" ")){
+        if(!validateForm.inputValidString(password)){
 
             password.setError("Vul uw wachtwoord in");
             return false;
