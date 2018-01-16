@@ -34,12 +34,10 @@
             android:summary="Wekelijks uw metingen opsturen naar uw consulent"
             android:title="Metingen opsturen" />
 
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="autoLogin"
-            android:theme="@style/preferenceTheme"
-            android:title="Ingelogd blijven" />
-
+        <android.support.v7.preference.Preference
+            android:key="logout"
+            android:summary="Hiermee wordt uw account uitgelogd"
+            android:title="Uitloggen" />
 
     </android.support.v7.preference.PreferenceCategory>
 
@@ -58,18 +56,6 @@
             android:title="Disclaimer"
             android:layout="@layout/fragment_disclaimer"
            />
-
-    </android.support.v7.preference.PreferenceCategory>
-
-
-    <android.support.v7.preference.PreferenceCategory
-        android:theme="@style/preferenceTheme"
-        android:title="Uitloggen">
-
-        <android.support.v7.preference.Preference
-            android:key="logout"
-            android:summary="Hiermee wordt uw account uitgelogd"
-            android:title="Uitloggen" />
 
     </android.support.v7.preference.PreferenceCategory>
 

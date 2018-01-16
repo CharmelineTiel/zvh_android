@@ -104,7 +104,6 @@ public class RegisterStep1Fragment extends Fragment
                     genderId = 2;
                 }
 
-
                 try {
                     User.getInstance().setLength(Integer.parseInt(length.getText().toString()));
                     User.getInstance().setWeight(Integer.parseInt(weight.getText().toString()));
@@ -117,7 +116,6 @@ public class RegisterStep1Fragment extends Fragment
                 User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
                 User.getInstance().setGender(genderId);
                 User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
-
 
                     if(validInput()) {
 
@@ -153,15 +151,12 @@ public class RegisterStep1Fragment extends Fragment
             return false;
         }
 
-        if(!validateForm.inputValidInt(length.getText().toString().trim())){
-
-            length.setError("Vul uw lengte in");
+        if(!validateForm.inputValidLength(length.getText().toString().trim())){
+            length.setError("Vul een geldige lengte in in gehele centimeters");
             return false;
         }
-
-        if(!validateForm.inputValidInt(weight.getText().toString().trim())){
-
-            weight.setError("Vul uw gewicht in");
+        if(!validateForm.inputValidWeight(weight.getText().toString().trim())){
+            weight.setError("Vul een geldig gewicht in in gehele kilogrammen");
             return false;
         }
 

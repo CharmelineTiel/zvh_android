@@ -200,7 +200,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
                 if (preference instanceof EditTextPreference){
                     EditTextPreference length =  (EditTextPreference)preference;
-                    if (length.getText().trim().length() > 0 && formErrorHandling.inputValidInt(newLength.toString())){
+                    if (formErrorHandling.inputValidLength(newLength.toString())){
                         length.setSummary("Uw lengte: " + newLength.toString());
 
                         putPref("editLength", newLength.toString(), getContext());
@@ -230,7 +230,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
                             }
                         });
                     }else{
-
                         length.setSummary("Uw lengte: " +  editLength.getText());
                     }
                 }
@@ -245,7 +244,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
                 if (preference instanceof EditTextPreference){
                     EditTextPreference weight =  (EditTextPreference)preference;
-                    if (weight.getText().trim().length() > 0){
+                    if (formErrorHandling.inputValidWeight(newWeight.toString()) ){
 
                         weight.setSummary("Uw gewicht: " + newWeight);
                         editWeight.setText(newWeight.toString());

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -20,8 +19,6 @@ import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 public class MeasurementStep2Fragment extends Fragment implements View.OnClickListener {
 
     private View v;
-    private Button cancelButton;
-    private Button nextButton;
     private EditText otherNamelyInput;
     private ListView checkboxList;
     private TextView otherNamelyLbl, noIssues, date;
@@ -46,8 +43,18 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
         initViews();
 
+        measurementRadioGroup.check(R.id.noneRadio);
+        hideIssues();
+
         if(mainActivity.isEditingMeasurement()){
+
             mainActivity.setTitle("Meting bewerken stap 2 van 2");
+
+            if(mainActivity.getMeasurement().getHealthIssueIds().size() > 0 ||
+                    !mainActivity.getMeasurement().getHealthIssueOther().isEmpty()){
+                measurementRadioGroup.check(R.id.yesNamelyRadio);
+                showIssues();
+            }
         }else{
             mainActivity.setTitle("Meting stap 2 van 2");
         }
@@ -64,7 +71,6 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
                     R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
         }
 
-        measurementRadioGroup.check(R.id.yesNamelyRadio);
         mainActivity.setDateOfToday(date);
 
         if (container != null) {
@@ -129,24 +135,30 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
                 switch(checkedId) {
                     case R.id.noneRadio:
-
-                        checkboxList.setVisibility(View.GONE);
-                        otherNamelyLbl.setVisibility(View.GONE);
-                        otherNamelyInput.setVisibility(View.GONE);
-                        noIssues.setVisibility(View.VISIBLE);
+                        hideIssues();
 
                         break;
 
                     case R.id.yesNamelyRadio:
-
-                        checkboxList.setVisibility(View.VISIBLE);
-                        otherNamelyLbl.setVisibility(View.VISIBLE);
-                        otherNamelyInput.setVisibility(View.VISIBLE);
-                        noIssues.setVisibility(View.GONE);
+                        showIssues();
 
                         break;
                 }
             }
         });
+    }
+
+    public void hideIssues(){
+        checkboxList.setVisibility(View.GONE);
+        otherNamelyLbl.setVisibility(View.GONE);
+        otherNamelyInput.setVisibility(View.GONE);
+        noIssues.setVisibility(View.VISIBLE);
+    }
+
+    public void showIssues(){
+        checkboxList.setVisibility(View.VISIBLE);
+        otherNamelyLbl.setVisibility(View.VISIBLE);
+        otherNamelyInput.setVisibility(View.VISIBLE);
+        noIssues.setVisibility(View.GONE);
     }
 }
