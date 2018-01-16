@@ -55,6 +55,8 @@
 
 
     <!-- Measurement -->
+    <string name="date">Datum: %1$s</string>
+    <string name="editMeasurementDate">Datum originele meting: %1$s</string>
     <string name="popupText">Voordat u verder kunt gaan hebben wij nog enkele gegevens van u nodig zodat we u beter kunnen assisteren. Namelijk:</string>
     <string name="length">Lengte (cm)</string>
     <string name="weight">Gewicht (kg)</string>
