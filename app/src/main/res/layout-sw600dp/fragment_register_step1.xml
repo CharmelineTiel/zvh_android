@@ -194,7 +194,7 @@
                     android:layout_marginLeft="@dimen/margin_20"
                     android:layout_marginRight="@dimen/margin_20"
                     android:layout_toEndOf="@+id/firstBtn"
-                    android:background="@color/RegisterColor"
+                    android:background="@color/registerColor"
                     android:text="Volgende"
                     android:textAllCaps="false"
                     android:padding="@dimen/margin_15"

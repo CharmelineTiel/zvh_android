@@ -45,7 +45,6 @@
                 android:layout_alignEnd="@+id/loginBtn"
                 android:layout_below="@+id/loginBtn"
                 android:layout_marginEnd="135dp"
-                android:text="of"
                 android:textColor="@color/ms_black"
                 android:textSize="@dimen/bigger_text_mobile"
                 android:textStyle="bold" />
@@ -59,7 +58,7 @@
         android:layout_marginLeft="@dimen/margin_15"
         android:textColor="@color/whiteText"
         android:textSize="@dimen/bigger_text_mobile"
-        android:background="@color/RegisterColor"
+        android:background="@color/registerColor"
         android:textAllCaps="false"
         android:width="300dp"
         />

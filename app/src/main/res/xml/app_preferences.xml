@@ -54,8 +54,10 @@
 
         <android.support.v7.preference.Preference
             android:key="disclaimer"
-            android:summary="copyright 2018"
-            android:title="Disclaimer"/>
+            android:summary="Disclaimer"
+            android:title="Disclaimer"
+            android:layout="@layout/fragment_disclaimer"
+           />
 
     </android.support.v7.preference.PreferenceCategory>
 

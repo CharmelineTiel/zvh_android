@@ -17,9 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -31,8 +29,8 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
-import charmelinetiel.zorg_voor_het_hart.models.AlarmReceiver;
 import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
+import charmelinetiel.zorg_voor_het_hart.models.AlarmReceiver;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 import charmelinetiel.zorg_voor_het_hart.models.UserLengthWeight;
 import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
@@ -55,7 +53,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     private static final int NOTIFICATION_ID = 0;
     private static final String TAG = "ServiceFragment";
     private NotificationManager mNotificationManager;
-    private Preference logout, dailyReminder, sendWeekly, veelgesteldeVragen, disclaimer;
+    private Preference logout, dailyReminder, veelgesteldeVragen;
     private EditTextPreference editLength, editWeight;
     private MainActivity mainActivity;
     private FormErrorHandling formErrorHandling;
@@ -87,7 +85,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         logout = findPreference("logout");
         dailyReminder= findPreference("dailyReminders");
         veelgesteldeVragen = findPreference("veelgesteldeVragen");
-        disclaimer = findPreference("disclaimer");
 
         editLength =(EditTextPreference) findPreference("editLength");
         editWeight = (EditTextPreference) findPreference("editWeight");
@@ -195,16 +192,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
             }
         });
 
-        disclaimer.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-
-                Fragment fg = new DisclaimerFragment();
-                mainActivity.openFragment(fg);
-
-                return true;
-            }
-        });
 
         editLength.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 

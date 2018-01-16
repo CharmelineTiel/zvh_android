@@ -187,7 +187,7 @@
 
         android:textColor="@color/whiteText"
         android:textSize="@dimen/bigger_text_mobile"
-        android:background="@color/RegisterColor"
+        android:background="@color/registerColor"
         android:textAllCaps="false"
         android:width="@dimen/button_mobile"
         />

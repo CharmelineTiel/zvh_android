@@ -84,7 +84,7 @@
             android:padding="@dimen/padding_15"
             android:textColor="@color/whiteText"
             android:textSize="@dimen/bigger_text_tablet"
-            android:background="@color/RegisterColor"
+            android:background="@color/registerColor"
             android:textAllCaps="false"
             android:width="@dimen/button_tablet"
             />
