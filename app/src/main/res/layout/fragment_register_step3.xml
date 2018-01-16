@@ -1,4 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
@@ -38,18 +43,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Uw consulent bij het St. Antonius Ziekenhuis"/>
-    <Spinner
-        android:background="@color/lighterGrey"
-        android:spinnerMode="dialog"
-        android:id="@+id/consultants"
-        android:width="@dimen/form_field_mobile"
-        android:layout_width="fill_parent"
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_15"
-        android:padding="@dimen/padding_10"
-        android:textSize="@dimen/normal_text_mobile"
-        android:textColor="@color/lightGrey"
-        />
+        android:background="@color/lighterGrey">
+
+        <Spinner
+            android:background="@color/lighterGrey"
+            android:spinnerMode="dialog"
+            android:id="@+id/consultants"
+            android:width="@dimen/form_field_mobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_15"
+            android:textSize="@dimen/normal_text_mobile"
+            android:textColor="@color/lightGrey"
+            />
+
+        <ImageView
+            android:src="@drawable/ic_expand_more_black_24dp"
+            android:id="@+id/arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"/>
+
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_gravity="center_horizontal"
@@ -87,3 +112,5 @@
     </RelativeLayout>
 
     </LinearLayout>
+
+</ScrollView>

@@ -9,7 +9,7 @@ android:orientation="vertical">
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_20"
     android:background="@color/lighterGrey"
-    android:elevation="2dp">
+    android:elevation="1dp">
 
     <TextView
         android:id="@+id/question"

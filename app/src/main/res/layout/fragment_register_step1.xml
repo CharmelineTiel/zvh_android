@@ -1,18 +1,21 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RelativeLayout
+                android:layout_marginBottom="@dimen/margin_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/registerStep1Title"
         android:layout_marginTop="@dimen/margin_15"
         android:layout_marginLeft="@dimen/margin_15"
         android:textStyle="bold"
@@ -21,13 +24,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-            <TextView
+            <ImageView
+                android:id="@+id/infoToolTip"
+                android:layout_marginLeft="@dimen/padding_10"
+                android:layout_toRightOf="@+id/registerStep1Title"
                 android:layout_marginTop="@dimen/margin_15"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_15"
-                android:text="Voornaam"/>
+                android:tooltipText="@string/toolTipRegister"
+                android:src="@drawable/ic_info_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
     <EditText
         android:id="@+id/firstName"
         android:width="@dimen/form_field_mobile"
@@ -38,87 +46,63 @@
         android:layout_marginRight="@dimen/margin_15"
         android:padding="@dimen/padding_10"
         android:textSize="@dimen/normal_text_mobile"
+        android:layout_marginBottom="@dimen/margin_15"
         android:hint="Vul uw voornaam in"
         android:textColor="@color/lightGrey" />
 
-            <TextView
-                android:layout_marginTop="@dimen/margin_15"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_15"
-                android:text="Achternaam"/>
+
     <EditText
+        android:id="@+id/lastName"
         android:width="@dimen/form_field_mobile"
         android:background="@color/lighterGrey"
-        android:id="@+id/lastName"
         android:layout_marginLeft="@dimen/margin_15"
         android:layout_marginRight="@dimen/margin_15"
         android:padding="@dimen/padding_10"
         android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/margin_15"
         android:layout_height="wrap_content"
         android:textSize="@dimen/normal_text_mobile"
         android:textColor="@color/lightGrey"
         android:hint="Vul uw achternaam in"/>
 
-            <TextView
-                android:layout_marginTop="@dimen/margin_15"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_15"
-                android:text="Geboortedatum"/>
-        <EditText
-            android:width="@dimen/form_field_mobile"
-            android:background="@color/lighterGrey"
-            android:id="@+id/dateOfBirth"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:padding="@dimen/padding_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/normal_text_mobile"
-            android:inputType="none"
-            android:textColor="@color/lightGrey"
-            android:hint="Vul uw geboortedatum in"/>
 
+                <EditText
+                    android:id="@+id/dateOfBirth"
+                    android:width="@dimen/form_field_mobile"
+                    android:background="@color/lighterGrey"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:padding="@dimen/padding_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normal_text_mobile"
+                    android:inputType="none"
+                    android:layout_marginBottom="@dimen/margin_15"
+                    android:textColor="@color/lightGrey"
+                    android:hint="Vul uw geboortedatum in"/>
 
-            <TextView
-                android:layout_marginTop="@dimen/margin_15"
-                android:textStyle="bold"
-                android:id="@+id/weightLbl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_15"
-                android:text="@string/weight"/>
 
             <EditText
-                android:id="@+id/length_input"
+                android:id="@+id/weight_input"
                 android:width="@dimen/form_field_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/lighterGrey"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_15"
-                android:layout_marginBottom="@dimen/margin_15"
                 android:padding="@dimen/padding_10"
                 android:textSize="@dimen/normal_text_mobile"
+                android:layout_marginBottom="@dimen/margin_15"
                 android:inputType="number"
                 android:textColor="@color/lightGrey"
                 android:hint="Vul uw gewicht in"/>
 
-            <TextView
-                android:textStyle="bold"
-                android:id="@+id/LengthLbl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_15"
-                android:text="@string/length"/>
+
 
             <EditText
+                android:id="@+id/length_input"
                 android:width="@dimen/form_field_mobile"
                 android:background="@color/lighterGrey"
-                android:id="@+id/weight_input"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_15"
                 android:layout_marginBottom="@dimen/margin_15"
@@ -130,18 +114,25 @@
                 android:textColor="@color/lightGrey"
                 android:hint="Vul uw lengte in"/>
 
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
             <TextView
-                android:layout_marginTop="@dimen/margin_15"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/margin_15"
                 android:text="Geslacht bij geboorte"/>
+            </RelativeLayout>
 
             <RadioGroup
                 android:buttonTint="@color/colorPrimaryDark"
                 android:layout_below="@+id/genderLbl"
                 android:id="@+id/radioGender"
+                android:layout_marginBottom="@dimen/padding_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_15">
@@ -166,6 +157,7 @@
 
 
             <RelativeLayout
+                android:layout_gravity="center_horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
                 android:paddingBottom="15dp">
@@ -187,7 +179,7 @@
     <Button
         android:id="@+id/secondBtn"
         android:layout_toEndOf="@+id/firstBtn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Volgende"
         android:layout_marginLeft="10dp"
@@ -202,4 +194,4 @@
 </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+

@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -52,6 +55,9 @@ public class DiaryFragment extends Fragment {
     private MeasurementListAdapter adapter;
     private String screenResolution;
     private boolean weekSelected, monthSelected, graphSelected;
+    private float GROUPSPACE = 0.10f;
+    private float BARSPACE = 0f; // x2 dataset
+    private float BARWIDTH = 0.35f; // x2 dataset
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -82,7 +88,7 @@ public class DiaryFragment extends Fragment {
             graphButton.setVisibility(View.VISIBLE);
         }
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
+                
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -103,7 +109,6 @@ public class DiaryFragment extends Fragment {
                 if (ExceptionHandler.isConnectedToInternet(mainActivity)){
 
                     Measurement selection = getMeasurements().get(position);
-
                     Bundle bundle=new Bundle();
                     bundle.putParcelable("measurement",selection);
                     MeasurementDetailFragment fg = new MeasurementDetailFragment();
@@ -199,12 +204,31 @@ public class DiaryFragment extends Fragment {
 
                 if (!graphSelected) {
 
+
+                    if (measurements.size() >= 7) {
+
+                        adapter.setDataWeek(measurements.subList(0, 7));
+                        adapter.notifyDataSetChanged();
+                    }else{
+
+                        adapter.setData(measurements);
+                    }
+
                     if(measurements.size() > 0) {
                         graphSelected = true;
                         monthSelected = false;
                         weekSelected = false;
+
+                        if (measurements.size() >= 7) {
+
+                            adapter.setDataWeek(measurements.subList(0, 7));
+                            adapter.notifyDataSetChanged();
+                        }else{
+
+                            adapter.setData(measurements);
+                        }
+
                         chart.setVisibility(View.VISIBLE);
-                        adapter.notifyDataSetChanged();
                         initGraph();
                         mListView.setVisibility(View.GONE);
                     }else{
@@ -248,24 +272,22 @@ public class DiaryFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
-        //bovendruk
         List<BarEntry> bloodPressureUpper = new ArrayList<>();
+        List<BarEntry> bloodPressureLower = new ArrayList<>();
+
         for (int i = 0; i < measurements.size(); i++)
         {
             bloodPressureUpper.add(new BarEntry(i,measurements.get(i).getBloodPressureUpper()));
-        }
-
-        //onderdruk
-        List<BarEntry> bloodPressureLower = new ArrayList<>();
-        for (int i = 0; i < measurements.size(); i++)
-        {
             bloodPressureLower.add(new BarEntry(i,measurements.get(i).getBloodPressureLower()));
+
         }
 
         BarDataSet upperBP = new BarDataSet(bloodPressureUpper, "Bovendruk");
         BarDataSet lowerBP = new BarDataSet(bloodPressureLower, "Onderdruk");
-        upperBP.setValueTextSize(18f);
-        lowerBP.setValueTextSize(18f);
+//        upperBP.setValueTextSize(15f);
+//        upperBP.setValueTextColor(getResources().getColor(R.color.whiteText));
+//        lowerBP.setValueTextSize(15f);
+//        lowerBP.setValueTextColor(getResources().getColor(R.color.whiteText));
 
         int color1 = getResources().getColor(R.color.chart2);
         int color2 = getResources().getColor(R.color.chart1);
@@ -274,14 +296,33 @@ public class DiaryFragment extends Fragment {
         upperBP.setColors(color2);
 
         BarData data = new BarData(upperBP,lowerBP);
-        data.setBarWidth(0.2f); // set custom bar width
-        chart.setDrawGridBackground(false);
+        data.setBarWidth(BARWIDTH);
+
+
+        Legend legend = chart.getLegend();
+        legend.setTextSize(18);
+        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setFormSize(15);
+
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+
         chart.setData(data);
         chart.animateXY(1000, 1000);
-        chart.setFitBars(true); // make the x-axis fit exactly all bars
+        chart.groupBars(1, GROUPSPACE, BARSPACE);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getAxisRight().setDrawGridLines(false);
+        chart.setFitBars(true);
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setDrawValueAboveBar(false);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setCenterAxisLabels(true);
+
         chart.invalidate(); // refresh
     }
-
 
     public void loadMeasurements(DiaryFragment diaryFragment)
     {

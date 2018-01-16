@@ -1,7 +1,9 @@
 package charmelinetiel.zorg_voor_het_hart.fragments.Register;
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
@@ -70,6 +73,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         consultantsView =  v.findViewById(R.id.consultants);
 
+        setDefaultValueSpinner();
+
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
             ConsultantsDropdown();
         }else{
@@ -86,13 +91,22 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
             case R.id.registerBtn:
 
-                showProgressBar();
 
                 if (ExceptionHandler.isConnectedToInternet(getContext())) {
 
                     consultant = (Consultant) consultantsView.getSelectedItem();
-                    User.getInstance().setConsultantId(consultant.getConsultantId());
-                    apiService.register(User.getInstance()).enqueue(this);
+
+                    if (!consultant.getConsultantId().equals("1")){
+
+                        showProgressBar();
+
+                        User.getInstance().setConsultantId(consultant.getConsultantId());
+                        apiService.register(User.getInstance()).enqueue(this);
+                    }else{
+
+                        registerActivity.makeSnackBar("U heeft nog geen consulent geselecteerd", registerActivity);
+                    }
+
 
                 }else{
 
@@ -139,22 +153,23 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         }
     }
 
-    public void ConsultantsDropdown(){
+    private void ConsultantsDropdown(){
 
         apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
 
                 if (response.isSuccessful() && response.body() != null) {
 
-                    allConsultants = response.body();
 
-
+                    allConsultants.addAll(response.body());
                     adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
 
 
-                    consultantsView.setPrompt("Selecteer uw consulent");
-                    consultantsView.setSelection(adapter.getCount()-1,true);
+                    consultantsView.setSelection(0,true);
+                    consultantsView.setVerticalScrollBarEnabled(true);
+                    consultantsView.setPadding(30, 30,30,30);
                     consultantsView.setAdapter(adapter);
 
                 }
@@ -174,7 +189,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         });
     }
 
-    public void showProgressBar(){
+    private void showProgressBar(){
         progressBar.setVisibility(View.VISIBLE);
         registerButton.setVisibility(View.GONE);
         backButton.setVisibility(View.GONE);
@@ -183,12 +198,24 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         consultantText.setVisibility(View.GONE);
     }
 
-    public void hideProgressBar(){
+    private void hideProgressBar(){
         progressBar.setVisibility(View.GONE);
         registerButton.setVisibility(View.VISIBLE);
         backButton.setVisibility(View.VISIBLE);
         consultantsView.setVisibility(View.VISIBLE);
         consultantTitle.setVisibility(View.VISIBLE);
         consultantText.setVisibility(View.VISIBLE);
+    }
+
+    private void setDefaultValueSpinner(){
+
+        allConsultants = new ArrayList<>();
+        Consultant defaultChoice = new Consultant();
+        defaultChoice.setFirstname("Selecteer uw consulent");
+        defaultChoice.setConsultantId("1");
+        defaultChoice.setLastname("");
+        allConsultants.add(0, defaultChoice);
+
+
     }
 }
