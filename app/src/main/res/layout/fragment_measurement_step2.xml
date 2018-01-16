@@ -45,18 +45,18 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/noneRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/none"/>
+        <RadioButton
             android:id="@+id/yesNamelyRadio"
             android:buttonTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yesNamely"/>
 
-        <RadioButton
-            android:id="@+id/noneRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimaryDark"
-            android:text="@string/none"/>
     </RadioGroup>
 
     <ListView

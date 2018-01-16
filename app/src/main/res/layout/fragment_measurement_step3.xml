@@ -59,7 +59,6 @@
         android:layout_toRightOf="@id/cancel_measurement3_button"
         android:width="@dimen/button_mobile"
         android:background="@color/colorAccent"
-
         android:text="Opslaan"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"

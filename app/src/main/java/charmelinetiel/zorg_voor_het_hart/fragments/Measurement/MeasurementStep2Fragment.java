@@ -48,8 +48,16 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
         initViews();
 
+        measurementRadioGroup.check(R.id.noneRadio);
+        hideIssues();
+
         if(mainActivity.isEditingMeasurement()){
             mainActivity.setTitle("Meting bewerken stap 2 van 3");
+            if(mainActivity.getMeasurement().getHealthIssueIds().size() > 0 ||
+                    !mainActivity.getMeasurement().getHealthIssueOther().isEmpty()){
+                measurementRadioGroup.check(R.id.yesNamelyRadio);
+                showIssues();
+            }
         }else{
             mainActivity.setTitle("Meting stap 2 van 3");
         }
@@ -66,7 +74,6 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
                     R.layout.checkbox_listview_item, mainActivity.getHealthIssues(), null);
         }
 
-        measurementRadioGroup.check(R.id.yesNamelyRadio);
         mainActivity.setDateOfToday(date);
 
         if (container != null) {
@@ -127,24 +134,30 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
                 switch(checkedId) {
                     case R.id.noneRadio:
-
-                        checkboxList.setVisibility(View.GONE);
-                        otherNamelyLbl.setVisibility(View.GONE);
-                        otherNamelyInput.setVisibility(View.GONE);
-                        noIssues.setVisibility(View.VISIBLE);
+                        hideIssues();
 
                         break;
 
                     case R.id.yesNamelyRadio:
-
-                        checkboxList.setVisibility(View.VISIBLE);
-                        otherNamelyLbl.setVisibility(View.VISIBLE);
-                        otherNamelyInput.setVisibility(View.VISIBLE);
-                        noIssues.setVisibility(View.GONE);
+                        showIssues();
 
                         break;
                 }
             }
         });
+    }
+
+    public void hideIssues(){
+        checkboxList.setVisibility(View.GONE);
+        otherNamelyLbl.setVisibility(View.GONE);
+        otherNamelyInput.setVisibility(View.GONE);
+        noIssues.setVisibility(View.VISIBLE);
+    }
+
+    public void showIssues(){
+        checkboxList.setVisibility(View.VISIBLE);
+        otherNamelyLbl.setVisibility(View.VISIBLE);
+        otherNamelyInput.setVisibility(View.VISIBLE);
+        noIssues.setVisibility(View.GONE);
     }
 }

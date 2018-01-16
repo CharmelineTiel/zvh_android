@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:text="succesvol geregistreerd"
+            android:text="@string/registration_successful"
             android:textSize="@dimen/bigger_text_tablet" />
 
         <TextView
