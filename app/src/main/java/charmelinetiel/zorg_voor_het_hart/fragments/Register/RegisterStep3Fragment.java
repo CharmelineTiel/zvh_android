@@ -34,6 +34,7 @@ import retrofit2.Retrofit;
  */
 public class RegisterStep3Fragment extends Fragment implements View.OnClickListener, Callback<User> {
 
+    private final String DEFAULT_CONSULTANT_ID = "1";
     private View v;
     private APIService apiService;
     private Button registerButton, backButton;
@@ -90,28 +91,19 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.registerBtn:
-
-
                 if (ExceptionHandler.isConnectedToInternet(getContext())) {
-
                     consultant = (Consultant) consultantsView.getSelectedItem();
 
-                    if (!consultant.getConsultantId().equals("1")){
-
+                    if (!consultant.getConsultantId().equals(DEFAULT_CONSULTANT_ID)){
                         showProgressBar();
 
                         User.getInstance().setConsultantId(consultant.getConsultantId());
                         apiService.register(User.getInstance()).enqueue(this);
                     }else{
-
                         registerActivity.makeSnackBar("U heeft nog geen consulent geselecteerd", registerActivity);
                     }
-
-
                 }else{
-
                     registerActivity.makeSnackBar(getString(R.string.noInternetConnection), registerActivity);
-
                 }
                 break;
 
@@ -212,7 +204,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         allConsultants = new ArrayList<>();
         Consultant defaultChoice = new Consultant();
         defaultChoice.setFirstname("Selecteer uw consulent");
-        defaultChoice.setConsultantId("1");
+        defaultChoice.setConsultantId(DEFAULT_CONSULTANT_ID);
         defaultChoice.setLastname("");
         allConsultants.add(0, defaultChoice);
 

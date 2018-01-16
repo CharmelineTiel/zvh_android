@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 ;
@@ -41,7 +42,7 @@ public class Measurement implements Parcelable
     private Integer result;
     @SerializedName("measurementDateTime")
     @Expose
-    private String measurementDateTime;
+    private Date measurementDateTime;
     @SerializedName("measurementDateFormatted")
     @Expose
     private String measurementDateFormatted;
@@ -72,7 +73,7 @@ public class Measurement implements Parcelable
         this.userId = ((String) in.readValue((String.class.getClassLoader())));
         this.feedback = ((String) in.readValue((String.class.getClassLoader())));
         this.result = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.measurementDateTime = ((String) in.readValue((String.class.getClassLoader())));
+        this.measurementDateTime = ((Date) in.readValue((Date.class.getClassLoader())));
         this.measurementDateFormatted = ((String) in.readValue((String.class.getClassLoader())));
     }
 
@@ -96,7 +97,7 @@ public class Measurement implements Parcelable
      * @param healthIssueOther
      * @param comment
      */
-    public Measurement(String id, List<String> healthIssueIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String comment, String userId, Integer result, String feedback, String measurementDateTime, String measurementDateFormatted) {
+    public Measurement(String id, List<String> healthIssueIds, Integer bloodPressureLower, Integer bloodPressureUpper, String healthIssueOther, String comment, String userId, Integer result, String feedback, Date measurementDateTime, String measurementDateFormatted) {
         super();
         this.id = id;
         this.healthIssueIds = healthIssueIds;
@@ -167,11 +168,11 @@ public class Measurement implements Parcelable
         this.userId = userId;
     }
 
-    public String getMeasurementDateTime() {
+    public Date getMeasurementDateTime() {
         return measurementDateTime;
     }
 
-    public void setMeasurementDateTime(String measurementDateTime) {
+    public void setMeasurementDateTime(Date measurementDateTime) {
         this.measurementDateTime = measurementDateTime;
     }
 

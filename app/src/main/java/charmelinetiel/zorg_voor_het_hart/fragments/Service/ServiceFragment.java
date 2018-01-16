@@ -12,18 +12,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.takisoft.fix.support.v7.preference.EditTextPreference;
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
@@ -46,7 +49,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServiceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, GoogleApiClient.ConnectionCallbacks,
+public class ServiceFragment extends PreferenceFragmentCompatDividers implements SharedPreferences.OnSharedPreferenceChangeListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final int NOTIFICATION_ID = 0;
@@ -58,18 +61,20 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     private FormErrorHandling formErrorHandling;
     private APIService apiService;
     private GoogleApiClient mGoogleApiClient;
+    private SharedPreferences settings;
+
 
     public ServiceFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-
+    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.app_preferences);
 
         mainActivity = (MainActivity) getActivity();
         formErrorHandling = new FormErrorHandling();
+        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
@@ -79,19 +84,16 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-
         logout = findPreference("logout");
         dailyReminder= findPreference("dailyReminders");
         veelgesteldeVragen = findPreference("veelgesteldeVragen");
         disclaimer = findPreference("disclaimer");
-        editLength = (EditTextPreference) findPreference("editLength");
+
+        editLength =(EditTextPreference) findPreference("editLength");
         editWeight = (EditTextPreference) findPreference("editWeight");
 
-        editLength.setText(User.getInstance().getLength().toString());
-        editWeight.setText(User.getInstance().getWeight().toString());
-
-        editWeight.setSummary("Uw gewicht: " + User.getInstance().getWeight().toString());
-        editLength.setSummary("Uw lengte: " + User.getInstance().getLength().toString());
+        editWeight.setSummary("Uw gewicht: " + getPref("editWeight", getContext()));
+        editLength.setSummary("Uw lengte: " + getPref("editLength", getContext()));
 
         getActivity().setTheme(R.style.preferenceTheme);
 
@@ -127,11 +129,11 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                             }
                         });
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuleren", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 alertDialog.show();
 
 
@@ -212,33 +214,27 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                 if (preference instanceof EditTextPreference){
                     EditTextPreference length =  (EditTextPreference)preference;
                     if (length.getText().trim().length() > 0 && formErrorHandling.inputValidInt(newLength.toString())){
-
                         length.setSummary("Uw lengte: " + newLength.toString());
-                        editLength.setText(newLength.toString());
+
+                        putPref("editLength", newLength.toString(), getContext());
+                        editLength = length;
 
                         UserLengthWeight userLength = new UserLengthWeight();
-
                         try {
                             userLength.setLength(Integer.parseInt(newLength.toString()));
-                        }catch (Exception e)
-                        {
-
+                        }catch (Exception e){
                         }
-
 
                         apiService.updateUserLenghtWeight(userLength, User.getInstance().getAuthToken()).enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
 
-                                if (response.body() != null && response.isSuccessful()){
-
+                                if(response.body() != null && response.isSuccessful()){
+                                    Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
+                                            .show();
                                 }else{
-
                                     mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
-
                                 }
-
-
                             }
 
                             @Override
@@ -246,11 +242,7 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
 
                             }
                         });
-
-                        Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
-                                .show();
                     }else{
-
 
                         length.setSummary("Uw lengte: " +  editLength.getText());
                     }
@@ -271,6 +263,8 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                         weight.setSummary("Uw gewicht: " + newWeight);
                         editWeight.setText(newWeight.toString());
 
+                        putPref("editWeight", newWeight.toString(), getContext());
+
                         UserLengthWeight userWeight = new UserLengthWeight();
 
                         try {
@@ -286,11 +280,8 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
                                 if (response.body() != null && response.isSuccessful()){
 
                                 }else{
-
                                     mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
-
                                 }
-
                             }
 
                             @Override
@@ -324,7 +315,6 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-
         //hmm
     }
 
@@ -342,5 +332,17 @@ public class ServiceFragment extends PreferenceFragmentCompat implements SharedP
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "GoogleApiClient failed to connect: " + connectionResult);
+    }
+
+    public void putPref(String key, String value, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public String getPref(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(key, null);
     }
 }

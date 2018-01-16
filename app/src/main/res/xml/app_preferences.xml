@@ -5,14 +5,15 @@
         android:theme="@style/preferenceTheme"
         android:title="Mijn account">
 
-        <android.support.v7.preference.EditTextPreference
+        <com.takisoft.fix.support.v7.preference.EditTextPreference
             android:key="editLength"
-            android:textSize="18dp"
-            android:title="Lengte wijzigen" />
+            android:title="Lengte wijzigen"
+            android:inputType="number"/>
 
-        <android.support.v7.preference.EditTextPreference
+        <com.takisoft.fix.support.v7.preference.EditTextPreference
             android:key="editWeight"
-            android:title="Gewicht wijzigen" />
+            android:title="Gewicht wijzigen"
+            android:inputType="number" />
 
 
     </android.support.v7.preference.PreferenceCategory>
