@@ -130,7 +130,7 @@
         android:textSize="@dimen/bigger_text_tablet" />
 
     <Button
-        android:id="@+id/to_measurement_step2_button"
+        android:id="@+id/complete_measurement_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/cancel_measurement1_button"

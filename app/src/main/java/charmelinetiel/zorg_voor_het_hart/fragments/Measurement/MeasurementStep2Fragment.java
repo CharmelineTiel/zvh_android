@@ -11,8 +11,6 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import org.xml.sax.ErrorHandler;
-
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.adapters.CheckboxAdapter;
@@ -49,9 +47,9 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
         initViews();
 
         if(mainActivity.isEditingMeasurement()){
-            mainActivity.setTitle("Meting bewerken stap 2 van 3");
+            mainActivity.setTitle("Meting bewerken stap 2 van 2");
         }else{
-            mainActivity.setTitle("Meting stap 2 van 3");
+            mainActivity.setTitle("Meting stap 2 van 2");
         }
 
         try {
@@ -73,7 +71,7 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
             container.removeAllViews();
         }
 
-        v.findViewById(R.id.to_measurement_step3_button).setOnClickListener(this);
+        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
         v.findViewById(R.id.cancel_measurement2_button).setOnClickListener(this);
 
         configureRadioGroup();
@@ -94,24 +92,28 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.to_measurement_step3_button:
-                MainActivity activity = (MainActivity) getActivity();
-                Measurement measurement = activity.getMeasurement();
+            case R.id.complete_measurement_button:
 
+                Measurement measurement = mainActivity.getMeasurement();
                 measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
-
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
-                if (yesNamelySelected ) {
-                    if (measurementCheckboxAdapter.getSelectedIssues().size() == 0
-                            && !errorHandling.inputValidString(otherNamelyInput)) {
-                        mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
-                    } else {
-                        mainActivity.openFragment(new MeasurementStep3Fragment());
-                    }
-                }else {
-                    mainActivity.openFragment(new MeasurementStep3Fragment());
+
+                if (yesNamelySelected && measurementCheckboxAdapter.getSelectedIssues().size() == 0
+                    && !errorHandling.inputValidString(otherNamelyInput)) {
+
+                      mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
+
+                } else {
+
+                        if (mainActivity.isEditingMeasurement()) {
+                            mainActivity.putMeasurement();
+                        } else {
+                            mainActivity.postMeasurement();
+                        }
+                        mainActivity.openFragment(new MeasurementSavedFragment());
+
                 }
                     break;
             case R.id.cancel_measurement2_button:

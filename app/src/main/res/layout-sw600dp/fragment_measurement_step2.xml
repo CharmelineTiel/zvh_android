@@ -104,7 +104,7 @@
         android:textSize="@dimen/bigger_text_tablet" />
 
     <Button
-        android:id="@+id/to_measurement_step3_button"
+        android:id="@+id/complete_measurement_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/cancel_measurement2_button"
@@ -114,7 +114,7 @@
         android:layout_toEndOf="@+id/cancel_measurement2_button"
         android:width="@dimen/button_tablet"
         android:background="@color/colorAccent"
-        android:text="Volgende"
+        android:text="Opslaan"
         android:padding="@dimen/padding_15"
         android:textAllCaps="false"
         android:textColor="@color/whiteText"

@@ -37,9 +37,9 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
 
         mainActivity = (MainActivity) getActivity();
         if(mainActivity.isEditingMeasurement()){
-            mainActivity.setTitle("Meting bewerken stap 1 van 3");
+            mainActivity.setTitle("Meting bewerken stap 1 van 2");
         }else{
-            mainActivity.setTitle("Meting stap 1 van 3");
+            mainActivity.setTitle("Meting stap 1 van 2");
         }
 
         v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
@@ -74,7 +74,7 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
         super.onActivityCreated(savedInstanceState);
 
         v.findViewById(R.id.cancel_measurement1_button).setOnClickListener(this);
-        v.findViewById(R.id.to_measurement_step2_button).setOnClickListener(this);
+        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
 
         upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
         lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
@@ -97,7 +97,7 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
             case R.id.cancel_measurement1_button:
                 mainActivity.openFragment(new HomeFragment());
                 break;
-            case R.id.to_measurement_step2_button:
+            case R.id.complete_measurement_button:
                 Measurement measurement = mainActivity.getMeasurement();
                 try {
                     measurement.setBloodPressureUpper(Integer.parseInt(upperBloodPressure.getText().toString()));
