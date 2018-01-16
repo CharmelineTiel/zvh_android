@@ -14,12 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,7 @@ public class DiaryFragment extends Fragment {
 
     private BarChart chart;
     private ListView mListView;
-    private TextView insertMeasurementText;
+    private TextView insertMeasurementText, chartDescription;
     private Button goToMeasurementBtn, weekButton,monthButton, graphButton;
     private View v;
     private MainActivity mainActivity;
@@ -55,9 +57,9 @@ public class DiaryFragment extends Fragment {
     private MeasurementListAdapter adapter;
     private String screenResolution;
     private boolean weekSelected, monthSelected, graphSelected;
-    private float GROUPSPACE = 0.10f;
-    private float BARSPACE = 0f; // x2 dataset
-    private float BARWIDTH = 0.35f; // x2 dataset
+    private float GROUPSPACE = 0.35f;
+    private float BARSPACE = 0.05f;
+    private float BARWIDTH = 0.20f;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -158,6 +160,8 @@ public class DiaryFragment extends Fragment {
                         }
                         mListView.setVisibility(View.VISIBLE);
                         chart.setVisibility(View.GONE);
+                        chartDescription.setVisibility(View.GONE);
+
                         weekButton.setTextColor(getResources().getColor(R.color.ms_black));
                         monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
                         monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
@@ -188,6 +192,7 @@ public class DiaryFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     mListView.setVisibility(View.VISIBLE);
                     chart.setVisibility(View.GONE);
+                    chartDescription.setVisibility(View.GONE);
 
                     Toast.makeText(getContext(), "maandoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
@@ -228,11 +233,16 @@ public class DiaryFragment extends Fragment {
                             adapter.setData(measurements);
                         }
 
+                        chartDescription.setVisibility(View.VISIBLE);
                         chart.setVisibility(View.VISIBLE);
-                        initGraph();
+
+                            initGraph();
+
+
                         mListView.setVisibility(View.GONE);
                     }else{
 
+                        chartDescription.setVisibility(View.GONE);
                         chart.setVisibility(View.GONE);
                     }
                     Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT).show();
@@ -266,6 +276,8 @@ public class DiaryFragment extends Fragment {
         graphButton = v.findViewById(R.id.graphOverview);
         weekButton = v.findViewById(R.id.weekOverview);
         monthButton = v.findViewById(R.id.monthOverview);
+        chartDescription = v.findViewById(R.id.chartDescription);
+
     }
 
     public void initGraph(){
@@ -274,36 +286,39 @@ public class DiaryFragment extends Fragment {
 
         List<BarEntry> bloodPressureUpper = new ArrayList<>();
         List<BarEntry> bloodPressureLower = new ArrayList<>();
+        final String[] ds = new String[measurements.size()];
+        //SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM");
+
 
         for (int i = 0; i < measurements.size(); i++)
         {
             bloodPressureUpper.add(new BarEntry(i,measurements.get(i).getBloodPressureUpper()));
             bloodPressureLower.add(new BarEntry(i,measurements.get(i).getBloodPressureLower()));
 
+            ds[i] = measurements.get(i).getMeasurementDateFormatted();
+
         }
 
         BarDataSet upperBP = new BarDataSet(bloodPressureUpper, "Bovendruk");
         BarDataSet lowerBP = new BarDataSet(bloodPressureLower, "Onderdruk");
-//        upperBP.setValueTextSize(15f);
-//        upperBP.setValueTextColor(getResources().getColor(R.color.whiteText));
-//        lowerBP.setValueTextSize(15f);
-//        lowerBP.setValueTextColor(getResources().getColor(R.color.whiteText));
+        upperBP.setDrawValues(false);
+        lowerBP.setDrawValues(false);
 
         int color1 = getResources().getColor(R.color.chart2);
         int color2 = getResources().getColor(R.color.chart1);
 
         lowerBP.setColors(color1);
         upperBP.setColors(color2);
-
         BarData data = new BarData(upperBP,lowerBP);
         data.setBarWidth(BARWIDTH);
 
 
         Legend legend = chart.getLegend();
-        legend.setTextSize(18);
+        legend.setTextSize(16);
         legend.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setFormSize(15);
+        legend.setForm(Legend.LegendForm.LINE);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setFormSize(20);
 
         Description description = new Description();
         description.setText("");
@@ -311,18 +326,37 @@ public class DiaryFragment extends Fragment {
 
         chart.setData(data);
         chart.animateXY(1000, 1000);
-        chart.groupBars(1, GROUPSPACE, BARSPACE);
-        chart.getAxisLeft().setDrawGridLines(false);
-        chart.getAxisRight().setDrawGridLines(false);
+        chart.groupBars(0f, GROUPSPACE, BARSPACE);
         chart.setFitBars(true);
+        chart.fitScreen();
         chart.setDoubleTapToZoomEnabled(false);
-        chart.setDrawValueAboveBar(false);
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setCenterAxisLabels(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setDrawLabels(true);
+        xAxis.setTextSize(12);
+
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                try {
+                    return ds[Math.round(value)];
+                }catch(Exception e){
+
+                    return " ";
+                }
+            }
+        });
+
 
         chart.invalidate(); // refresh
     }
+
+
 
     public void loadMeasurements(DiaryFragment diaryFragment)
     {
