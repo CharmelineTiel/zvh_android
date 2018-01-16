@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
@@ -34,8 +34,8 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
     private View view;
     private APIService apiService;
     private Message messageObj;
-    private Button sendBtn, backBtn;
-    private EditText message,subject, consultantEmail, consultantName;
+    private EditText message,subject;
+    private TextView consultantEmail, consultantName;
     private FormErrorHandling validateForm;
     private MainActivity mainActivity;
     private ProgressBar progressBar;
