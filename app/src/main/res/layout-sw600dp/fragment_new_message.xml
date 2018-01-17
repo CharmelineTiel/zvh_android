@@ -80,6 +80,7 @@
             android:layout_below="@+id/subjectLbl"
             android:background="@color/grey"
             android:textSize="@dimen/normal_text_tablet"
+            android:maxLines="1"
             android:hint="Vul een onderwerp in"
             android:padding="@dimen/padding_10" />
 

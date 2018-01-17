@@ -33,7 +33,28 @@
     android:layout_width="250dp"
     android:layout_height="wrap_content" />
 
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
         <Button
+            android:id="@+id/backBtn"
+            android:padding="@dimen/padding_15"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/contactTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terug"
+            android:layout_marginRight="@dimen/margin_15"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/bigger_text_mobile"
+            android:background="@color/lightGrey"
+            android:textAllCaps="false"
+            android:width="200dp"
+            />
+    <Button
             android:id="@+id/contactBtn"
             android:padding="@dimen/padding_15"
             android:layout_centerHorizontal="true"
@@ -48,6 +69,7 @@
             android:textAllCaps="false"
             android:width="200dp"
             />
+    </LinearLayout>
 
 </RelativeLayout>
     </ScrollView>

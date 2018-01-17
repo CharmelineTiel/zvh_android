@@ -51,6 +51,7 @@
     <EditText
         android:id="@+id/username"
         android:width="@dimen/form_field_mobile"
+        android:maxLines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/lighterGrey"
@@ -77,6 +78,7 @@
         android:layout_marginRight="@dimen/margin_15"
         android:padding="@dimen/padding_10"
         android:textSize="@dimen/normal_text_mobile"
+        android:maxLines="1"
         android:inputType="textPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

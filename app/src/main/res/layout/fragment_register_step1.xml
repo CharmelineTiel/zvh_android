@@ -25,7 +25,7 @@
         android:layout_height="wrap_content" />
 
             <ImageView
-                android:id="@+id/infoToolTip"
+                android:id="@+id/toolTipPersonalInfo"
                 android:layout_marginLeft="@dimen/padding_10"
                 android:layout_toRightOf="@+id/registerStep1Title"
                 android:layout_marginTop="@dimen/margin_15"

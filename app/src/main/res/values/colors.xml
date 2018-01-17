@@ -22,7 +22,10 @@
     <color name="mediumFeedback">#23ed931d</color>
     <color name="positiveFeedback">#232ebc48</color>
 
-    <color name="chart1">#026fc8</color>
+    <color name="toolTip">#bd0067e4</color>
+
+
+    <color name="chart1">#0067e4</color>
     <color name="chart2">#7327c0</color>
 
 </resources>

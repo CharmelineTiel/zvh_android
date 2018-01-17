@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/subjectLbl"
                 android:width="@dimen/form_field_mobile"
+                android:maxLines="1"
                 android:background="@color/lighterGrey"
                 android:hint="Vul een onderwerp in"
                 android:padding="@dimen/padding_10" />

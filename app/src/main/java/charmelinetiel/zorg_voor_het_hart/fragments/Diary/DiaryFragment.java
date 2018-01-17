@@ -245,11 +245,10 @@ public class DiaryFragment extends Fragment {
                             adapter.setData(measurements);
                         }
 
+                        initGraph();
                         chartDescription.setVisibility(View.VISIBLE);
                         chart.setVisibility(View.VISIBLE);
 
-                        initGraph();
-                        
                         mListView.setVisibility(View.GONE);
                     }else{
 
