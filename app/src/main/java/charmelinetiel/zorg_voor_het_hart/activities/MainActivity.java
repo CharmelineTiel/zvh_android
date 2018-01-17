@@ -25,6 +25,7 @@ import java.util.List;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.HomeFragment;
+import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementStep2Fragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Service.ServiceFragment;
 import charmelinetiel.zorg_voor_het_hart.helpers.BottomNavigationView;
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
             switch (item.getItemId()) {
                 case R.id.measurement:
-
                     setTitle("Meting");
                     openFragment(new HomeFragment());
                     return true;
@@ -107,20 +107,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         initBottomNav();
 
     }
-
-    public void openFragment(final Fragment fg) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content, fg, fg.toString());
-
-        List<Fragment> fragments = fragmentManager.getFragments();
-
-            ft.addToBackStack(fg.toString());
-
-        ft.commit();
-    }
-
-
     public Measurement getMeasurement() {
         return measurement;
     }
@@ -208,31 +194,29 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         snackbar.show();
     }
 
+    public void openFragment(final Fragment fg) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content, fg, fg.toString());
+
+        ft.addToBackStack(fg.toString());
+
+        ft.commit();
+    }
+
     @Override
     public void onBackPressed() {
-
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        Fragment currentFragment = fragments.get(fragments.size()-1);
-
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-
-
-            for (int i = 0; i < fragments.size(); i++) {
-
-                if (currentFragment instanceof HomeFragment) {
-
-                    finish();
-                }else{
-
-                    getSupportFragmentManager().popBackStack();
-
-                }
-
-            }
-
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content);
+        //If we're at the home fragment, exit the mainactivity
+        if(currentFragment instanceof HomeFragment){
+            finish();
+        //If we're at the measurement step 2, go back to step 1
+        }else if(currentFragment instanceof MeasurementStep2Fragment) {
+            getSupportFragmentManager().popBackStack();
+        //If we're somewhere else, go to home
+        }else {
+            openFragment(new HomeFragment());
         }
-
-
     }
 
 

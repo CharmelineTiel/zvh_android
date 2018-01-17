@@ -241,13 +241,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
+        int count = getSupportFragmentManager().getBackStackEntryCount();
 
         if (count == 0) {
             super.onBackPressed();
             //additional code
         } else {
-            getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
         }
     }
 
@@ -420,8 +420,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } catch (IntentSender.SendIntentException e) {
                 Log.e(TAG, "STATUS: Failed to send resolution.", e);
             }
-        } else {
-            goToMainActivity();
         }
     }
 
