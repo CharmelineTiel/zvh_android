@@ -32,7 +32,6 @@ import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
 import charmelinetiel.zorg_voor_het_hart.models.HealthIssue;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 import charmelinetiel.zorg_voor_het_hart.models.User;
-import charmelinetiel.zorg_voor_het_hart.models.UserLengthWeight;
 import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
 import charmelinetiel.zorg_voor_het_hart.webservices.RetrofitClient;
 import retrofit2.Call;
@@ -130,11 +129,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         this.measurement = measurement;
     }
 
-    public void updateUserLengthWeight(int length, int weight) {
-        UserLengthWeight lenghtWeight = new UserLengthWeight(length, weight);
-        apiService.updateUserLenghtWeight(lenghtWeight, User.getInstance().getAuthToken()).enqueue(this);
-    }
-
     public List<HealthIssue> getHealthIssues() {
         return healthIssues;
     }
@@ -191,9 +185,11 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         Date customDate = new Date();
 
         if(!isEditingMeasurement()){
-            textView.setText(getResources().getString(R.string.date, simpleDateFormat.format(customDate)));
+            textView.setText(getResources().getString(R.string.date,
+                    simpleDateFormat.format(customDate)));
         }else{
-            textView.setText(getResources().getString(R.string.editMeasurementDate, simpleDateFormat.format(getMeasurement().getMeasurementDateTime())));
+            textView.setText(getResources().getString(R.string.editMeasurementDate,
+                    simpleDateFormat.format(getMeasurement().getMeasurementDateTime())));
         }
 
     }

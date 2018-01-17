@@ -107,7 +107,6 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
                 if (ExceptionHandler.isConnectedToInternet(mainActivity)){
 
                     Measurement selection = getMeasurements().get(position);
@@ -118,7 +117,6 @@ public class DiaryFragment extends Fragment {
                     mainActivity.openFragment(fg);
 
                 }else{
-
                     mainActivity.makeSnackBar(getString(R.string.noInternetConnection),mainActivity);
                 }
 
@@ -140,8 +138,6 @@ public class DiaryFragment extends Fragment {
         weekButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-
                 if (!weekSelected) {
 
                     if (ExceptionHandler.isConnectedToInternet(mainActivity) && measurements.size() != 0) {
@@ -209,7 +205,6 @@ public class DiaryFragment extends Fragment {
 
                 if (!graphSelected) {
 
-
                     if (measurements.size() >= 7) {
 
                         adapter.setDataWeek(measurements.subList(0, 7));
@@ -236,9 +231,8 @@ public class DiaryFragment extends Fragment {
                         chartDescription.setVisibility(View.VISIBLE);
                         chart.setVisibility(View.VISIBLE);
 
-                            initGraph();
-
-
+                        initGraph();
+                        
                         mListView.setVisibility(View.GONE);
                     }else{
 
