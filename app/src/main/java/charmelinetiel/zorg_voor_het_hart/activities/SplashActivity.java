@@ -25,17 +25,10 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
 
 
     private APIService apiService;
-    private List<Faq> faqList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Check if Auto-login has been configured
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean autoLogin = sharedPref.getBoolean("autoLogin", false);
-        String emailAddress = sharedPref.getString("emailAddress", "");
-        String password = sharedPref.getString("password", "");
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -51,7 +44,6 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
 
                 @Override
                 public void onFailure(Call<List<Faq>> call, Throwable t) {
-
                 }
             });
 
@@ -77,32 +69,10 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
             });
         }
 
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
 
-        //Check if user has been saved, if so go to mainactivity
-        if(autoLogin && !emailAddress.equals("") && !password.equals("")){
-
-            User.getInstance().setEmailAddress(emailAddress);
-            User.getInstance().setPassword(password);
-
-            if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
-
-                apiService.login(User.getInstance()).enqueue(this);
-
-            }else{
-
-                this.runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        }else{
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
     }
 
