@@ -24,8 +24,9 @@
     <TextView
         android:id="@+id/feedbackLbl"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:layout_below="@id/bloodPressureLbl"
-        android:layout_width="wrap_content"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/normal_text_tablet" />
     <TextView
@@ -34,14 +35,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/titleLbl"
+        android:layout_marginBottom="5dp"
         android:gravity="right"
         android:layout_marginRight="5dip"
         android:textSize="11dip"
         android:textStyle="bold"/>
 
+
     <!-- Rightend Arrow -->
     <ImageView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_15"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ic_chevron_right_black_24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>

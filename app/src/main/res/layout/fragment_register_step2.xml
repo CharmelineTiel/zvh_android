@@ -36,7 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_mobile"
-            android:textColor="@color/lightGrey"
             android:inputType="textEmailAddress"
             android:hint="Vul uw e-mail in"/>
 
@@ -57,7 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_mobile"
-            android:textColor="@color/lightGrey"
             android:inputType="textPassword"
             android:hint="Vul een wachtwoord in"/>
 
@@ -81,7 +79,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_mobile"
             android:inputType="textPassword"
-            android:textColor="@color/lightGrey"
             android:hint="Herhaal uw wachtwoord"/>
 
 

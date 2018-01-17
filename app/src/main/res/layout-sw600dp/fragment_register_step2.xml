@@ -36,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_tablet"
-            android:textColor="@color/lightGrey"
             android:hint="Vul uw e-mail in"/>
 
     <TextView
@@ -58,7 +57,6 @@
             android:padding="@dimen/margin_15"
             android:textSize="@dimen/normal_text_tablet"
             android:inputType="textPassword"
-            android:textColor="@color/lightGrey"
             android:hint="Vul een wachtwoord in"/>
 
     <TextView
@@ -81,7 +79,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_tablet"
             android:inputType="textPassword"
-            android:textColor="@color/lightGrey"
             android:hint="Herhaal uw wachtwoord"/>
 
 

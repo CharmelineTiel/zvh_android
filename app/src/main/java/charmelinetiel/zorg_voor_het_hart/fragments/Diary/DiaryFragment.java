@@ -58,8 +58,8 @@ public class DiaryFragment extends Fragment {
     private String screenResolution;
     private boolean weekSelected, monthSelected, graphSelected;
     private float GROUPSPACE = 0.35f;
-    private float BARSPACE = 0.05f;
-    private float BARWIDTH = 0.20f;
+    private float BARSPACE = 0f;
+    private float BARWIDTH = 0.30f;
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -112,7 +112,7 @@ public class DiaryFragment extends Fragment {
                     Measurement selection = getMeasurements().get(position);
                     Bundle bundle=new Bundle();
                     bundle.putParcelable("measurement",selection);
-                    MeasurementDetailFragment fg = new MeasurementDetailFragment();
+                    DiaryDetailFragment fg = new DiaryDetailFragment();
                     fg.setArguments(bundle);
                     mainActivity.openFragment(fg);
 
@@ -154,13 +154,22 @@ public class DiaryFragment extends Fragment {
 
                             adapter.setData(measurements);
                         }
-                        mListView.setVisibility(View.VISIBLE);
-                        chart.setVisibility(View.GONE);
-                        chartDescription.setVisibility(View.GONE);
 
-                        weekButton.setTextColor(getResources().getColor(R.color.ms_black));
-                        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
-                        monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                        mListView.setVisibility(View.VISIBLE);
+
+                        if (screenResolution == "tablet") {
+
+                            chart.setVisibility(View.GONE);
+                            chartDescription.setVisibility(View.GONE);
+                        }
+                        weekButton.setTextColor(getResources().getColor(R.color.darkGrey));
+                        monthButton.setTextColor(getResources().getColor(R.color.ms_black));
+                        graphButton.setTextColor(getResources().getColor(R.color.ms_black));
+
+                        weekButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_check_black_24dp, 0);
+                        graphButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        monthButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
                         Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
 
@@ -187,14 +196,22 @@ public class DiaryFragment extends Fragment {
                     adapter.setData(measurements);
                     adapter.notifyDataSetChanged();
                     mListView.setVisibility(View.VISIBLE);
-                    chart.setVisibility(View.GONE);
-                    chartDescription.setVisibility(View.GONE);
 
+                    if (screenResolution == "tablet") {
+                        chart.setVisibility(View.GONE);
+                        chartDescription.setVisibility(View.GONE);
+                    }
                     Toast.makeText(getContext(), "maandoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
-                    monthButton.setTextColor(getResources().getColor(R.color.ms_black));
-                    weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
-                    graphButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                    monthButton.setTextColor(getResources().getColor(R.color.darkGrey));
+                    weekButton.setTextColor(getResources().getColor(R.color.ms_black));
+                    graphButton.setTextColor(getResources().getColor(R.color.ms_black));
+
+                    monthButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_check_black_24dp, 0);
+                    graphButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    weekButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+
 
                 }
             }
@@ -241,9 +258,12 @@ public class DiaryFragment extends Fragment {
                     }
                     Toast.makeText(getContext(), "grafiek overzicht geselecteerd", Toast.LENGTH_SHORT).show();
 
-                    graphButton.setTextColor(getResources().getColor(android.R.color.black));
-                    monthButton.setTextColor(getResources().getColor(R.color.lightGrey));
-                    weekButton.setTextColor(getResources().getColor(R.color.lightGrey));
+                    graphButton.setTextColor(getResources().getColor(R.color.darkGrey));
+                    monthButton.setTextColor(getResources().getColor(R.color.ms_black));
+                    weekButton.setTextColor(getResources().getColor(R.color.ms_black));
+                    graphButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_check_black_24dp, 0);
+                    monthButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    weekButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
                 }
             }
@@ -289,7 +309,7 @@ public class DiaryFragment extends Fragment {
             bloodPressureUpper.add(new BarEntry(i,measurements.get(i).getBloodPressureUpper()));
             bloodPressureLower.add(new BarEntry(i,measurements.get(i).getBloodPressureLower()));
 
-            ds[i] = measurements.get(i).getMeasurementDateFormatted();
+            ds[i] = measurements.get(i).getMeasurementDateFormatted().substring(0,7);
 
         }
 
@@ -341,7 +361,7 @@ public class DiaryFragment extends Fragment {
                     return ds[Math.round(value)];
                 }catch(Exception e){
 
-                    return " ";
+                    return "";
                 }
             }
         });

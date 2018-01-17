@@ -48,7 +48,7 @@
         android:textSize="@dimen/normal_text_mobile"
         android:layout_marginBottom="@dimen/margin_15"
         android:hint="Vul uw voornaam in"
-        android:textColor="@color/lightGrey" />
+         />
 
 
     <EditText
@@ -62,7 +62,6 @@
         android:layout_marginBottom="@dimen/margin_15"
         android:layout_height="wrap_content"
         android:textSize="@dimen/normal_text_mobile"
-        android:textColor="@color/lightGrey"
         android:hint="Vul uw achternaam in"/>
 
 
@@ -78,7 +77,6 @@
                     android:textSize="@dimen/normal_text_mobile"
                     android:inputType="none"
                     android:layout_marginBottom="@dimen/margin_15"
-                    android:textColor="@color/lightGrey"
                     android:hint="Vul uw geboortedatum in"/>
 
 
@@ -94,7 +92,6 @@
                 android:textSize="@dimen/normal_text_mobile"
                 android:layout_marginBottom="@dimen/margin_15"
                 android:inputType="number"
-                android:textColor="@color/lightGrey"
                 android:hint="Vul uw gewicht in (kg)"/>
 
 
@@ -111,10 +108,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/normal_text_mobile"
                 android:inputType="number"
-                android:textColor="@color/lightGrey"
                 android:hint="Vul uw lengte in (cm)"/>
-
-
 
             <RelativeLayout
                 android:layout_width="wrap_content"

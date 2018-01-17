@@ -104,6 +104,15 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             email.setError("Vul uw e-mail in");
             return false;
         }
+        if (pass1.getText().toString().trim().equals("")) {
+
+            pass1.setError("Vul een wachtwoord in");
+            return false;
+        }
+        if (pass2.getText().toString().trim().equals("")) {
+            pass2.setError("Herhaal uw wachtwoord in");
+            return false;
+        }
 
         pass2.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,11 +123,12 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String pass = pass1.getText().toString();
+                String pass = pass1.getText().toString().trim();
                 if (charSequence.length() > 0 && pass.length() > 0) {
-                    if(!pass2.getText().toString().equals(pass)){
+                    if(!pass2.getText().toString().trim().equals(pass)){
 
-                        pass2.setError("Uw wachtwoord komt niet overeen");
+                        pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+
                     }
 
                 }
@@ -126,39 +136,27 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = pass1.getText().toString();
+                String pass = pass1.getText().toString().trim();
                 if (editable.length() > 0 && pass.length() > 0) {
-                    if(!pass2.getText().toString().equals(pass)){
+                    if(!pass2.getText().toString().trim().equals(pass)){
 
                         pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+
                     }
 
                 }
             }
         });
 
-        if (pass1.getText().toString().trim().equals("")) {
 
-            pass1.setError("Vul een wachtwoord in");
-
-            if (!validateForm.inputValidString(pass1)) {
-                pass1.setError("Vul een wachtwoord in");
-
-                return false;
-            }
-            if (pass2.getText().toString().trim().equals("")) {
-                pass2.setError("Herhaal uw wachtwoord in");
-                return false;
-            } else if (!pass1.getText().toString().equals(pass2.getText().toString())) {
-
+            if (!pass1.getText().toString().trim().equals(pass2.getText().toString().trim())) {
 
                 pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
-                pass1.setError("De ingevoerde wachtwoorden komen niet overeen.");
 
                 return false;
             }
 
-        }
+
         return true;
     }
 

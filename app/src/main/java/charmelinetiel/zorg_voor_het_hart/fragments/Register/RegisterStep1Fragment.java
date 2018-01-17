@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -28,8 +27,7 @@ public class RegisterStep1Fragment extends Fragment
     private EditText firstName;
     private EditText lastName;
     private EditText dateOfBirth;
-    private EditText email, length, weight;
-    private Button btn1, btn2;
+    private EditText length, weight;
     private RadioGroup gender;
     private View v;
     private FormErrorHandling validateForm;
@@ -115,7 +113,6 @@ public class RegisterStep1Fragment extends Fragment
                 User.getInstance().setLastname(lastName.getText().toString());
                 User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
                 User.getInstance().setGender(genderId);
-                User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
 
                     if(validInput()) {
 
@@ -150,7 +147,6 @@ public class RegisterStep1Fragment extends Fragment
             dateOfBirth.setError("Vul uw geboortedatum in");
             return false;
         }
-
         if(!validateForm.inputValidLength(length.getText().toString().trim())){
             length.setError("Vul een geldige lengte in in gehele centimeters");
             return false;
@@ -183,7 +179,6 @@ public class RegisterStep1Fragment extends Fragment
         weight = v.findViewById(R.id.weight_input);
         firstName = v.findViewById(R.id.firstName);
         lastName = v.findViewById(R.id.lastName);
-        email = v.findViewById(R.id.email);
         gender = v.findViewById(R.id.radioGender);
     }
 

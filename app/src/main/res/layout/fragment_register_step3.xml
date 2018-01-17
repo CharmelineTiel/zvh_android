@@ -44,7 +44,9 @@
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_15"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:paddingRight="@dimen/margin_15"
         android:background="@color/lighterGrey">
 
         <Spinner
@@ -54,19 +56,18 @@
             android:width="@dimen/form_field_mobile"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_15"
+            android:padding="5dp"
             android:textSize="@dimen/normal_text_mobile"
-            android:textColor="@color/lightGrey"
             />
 
         <ImageView
             android:src="@drawable/ic_expand_more_black_24dp"
             android:id="@+id/arrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="16dp"/>
+            />
 
     </RelativeLayout>
 

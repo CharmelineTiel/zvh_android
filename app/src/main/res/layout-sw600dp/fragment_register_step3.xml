@@ -50,18 +50,17 @@
                 android:id="@+id/consultants"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_20"
                 android:textSize="@dimen/normal_text_tablet"
-                android:textColor="@color/lightGrey"
                 />
             <ImageView
                 android:src="@drawable/ic_expand_more_black_24dp"
                 android:id="@+id/arrow"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:padding="@dimen/padding_10"
                 android:layout_alignParentRight="true"
-                android:layout_margin="16dp"/>
+                />
     </RelativeLayout>
 
     <RelativeLayout
