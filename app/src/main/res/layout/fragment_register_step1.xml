@@ -158,7 +158,7 @@
 
     <Button
         android:padding="10dp"
-        android:id="@+id/firstBtn"
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Annuleren"
@@ -171,8 +171,8 @@
         android:width="@dimen/button_mobile"
         />
     <Button
-        android:id="@+id/secondBtn"
-        android:layout_toEndOf="@+id/firstBtn"
+        android:id="@+id/nextButton"
+        android:layout_toEndOf="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Volgende"

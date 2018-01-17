@@ -59,8 +59,8 @@ public class RegisterStep1Fragment extends Fragment
             }
         });
 
-        v.findViewById(R.id.firstBtn).setOnClickListener(this);
-        v.findViewById(R.id.secondBtn).setOnClickListener(this);
+        v.findViewById(R.id.cancelButton).setOnClickListener(this);
+        v.findViewById(R.id.nextButton).setOnClickListener(this);
 
         initViews();
 
@@ -90,7 +90,7 @@ public class RegisterStep1Fragment extends Fragment
 
                 break;
 
-            case R.id.secondBtn:
+            case R.id.nextButton:
 
                 int index = gender.indexOfChild(registerActivity.findViewById(gender.getCheckedRadioButtonId()));
                 int genderId;
@@ -120,7 +120,7 @@ public class RegisterStep1Fragment extends Fragment
                     }
                 break;
 
-            case R.id.firstBtn:
+            case R.id.cancelButton:
 
                 getFragmentManager().popBackStack();
                 break;

@@ -41,11 +41,8 @@ public class RegisterActivity extends AppCompatActivity{
             openFragment(fg);
 
         }else{
-
             openFragment(new LoginOrRegisterFragment());
-
         }
-
     }
 
     public void openFragment(final Fragment fg)
@@ -53,15 +50,28 @@ public class RegisterActivity extends AppCompatActivity{
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.content, fg, fg.toString());
-
-            ft.addToBackStack(fg.toString());
+        ft.addToBackStack(fg.toString());
 
         ft.commit();
     }
 
     @Override
     public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
 
+            //if only LoginOrRegisterFragment is in the backstack, close the app
+        if (count == 1) {
+            finish();
+            //additional code
+        }else if(count == 5){
+            //go back to login or register
+            for(int i = 0; i < count; i++){
+                getSupportFragmentManager().popBackStack();
+            }
+            openFragment(new LoginOrRegisterFragment());
+        }else {
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     public void makeSnackBar(String messageText, Activity fg)
