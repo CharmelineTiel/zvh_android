@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,15 +36,17 @@ import retrofit2.Retrofit;
  */
 public class RegisterStep3Fragment extends Fragment implements View.OnClickListener, Callback<User> {
 
+    private final String DEFAULT_CONSULTANT_ID = "1";
     private View v;
     private APIService apiService;
     private Button registerButton, backButton;
     private Spinner consultantsView;
+    private RelativeLayout spinnerView;
     private List<Consultant> allConsultants;
     private ArrayAdapter<String> adapter;
     private Consultant consultant;
     private RegisterActivity registerActivity;
-    private RelativeLayout progressBar;
+    private ProgressBar progressBar;
     private TextView consultantText, consultantTitle;
 
     public RegisterStep3Fragment() {
@@ -61,6 +65,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         consultantText = v.findViewById(R.id.consultant_text);
         consultantTitle = v.findViewById(R.id.consultant_title);
         progressBar = v.findViewById(R.id.progressBar);
+
+        spinnerView = v.findViewById(R.id.spinner);
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -90,33 +96,22 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.registerBtn:
-
-
                 if (ExceptionHandler.isConnectedToInternet(getContext())) {
-
                     consultant = (Consultant) consultantsView.getSelectedItem();
 
-                    if (!consultant.getConsultantId().equals("1")){
-
+                    if (!consultant.getConsultantId().equals(DEFAULT_CONSULTANT_ID)){
                         showProgressBar();
-
                         User.getInstance().setConsultantId(consultant.getConsultantId());
                         apiService.register(User.getInstance()).enqueue(this);
                     }else{
-
                         registerActivity.makeSnackBar("U heeft nog geen consulent geselecteerd", registerActivity);
                     }
-
-
                 }else{
-
                     registerActivity.makeSnackBar(getString(R.string.noInternetConnection), registerActivity);
-
                 }
                 break;
 
             case R.id.backBtn:
-
                 getFragmentManager().popBackStack();
 
                 break;
@@ -154,55 +149,29 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     }
 
     private void ConsultantsDropdown(){
+        allConsultants.addAll(Consultant.getConsultants());
+        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
 
-        apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
-
-                if (response.isSuccessful() && response.body() != null) {
-
-
-                    allConsultants.addAll(response.body());
-                    adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
-
-
-                    consultantsView.setSelection(0,true);
-                    consultantsView.setVerticalScrollBarEnabled(true);
-                    consultantsView.setPadding(30, 30,30,30);
-                    consultantsView.setAdapter(adapter);
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Consultant>> call, Throwable t) {
-
-                try {
-                    ExceptionHandler.exceptionThrower(new Exception());
-                } catch (Exception e) {
-
-                    registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
-                }
-
-            }
-        });
+        consultantsView.setSelection(0,true);
+        consultantsView.setVerticalScrollBarEnabled(true);
+        consultantsView.setPadding(30, 30,30,30);
+        consultantsView.setAdapter(adapter);
     }
 
     private void showProgressBar(){
         progressBar.setVisibility(View.VISIBLE);
-        registerButton.setVisibility(View.GONE);
-        backButton.setVisibility(View.GONE);
-        consultantsView.setVisibility(View.GONE);
-        consultantTitle.setVisibility(View.GONE);
-        consultantText.setVisibility(View.GONE);
+        registerButton.setVisibility(View.INVISIBLE);
+        backButton.setVisibility(View.INVISIBLE);
+        spinnerView.setVisibility(View.INVISIBLE);
+        consultantTitle.setVisibility(View.INVISIBLE);
+        consultantText.setVisibility(View.INVISIBLE);
     }
 
     private void hideProgressBar(){
         progressBar.setVisibility(View.GONE);
+        spinnerView.setVisibility(View.VISIBLE);
         registerButton.setVisibility(View.VISIBLE);
         backButton.setVisibility(View.VISIBLE);
-        consultantsView.setVisibility(View.VISIBLE);
         consultantTitle.setVisibility(View.VISIBLE);
         consultantText.setVisibility(View.VISIBLE);
     }
@@ -212,7 +181,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         allConsultants = new ArrayList<>();
         Consultant defaultChoice = new Consultant();
         defaultChoice.setFirstname("Selecteer uw consulent");
-        defaultChoice.setConsultantId("1");
+        defaultChoice.setConsultantId(DEFAULT_CONSULTANT_ID);
         defaultChoice.setLastname("");
         allConsultants.add(0, defaultChoice);
 

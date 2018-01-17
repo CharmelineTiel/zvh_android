@@ -62,4 +62,31 @@ public class FormErrorHandling {
 
         return true;
     }
+
+    public boolean inputValidLength(String lengthString){
+        int length = 0;
+        try {
+
+            length = Integer.parseInt(lengthString.trim());
+
+        }catch (Exception e){
+            return false;
+        }
+
+        return (length > 110 && length < 230);
+    }
+
+    public boolean inputValidWeight(String weightString){
+        int weight = 0;
+        try {
+
+            weight = Integer.parseInt(weightString.trim());
+
+        }catch (Exception e){
+            return false;
+        }
+
+        return (weight > 30 && weight < 300);
+    }
+
 }

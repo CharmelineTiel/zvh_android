@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
+    <TextView
+        android:layout_marginLeft="@dimen/margin_15"
+        android:text="Disclaimer"
+        android:textSize="22dp"
+        android:textColor="@color/ms_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/disclaimerText"
         android:textSize="@dimen/normal_text_mobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_20"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin_20"
         android:text="@string/disclaimerText"/>
 
-    <Button
-        android:id="@+id/backToSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/disclaimerText"
-        android:layout_centerHorizontal="true"
-        android:text="Terug"
-        android:textAllCaps="false"
-        android:width="@dimen/button_mobile"
-        android:background="@color/lightGrey"
-        android:textColor="@color/whiteText"
-        android:textSize="@dimen/bigger_text_mobile"/>
-
-</RelativeLayout>
+</LinearLayout>

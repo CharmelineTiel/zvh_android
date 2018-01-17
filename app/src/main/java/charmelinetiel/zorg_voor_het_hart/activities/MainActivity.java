@@ -187,10 +187,14 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
 
     public void setDateOfToday(TextView textView) {
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date customDate = new Date();
-        textView.setText("Datum van vandaag: " + " " + simpleDateFormat.format(customDate));
+
+        if(!isEditingMeasurement()){
+            textView.setText(getResources().getString(R.string.date, simpleDateFormat.format(customDate)));
+        }else{
+            textView.setText(getResources().getString(R.string.editMeasurementDate, simpleDateFormat.format(getMeasurement().getMeasurementDateTime())));
+        }
 
     }
 

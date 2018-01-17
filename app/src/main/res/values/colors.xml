@@ -7,21 +7,20 @@
     <color name="whiteTransparent">#deffffff</color>
     <color name="transparent">#d2ffffff</color>
     <color name="mediumGrey">#737474</color>
-    <color name="DarkGrey">#737474</color>
+    <color name="darkGrey">#737474</color>
     <color name="lightGrey">#A9A9A9</color>
     <color name="grey">#d4d4d4</color>
     <color name="lighterGrey">#EBEBEB</color>
     <color name="offWhite">#F8F8F8</color>
-    <color name="RegisterColor">#0067e4</color>
+    <color name="registerColor">#0067e4</color>
 
-    <color name="negativeFeedbackTxt">#fe5c26</color>
-    <color name="mediumFeedbackTxt">#6e5c26</color>
+    <color name="negativeFeedbackTxt">#f60b2d</color>
+    <color name="mediumFeedbackTxt">#e98d2c</color>
     <color name="positiveFeedbackTxt">#2ebc48</color>
 
-    <color name="negativeFeedback">#11f56d18</color>
-    <color name="mediumFeedback">#41f56d18</color>
-    <color name="positiveFeedback">#0b2ebc48</color>
-
+    <color name="negativeFeedback">#0ced1333</color>
+    <color name="mediumFeedback">#0cf98d1a</color>
+    <color name="positiveFeedback">#0c2ebc48</color>
 
     <color name="chart1">#026fc8</color>
     <color name="chart2">#7327c0</color>

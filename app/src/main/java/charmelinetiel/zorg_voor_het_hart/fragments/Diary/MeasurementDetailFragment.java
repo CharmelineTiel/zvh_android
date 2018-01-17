@@ -111,29 +111,26 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
                     healthIssuesText += healthIssues.get(j).getName();
                 }
             }
-            //Add a comma if needed
+            //go down a line if needed
             if(i != m.getHealthIssueIds().size()-1 || !m.getHealthIssueOther().equals("")){
-                healthIssuesText += ", ";
+                healthIssuesText += "\n ";
             }
         }
-        healthIssuesText += m.getHealthIssueOther();
-
         issues.setText(healthIssuesText);
     }
 
     private void setLabels() {
-        if(m.getComment().equals("") || m.getComment() == null){
-            extraLbl.setVisibility(View.GONE);
-            extra.setVisibility(View.GONE);
-        }
         if(m.getHealthIssueIds().size() == 0 && (m.getHealthIssueOther().equals("") || m.getHealthIssueOther() == null)){
             issuesLbl.setVisibility(View.GONE);
             issues.setVisibility(View.GONE);
         }
+        if(m.getHealthIssueOther().isEmpty()){
+            extraLbl.setVisibility(View.GONE);
+        }
     }
 
     private void setTexts() {
-        extra.setText(m.getComment());
+        extra.setText(m.getHealthIssueOther());
         date.setText(m.getMeasurementDateFormatted());
         bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper() + ", " + "Onderdruk: " + m.getBloodPressureLower());
         feedback.setText(m.getFeedback());

@@ -29,7 +29,7 @@
     <string name="title_login_or_register">Inloggen / Registreren</string>
     <string name="account_activated">Account geactiveerd</string>
     <string name="one_account_allowed">Er is maar één account toegestaan</string>
-
+    <string name="registration_successful">Succesvol geregistreerd</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_stepper">Registreren stap 1 van 2</string>
     <string name="registeredTxt1">
@@ -55,6 +55,8 @@
 
 
     <!-- Measurement -->
+    <string name="date">Datum: %1$s</string>
+    <string name="editMeasurementDate">Datum originele meting: %1$s</string>
     <string name="popupText">Voordat u verder kunt gaan hebben wij nog enkele gegevens van u nodig zodat we u beter kunnen assisteren. Namelijk:</string>
     <string name="length">Lengte (cm)</string>
     <string name="weight">Gewicht (kg)</string>

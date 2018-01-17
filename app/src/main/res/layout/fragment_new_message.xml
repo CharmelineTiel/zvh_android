@@ -1,9 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="charmelinetiel.android_tablet_zvg.charmelinetiel.zorgVoorHetHart.fragments.Message.ContactHostFragment">
-
+    android:layout_height="match_parent">
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:id="@+id/progressBar"
@@ -44,26 +41,22 @@
                 android:layout_marginTop="10dp"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/consultantName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/emailLbl"
-                android:width="@dimen/form_field_mobile"
-                android:background="@color/lighterGrey"
-                android:editable="false"
-                android:padding="@dimen/padding_10" />
+                android:width="@dimen/form_field_mobile" />
 
-            <EditText
+            <TextView
                 android:id="@+id/consultantEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consultantName"
                 android:width="@dimen/form_field_mobile"
-                android:layout_marginTop="@dimen/padding_10"
-                android:background="@color/lighterGrey"
-                android:editable="false"
-                android:padding="@dimen/padding_10" />
+                android:paddingBottom="@dimen/padding_10"
+                android:layout_marginTop="5dp"
+                />
 
             <TextView
                 android:id="@+id/subjectLbl"
@@ -101,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/messageLbl"
-                android:width="@dimen/form_field_mobile"
+                android:width="750dp"
                 android:hint="Vul een bericht in"
                 android:background="@color/lighterGrey"
                 android:paddingTop="@dimen/padding_10"
