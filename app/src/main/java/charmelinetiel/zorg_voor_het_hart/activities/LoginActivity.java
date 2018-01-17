@@ -413,9 +413,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } catch (IntentSender.SendIntentException e) {
                 Log.e(TAG, "STATUS: Failed to send resolution.", e);
             }
-        } else {
-            goToMainActivity();
         }
+//        else {
+//            goToMainActivity();
+//        }
     }
 
     private void processRetrievedCredential(Credential credential) {
