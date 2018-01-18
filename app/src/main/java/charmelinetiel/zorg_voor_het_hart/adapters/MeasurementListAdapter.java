@@ -115,7 +115,6 @@ public class MeasurementListAdapter extends BaseAdapter {
         }
             return convertView;
 
-
     }
 
 }

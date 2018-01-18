@@ -115,7 +115,6 @@ public class RegisterStep1Fragment extends Fragment
                 User.getInstance().setLastname(lastName.getText().toString());
                 User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
                 User.getInstance().setGender(genderId);
-                User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
 
                     if(validInput()) {
 

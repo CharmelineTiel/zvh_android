@@ -271,7 +271,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             User.setInstance(response.body());
             goToMainActivity();
-            saveCredential(credential);
+            try{
+                saveCredential(credential);
+            }catch (Exception e){
+
+            }
         } else {
             //Credentials were invalid, hide progress bar/ delete credentials from google smart lock / show error message
             hideProgressBar();
