@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 
@@ -41,7 +40,8 @@ public class MeasurementSavedFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.toDiary:
-                mainActivity.openFragment(new DiaryFragment());
+                //Navigate to diary by selecting the diary item in the bottom nav
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.diary);
                 break;
             case R.id.toHome:
                 mainActivity.openFragment(new HomeFragment());

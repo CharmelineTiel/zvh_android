@@ -20,9 +20,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private List<HealthIssue> healthIssues;
     private boolean isEditingMeasurement;
     public static ProgressBar progressBar;
-    private HashMap<Integer, String> navSelectionOptions;
+
     private android.support.design.widget.BottomNavigationView bottomNavigationView;
 
     android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+        //This listener is used to go to fragments by selecting the desired menu item in the bottom nav
             switch (item.getItemId()) {
                 case R.id.measurement:
                     setTitle("Meting");
@@ -104,19 +102,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             startActivity(loginIntent);
         }
 
-
-        initNavSelectionOptions();
         initBottomNav();
-
-    }
-
-    private void initNavSelectionOptions() {
-        navSelectionOptions = new HashMap<>();
-        navSelectionOptions.put(R.id.measurement, HomeFragment.class.getName());
-//        navSelectionOptions.put(R.id.measurement, MeasurementStep2Fragment.class);
-        navSelectionOptions.put(R.id.diary, DiaryFragment.class.getName());
-        navSelectionOptions.put(R.id.contact,ContactHostFragment.class.getName());
-        navSelectionOptions.put(R.id.settings, ServiceFragment.class.getName());
     }
 
     public Measurement getMeasurement() {
@@ -215,19 +201,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     }
 
-    private void setSelectedBottomNavItem(String fragmentClassName) {
-        for(Map.Entry<Integer, String> navItem : navSelectionOptions.entrySet()){
-            if (navItem.getValue().equals(fragmentClassName)){
-                bottomNavigationView.setSelectedItemId(navItem.getKey());
-            }
-        }
-
-    }
-
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content);
-
         //If we're at the home fragment, exit the mainactivity
         if(currentFragment instanceof HomeFragment){
             finish();
@@ -236,16 +212,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             getSupportFragmentManager().popBackStack();
         //If we're somewhere else, go to home
         }else {
-            openFragment(new HomeFragment());
+            bottomNavigationView.setSelectedItemId(R.id.measurement);
         }
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-        FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(count - 1);
-
-        String name = backStackEntry.getName();
-        setSelectedBottomNavItem(name);
     }
-
-
 
     public void initBottomNav() {
         bottomNavigationView = findViewById(R.id.navigation);
@@ -264,7 +233,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         }
 
         bottomNavigationView.setSelectedItemId(R.id.measurement);
-
     }
-
+    public android.support.design.widget.BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
 }

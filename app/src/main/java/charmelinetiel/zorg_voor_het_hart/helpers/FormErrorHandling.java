@@ -50,7 +50,6 @@ public class FormErrorHandling {
         return true;
     }
 
-
     public boolean inputValidLength(String lengthString){
         int length;
 
