@@ -53,12 +53,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mainActivity.setTitle("Meting");
 
 
-        if(ServiceFragment.getPref("lastMeasurementDate", this.getContext()) == null){
+        if(ServiceFragment.getPref(User.getInstance().getId() + "Date", this.getContext()) == null){
 
             metingText.setText("Start hier een nieuwe meting");
 
 
-        } else if (ServiceFragment.getPref("lastMeasurementDate",this.getContext()).equals(mainActivity.dateTimeNow())){
+        } else if (ServiceFragment.getPref(User.getInstance().getId() + "Date",this.getContext()).equals(mainActivity.dateTimeNow())){
 
             metingText.setText("U heeft vandaag al een meting gedaan, wilt u nog een meting doen?");
 

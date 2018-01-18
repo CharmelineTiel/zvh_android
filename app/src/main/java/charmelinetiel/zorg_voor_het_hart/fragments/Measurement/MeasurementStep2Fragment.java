@@ -55,6 +55,7 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
             if(mainActivity.getMeasurement().getHealthIssueIds().size() > 0 ||
                     !mainActivity.getMeasurement().getHealthIssueOther().isEmpty()){
                 measurementRadioGroup.check(R.id.yesNamelyRadio);
+
                 showIssues();
             }
         }else{

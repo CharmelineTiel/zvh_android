@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     public void setDateOfLastMeasurement(){
 
-        ServiceFragment.putPref("lastMeasurementDate", dateTimeNow(), this);
+        ServiceFragment.putPref(User.getInstance().getId() + "Date", dateTimeNow(), this);
     }
 
     @Override
