@@ -42,12 +42,7 @@
             android:layout_gravity="center_horizontal"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_zvh" />
-    <TextView
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
-        android:text="E-mail"/>
+
     <EditText
         android:id="@+id/username"
         android:width="@dimen/form_field_mobile"
@@ -59,16 +54,10 @@
         android:layout_marginRight="@dimen/margin_15"
         android:padding="@dimen/padding_10"
         android:textSize="@dimen/normal_text_mobile"
+        android:layout_marginBottom="@dimen/margin_20"
         android:inputType="textEmailAddress"
         android:hint="Vul uw e-mail in"/>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_15"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/margin_15"
-        android:text="Wachtwoord"/>
     <EditText
         android:layout_below="@+id/username"
         android:width="@dimen/form_field_mobile"

@@ -180,6 +180,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         spinnerView.setVisibility(View.INVISIBLE);
         consultantTitle.setVisibility(View.INVISIBLE);
         consultantText.setVisibility(View.INVISIBLE);
+        infoToolTip.setVisibility(View.INVISIBLE);
     }
 
     private void hideProgressBar(){
@@ -189,6 +190,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         backButton.setVisibility(View.VISIBLE);
         consultantTitle.setVisibility(View.VISIBLE);
         consultantText.setVisibility(View.VISIBLE);
+        infoToolTip.setVisibility(View.GONE);
     }
 
     private void setDefaultValueSpinner(){
