@@ -193,8 +193,8 @@ public class RegisterStep1Fragment extends Fragment
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
             monthOfYear += 1;
-            String date = String.valueOf(year) + "-" + String.valueOf(monthOfYear)
-                    + "-" + String.valueOf(dayOfMonth);
+            String date = String.valueOf(dayOfMonth) + "-" + String.valueOf(monthOfYear)
+                    + "-" + String.valueOf(year);
             dateOfBirth.setText(date);
         }, yy, mm, dd);
         datePicker.show();

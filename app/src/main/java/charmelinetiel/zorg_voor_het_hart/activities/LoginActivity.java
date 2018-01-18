@@ -84,6 +84,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
+        progressBar = findViewById(R.id.progressBar);
+        loginPage = findViewById(R.id.loginPage);
+
+
         //Get the intent and data to determine if the activity was entered by deep link
         Intent intent = getIntent();
         data = intent.getData();
@@ -113,8 +117,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             setSupportActionBar(toolbar);
             setTitle(R.string.title_activity_login);
 
-            progressBar = findViewById(R.id.progressBar);
-            loginPage = findViewById(R.id.loginPage);
             email = findViewById(R.id.username);
             password = findViewById(R.id.password);
 

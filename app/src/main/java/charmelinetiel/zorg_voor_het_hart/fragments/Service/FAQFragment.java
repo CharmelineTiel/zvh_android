@@ -29,7 +29,6 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
     private Button contactBtn;
     private MainActivity mainActivity;
     ExpandableLayout sectionLinearLayout;
-    private Button backBtn;
 
     public FAQFragment() {
         // Required empty public constructor
@@ -46,9 +45,6 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         sectionLinearLayout = v.findViewById(R.id.el);
         contactBtn = v.findViewById(R.id.contactBtn);
         contactBtn.setOnClickListener(this);
-        
-        backBtn = v.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(this);
 
         sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<String, String>() {
             @Override

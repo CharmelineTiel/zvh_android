@@ -110,19 +110,26 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
             }
             //go down a line if needed
             if(i != m.getHealthIssueIds().size()-1 || !m.getHealthIssueOther().equals("")){
-                healthIssuesText += "\n ";
+                healthIssuesText += "\n";
             }
         }
         issues.setText(healthIssuesText);
     }
 
     private void setLabels() {
-        if(m.getHealthIssueIds().size() == 0 && (m.getHealthIssueOther().equals("") || m.getHealthIssueOther() == null)){
+        //if theres no healthissues or other healthissue, hide both labels
+        if(m.getHealthIssueIds().size() == 0 && (m.getHealthIssueOther().isEmpty() || m.getHealthIssueOther() == null)){
             issuesLbl.setVisibility(View.GONE);
             issues.setVisibility(View.GONE);
         }
+        //if there is no other healthissue, hide the label
         if(m.getHealthIssueOther().isEmpty()){
             extraLbl.setVisibility(View.GONE);
+        }
+        //if there is an other healthissue but no healthissues, only show the issuesLbl
+        if(!m.getHealthIssueOther().isEmpty() && m.getHealthIssueIds().size() == 0){
+            extraLbl.setVisibility(View.GONE);
+            issues.setVisibility(View.GONE);
         }
     }
 
