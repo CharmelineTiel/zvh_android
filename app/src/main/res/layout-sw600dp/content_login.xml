@@ -59,6 +59,7 @@
         android:layout_marginLeft="@dimen/margin_30"
         android:layout_marginRight="@dimen/margin_30"
         android:padding="@dimen/padding_10"
+        android:maxLines="1"
         android:textSize="@dimen/normal_text_tablet"
         android:inputType="textEmailAddress"
         android:hint="Vul uw e-mail in"/>
@@ -78,6 +79,7 @@
         android:layout_marginLeft="@dimen/margin_30"
         android:layout_marginRight="@dimen/margin_30"
         android:padding="@dimen/padding_10"
+        android:maxLines="1"
         android:textSize="@dimen/normal_text_tablet"
         android:inputType="textPassword"
         android:layout_width="match_parent"

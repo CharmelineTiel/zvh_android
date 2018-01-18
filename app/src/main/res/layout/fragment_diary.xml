@@ -1,10 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="charmelinetiel.android_tablet_zvg.charmelinetiel.zorgVoorHetHart.fragments.Diary.DiaryFragment">
-
+    android:orientation="vertical">
     <LinearLayout
         android:id="@+id/selectDiaryView"
         android:layout_centerHorizontal="true"
@@ -18,8 +15,10 @@
         android:text="Weekoverzicht"
         android:paddingRight="@dimen/margin_15"
         android:paddingLeft="@dimen/margin_15"
+        android:drawablePadding="8dp"
+        android:drawableRight="@drawable/ic_check_black_24dp"
+        android:background="@drawable/border_radius_button"
         android:layout_marginLeft="@dimen/padding_20"
-        android:background="@color/lighterGrey"
         android:textColor="@color/ms_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -27,9 +26,10 @@
         <Button
             android:id="@+id/monthOverview"
             android:text="Maandoverzicht"
+            android:background="@drawable/border_radius_button"
             android:paddingRight="@dimen/margin_15"
             android:paddingLeft="@dimen/margin_15"
-            android:background="@color/lighterGrey"
+            android:drawablePadding="8dp"
             android:textColor="@color/lightGrey"
             android:layout_marginLeft="@dimen/padding_20"
             android:layout_width="wrap_content"
@@ -40,7 +40,8 @@
             android:text="Grafiek overzicht"
             android:paddingRight="@dimen/margin_15"
             android:paddingLeft="@dimen/margin_15"
-            android:background="@color/lighterGrey"
+            android:visibility="gone"
+            android:background="@drawable/border_radius_button"
             android:textColor="@color/lightGrey"
             android:layout_marginLeft="@dimen/padding_20"
             android:layout_width="wrap_content"

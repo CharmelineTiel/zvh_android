@@ -89,8 +89,8 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         editLength =(EditTextPreference) findPreference("editLength");
         editWeight = (EditTextPreference) findPreference("editWeight");
 
-        editWeight.setSummary("Uw gewicht: " + getPref("editWeight", getContext()));
-        editLength.setSummary("Uw lengte: " + getPref("editLength", getContext()));
+        editWeight.setSummary("Uw gewicht (kg): " + User.getInstance().getWeight());
+        editLength.setSummary("Uw lengte (cm): " + User.getInstance().getLength());
 
         getActivity().setTheme(R.style.preferenceTheme);
 
@@ -199,12 +199,8 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
             public boolean onPreferenceChange(Preference preference, Object newLength) {
 
                 if (preference instanceof EditTextPreference){
-                    EditTextPreference length =  (EditTextPreference)preference;
                     if (formErrorHandling.inputValidLength(newLength.toString())){
-                        length.setSummary("Uw lengte: " + newLength.toString());
-
-                        putPref("editLength", newLength.toString(), getContext());
-                        editLength = length;
+                        editLength.setSummary("Uw lengte (cm): " + newLength.toString());
 
                         UserLengthWeight userLength = new UserLengthWeight();
                         try {
@@ -217,6 +213,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
                             public void onResponse(Call<User> call, Response<User> response) {
 
                                 if(response.body() != null && response.isSuccessful()){
+                                    User.getInstance().setLength(Integer.parseInt(newLength.toString()));
                                     Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
                                             .show();
                                 }else{
@@ -230,8 +227,10 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
                             }
                         });
                     }else{
-                        length.setSummary("Uw lengte: " +  editLength.getText());
+                        Toast.makeText(getActivity(), "Vul een geldige lengte in in gehele centimeters", Toast.LENGTH_SHORT)
+                                .show();
                     }
+
                 }
                 return false;
             }
@@ -246,7 +245,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
                     EditTextPreference weight =  (EditTextPreference)preference;
                     if (formErrorHandling.inputValidWeight(newWeight.toString()) ){
 
-                        weight.setSummary("Uw gewicht: " + newWeight);
+                        weight.setSummary("Uw gewicht (kg): " + newWeight);
                         editWeight.setText(newWeight.toString());
 
                         putPref("editWeight", newWeight.toString(), getContext());
@@ -264,7 +263,9 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
                             public void onResponse(Call<User> call, Response<User> response) {
 
                                 if (response.body() != null && response.isSuccessful()){
-
+                                    User.getInstance().setWeight(Integer.parseInt(newWeight.toString()));
+                                    Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
+                                            .show();
                                 }else{
                                     mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
                                 }
@@ -278,7 +279,8 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
                         Toast.makeText(getActivity(), "Uw gewicht is aangepast", Toast.LENGTH_SHORT)
                                 .show();
                     }else{
-                        weight.setSummary("Uw gewicht: " + editWeight.getText());
+                        Toast.makeText(getActivity(), "Vul een geldig gewicht in in gehele kilogrammen", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 }
                 return false;

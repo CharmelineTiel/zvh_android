@@ -8,7 +8,13 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+
+    <RelativeLayout
+        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/logindetailsTitle"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginLeft="@dimen/margin_20"
         android:textStyle="bold"
@@ -17,36 +23,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/toolTipLoginInfo"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_toRightOf="@+id/logindetailsTitle"
+        android:layout_marginTop="20dp"
+        android:tooltipText="@string/toolTipRegister"
+        android:src="@drawable/ic_info_black_32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_20"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:paddingLeft="@dimen/margin_20"
-        android:text="E-mailadres"/>
+    </RelativeLayout>
+
+
 
         <EditText
             android:id="@+id/email"
+            android:maxLines="1"
             android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
             android:padding="@dimen/padding_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_20"
             android:textSize="@dimen/normal_text_tablet"
-            android:textColor="@color/lightGrey"
             android:hint="Vul uw e-mail in"/>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_20"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:paddingLeft="@dimen/margin_20"
-        android:text="Wachtwoord"/>
+
 
         <EditText
             android:id="@+id/pass1"
@@ -57,18 +61,11 @@
             android:layout_marginRight="@dimen/margin_20"
             android:padding="@dimen/margin_15"
             android:textSize="@dimen/normal_text_tablet"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:maxLines="1"
             android:inputType="textPassword"
-            android:textColor="@color/lightGrey"
             android:hint="Vul een wachtwoord in"/>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_20"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:paddingLeft="@dimen/margin_20"
-        android:text="Herhaal wachtwoord"/>
 
         <EditText
             android:id="@+id/pass2"
@@ -77,11 +74,11 @@
             android:layout_marginRight="@dimen/margin_20"
             android:layout_marginBottom="@dimen/margin_20"
             android:padding="@dimen/padding_15"
+            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/normal_text_tablet"
             android:inputType="textPassword"
-            android:textColor="@color/lightGrey"
             android:hint="Herhaal uw wachtwoord"/>
 
 

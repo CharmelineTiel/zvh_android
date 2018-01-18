@@ -30,6 +30,7 @@
     <TextView
         android:id="@+id/bovendruk_text"
         android:textStyle="bold"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fillInText"
@@ -41,6 +42,7 @@
     <TextView
         android:id="@+id/onderdruk_text"
         android:textStyle="bold"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/upperBloodPressure"
@@ -67,6 +69,7 @@
         android:layout_below="@+id/bovendruk_text"
         android:layout_toEndOf="@+id/bovendruk_image"
         android:width="150dp"
+        android:maxLines="1"
         android:background="@color/lighterGrey"
         android:hint="0"
         android:inputType="number"
@@ -97,6 +100,7 @@
         android:layout_marginRight="@dimen/margin_15"
         android:padding="@dimen/padding_10"
         android:hint="0"
+        android:maxLines="1"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="@dimen/normal_text_mobile"

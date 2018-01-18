@@ -9,9 +9,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <TextView
-        android:id="@+id/consultant_title"
-        android:layout_marginTop="30dp"
+        android:id="@+id/consultantTitle"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="@dimen/margin_15"
         android:textStyle="bold"
         android:textSize="20dp"
@@ -19,6 +24,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/toolTipConsultant"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_toRightOf="@+id/consultantTitle"
+        android:layout_marginTop="17dp"
+        android:tooltipText="@string/toolTipRegister"
+        android:src="@drawable/ic_info_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/consultant_text"
@@ -44,7 +60,9 @@
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_15"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:paddingRight="@dimen/margin_15"
         android:background="@color/lighterGrey">
 
         <Spinner
@@ -54,19 +72,18 @@
             android:width="@dimen/form_field_mobile"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_15"
+            android:padding="5dp"
             android:textSize="@dimen/normal_text_mobile"
-            android:textColor="@color/lightGrey"
             />
 
         <ImageView
             android:src="@drawable/ic_expand_more_black_24dp"
             android:id="@+id/arrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="16dp"/>
+            />
 
     </RelativeLayout>
 

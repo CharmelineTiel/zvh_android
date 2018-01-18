@@ -24,7 +24,7 @@ import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeasurementDetailFragment extends Fragment implements View.OnClickListener {
+public class DiaryDetailFragment extends Fragment implements View.OnClickListener {
 
     private final int BLOODPRESSURE_GOOD = 0;
     private final int BLOODPRESSURE_MEDIUM = 1;
@@ -36,7 +36,7 @@ public class MeasurementDetailFragment extends Fragment implements View.OnClickL
     private List<HealthIssue> healthIssues;
     private RelativeLayout layout;
 
-    public MeasurementDetailFragment() {
+    public DiaryDetailFragment() {
         // Required empty public constructor
     }
 

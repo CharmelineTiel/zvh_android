@@ -2,15 +2,20 @@ package charmelinetiel.zorg_voor_het_hart.fragments.Register;
 
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+
+import com.tooltip.Tooltip;
 
 import java.util.Calendar;
 
@@ -28,9 +33,9 @@ public class RegisterStep1Fragment extends Fragment
     private EditText firstName;
     private EditText lastName;
     private EditText dateOfBirth;
-    private EditText email, length, weight;
-    private Button btn1, btn2;
+    private EditText length, weight;
     private RadioGroup gender;
+    private ImageView infoToolTip;
     private View v;
     private FormErrorHandling validateForm;
     private RegisterActivity registerActivity;
@@ -40,6 +45,7 @@ public class RegisterStep1Fragment extends Fragment
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,32 +61,51 @@ public class RegisterStep1Fragment extends Fragment
         dateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b){
+                if (b) {
                     setDate();
                 }
             }
         });
 
-        v.findViewById(R.id.firstBtn).setOnClickListener(this);
-        v.findViewById(R.id.secondBtn).setOnClickListener(this);
+        v.findViewById(R.id.cancelButton).setOnClickListener(this);
+        v.findViewById(R.id.nextButton).setOnClickListener(this);
 
         initViews();
+
+        infoToolTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                        .setCancelable(true)
+                        .setDismissOnClick(false)
+                        .setCornerRadius(8f)
+                        .setPadding(30f)
+                        .setMargin(10f)
+                        .setTextColor(getResources().getColor(R.color.whiteText))
+                        .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                        .setGravity(Gravity.BOTTOM)
+                        .setText("Om u zo goed mogelijk te kunnen ondersteunen vragen wij u om enkele persoonsgegevens");
+                builder.show();
+            }
+        });
 
         return v;
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         // Apply any required UI change now that the DiaryMonthFragment is visible.
 
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
     }
+
     @Override
     public void onClick(View view) {
 
@@ -92,14 +117,14 @@ public class RegisterStep1Fragment extends Fragment
 
                 break;
 
-            case R.id.secondBtn:
+            case R.id.nextButton:
 
                 int index = gender.indexOfChild(registerActivity.findViewById(gender.getCheckedRadioButtonId()));
                 int genderId;
 
-                if(index == 0){
+                if (index == 0) {
                     genderId = 1;
-                }else{
+                } else {
 
                     genderId = 2;
                 }
@@ -107,7 +132,7 @@ public class RegisterStep1Fragment extends Fragment
                 try {
                     User.getInstance().setLength(Integer.parseInt(length.getText().toString()));
                     User.getInstance().setWeight(Integer.parseInt(weight.getText().toString()));
-                }catch (Exception e){
+                } catch (Exception e) {
 
 
                 }
@@ -116,13 +141,13 @@ public class RegisterStep1Fragment extends Fragment
                 User.getInstance().setDateOfBirth(dateOfBirth.getText().toString());
                 User.getInstance().setGender(genderId);
 
-                    if(validInput()) {
+                if (validInput()) {
 
-                        registerActivity.openFragment(new RegisterStep2Fragment());
-                    }
+                    registerActivity.openFragment(new RegisterStep2Fragment());
+                }
                 break;
 
-            case R.id.firstBtn:
+            case R.id.cancelButton:
 
                 getFragmentManager().popBackStack();
                 break;
@@ -130,31 +155,29 @@ public class RegisterStep1Fragment extends Fragment
     }
 
 
-    private boolean validInput()
-    {
+    private boolean validInput() {
         validateForm = new FormErrorHandling();
 
-        if(!validateForm.inputValidString(firstName)){
+        if (!validateForm.inputValidString(firstName)) {
 
             firstName.setError("Vul uw voornaam in");
             return false;
         }
-        if(!validateForm.inputValidString(lastName)){
+        if (!validateForm.inputValidString(lastName)) {
 
             lastName.setError("Vul uw achternaam in");
             return false;
         }
-        if(!validateForm.inputValidString(dateOfBirth)){
+        if (!validateForm.inputValidString(dateOfBirth)) {
 
             dateOfBirth.setError("Vul uw geboortedatum in");
             return false;
         }
-
-        if(!validateForm.inputValidLength(length.getText().toString().trim())){
+        if (!validateForm.inputValidLength(length.getText().toString().trim())) {
             length.setError("Vul een geldige lengte in in gehele centimeters");
             return false;
         }
-        if(!validateForm.inputValidWeight(weight.getText().toString().trim())){
+        if (!validateForm.inputValidWeight(weight.getText().toString().trim())) {
             weight.setError("Vul een geldig gewicht in in gehele kilogrammen");
             return false;
         }
@@ -162,10 +185,10 @@ public class RegisterStep1Fragment extends Fragment
         return true;
     }
 
-    public void setDate(){
+    public void setDate() {
 
         final Calendar calendar = Calendar.getInstance();
-        int yy = calendar.get(Calendar.YEAR) -65;
+        int yy = calendar.get(Calendar.YEAR) - 65;
         int mm = calendar.get(Calendar.MONTH);
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(), (DatePicker view1, int year, int monthOfYear, int dayOfMonth) -> {
@@ -182,8 +205,9 @@ public class RegisterStep1Fragment extends Fragment
         weight = v.findViewById(R.id.weight_input);
         firstName = v.findViewById(R.id.firstName);
         lastName = v.findViewById(R.id.lastName);
-        email = v.findViewById(R.id.email);
         gender = v.findViewById(R.id.radioGender);
+        infoToolTip = v.findViewById(R.id.toolTipPersonalInfo);
+
     }
 
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class MeasurementListAdapter extends BaseAdapter {
         TextView bloodPressure;
         TextView date;
         TextView feedbackMessage;
+        ImageView feedbackIcon;
         RelativeLayout layout;
     }
 
@@ -80,17 +82,19 @@ public class MeasurementListAdapter extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null) {
+
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.measurement_list, null);
 
-            viewHolder.title = convertView.findViewById(R.id.titleLbl);
-            viewHolder.bloodPressure = convertView.findViewById(R.id.bloodPressureLbl);
-            viewHolder.date = convertView.findViewById(R.id.dateLbl);
-            viewHolder.feedbackMessage = convertView.findViewById(R.id.feedbackLbl);
-            viewHolder.layout = convertView.findViewById(R.id.measurement_list_item);
+                convertView = inflater.inflate(R.layout.measurement_list, null);
+                viewHolder.title = convertView.findViewById(R.id.titleLbl);
+                viewHolder.bloodPressure = convertView.findViewById(R.id.bloodPressureLbl);
+                viewHolder.date = convertView.findViewById(R.id.dateLbl);
+                viewHolder.feedbackMessage = convertView.findViewById(R.id.feedbackLbl);
+                viewHolder.layout = convertView.findViewById(R.id.measurement_list_item);
 
-            convertView.setTag(viewHolder);
+                convertView.setTag(viewHolder);
+
         }else{
 
             viewHolder = (ViewHolder) convertView.getTag();
@@ -101,17 +105,26 @@ public class MeasurementListAdapter extends BaseAdapter {
                 "Onderdruk: " +
                 m.getBloodPressureLower().toString());
 
-        viewHolder.feedbackMessage.setText(m.getFeedback());
 
-        if (m.getResult() == BLOODPRESSURE_GOOD) {
-            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
-            viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
-        }else if(m.getResult() == BLOODPRESSURE_MEDIUM){
-            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.mediumFeedbackTxt));
-            viewHolder.layout.setBackgroundResource(R.color.mediumFeedback);
-        }else if(m.getResult() == BLOODPRESSURE_BAD){
-            viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
-            viewHolder.layout.setBackgroundResource(R.color.negativeFeedback);
+            viewHolder.feedbackMessage.setText(m.getFeedback());
+
+            if (m.getResult() == BLOODPRESSURE_GOOD) {
+
+                viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.positiveFeedbackTxt));
+                viewHolder.layout.setBackgroundResource(R.color.positiveFeedback);
+
+            } else if (m.getResult() == BLOODPRESSURE_MEDIUM) {
+
+
+                viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.mediumFeedbackTxt));
+                viewHolder.layout.setBackgroundResource(R.color.mediumFeedback);
+
+            } else if (m.getResult() == BLOODPRESSURE_BAD) {
+
+                viewHolder.feedbackMessage.setTextColor(ContextCompat.getColor(context, R.color.negativeFeedbackTxt));
+                viewHolder.layout.setBackgroundResource(R.color.negativeFeedback);
+
+
         }
             return convertView;
 

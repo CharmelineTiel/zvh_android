@@ -50,21 +50,10 @@ public class FormErrorHandling {
         return true;
     }
 
-    public boolean inputValidInt(String text){
-
-        try {
-
-            Integer.parseInt(text.trim());
-
-        }catch (Exception e){
-            return false;
-        }
-
-        return true;
-    }
 
     public boolean inputValidLength(String lengthString){
-        int length = 0;
+        int length;
+
         try {
 
             length = Integer.parseInt(lengthString.trim());
@@ -73,11 +62,11 @@ public class FormErrorHandling {
             return false;
         }
 
-        return (length > 110 && length < 230);
+        return (length >= 80 && length <= 230);
     }
 
     public boolean inputValidWeight(String weightString){
-        int weight = 0;
+        int weight;
         try {
 
             weight = Integer.parseInt(weightString.trim());
@@ -86,7 +75,7 @@ public class FormErrorHandling {
             return false;
         }
 
-        return (weight > 30 && weight < 300);
+        return (weight >= 30 && weight <= 350);
     }
 
 }

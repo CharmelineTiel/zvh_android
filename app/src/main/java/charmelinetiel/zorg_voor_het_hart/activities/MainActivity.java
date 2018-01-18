@@ -20,11 +20,14 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.HomeFragment;
+import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementStep2Fragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Service.ServiceFragment;
 import charmelinetiel.zorg_voor_het_hart.helpers.BottomNavigationView;
@@ -46,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private List<HealthIssue> healthIssues;
     private boolean isEditingMeasurement;
     public static ProgressBar progressBar;
-
+    private HashMap<Integer, String> navSelectionOptions;
+    private android.support.design.widget.BottomNavigationView bottomNavigationView;
 
     android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
             switch (item.getItemId()) {
                 case R.id.measurement:
-
                     setTitle("Meting");
                     openFragment(new HomeFragment());
                     return true;
@@ -92,8 +95,6 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-
-
         if (User.getInstance().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
 
             apiService.getAllHealthIssues(User.getInstance().getAuthToken()).enqueue(this);
@@ -104,22 +105,19 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         }
 
 
+        initNavSelectionOptions();
         initBottomNav();
 
     }
 
-    public void openFragment(final Fragment fg) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content, fg, fg.toString());
-
-        List<Fragment> fragments = fragmentManager.getFragments();
-
-            ft.addToBackStack(fg.toString());
-
-        ft.commit();
+    private void initNavSelectionOptions() {
+        navSelectionOptions = new HashMap<>();
+        navSelectionOptions.put(R.id.measurement, HomeFragment.class.getName());
+//        navSelectionOptions.put(R.id.measurement, MeasurementStep2Fragment.class);
+        navSelectionOptions.put(R.id.diary, DiaryFragment.class.getName());
+        navSelectionOptions.put(R.id.contact,ContactHostFragment.class.getName());
+        navSelectionOptions.put(R.id.settings, ServiceFragment.class.getName());
     }
-
 
     public Measurement getMeasurement() {
         return measurement;
@@ -208,37 +206,49 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         snackbar.show();
     }
 
-    @Override
-    public void onBackPressed() {
+    public void openFragment(final Fragment fg) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content, fg, fg.toString());
+        ft.addToBackStack(fg.toString());
+        ft.commit();
 
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        Fragment currentFragment = fragments.get(fragments.size()-1);
+    }
 
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-
-
-            for (int i = 0; i < fragments.size(); i++) {
-
-                if (currentFragment instanceof HomeFragment) {
-
-                    finish();
-                }else{
-
-                    getSupportFragmentManager().popBackStack();
-
-                }
-
+    private void setSelectedBottomNavItem(String fragmentClassName) {
+        for(Map.Entry<Integer, String> navItem : navSelectionOptions.entrySet()){
+            if (navItem.getValue().equals(fragmentClassName)){
+                bottomNavigationView.setSelectedItemId(navItem.getKey());
             }
-
         }
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content);
+
+        //If we're at the home fragment, exit the mainactivity
+        if(currentFragment instanceof HomeFragment){
+            finish();
+        //If we're at the measurement step 2, go back to step 1
+        }else if(currentFragment instanceof MeasurementStep2Fragment) {
+            getSupportFragmentManager().popBackStack();
+        //If we're somewhere else, go to home
+        }else {
+            openFragment(new HomeFragment());
+        }
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(count - 1);
+
+        String name = backStackEntry.getName();
+        setSelectedBottomNavItem(name);
     }
 
 
 
     public void initBottomNav() {
-        android.support.design.widget.BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationView.removeShiftMode(bottomNavigationView);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);

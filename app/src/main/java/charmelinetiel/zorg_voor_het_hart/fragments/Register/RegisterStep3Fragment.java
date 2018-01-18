@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.tooltip.Tooltip;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
-import charmelinetiel.zorg_voor_het_hart.models.Consultant;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
+import charmelinetiel.zorg_voor_het_hart.models.Consultant;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
 import charmelinetiel.zorg_voor_het_hart.webservices.RetrofitClient;
@@ -48,12 +51,14 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     private RegisterActivity registerActivity;
     private ProgressBar progressBar;
     private TextView consultantText, consultantTitle;
+    private ImageView infoToolTip;
 
     public RegisterStep3Fragment() {
         // Required empty public constructor
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,22 +67,33 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         registerActivity.setTitle("Registreren stap 3 van 3");
         v = inflater.inflate(R.layout.fragment_register_step3, container, false);
 
-        consultantText = v.findViewById(R.id.consultant_text);
-        consultantTitle = v.findViewById(R.id.consultant_title);
-        progressBar = v.findViewById(R.id.progressBar);
-
-        spinnerView = v.findViewById(R.id.spinner);
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        registerButton = v.findViewById(R.id.registerBtn);
-        registerButton.setOnClickListener(this);
+        initViews();
 
-        backButton = v.findViewById(R.id.backBtn);
+        registerButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
 
-        consultantsView =  v.findViewById(R.id.consultants);
+
+        infoToolTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                        .setCancelable(true)
+                        .setDismissOnClick(false)
+                        .setCornerRadius(8f)
+                        .setPadding(30f)
+                        .setMargin(10f)
+                        .setTextColor(getResources().getColor(R.color.whiteText))
+                        .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                        .setGravity(Gravity.BOTTOM)
+                        .setText("Uw consulent bij het St.Antonius ziekenhuis");
+                builder.show();
+            }
+        });
 
         setDefaultValueSpinner();
 
@@ -151,7 +167,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     private void ConsultantsDropdown(){
         allConsultants.addAll(Consultant.getConsultants());
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
-
         consultantsView.setSelection(0,true);
         consultantsView.setVerticalScrollBarEnabled(true);
         consultantsView.setPadding(30, 30,30,30);
@@ -177,7 +192,6 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     }
 
     private void setDefaultValueSpinner(){
-
         allConsultants = new ArrayList<>();
         Consultant defaultChoice = new Consultant();
         defaultChoice.setFirstname("Selecteer uw consulent");
@@ -185,6 +199,18 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         defaultChoice.setLastname("");
         allConsultants.add(0, defaultChoice);
 
+    }
+
+    private void initViews()
+    {
+        consultantText = v.findViewById(R.id.consultant_text);
+        consultantTitle = v.findViewById(R.id.consultantTitle);
+        progressBar = v.findViewById(R.id.progressBar);
+        registerButton = v.findViewById(R.id.registerBtn);
+        spinnerView = v.findViewById(R.id.spinner);
+        backButton = v.findViewById(R.id.backBtn);
+        consultantsView =  v.findViewById(R.id.consultants);
+        infoToolTip = v.findViewById(R.id.toolTipConsultant);
 
     }
 }

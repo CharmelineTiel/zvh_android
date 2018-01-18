@@ -1,15 +1,20 @@
 package charmelinetiel.zorg_voor_het_hart.fragments.Register;
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.tooltip.Tooltip;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
@@ -27,7 +32,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
     private View v;
     private APIService apiService;
-    private Button btn1, btn2;
+    private ImageView infoToolTip;
     private EditText email, pass1, pass2;
     private FormErrorHandling validateForm;
     private RegisterActivity registerActivity;
@@ -37,6 +42,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,9 +59,25 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         v.findViewById(R.id.backBtn).setOnClickListener(this);
 
 
-        email = v.findViewById(R.id.email);
-        pass1 = v.findViewById(R.id.pass1);
-        pass2 = v.findViewById(R.id.pass2);
+        initViews();
+
+        infoToolTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                        .setCancelable(true)
+                        .setDismissOnClick(false)
+                        .setCornerRadius(8f)
+                        .setPadding(30f)
+                        .setMargin(20f)
+                        .setGravity(Gravity.BOTTOM)
+                        .setTextColor(getResources().getColor(R.color.whiteText))
+                        .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                        .setText("Om in te kunnen loggen heeft u een email en een wachtwoord nodig");
+                builder.show();
+            }
+        });
 
         return v;
     }
@@ -104,6 +126,15 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             email.setError("Vul uw e-mail in");
             return false;
         }
+        if (pass1.getText().toString().trim().equals("")) {
+
+            pass1.setError("Vul een wachtwoord in");
+            return false;
+        }
+        if (pass2.getText().toString().trim().equals("")) {
+            pass2.setError("Herhaal uw wachtwoord in");
+            return false;
+        }
 
         pass2.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,11 +145,12 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String pass = pass1.getText().toString();
+                String pass = pass1.getText().toString().trim();
                 if (charSequence.length() > 0 && pass.length() > 0) {
-                    if(!pass2.getText().toString().equals(pass)){
+                    if(!pass2.getText().toString().trim().equals(pass)){
 
-                        pass2.setError("Uw wachtwoord komt niet overeen");
+                        pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+
                     }
 
                 }
@@ -126,40 +158,37 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = pass1.getText().toString();
+                String pass = pass1.getText().toString().trim();
                 if (editable.length() > 0 && pass.length() > 0) {
-                    if(!pass2.getText().toString().equals(pass)){
+                    if(!pass2.getText().toString().trim().equals(pass)){
 
                         pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+
                     }
 
                 }
             }
         });
 
-        if (pass1.getText().toString().trim().equals("")) {
 
-            pass1.setError("Vul een wachtwoord in");
-
-            if (!validateForm.inputValidString(pass1)) {
-                pass1.setError("Vul een wachtwoord in");
-
-                return false;
-            }
-            if (pass2.getText().toString().trim().equals("")) {
-                pass2.setError("Herhaal uw wachtwoord in");
-                return false;
-            } else if (!pass1.getText().toString().equals(pass2.getText().toString())) {
-
+            if (!pass1.getText().toString().trim().equals(pass2.getText().toString().trim())) {
 
                 pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
-                pass1.setError("De ingevoerde wachtwoorden komen niet overeen.");
 
                 return false;
             }
 
-        }
+
         return true;
+    }
+
+    private void initViews(){
+
+        email = v.findViewById(R.id.email);
+        pass1 = v.findViewById(R.id.pass1);
+        pass2 = v.findViewById(R.id.pass2);
+        infoToolTip = v.findViewById(R.id.toolTipLoginInfo);
+
     }
 
 }
