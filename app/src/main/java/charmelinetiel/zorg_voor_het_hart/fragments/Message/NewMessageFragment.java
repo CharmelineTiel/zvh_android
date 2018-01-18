@@ -105,7 +105,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
             case R.id.backBtn:
 
-                mainActivity.getSupportFragmentManager().popBackStack();
+                mainActivity.onBackPressed();
 
                 break;
         }
