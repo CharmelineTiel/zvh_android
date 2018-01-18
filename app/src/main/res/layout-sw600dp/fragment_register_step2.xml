@@ -35,14 +35,7 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_20"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:paddingLeft="@dimen/margin_20"
-        android:text="E-mailadres"/>
+
 
         <EditText
             android:id="@+id/email"
@@ -53,17 +46,11 @@
             android:padding="@dimen/padding_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_20"
             android:textSize="@dimen/normal_text_tablet"
             android:hint="Vul uw e-mail in"/>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_20"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:paddingLeft="@dimen/margin_20"
-        android:text="Wachtwoord"/>
+
 
         <EditText
             android:id="@+id/pass1"
@@ -74,18 +61,11 @@
             android:layout_marginRight="@dimen/margin_20"
             android:padding="@dimen/margin_15"
             android:textSize="@dimen/normal_text_tablet"
+            android:layout_marginBottom="@dimen/margin_20"
             android:maxLines="1"
             android:inputType="textPassword"
             android:hint="Vul een wachtwoord in"/>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_20"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:paddingLeft="@dimen/margin_20"
-        android:text="Herhaal wachtwoord"/>
 
         <EditText
             android:id="@+id/pass2"
