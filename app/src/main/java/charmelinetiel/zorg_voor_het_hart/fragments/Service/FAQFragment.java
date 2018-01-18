@@ -114,11 +114,6 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
                 break;
 
-            case R.id.backBtn:
-
-                mainActivity.onBackPressed();
-
-                break;
 
             }
     }
