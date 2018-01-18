@@ -47,9 +47,9 @@
         <LinearLayout
             android:id="@+id/measurementBtn"
             android:layout_marginTop="210dp"
-            android:padding="@dimen/padding_15"
             android:layout_width="280dp"
             android:layout_height="120dp"
+            android:paddingTop="@dimen/padding_10"
             android:paddingBottom="@dimen/padding_10"
             android:background="@color/whiteTransparent"
             android:layout_centerHorizontal="true"
