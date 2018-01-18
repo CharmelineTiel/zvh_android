@@ -365,11 +365,8 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-
         chart.invalidate(); // refresh
     }
-
-
 
     public void loadMeasurements(DiaryFragment diaryFragment)
     {
