@@ -3,17 +3,14 @@ package charmelinetiel.zorg_voor_het_hart.fragments.Diary;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementStep1Fragment;
@@ -138,13 +135,13 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
 
     private void setBloodPressure() {
         if (m.getResult() == BLOODPRESSURE_GOOD) {
-            feedback.setTextColor(getResources().getColor(R.color.positiveFeedback));
+            feedback.setTextColor(getResources().getColor(R.color.positiveFeedbackTxt));
             layout.setBackgroundColor(getResources().getColor(R.color.positiveFeedback));
         }else if(m.getResult() == BLOODPRESSURE_MEDIUM){
-            feedback.setTextColor(getResources().getColor(R.color.mediumFeedback));
+            feedback.setTextColor(getResources().getColor(R.color.mediumFeedbackTxt));
             layout.setBackgroundColor(getResources().getColor(R.color.mediumFeedback));
         }else if(m.getResult() == BLOODPRESSURE_BAD){
-            feedback.setTextColor(getResources().getColor(R.color.negativeFeedback));
+            feedback.setTextColor(getResources().getColor(R.color.negativeFeedbackTxt));
             layout.setBackgroundColor(getResources().getColor(R.color.negativeFeedback));
         }
     }
