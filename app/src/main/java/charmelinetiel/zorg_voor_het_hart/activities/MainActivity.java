@@ -23,10 +23,13 @@ import java.util.Date;
 import java.util.List;
 
 import charmelinetiel.android_tablet_zvg.R;
+import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryDetailFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Diary.DiaryFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.HomeFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Measurement.MeasurementStep2Fragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
+import charmelinetiel.zorg_voor_het_hart.fragments.Message.MessageDetailFragment;
+import charmelinetiel.zorg_voor_het_hart.fragments.Service.FAQFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Service.ServiceFragment;
 import charmelinetiel.zorg_voor_het_hart.helpers.BottomNavigationView;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
@@ -207,8 +210,11 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         //If we're at the home fragment, exit the mainactivity
         if(currentFragment instanceof HomeFragment){
             finish();
-        //If we're at the measurement step 2, go back to step 1
-        }else if(currentFragment instanceof MeasurementStep2Fragment) {
+        //If we're at a fragment we can move back from, go back
+        }else if(currentFragment instanceof MeasurementStep2Fragment ||
+                currentFragment instanceof DiaryDetailFragment ||
+                currentFragment instanceof MessageDetailFragment ||
+                currentFragment instanceof FAQFragment) {
             getSupportFragmentManager().popBackStack();
         //If we're somewhere else, go to home
         }else {
