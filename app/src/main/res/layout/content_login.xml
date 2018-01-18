@@ -38,7 +38,7 @@
             android:id="@+id/logo"
             android:layout_marginTop="20dp"
             android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_zvh" />
