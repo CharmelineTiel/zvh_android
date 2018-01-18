@@ -89,6 +89,9 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         editLength =(EditTextPreference) findPreference("editLength");
         editWeight = (EditTextPreference) findPreference("editWeight");
 
+        editLength.setText(User.getInstance().getLength().toString());
+        editWeight.setText(User.getInstance().getWeight().toString());
+
         editWeight.setSummary("Uw gewicht (kg): " + User.getInstance().getWeight());
         editLength.setSummary("Uw lengte (cm): " + User.getInstance().getLength());
 
