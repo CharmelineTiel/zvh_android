@@ -74,13 +74,6 @@
         android:layout_height="wrap_content"
         android:hint="Vul uw wachtwoord in"/>
 
-    <CheckBox android:id="@+id/checkbox_autoLogin"
-        android:layout_width="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="@dimen/margin_30"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/normal_text_tablet"
-        android:text="Ingelogd blijven" />
 
         <RelativeLayout
             android:id="@+id/loginLayout"

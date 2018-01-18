@@ -127,7 +127,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Button btn2 = findViewById(R.id.cancelBtn);
             btn2.setOnClickListener(this);
 
-            autoLoginCheckBox = findViewById(R.id.checkbox_autoLogin);
         }
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
