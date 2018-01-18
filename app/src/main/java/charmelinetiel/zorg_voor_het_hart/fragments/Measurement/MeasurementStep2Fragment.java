@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.adapters.CheckboxAdapter;
@@ -101,10 +103,13 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
             case R.id.complete_measurement_button:
 
                 Measurement measurement = mainActivity.getMeasurement();
-                measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
+                if(measurementCheckboxAdapter.getSelectedIssues() != null){
+                    measurement.setHealthIssueIds(measurementCheckboxAdapter.getSelectedIssues());
+                }else{
+                    measurement.setHealthIssueIds(new ArrayList<>());
+                }
                 measurement.setHealthIssueOther(otherNamelyInput.getText().toString());
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
-
 
                 if (yesNamelySelected && measurementCheckboxAdapter.getSelectedIssues().size() == 0
                     && !errorHandling.inputValidString(otherNamelyInput)) {
@@ -113,12 +118,12 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
                 } else {
 
-                        if (mainActivity.isEditingMeasurement()) {
-                            mainActivity.putMeasurement();
-                        } else {
-                            mainActivity.postMeasurement();
-                        }
-                        mainActivity.openFragment(new MeasurementSavedFragment());
+                    if (mainActivity.isEditingMeasurement()) {
+                        mainActivity.putMeasurement();
+                    } else {
+                        mainActivity.postMeasurement();
+                    }
+                    mainActivity.openFragment(new MeasurementSavedFragment());
 
                 }
                     break;

@@ -18,7 +18,7 @@ public class Measurement implements Parcelable
     private String id;
     @SerializedName("healthIssueIds")
     @Expose
-    private List<String> healthIssueIds = null;
+    private List<String> healthIssueIds;
     @SerializedName("bloodPressureLower")
     @Expose
     private Integer bloodPressureLower;
