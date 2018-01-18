@@ -129,6 +129,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
         //if there is an other healthissue but no healthissues, only show the issuesLbl
         if(!m.getHealthIssueOther().isEmpty() && m.getHealthIssueIds().size() == 0){
             extraLbl.setVisibility(View.GONE);
+            issues.setVisibility(View.GONE);
         }
     }
 
