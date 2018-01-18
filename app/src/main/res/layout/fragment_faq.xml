@@ -32,10 +32,11 @@
     android:text="Staat uw vraag er niet bij? Neem contact op met uw consulent. \n \n"
     android:layout_width="250dp"
     android:layout_height="wrap_content" />
-
     android:maxLines="1"
 
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_below="@+id/contactTxt"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

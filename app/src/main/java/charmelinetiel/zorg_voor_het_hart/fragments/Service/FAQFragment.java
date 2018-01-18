@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
+import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
 import charmelinetiel.zorg_voor_het_hart.models.Faq;
 import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
@@ -94,7 +93,6 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
         section.parent = q;
         section.children.add(a);
-
         section.expanded = false;
         return section;
     }
@@ -115,6 +113,13 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
                 mainActivity.openFragment(new ContactHostFragment());
 
                 break;
+
+            case R.id.backBtn:
+
+                mainActivity.getSupportFragmentManager().popBackStack();
+
+                break;
+
             }
     }
 

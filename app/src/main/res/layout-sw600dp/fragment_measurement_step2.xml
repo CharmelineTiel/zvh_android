@@ -45,7 +45,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fillInText"
-            android:textSize="@dimen/normal_text_tablet"
             android:buttonTint="@color/colorPrimaryDark"
             android:text="@string/none"/>
     </RadioGroup>

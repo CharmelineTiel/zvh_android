@@ -157,7 +157,7 @@ public class DiaryFragment extends Fragment {
 
                         mListView.setVisibility(View.VISIBLE);
 
-                        if (screenResolution == "tablet") {
+                        if (screenResolution.equals("tablet")) {
 
                             chart.setVisibility(View.GONE);
                             chartDescription.setVisibility(View.GONE);
@@ -197,7 +197,7 @@ public class DiaryFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     mListView.setVisibility(View.VISIBLE);
 
-                    if (screenResolution == "tablet") {
+                    if (screenResolution.equals("tablet")) {
                         chart.setVisibility(View.GONE);
                         chartDescription.setVisibility(View.GONE);
                     }

@@ -37,13 +37,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contactTxt"
-                android:text="Consulent"
+                android:text="Consulent:"
                 android:layout_marginTop="10dp"
                 />
 
             <TextView
                 android:id="@+id/consultantName"
                 android:layout_width="wrap_content"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/emailLbl"
                 android:width="@dimen/form_field_mobile" />
@@ -51,52 +52,34 @@
             <TextView
                 android:id="@+id/consultantEmail"
                 android:layout_width="wrap_content"
+                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consultantName"
                 android:width="@dimen/form_field_mobile"
-                android:paddingBottom="@dimen/padding_10"
                 android:layout_marginTop="5dp"
                 />
 
-            <TextView
-                android:id="@+id/subjectLbl"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/consultantEmail"
-                android:text="Onderwerp"
-                android:layout_marginTop="10dp"
-                />
             <EditText
                 android:id="@+id/subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/subjectLbl"
+                android:layout_below="@+id/consultantEmail"
                 android:width="@dimen/form_field_mobile"
                 android:maxLines="1"
+                android:layout_marginBottom="@dimen/margin_20"
                 android:background="@color/lighterGrey"
                 android:hint="Vul een onderwerp in"
                 android:padding="@dimen/padding_10" />
-
-
-            <TextView
-                android:id="@+id/messageLbl"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/subject"
-                android:text="Bericht"
-                android:layout_marginTop="10dp"
-                />
 
             <EditText
                 android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/messageLbl"
+                android:layout_below="@+id/subject"
                 android:width="750dp"
                 android:hint="Vul een bericht in"
+                android:height="200dp"
                 android:background="@color/lighterGrey"
                 android:paddingTop="@dimen/padding_10"
                 android:paddingLeft="@dimen/padding_10"

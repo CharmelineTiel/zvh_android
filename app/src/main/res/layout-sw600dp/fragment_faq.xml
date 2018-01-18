@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/margin_15"
         >
+
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -35,6 +36,8 @@
 
 
     <LinearLayout
+        android:layout_below="@+id/contactTxt"
+        android:layout_marginTop="@dimen/margin_20"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -62,7 +65,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact Opnemen"
-
             android:textColor="@color/whiteText"
             android:textSize="@dimen/bigger_text_mobile"
             android:background="@color/colorAccent"
