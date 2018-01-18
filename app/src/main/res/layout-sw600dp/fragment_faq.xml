@@ -38,6 +38,7 @@
     <LinearLayout
         android:layout_below="@+id/contactTxt"
         android:layout_marginTop="@dimen/margin_20"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -53,6 +54,7 @@
             android:layout_marginRight="@dimen/margin_15"
             android:textColor="@color/whiteText"
             android:textSize="@dimen/bigger_text_mobile"
+            android:layout_marginBottom="@dimen/padding_10"
             android:background="@color/lightGrey"
             android:textAllCaps="false"
             android:width="200dp"
