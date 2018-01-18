@@ -1,12 +1,13 @@
 package charmelinetiel.zorg_voor_het_hart.fragments.Measurement;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
+import charmelinetiel.zorg_voor_het_hart.fragments.Service.ServiceFragment;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 
@@ -24,9 +26,11 @@ import charmelinetiel.zorg_voor_het_hart.models.User;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private View view;
-    private TextView greetUser;
+    private TextView greetUser, metingText;
     private MainActivity mainActivity;
     private ProgressBar progressBar;
+    private SharedPreferences settings;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -39,10 +43,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         progressBar = view.findViewById(R.id.progressBar_cyclic);
 
+
+
         view.findViewById(R.id.metingBtn).setOnClickListener(this);
+
+        metingText = view.findViewById(R.id.metingText);
         greetUser = view.findViewById(R.id.greetingsText);
         mainActivity = (MainActivity) getActivity();
         mainActivity.setTitle("Meting");
+
+
+        if(ServiceFragment.getPref("lastMeasurementDate", this.getContext()) == null){
+
+            metingText.setText("Start hier een nieuwe meting");
+
+
+        } else if (ServiceFragment.getPref("lastMeasurementDate",this.getContext()).equals(mainActivity.dateTimeNow())){
+
+            metingText.setText("U heeft vandaag al een meting gedaan, wilt u nog een meting doen?");
+
+        }else{
+            settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+
+            metingText.setText("Start hier een nieuwe meting");
+        }
+
 
         greetUser();
 

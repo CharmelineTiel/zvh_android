@@ -16,6 +16,7 @@
             android:inputType="number" />
 
 
+
     </android.support.v7.preference.PreferenceCategory>
 
     <android.support.v7.preference.PreferenceCategory
@@ -57,6 +58,10 @@
             android:layout="@layout/fragment_disclaimer"
            />
 
+        <android.support.v7.preference.Preference
+            android:key="lastMeasurementDate"
+            android:defaultValue="false"
+            />
     </android.support.v7.preference.PreferenceCategory>
 
     </android.support.v7.preference.PreferenceScreen>

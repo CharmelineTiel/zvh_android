@@ -17,7 +17,7 @@
         android:textStyle="bold"
         android:layout_marginTop="@dimen/padding_10"
         android:textSize="@dimen/bigger_text_mobile"
-        android:text="Heeft u regelmatig last van een of meer van de volgende gezondheidsklachten? "
+        android:text="Heeft u regelmatig last van een of meer gezondheidsklacht(en)? "
         />
 
     <TextView

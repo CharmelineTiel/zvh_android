@@ -322,14 +322,14 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         Log.d(TAG, "GoogleApiClient failed to connect: " + connectionResult);
     }
 
-    public void putPref(String key, String value, Context context) {
+    public static void putPref(String key, String value, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
         editor.commit();
     }
 
-    public String getPref(String key, Context context) {
+    public static String getPref(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
     }

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -121,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
 
     public void postMeasurement() {
+
+        setDateOfLastMeasurement();
         apiService.postMeasurement(measurement, User.getInstance().getAuthToken()).enqueue(this);
     }
 
@@ -134,12 +137,12 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         }
     }
 
-
     public void putMeasurement() {
         apiService.putMeasurement(measurement, User.getInstance().getAuthToken()).enqueue(new Callback<Measurement>() {
             @Override
             public void onResponse(Call<Measurement> call, Response<Measurement> response) {
 
+                setDateOfLastMeasurement();
             }
 
             @Override
@@ -202,6 +205,18 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         ft.addToBackStack(fg.toString());
         ft.commit();
 
+    }
+
+    public String dateTimeNow(){
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public void setDateOfLastMeasurement(){
+
+        ServiceFragment.putPref("lastMeasurementDate", dateTimeNow(), this);
     }
 
     @Override

@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:layout_marginTop="@dimen/padding_20"
         android:textSize="@dimen/bigger_text_tablet"
-        android:text="Heeft u regelmatig last van een of meer van de volgende gezondheidsklachten? "
+        android:text="Heeft u regelmatig last van een of meer gezondheidsklacht(en)? "
         />
 
     <TextView
@@ -32,6 +32,14 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/noneRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fillInText"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/none"/>
+
+        <RadioButton
             android:id="@+id/yesNamelyRadio"
             android:buttonTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
@@ -40,13 +48,7 @@
             android:layout_toRightOf="@id/noneRadio"
             android:text="@string/yesNamely"/>
 
-        <RadioButton
-            android:id="@+id/noneRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fillInText"
-            android:buttonTint="@color/colorPrimaryDark"
-            android:text="@string/none"/>
+
     </RadioGroup>
 
     <ListView
