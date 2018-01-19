@@ -3,7 +3,6 @@ package charmelinetiel.zorg_voor_het_hart.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,13 +11,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -51,38 +48,38 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private List<HealthIssue> healthIssues;
     private boolean isEditingMeasurement;
     public static ProgressBar progressBar;
+    private SimpleDateFormat simpleDateFormat;
+    private Date date;
+    private Snackbar snackbar;
 
     private android.support.design.widget.BottomNavigationView bottomNavigationView;
 
     android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener() {
+            = item -> {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        //This listener is used to go to fragments by selecting the desired menu item in the bottom nav
-            switch (item.getItemId()) {
-                case R.id.measurement:
-                    setTitle("Meting");
-                    openFragment(new HomeFragment());
-                    return true;
-                case R.id.diary:
-                    setTitle("Mijn Dagboek");
-                    openFragment(new DiaryFragment());
-                    return true;
+            //This listener is used to go to fragments by selecting the desired menu item in the bottom nav
+                switch (item.getItemId()) {
+                    case R.id.measurement:
+                        setTitle(getResources().getString(R.string.title_home));
+                        openFragment(new HomeFragment());
+                        return true;
+                    case R.id.diary:
+                        setTitle(getResources().getString(R.string.title_diary));
+                        openFragment(new DiaryFragment());
+                        return true;
 
-                case R.id.contact:
-                    setTitle("Contact");
-                    openFragment(new ContactHostFragment());
-                    return true;
+                    case R.id.contact:
+                        setTitle(getResources().getString(R.string.title_contact));
+                        openFragment(new ContactHostFragment());
+                        return true;
 
-                case R.id.settings:
-                    setTitle("Service");
-                    openFragment(new ServiceFragment());
-                    return true;
-            }
-            return onContextItemSelected(item);
-        }
-    };
+                    case R.id.settings:
+                        setTitle(getResources().getString(R.string.title_settings));
+                        openFragment(new ServiceFragment());
+                        return true;
+                }
+                return onContextItemSelected(item);
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +87,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
         setContentView(R.layout.activity_main);
 
         measurement = new Measurement();
-        setTitle("Meting");
+        setTitle(getResources().getString(R.string.title_home));
 
-        progressBar = findViewById(R.id.progressBar_cyclic);
+        initViews();
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -106,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             startActivity(loginIntent);
         }
 
-        initBottomNav();
+        customBottomNavigation();
     }
 
     public Measurement getMeasurement() {
@@ -171,12 +168,13 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
 
     public void setDateOfToday(TextView textView) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date customDate = new Date();
+
+        simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+         date = new Date();
 
         if(!isEditingMeasurement()){
             textView.setText(getResources().getString(R.string.date,
-                    simpleDateFormat.format(customDate)));
+                    simpleDateFormat.format(date)));
         }else{
             textView.setText(getResources().getString(R.string.editMeasurementDate,
                     simpleDateFormat.format(getMeasurement().getMeasurementDateTime())));
@@ -193,12 +191,14 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     }
 
     public void makeSnackBar(String messageText, Activity fg) {
-        Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
+
+        snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
                 messageText, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
 
     public void openFragment(final Fragment fg) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.content, fg, fg.toString());
@@ -209,9 +209,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     public String dateTimeNow(){
 
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = new Date();
-        return dateFormat.format(date);
+        simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        date = new Date();
+        return simpleDateFormat.format(date);
     }
 
     public void setDateOfLastMeasurement(){
@@ -222,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content);
+
         //If we're at the home fragment, exit the mainactivity
         if(currentFragment instanceof HomeFragment){
             finish();
@@ -233,28 +234,40 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             getSupportFragmentManager().popBackStack();
         //If we're somewhere else, go to home
         }else {
+
             bottomNavigationView.setSelectedItemId(R.id.measurement);
         }
     }
 
-    public void initBottomNav() {
+    private void initViews(){
+
+        progressBar = findViewById(R.id.progressBar_cyclic);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bottomNavigationView.setSelectedItemId(R.id.measurement);
+
+    }
+
+    //customize the bottom navigation
+    public void customBottomNavigation() {
+
         BottomNavigationView.removeShiftMode(bottomNavigationView);
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+
         for (int i = 0; i < menuView.getChildCount(); i++) {
+
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-            //icon height and weight
+            //icon height and weight for all the menu items
             layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, displayMetrics);
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, displayMetrics);
             iconView.setLayoutParams(layoutParams);
         }
 
-        bottomNavigationView.setSelectedItemId(R.id.measurement);
     }
+
     public android.support.design.widget.BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
     }
