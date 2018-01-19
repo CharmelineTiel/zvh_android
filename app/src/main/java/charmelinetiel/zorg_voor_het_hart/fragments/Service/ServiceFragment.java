@@ -59,7 +59,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     private FormErrorHandling formErrorHandling;
     private APIService apiService;
     private GoogleApiClient mGoogleApiClient;
-    private SharedPreferences settings;
 
 
     public ServiceFragment() {
@@ -72,7 +71,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
         mainActivity = (MainActivity) getActivity();
         formErrorHandling = new FormErrorHandling();
-        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
@@ -82,16 +80,10 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        logout = findPreference("logout");
-        dailyReminder= findPreference("dailyReminders");
-        veelgesteldeVragen = findPreference("veelgesteldeVragen");
+        initializePreferences();
 
-        editLength =(EditTextPreference) findPreference("editLength");
-        editWeight = (EditTextPreference) findPreference("editWeight");
 
-        editWeight.setSummary("Uw gewicht (kg): " + User.getInstance().getWeight());
-        editLength.setSummary("Uw lengte (cm): " + User.getInstance().getLength());
-
+        //Set the theme of the preferences screen
         getActivity().setTheme(R.style.preferenceTheme);
 
         //initialize notificationManager and alarmManager
@@ -288,6 +280,18 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         });
     }
 
+    private void initializePreferences() {
+        logout = findPreference("logout");
+        dailyReminder = findPreference("dailyReminders");
+        veelgesteldeVragen = findPreference("veelgesteldeVragen");
+
+        editLength =(EditTextPreference) findPreference("editLength");
+        editWeight = (EditTextPreference) findPreference("editWeight");
+
+        editWeight.setSummary("Uw gewicht (kg): " + User.getInstance().getWeight());
+        editLength.setSummary("Uw lengte (cm): " + User.getInstance().getLength());
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -303,7 +307,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-        //hmm
     }
 
 
