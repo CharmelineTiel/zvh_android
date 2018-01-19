@@ -13,6 +13,7 @@ import java.lang.reflect.Field;
 
 public class BottomNavigationView {
 
+        //remove shifting from the bottom nav
         @SuppressLint("RestrictedApi")
         public static void removeShiftMode(android.support.design.widget.BottomNavigationView view) {
             BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);

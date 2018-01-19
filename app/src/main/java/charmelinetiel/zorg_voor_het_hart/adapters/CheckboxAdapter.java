@@ -23,7 +23,7 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
         super(context, resource, healthIssues);
 
         this.selectedIssues = selectedIssues;
-        this.healthIssues = new ArrayList<HealthIssue>();
+        this.healthIssues = new ArrayList<>();
         try {
             this.healthIssues.addAll(healthIssues);
         }catch (Exception e){
@@ -60,21 +60,18 @@ public class CheckboxAdapter extends ArrayAdapter<HealthIssue> {
             box.setText(issue.getName());
             box.setTag(issue.getHealthIssueId());
 
-            box.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            box.setOnClickListener(v -> {
 
-                    final boolean isChecked = box.isChecked();
+                final boolean isChecked = box.isChecked();
 
-                    if (isChecked){
+                if (isChecked){
 
-                        selectedIssues.add(v.getTag().toString());
+                    selectedIssues.add(v.getTag().toString());
 
-                    }else
-                    {
-                        selectedIssues.remove(v.getTag().toString());
+                }else
+                {
+                    selectedIssues.remove(v.getTag().toString());
 
-                    }
                 }
             });
 

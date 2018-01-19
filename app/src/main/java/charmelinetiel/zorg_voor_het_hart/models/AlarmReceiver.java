@@ -5,10 +5,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import charmelinetiel.android_tablet_zvg.R;
-import charmelinetiel.zorg_voor_het_hart.activities.SplashActivity;
+import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 
 /**
  * Created by C Tiel on 1/2/2018.
@@ -25,8 +26,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //what happens when the notification gets clicked on
-        Intent contentIntent = new Intent(context, SplashActivity.class);
-        contentIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Intent contentIntent = new Intent(context, MainActivity.class);
+        contentIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity
                 (context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -36,7 +37,11 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentTitle("Meting herinnering")
                 .setContentText("Het is weer tijd voor uw meting!")
                 .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                        R.mipmap.ic_launcher_round))
+                .setBadgeIconType(R.mipmap.ic_launcher_round)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(NotificationCompat.DEFAULT_ALL);
 
