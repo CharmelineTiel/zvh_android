@@ -43,22 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/returnButton"
-            android:padding="@dimen/padding_15"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/contactTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Terug"
-            android:layout_marginRight="@dimen/margin_15"
-            android:textColor="@color/whiteText"
-            android:textSize="@dimen/bigger_text_mobile"
-            android:layout_marginBottom="@dimen/padding_10"
-            android:background="@color/lightGrey"
-            android:textAllCaps="false"
-            android:width="200dp"
-            />
     <Button
             android:id="@+id/contactBtn"
             android:padding="@dimen/padding_15"
