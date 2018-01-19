@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,12 +26,10 @@ import android.widget.TextView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
 import com.google.android.gms.auth.api.credentials.CredentialRequest;
-import com.google.android.gms.auth.api.credentials.CredentialRequestResult;
 import com.google.android.gms.auth.api.credentials.IdentityProviders;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import org.json.JSONObject;
@@ -59,16 +56,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String IS_REQUESTING = "is_requesting";
 
     private APIService apiService;
-    private TextView forgotPassword;
+    private TextView forgotPassword, iForgotLbl, forgotPasswordText;
     private EditText email, password;
-    private CheckBox autoLoginCheckBox;
     private FormErrorHandling validateForm;
     private Uri data;
     private ProgressBar progressBar;
     private ScrollView loginPage;
+    private Button loginButton, backButton, closeDialogButton, goToLoginButton;
     private GoogleApiClient mGoogleApiClient;
     private boolean mIsResolving;
     private boolean mIsRequesting;
+    private Toolbar toolbar;
+    private Dialog dialog;
+    private Button cancelForgotPassword, sendForgotPasswordEmail;
+    private EditText forgotPasswordEmailInput;
+    private LinearLayout buttonsPanel, emailSent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        progressBar = findViewById(R.id.progressBar);
-        loginPage = findViewById(R.id.loginPage);
+        initViews();
 
 
         //Get the intent and data to determine if the activity was entered by deep link
@@ -97,12 +99,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(data != null){
 
             setContentView(R.layout.activity_login_account_activated);
-            Toolbar toolbar = findViewById(R.id.toolbar);
+            toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             setTitle(R.string.account_activated);
 
-            Button toLoginBtn = findViewById(R.id.toLoginBtn);
-            toLoginBtn.setOnClickListener(view -> {
+            goToLoginButton = findViewById(R.id.goToLoginButton);
+            goToLoginButton.setOnClickListener(view -> {
                 //Refresh the activity to get to the login page
                 Intent refresh = new Intent(this, LoginActivity.class);
                 startActivity(refresh);
@@ -113,7 +115,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         validateForm = new FormErrorHandling();
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             setTitle(R.string.title_activity_login);
 
@@ -123,11 +124,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             forgotPassword = findViewById(R.id.iForgot);
             forgotPassword.setOnClickListener(this);
 
-            Button btn = findViewById(R.id.loginBtn);
-            btn.setOnClickListener(this);
+            loginButton = findViewById(R.id.loginBtn);
+            loginButton.setOnClickListener(this);
 
-            Button btn2 = findViewById(R.id.cancelBtn);
-            btn2.setOnClickListener(this);
+            backButton = findViewById(R.id.backButton);
+            backButton.setOnClickListener(this);
 
         }
 
@@ -150,91 +151,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     User.getInstance().setEmailAddress(email.getText().toString());
 
                     if(validInput()) {
+
                         showProgressBar();
                         apiService.login(User.getInstance()).enqueue(this);
                     }
                 }else {
-                    makeSnackBar("Geen Internet verbinding", LoginActivity.this);
+
+                    makeSnackBar(getResources().getString(R.string.noInternetConnection), LoginActivity.this);
                 }
                 break;
-            case R.id.cancelBtn:
+            case R.id.backButton:
+
                 Intent Intent = new Intent(this, RegisterActivity.class);
                 startActivity(Intent);
+
                 break;
 
             case R.id.iForgot:
-                Dialog dialog=new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-                dialog.setContentView(R.layout.forgot_password_dialog);
-                EditText forgotPasswordEmailInput = dialog.findViewById(R.id.forgotPasswordEmailInput);
-                Button cancelForgotPassword = dialog.findViewById(R.id.cancel_forgot_password);
-                TextView iForgotLbl = dialog.findViewById(R.id.iForgotLbl);
-                TextView forgotPasswordText = dialog.findViewById(R.id.forgotPasswordText);
-                LinearLayout buttonsPanel = dialog.findViewById(R.id.buttonsPanel);
-                ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
-                LinearLayout emailSent = dialog.findViewById(R.id.emailSent);
-                Button closeDialogButton = dialog.findViewById(R.id.closeDialogButton);
 
-                cancelForgotPassword.setOnClickListener(view -> {
-                    dialog.dismiss();
-                });
-
-                closeDialogButton.setOnClickListener(view -> {
-                    dialog.dismiss();
-                });
-
-
-                Button sendForgotPasswordEmail = dialog.findViewById(R.id.send_forgot_password_email);
-                sendForgotPasswordEmail.setOnClickListener(view -> {
-
-                    if (validateForm.inputValidString(forgotPasswordEmailInput)) {
-                        iForgotLbl.setVisibility(View.INVISIBLE);
-                        forgotPasswordText.setVisibility(View.INVISIBLE);
-                        buttonsPanel.setVisibility(View.INVISIBLE);
-                        forgotPasswordEmailInput.setVisibility(View.INVISIBLE);
-                        progressBar.setVisibility(View.VISIBLE);
-
-                        apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                //TODO: toon message aan de hand van de response
-                                if (response.body() != null && response.isSuccessful()) {
-                                    progressBar.setVisibility(View.GONE);
-                                    emailSent.setVisibility(View.VISIBLE);
-                                    closeDialogButton.setVisibility(View.VISIBLE);
-                                }else {
-                                    iForgotLbl.setVisibility(View.VISIBLE);
-                                    forgotPasswordText.setVisibility(View.VISIBLE);
-                                    buttonsPanel.setVisibility(View.VISIBLE);
-                                    forgotPasswordEmailInput.setVisibility(View.VISIBLE);
-                                    progressBar.setVisibility(View.INVISIBLE);
-
-                                    forgotPasswordEmailInput.setError("Er is iets fout gegaan, controleer uw e-mail en probeer het opnieuw.");
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                iForgotLbl.setVisibility(View.VISIBLE);
-                                forgotPasswordText.setVisibility(View.VISIBLE);
-                                buttonsPanel.setVisibility(View.VISIBLE);
-                                forgotPasswordEmailInput.setVisibility(View.VISIBLE);
-                                progressBar.setVisibility(View.INVISIBLE);
-
-                                try {
-                                    ExceptionHandler.exceptionThrower(new Exception());
-                                } catch (Exception e) {
-
-                                    makeSnackBar(ExceptionHandler.getMessage(e), LoginActivity.this);
-                                }
-                            }
-                        });
-
-                    }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
-
-                        forgotPasswordEmailInput.setError("Vul een geldig e-mail adres in");
-                    }
-                });
-                dialog.show();
+                attemptResetPassword();
 
                 break;
         }
@@ -246,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (count == 0) {
             super.onBackPressed();
-            //additional code
+
         } else {
             getSupportFragmentManager().popBackStack();
         }
@@ -255,22 +190,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean validInput(){
 
         if (!validateForm.inputValidString(email)) {
-            email.setError("Vul uw e-mail in");
+            email.setError(getResources().getString(R.string.error_invalid_email));
             return false;
         }else if(!validateForm.InputValidEmail(email)){
 
-            email.setError("Geen geldige e-mail");
+            email.setError(getResources().getString(R.string.error_invalid_email));
             return false;
         }
         if(!validateForm.inputValidString(password)){
 
-            password.setError("Vul uw wachtwoord in");
+            password.setError(getResources().getString(R.string.error_invalid_password));
             return false;
         }
         return true;
     }
+
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
+
         Credential credential = new Credential.Builder(User.getInstance().getEmailAddress())
                 .setPassword(User.getInstance().getPassword())
                 .build();
@@ -299,15 +236,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
+
         hideProgressBar();
-
-        try {
-            ExceptionHandler.exceptionThrower(new Exception());
-        } catch (Exception e) {
-
-            makeSnackBar(ExceptionHandler.getMessage(e), this);
-        }
-
+        makeSnackBar(getResources().getString(R.string.noInternetConnection), this);
     }
 
     @Override
@@ -323,18 +254,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
 
         if (requestCode == RC_READ) {
             if (resultCode == RESULT_OK) {
                 Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
                 processRetrievedCredential(credential);
             } else {
-                Log.e(TAG, "Credential Read: NOT OK");
                 hideProgressBar();
             }
         } else if (requestCode == RC_SAVE) {
-            Log.d(TAG, "Result code: " + resultCode);
+
             if (resultCode == RESULT_OK) {
                 Log.d(TAG, "Credential Save: OK");
             } else {
@@ -377,35 +306,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void saveCredential(Credential credential) {
         // Credential is valid so save it.
         Auth.CredentialsApi.save(mGoogleApiClient,
-                credential).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(Status status) {
-                if (status.isSuccess()) {
-                    Log.d(TAG, "Credential saved");
-                } else {
-                    Log.d(TAG, "Attempt to save credential failed " +
-                            status.getStatusMessage() + " " +
-                            status.getStatusCode());
-                    resolveResult(status, RC_SAVE);
-                }
-            }
-        });
+                credential).setResultCallback(status -> {
+                    if (status.isSuccess()) {
+                        Log.d(TAG, "Credential saved");
+                    } else {
+                        Log.d(TAG, "Attempt to save credential failed " +
+                                status.getStatusMessage() + " " +
+                                status.getStatusCode());
+                        resolveResult(status, RC_SAVE);
+                    }
+                });
     }
+
 
     private void deleteCredential(Credential credential) {
         Auth.CredentialsApi.delete(mGoogleApiClient,
-                credential).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(Status status) {
-                if (status.isSuccess()) {
-                    Log.d(TAG, "Credential successfully deleted.");
-                } else {
-                    // This may be due to the credential not existing, possibly
-                    // already deleted via another device/app.
-                    Log.d(TAG, "Credential not deleted successfully.");
-                }
-            }
-        });
+                credential).setResultCallback(status -> {
+                    if (status.isSuccess()) {
+                        Log.d(TAG, "Credential successfully deleted.");
+                    } else {
+                        // This may be due to the credential not existing, possibly
+                        // already deleted via another device/app.
+                        Log.d(TAG, "Credential not deleted successfully.");
+                    }
+                });
     }
 
     private void resolveResult(Status status, int requestCode) {
@@ -426,14 +350,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e(TAG, "STATUS: Failed to send resolution.", e);
             }
         }
-//        else {
-//            goToMainActivity();
-//        }
     }
 
     private void processRetrievedCredential(Credential credential) {
-        showProgressBar();
 
+        showProgressBar();
         User.getInstance().setEmailAddress(credential.getId());
         User.getInstance().setPassword(credential.getPassword());
         apiService.login(User.getInstance()).enqueue(this);
@@ -441,43 +362,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void requestCredentials() {
-        mIsRequesting = true;
 
+        mIsRequesting = true;
         CredentialRequest request = new CredentialRequest.Builder()
                 .setPasswordLoginSupported(true)
                 .setAccountTypes(IdentityProviders.GOOGLE, IdentityProviders.TWITTER)
                 .build();
 
         Auth.CredentialsApi.request(mGoogleApiClient, request).setResultCallback(
-                new ResultCallback<CredentialRequestResult>() {
-                    @Override
-                    public void onResult(CredentialRequestResult credentialRequestResult) {
+                credentialRequestResult -> {
 //                        mIsRequesting = false;
-                        Status status = credentialRequestResult.getStatus();
-                        if (credentialRequestResult.getStatus().isSuccess()) {
-                            // Successfully read the credential without any user interaction, this
-                            // means there was only a single credential and the user has auto
-                            // sign-in enabled.
-                            Credential credential = credentialRequestResult.getCredential();
-                            processRetrievedCredential(credential);
-                        } else if (status.getStatusCode() == CommonStatusCodes.RESOLUTION_REQUIRED) {
-                            // This is most likely the case where the user has multiple saved
-                            // credentials and needs to pick one.
-                            resolveResult(status, RC_READ);
-                        } else if (status.getStatusCode() == CommonStatusCodes.SIGN_IN_REQUIRED) {
-                            // This is most likely the case where the user does not currently
-                            // have any saved credentials and thus needs to provide a username
-                            // and password to sign in.
-                            Log.d(TAG, "Sign in required");
-                        } else {
-                            Log.w(TAG, "Unrecognized status code: " + status.getStatusCode());
-                        }
+                    Status status = credentialRequestResult.getStatus();
+                    if (credentialRequestResult.getStatus().isSuccess()) {
+                        // Successfully read the credential without any user interaction, this
+                        // means there was only a single credential and the user has auto
+                        // sign-in enabled.
+                        Credential credential = credentialRequestResult.getCredential();
+                        processRetrievedCredential(credential);
+                    } else if (status.getStatusCode() == CommonStatusCodes.RESOLUTION_REQUIRED) {
+                        // This is most likely the case where the user has multiple saved
+                        // credentials and needs to pick one.
+                        resolveResult(status, RC_READ);
+                    } else if (status.getStatusCode() == CommonStatusCodes.SIGN_IN_REQUIRED) {
+                        // This is most likely the case where the user does not currently
+                        // have any saved credentials and thus needs to provide a username
+                        // and password to sign in.
+
+                        makeSnackBar("U dient zich eerst in te loggen",this);
+
+                    } else {
+
+                        makeSnackBar(status.getStatusMessage(),this);
+
                     }
                 }
         );
     }
 
     public void goToMainActivity(){
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -485,7 +408,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.d(TAG, "onConnected");
 
         // Request Credentials once connected. If credentials are retrieved
         // the user will either be automatically signed in or will be
@@ -495,12 +417,121 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onConnectionSuspended(int cause) {
+    public void onConnectionSuspended(int cause)
+    {
         Log.d(TAG, "onConnectionSuspended: " + cause);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed: " + connectionResult);
+
+        makeSnackBar(connectionResult.getErrorMessage(),this);
+    }
+
+    private void initViews()
+    {
+        progressBar = findViewById(R.id.progressBar);
+        loginPage = findViewById(R.id.loginPage);
+    }
+
+    //view for sending email in progress
+    public void sendEmailInProgress(){
+
+        iForgotLbl.setVisibility(View.INVISIBLE);
+        forgotPasswordText.setVisibility(View.INVISIBLE);
+        buttonsPanel.setVisibility(View.INVISIBLE);
+        forgotPasswordEmailInput.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    //view for send email completed
+    public void sendEmailCompleted(){
+
+        progressBar.setVisibility(View.GONE);
+        emailSent.setVisibility(View.VISIBLE);
+        closeDialogButton.setVisibility(View.VISIBLE);
+    }
+
+    //view for send email failed
+    public void sendEmailFailed(){
+
+        iForgotLbl.setVisibility(View.VISIBLE);
+        forgotPasswordText.setVisibility(View.VISIBLE);
+        buttonsPanel.setVisibility(View.VISIBLE);
+        forgotPasswordEmailInput.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+
+    }
+
+    //initialize new dialog
+    private void initIForgotDialog(){
+        dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
+
+        dialog.setContentView(R.layout.forgot_password_dialog);
+        forgotPasswordEmailInput = dialog.findViewById(R.id.forgotPasswordEmailInput);
+        cancelForgotPassword = dialog.findViewById(R.id.cancel_forgot_password);
+        iForgotLbl = dialog.findViewById(R.id.iForgotLbl);
+        forgotPasswordText = dialog.findViewById(R.id.forgotPasswordText);
+        buttonsPanel = dialog.findViewById(R.id.buttonsPanel);
+        progressBar = dialog.findViewById(R.id.progressBar);
+        emailSent = dialog.findViewById(R.id.emailSent);
+        closeDialogButton = dialog.findViewById(R.id.closeDialogButton);
+
+        cancelForgotPassword.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        closeDialogButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        sendForgotPasswordEmail = dialog.findViewById(R.id.send_forgot_password_email);
+
+    }
+
+    private void attemptResetPassword(){
+
+        initIForgotDialog();
+
+        sendForgotPasswordEmail.setOnClickListener(view -> {
+
+            if (validateForm.inputValidString(forgotPasswordEmailInput)) {
+
+                sendEmailInProgress();
+
+                apiService.requestResetPasswordEmail(forgotPasswordEmailInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if (response.body() != null && response.isSuccessful()) {
+
+                            sendEmailCompleted();
+
+                        }else {
+
+                            sendEmailFailed();
+
+                            forgotPasswordEmailInput.setError(getResources().getString(R.string.emailNotFound));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        sendEmailFailed();
+
+                        makeSnackBar(getResources().getString(R.string.noInternetConnection), LoginActivity.this);
+
+                    }
+                });
+
+            }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
+
+                forgotPasswordEmailInput.setError(getResources().getString(R.string.error_invalid_email));
+            }
+        });
+        dialog.show();
+
     }
 }

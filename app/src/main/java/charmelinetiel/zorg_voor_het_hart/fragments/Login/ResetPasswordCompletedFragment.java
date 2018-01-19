@@ -28,7 +28,7 @@ public class ResetPasswordCompletedFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_reset_password_completed, container, false);
 
-        loginButton = v.findViewById(R.id.toLoginBtn);
+        loginButton = v.findViewById(R.id.goToLoginButton);
         loginButton.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);

@@ -83,7 +83,7 @@
             android:orientation="vertical">
 
         <Button
-            android:id="@+id/cancelBtn"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Annuleren"
@@ -96,7 +96,7 @@
             />
     <Button
         android:id="@+id/loginBtn"
-        android:layout_toEndOf="@id/cancelBtn"
+        android:layout_toEndOf="@id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -111,7 +111,7 @@
         android:textColor="@color/colorAccent"
         android:layout_centerHorizontal="true"
         android:id="@+id/iForgot"
-        android:layout_below="@id/cancelBtn"
+        android:layout_below="@id/backButton"
         android:text="Wachtwoord vergeten?"
         android:focusable="true"
         android:clickable="true"

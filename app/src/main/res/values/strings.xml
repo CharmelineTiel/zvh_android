@@ -73,8 +73,6 @@
     <string name="otherNamely">Anders, namelijk:</string>
     <string name="extraRemarks">Extra / opmerkingen</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Settings -->
     <string name="biggerText">biggerText</string>
@@ -86,8 +84,10 @@
 
 
     <!-- Error messages -->
-    <string name="noInternetConnection">Geen internet verbinding</string>
-
+    <string name="noInternetConnection">U heeft mogelijk geen internetverbinding, probeer het opnieuw</string>
+    <string name="emailNotFound">"Er is iets fout gegaan, controleer uw e-maildres en probeer het opnieuw."</string>
+    <string name="emailNotValid">Vul een geldig e-mailadres in</string>
+    <string name="nameNotValid">Vul een geldige naam in</string>
     <string name="toolTipRegister">Wij hebben een aantal gegevens van u nodig zodat wij u beter kunnen assisteren</string>
 
 </resources>
