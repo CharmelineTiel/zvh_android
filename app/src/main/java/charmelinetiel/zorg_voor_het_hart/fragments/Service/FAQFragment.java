@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -15,20 +16,28 @@ import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.fragments.Message.ContactHostFragment;
 import charmelinetiel.zorg_voor_het_hart.models.Faq;
+import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
+import charmelinetiel.zorg_voor_het_hart.webservices.RetrofitClient;
 import iammert.com.expandablelib.ExpandCollapseListener;
 import iammert.com.expandablelib.ExpandableLayout;
 import iammert.com.expandablelib.Section;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FAQFragment extends Fragment implements View.OnClickListener {
+public class FAQFragment extends Fragment implements View.OnClickListener, Callback<List<Faq>> {
 
 
     private View v;
     private Button contactButton;
     private MainActivity mainActivity;
     ExpandableLayout sectionLinearLayout;
+    private APIService apiService;
+
 
     public FAQFragment() {
         // Required empty public constructor
@@ -41,26 +50,35 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_faq, container, false);
         mainActivity = (MainActivity) getActivity();
 
+        Retrofit retrofit = RetrofitClient.getClient();
+        apiService = retrofit.create(APIService.class);
+
         initViews();
 
         return v;
 
         }
 
+    //Initialize the faq questions, try to retrieve them again if they arent available yet
     private void initFAQ() {
+            List<Faq> faqList = Faq.getFaqList();
 
-        List<Faq> faqList = Faq.getFaqList();
-        for(int i = 0; i < faqList.size(); i++){
-            sectionLinearLayout.addSection(getSection(faqList.get(i).getQuestion(),
-                    faqList.get(i).getAnswer()));
-        }
+            if (Faq.getFaqList().size() != 0) {
+                for (int i = 0; i < faqList.size(); i++) {
+                    sectionLinearLayout.addSection(getSection(faqList.get(i).getQuestion(),
+                            faqList.get(i).getAnswer()));
+                }
+            } else {
+                apiService.getFaq().enqueue(this);
+            }
     }
+
 
 
     public Section<String, String> getSection(String question, String answer) {
         Section<String, String> section = new Section<>();
-        String q = new String(question);
-        String a  = new String(answer);
+        String q = question;
+        String a  = answer;
 
 
         section.parent = q;
@@ -124,4 +142,19 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    @Override
+    public void onResponse(Call<List<Faq>> call, Response<List<Faq>> response) {
+        if(response.isSuccessful() && response.body() != null){
+            Faq.setFaqList(response.body());
+            initFAQ();
+        }else {
+            Toast.makeText(getContext(),"Er is iets fout gegaan, probeer het opnieuw",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    public void onFailure(Call<List<Faq>> call, Throwable t) {
+        Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
+    }
 }

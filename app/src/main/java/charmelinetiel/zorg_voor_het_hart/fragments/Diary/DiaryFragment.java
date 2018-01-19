@@ -73,15 +73,16 @@ public class DiaryFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_diary, container, false);
 
         initViews(v);
+        progressBar.setVisibility(View.VISIBLE);
 
         screenResolution = getString(R.string.screen_type);
-        progressBar.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         measurements = new ArrayList<>();
         chart.setNoDataText("");
+        adapter = new MeasurementListAdapter(getContext(), this, new ArrayList<>());
 
         //check if device is mobile or not
         if(screenResolution.equals("mobile")) {
@@ -136,13 +137,7 @@ public class DiaryFragment extends Fragment {
         initMonthView();
         initChartView();
 
-        if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
-
-                loadMeasurements(this);
-        }else{
-
-            mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
-        }
+        loadMeasurements(this);
 
         return v;
     }
@@ -169,7 +164,6 @@ public class DiaryFragment extends Fragment {
         List<BarEntry> bloodPressureUpper = new ArrayList<>();
         List<BarEntry> bloodPressureLower = new ArrayList<>();
         final String[] ds = new String[measurements.size()];
-        //SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM");
 
 
         for (int i = 0; i < measurements.size(); i++)
@@ -237,6 +231,8 @@ public class DiaryFragment extends Fragment {
 
     public void loadMeasurements(DiaryFragment diaryFragment)
     {
+        progressBar.setVisibility(View.GONE);
+
         apiService.getMeasurements(User.getInstance().getAuthToken()).enqueue(new Callback<List<Measurement>>() {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
@@ -256,7 +252,6 @@ public class DiaryFragment extends Fragment {
                             }
                             mListView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                            progressBar.setVisibility(View.GONE);
                         });
 
                         // Show/Hide elements in the fragment based on if there are measurements
@@ -286,7 +281,6 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
 
-                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
 
             }
@@ -324,9 +318,6 @@ public class DiaryFragment extends Fragment {
                 monthButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_check_black_24dp, 0);
                 chartButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 weekButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-
-
             }
         });
 
@@ -370,7 +361,6 @@ public class DiaryFragment extends Fragment {
                     monthButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
                     Toast.makeText(getContext(), "weekoverzicht geselecteerd", Toast.LENGTH_SHORT).show();
-
 
                 } else {
 
