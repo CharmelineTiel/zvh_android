@@ -40,18 +40,21 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        v = inflater.inflate(R.layout.fragment_measurement_detail, container, false);
         m = getArguments().getParcelable("measurement");
         mainActivity = (MainActivity) getActivity();
 
+
         if (ExceptionHandler.isConnectedToInternet(getContext())) {
+
             healthIssues = mainActivity.getHealthIssues();
+
         }else{
+
             mainActivity.makeSnackBar(getString(R.string.noInternetConnection), mainActivity);
         }
 
-        v = inflater.inflate(R.layout.fragment_measurement_detail, container, false);
-        v.findViewById(R.id.backBtn).setOnClickListener(this);
-        v.findViewById(R.id.editBtn).setOnClickListener(this);
 
         initViews(v);
 
@@ -65,13 +68,14 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
-            case R.id.backBtn:
+            case R.id.returnButton:
 
                 mainActivity.openFragment(new DiaryFragment());
 
                 break;
-            case R.id.editBtn:
+            case R.id.editButton:
 
                 //Set the measurement in the mainactivity so the values can be set
                 if (ExceptionHandler.isConnectedToInternet(getContext())) {
@@ -88,6 +92,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void initViews(View v) {
+
         date = v.findViewById(R.id.titleLbl);
         bloodPressure = v.findViewById(R.id.bloodPressureLbl);
         feedback = v.findViewById(R.id.feedbackLbl);
@@ -97,9 +102,13 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
         extra = v.findViewById(R.id.extra);
         extraLbl = v.findViewById(R.id.extraLbl);
         issuesLbl = v.findViewById(R.id.issuesLbl);
+
+        v.findViewById(R.id.returnButton).setOnClickListener(this);
+        v.findViewById(R.id.editButton).setOnClickListener(this);
     }
 
     private void setHealthIssueText() {
+
         String healthIssuesText = "";
 
         for (int i = 0; i < m.getHealthIssueIds().size(); i++){
@@ -117,6 +126,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void setLabels() {
+
         //if theres no healthissues or other healthissue, hide both labels
         if(m.getHealthIssueIds().size() == 0 && (m.getHealthIssueOther().isEmpty() || m.getHealthIssueOther() == null)){
             issuesLbl.setVisibility(View.GONE);
@@ -134,6 +144,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void setTexts() {
+
         extra.setText(m.getHealthIssueOther());
         date.setText(m.getMeasurementDateFormatted());
         bloodPressure.setText("Bovendruk: " + m.getBloodPressureUpper() + ", " + "Onderdruk: " + m.getBloodPressureLower());
@@ -141,6 +152,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void setBloodPressure() {
+
         if (m.getResult() == BLOODPRESSURE_GOOD) {
             feedback.setTextColor(getResources().getColor(R.color.positiveFeedbackTxt));
             layout.setBackgroundColor(getResources().getColor(R.color.positiveFeedback));

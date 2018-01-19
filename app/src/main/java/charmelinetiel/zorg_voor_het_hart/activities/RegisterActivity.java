@@ -16,7 +16,13 @@ import charmelinetiel.zorg_voor_het_hart.fragments.Login.ResetPasswordFragment;
 
 public class RegisterActivity extends AppCompatActivity{
 
+    private Snackbar snackbar;
     private Uri data;
+    private Bundle bundle;
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,34 +31,35 @@ public class RegisterActivity extends AppCompatActivity{
         setContentView(R.layout.activity_register);
 
         //Get the intent and data to determine if the activity was entered by deep link
-        Intent intent = getIntent();
+        intent = getIntent();
         data = intent.getData();
 
         //If the activity was entered through deep link, open the ResetPassword fragment
         if(data != null){
-            setTitle("Wachtwoord herstellen");
+            setTitle(getResources().getString(R.string.restorePassword));
             String token = data.getLastPathSegment();
 
-            Bundle bundle = new Bundle();
+            bundle = new Bundle();
             bundle.putString("token", token);
 
-            Fragment fg = new ResetPasswordFragment();
-            fg.setArguments(bundle);
-            openFragment(fg);
+            fragment = new ResetPasswordFragment();
+            fragment.setArguments(bundle);
+            openFragment(fragment);
 
         }else{
+
             openFragment(new LoginOrRegisterFragment());
         }
     }
 
     public void openFragment(final Fragment fg)
     {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content, fg, fg.toString());
-        ft.addToBackStack(fg.toString());
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, fg, fg.toString());
+        fragmentTransaction.addToBackStack(fg.toString());
 
-        ft.commit();
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -76,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity{
 
     public void makeSnackBar(String messageText, Activity fg)
     {
-        Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
+        snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
                 messageText, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }

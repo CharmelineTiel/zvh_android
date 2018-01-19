@@ -39,7 +39,7 @@
             android:textSize="@dimen/normal_text_mobile" />
 
         <Button
-            android:id="@+id/backHome"
+            android:id="@+id/backHomeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"

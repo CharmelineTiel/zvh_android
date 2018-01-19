@@ -97,7 +97,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/backBtn"
+                android:id="@+id/returnButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Annuleren"
@@ -110,7 +110,7 @@
                 />
             <Button
                 android:id="@+id/sendMessageBtn"
-                android:layout_toEndOf="@+id/backBtn"
+                android:layout_toEndOf="@+id/returnButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Verzenden"

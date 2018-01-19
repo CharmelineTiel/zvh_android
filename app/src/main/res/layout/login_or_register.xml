@@ -25,7 +25,7 @@
             android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inloggen"
@@ -41,15 +41,15 @@
                 android:id="@+id/orLbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/loginBtn"
-                android:layout_below="@+id/loginBtn"
+                android:layout_alignEnd="@+id/loginButton"
+                android:layout_below="@+id/loginButton"
                 android:layout_marginEnd="135dp"
                 android:textColor="@color/ms_black"
                 android:textSize="@dimen/bigger_text_mobile"
                 android:textStyle="bold" />
     <Button
         android:layout_below="@+id/orLbl"
-        android:id="@+id/registerBtn"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registreren"
