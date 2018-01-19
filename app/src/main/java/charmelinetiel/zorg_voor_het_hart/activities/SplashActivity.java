@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
     @Override
     public void onFailure(Call<User> call, Throwable t) {
 
-        this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show());
+        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
     }
     @Override
     protected void onStop() {

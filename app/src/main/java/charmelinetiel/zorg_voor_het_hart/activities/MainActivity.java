@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private APIService apiService;
     private List<HealthIssue> healthIssues;
     private boolean isEditingMeasurement;
-    public static ProgressBar progressBar;
+    public  ProgressBar progressBar;
     private SimpleDateFormat simpleDateFormat;
     private Date date;
     public FormErrorHandler formErrorHandler;
@@ -150,15 +151,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
             }
 
             @Override
-            public void onFailure(Call<Measurement> call, Throwable t)
-
-            {
-                try {
-                    ExceptionHandler.getInstance().exceptionThrower(new Exception());
-                } catch (Exception e) {
-
-                    makeSnackBar(ExceptionHandler.getInstance().getMessage(e), MainActivity.this);
-                }
+            public void onFailure(Call<Measurement> call, Throwable t){
+                Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -166,12 +160,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     @Override
     public void onFailure(Call call, Throwable t) {
 
-        try {
-            ExceptionHandler.getInstance().exceptionThrower(new Exception());
-        } catch (Exception e) {
-
-            makeSnackBar(ExceptionHandler.getInstance().getMessage(e), MainActivity.this);
-        }
+        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
     }
 
     public void setDateOfToday(TextView textView) {

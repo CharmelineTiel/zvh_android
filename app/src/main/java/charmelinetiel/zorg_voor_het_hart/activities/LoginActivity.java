@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
@@ -192,14 +193,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean validInput(){
 
-        if (!formErrorHandler.inputValidString(email)) {
-            email.setError(getResources().getString(R.string.error_invalid_email));
-            return false;
-        }else if(!formErrorHandler.InputValidEmail(email)){
+        if (!formErrorHandler.inputValidString(email) || !formErrorHandler.InputValidEmail(email)) {
 
-            email.setError(getResources().getString(R.string.error_invalid_email));
             return false;
         }
+
         if(!formErrorHandler.inputValidString(password)){
 
             password.setError(getResources().getString(R.string.error_invalid_password));
@@ -241,7 +239,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onFailure(Call<User> call, Throwable t) {
 
         hideProgressBar();
-        makeSnackBar(getResources().getString(R.string.noInternetConnection), this);
+        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -517,11 +515,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                         sendEmailFailed();
 
-                        makeSnackBar(getResources().getString(R.string.noInternetConnection), LoginActivity.this);
-
+                        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -19,7 +19,7 @@ public class FormErrorHandler {
         return formErrorHandler;
     }
 
-   public static boolean inputValidString(EditText editText){
+   public boolean inputValidString(EditText editText){
 
         String regexString = "^[0-9]*$";
         if(editText.getText().toString().trim().matches(regexString) ||
@@ -32,13 +32,13 @@ public class FormErrorHandler {
     }
 
 
-    public static boolean InputValidEmail(EditText editText){
+    public boolean InputValidEmail(EditText editText){
 
         return android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText().toString().trim()).matches();
 
     }
 
-    public static boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
+    public boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
 
         int bloodPressure;
 
@@ -60,7 +60,7 @@ public class FormErrorHandler {
         return true;
     }
 
-    public static boolean inputValidLength(String lengthString){
+    public boolean inputValidLength(String lengthString){
         int length;
 
         try {
@@ -74,7 +74,7 @@ public class FormErrorHandler {
         return (length >= 80 && length <= 230);
     }
 
-    public static boolean inputValidWeight(String weightString){
+    public boolean inputValidWeight(String weightString){
         int weight;
         try {
 

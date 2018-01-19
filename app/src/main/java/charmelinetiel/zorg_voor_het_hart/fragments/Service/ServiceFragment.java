@@ -191,6 +191,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
 
                         }
                     });
@@ -237,7 +238,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
-
+                            Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
                         }
                     });
                     Toast.makeText(getActivity(), "Uw gewicht is aangepast", Toast.LENGTH_SHORT)

@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tooltip.Tooltip;
 
@@ -130,12 +131,8 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
     public void onFailure(Call<User> call, Throwable t) {
 
         hideProgressBar();
-        try {
+        Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
 
-        } catch (Exception e) {
-
-            registerActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), registerActivity);
-        }
     }
 
     private void initConsultantsDropdown(){
@@ -153,12 +150,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
                 @Override
                 public void onFailure(Call<List<Consultant>> call, Throwable t) {
-                    try {
-                        ExceptionHandler.getInstance().exceptionThrower(new Exception());
-                    } catch (Exception e) {
-
-                        registerActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), registerActivity);
-                    }
+                    Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
                 }
             });
         }
