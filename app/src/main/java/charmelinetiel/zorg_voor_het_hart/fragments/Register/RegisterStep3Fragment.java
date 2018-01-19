@@ -97,11 +97,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         setDefaultValueSpinner();
 
-        if (ExceptionHandler.isConnectedToInternet(getContext())) {
-            ConsultantsDropdown();
-        }else{
-            registerActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), registerActivity);
-        }
+        initConsultantsDropdown();
 
         return v;
     }
@@ -164,13 +160,37 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void ConsultantsDropdown(){
-        allConsultants.addAll(Consultant.getConsultants());
-        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
-        consultantsView.setSelection(0,true);
-        consultantsView.setVerticalScrollBarEnabled(true);
-        consultantsView.setPadding(30, 30,30,30);
-        consultantsView.setAdapter(adapter);
+    private void initConsultantsDropdown(){
+        if(Consultant.getConsultants().size() == 0){
+            apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
+                @Override
+                public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
+                    if(response.isSuccessful() && response.body() != null){
+                        Consultant.setConsultants(response.body());
+                        initConsultantsDropdown();
+                    }else{
+                        registerActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", registerActivity);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Consultant>> call, Throwable t) {
+                    try {
+                        ExceptionHandler.exceptionThrower(new Exception());
+                    } catch (Exception e) {
+
+                        registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
+                    }
+                }
+            });
+        }
+            allConsultants.addAll(Consultant.getConsultants());
+            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
+            consultantsView.setSelection(0,true);
+            consultantsView.setVerticalScrollBarEnabled(true);
+            consultantsView.setPadding(30, 30,30,30);
+            consultantsView.setAdapter(adapter);
+
     }
 
     private void showProgressBar(){
