@@ -59,7 +59,6 @@ public class MessageDetailFragment extends Fragment implements View.OnClickListe
         TextView date = v.findViewById(R.id.date);
         TextView subject = v.findViewById(R.id.subject);
         TextView message = v.findViewById(R.id.message);
-
         date.setText(m.getDateTime());
         subject.setText(m.getSubject());
         message.setText(m.getMessage());

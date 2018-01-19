@@ -6,9 +6,20 @@ import android.widget.EditText;
  * Created by C Tiel on 12/28/2017.
  */
 
-public class FormErrorHandling {
+public class FormErrorHandler {
 
-    public boolean inputValidString(EditText editText){
+    private static FormErrorHandler formErrorHandler = null;
+
+    private FormErrorHandler() { }
+    public static FormErrorHandler getInstance(){
+
+        if(formErrorHandler == null) {
+            formErrorHandler = new FormErrorHandler();
+        }
+        return formErrorHandler;
+    }
+
+   public boolean inputValidString(EditText editText){
 
         String regexString = "^[0-9]*$";
         if(editText.getText().toString().trim().matches(regexString) ||

@@ -28,7 +28,6 @@ import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompatDividers;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.AlarmReceiver;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 import charmelinetiel.zorg_voor_het_hart.models.UserLengthWeight;
@@ -57,7 +56,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     private MainActivity mainActivity;
     private APIService apiService;
     private GoogleApiClient mGoogleApiClient;
-    private FormErrorHandling formErrorHandling;
 
     public ServiceFragment() {
         // Required empty public constructor
@@ -69,7 +67,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
         mainActivity = (MainActivity) getActivity();
 
-        formErrorHandling = new FormErrorHandling();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
@@ -170,7 +167,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         editLength.setOnPreferenceChangeListener((preference, newLength) -> {
 
             if (preference instanceof EditTextPreference){
-                if (formErrorHandling.inputValidLength(newLength.toString())){
+                if (mainActivity.formErrorHandler.inputValidLength(newLength.toString())){
                     editLength.setSummary("Uw lengte (cm): " + newLength.toString());
 
                     UserLengthWeight userLength = new UserLengthWeight();
@@ -210,7 +207,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
             if (preference instanceof EditTextPreference){
                 EditTextPreference weight =  (EditTextPreference)preference;
-                if (formErrorHandling.inputValidWeight(newWeight.toString()) ){
+                if (mainActivity.formErrorHandler.inputValidWeight(newWeight.toString()) ){
 
                     weight.setSummary("Uw gewicht (kg): " + newWeight);
                     editWeight.setText(newWeight.toString());

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
@@ -14,7 +13,6 @@ import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 public class MeasurementSavedFragment extends Fragment implements View.OnClickListener {
 
     private View v;
-    private Button toDiary, toHome;
     private MainActivity mainActivity;
 
     public MeasurementSavedFragment() {

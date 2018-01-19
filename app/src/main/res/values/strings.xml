@@ -89,7 +89,7 @@
 
 
     <!-- Error messages -->
-    <string name="noInternetConnection">U heeft mogelijk geen internetverbinding, probeer het opnieuw</string>
+    <string name="noInternetConnection">U heeft mogelijk geen internetverbinding, het ophalen van gegevens is mislukt.</string>
     <string name="emailNotFound">"Er is iets fout gegaan, controleer uw e-maildres en probeer het opnieuw."</string>
     <string name="emailNotValid">Vul een geldig e-mailadres in</string>
     <string name="nameNotValid">Vul een geldige naam in</string>

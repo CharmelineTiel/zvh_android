@@ -109,7 +109,7 @@ public class DiaryFragment extends Fragment {
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
 
-            if (ExceptionHandler.isConnectedToInternet(mainActivity)){
+            if (ExceptionHandler.getInstance().isConnectedToInternet(mainActivity)){
 
                 Measurement selection = getMeasurements().get(position);
                 Bundle bundle=new Bundle();
@@ -136,7 +136,7 @@ public class DiaryFragment extends Fragment {
         initMonthView();
         initChartView();
 
-        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+        if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
 
                 loadMeasurements(this);
         }else{
@@ -277,7 +277,7 @@ public class DiaryFragment extends Fragment {
 
                     } catch (Exception e) {
 
-                        mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                        mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
 
                     }
                 }
@@ -286,10 +286,11 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
                 try {
-                    ExceptionHandler.exceptionThrower(new Exception());
+                    ExceptionHandler.getInstance().getInstance().exceptionThrower(new Exception());
                 } catch (Exception e) {
 
-                    mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                    progressBar.setVisibility(View.GONE);
+                    mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
                 }
             }
         });
@@ -340,7 +341,7 @@ public class DiaryFragment extends Fragment {
 
             if (!weekSelected) {
 
-                if (ExceptionHandler.isConnectedToInternet(mainActivity) && measurements.size() != 0) {
+                if (ExceptionHandler.getInstance().isConnectedToInternet(mainActivity) && measurements.size() != 0) {
 
                     weekSelected = true;
                     monthSelected = false;

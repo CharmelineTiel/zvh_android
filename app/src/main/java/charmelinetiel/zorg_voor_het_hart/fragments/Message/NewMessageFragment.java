@@ -14,7 +14,6 @@ import android.widget.TextView;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.Message;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
@@ -36,7 +35,6 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
     private Message messageObj;
     private EditText message,subject;
     private TextView consultantEmail, consultantName;
-    private FormErrorHandling validateForm;
     private MainActivity mainActivity;
     private ProgressBar progressBar;
     private ScrollView contactPage;
@@ -51,33 +49,31 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_new_message, container, false);
-
         mainActivity = (MainActivity)getActivity();
 
-        view.findViewById(R.id.sendMessageBtn).setOnClickListener(this);
-        view.findViewById(R.id.returnButton).setOnClickListener(this);
-
         initViews();
-
-        consultantEmail.setText(User.getInstance().getConsultant().getEmailAddress());
-        consultantName.setText(User.getInstance().getConsultant().getFirstname()
-                + " " + User.getInstance().getConsultant().getLastname());
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        validateForm = new FormErrorHandling();
 
         return view;
     }
 
     private void initViews() {
+
         message = view.findViewById(R.id.message);
         subject = view.findViewById(R.id.subject);
         consultantEmail = view.findViewById(R.id.consultantEmail);
         consultantName = view.findViewById(R.id.consultantName);
         progressBar = view.findViewById(R.id.progressBar);
         contactPage = view.findViewById(R.id.contactPage);
+
+        view.findViewById(R.id.sendMessageBtn).setOnClickListener(this);
+        view.findViewById(R.id.returnButton).setOnClickListener(this);
+        consultantEmail.setText(User.getInstance().getConsultant().getEmailAddress());
+        consultantName.setText(User.getInstance().getConsultant().getFirstname()
+                + " " + User.getInstance().getConsultant().getLastname());
     }
 
     @Override
@@ -88,7 +84,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
                 if(validInput()) {
 
-                    if (ExceptionHandler.isConnectedToInternet(getContext())) {
+                    if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
 
                         showProgressBar();
                         messageObj = new Message();
@@ -123,7 +119,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
             } catch (Exception e) {
 
-                mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
             }
 
             hideProgressBar();
@@ -134,10 +130,10 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
         try {
-            ExceptionHandler.exceptionThrower(new Exception());
+            ExceptionHandler.getInstance().exceptionThrower(new Exception());
         } catch (Exception e) {
 
-            mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+            mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
         }
 
         hideProgressBar();
@@ -145,12 +141,12 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
 
     public boolean validInput()
     {
-        if(!validateForm.inputValidString(subject)){
+        if(!mainActivity.formErrorHandler.inputValidString(subject)){
 
             subject.setError("Onderwerp mag niet leeg zijn");
             return false;
 
-        }else if (!validateForm.inputValidString(message)) {
+        }else if (!mainActivity.formErrorHandler.inputValidString(message)) {
 
             message.setError("Bericht mag niet leeg zijn");
             return false;

@@ -31,6 +31,7 @@ import charmelinetiel.zorg_voor_het_hart.fragments.Service.FAQFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Service.ServiceFragment;
 import charmelinetiel.zorg_voor_het_hart.helpers.BottomNavigationView;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
+import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandler;
 import charmelinetiel.zorg_voor_het_hart.models.HealthIssue;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 import charmelinetiel.zorg_voor_het_hart.models.User;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     public  ProgressBar progressBar;
     private SimpleDateFormat simpleDateFormat;
     private Date date;
+    public FormErrorHandler formErrorHandler;
+    public ExceptionHandler exceptionHandler;
     private Snackbar snackbar;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -91,13 +94,14 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
         measurement = new Measurement();
         setTitle(getResources().getString(R.string.title_home));
-
+        formErrorHandler = FormErrorHandler.getInstance();
+        exceptionHandler = ExceptionHandler.getInstance();
         initViews();
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        if (User.getInstance().getAuthToken() != null && ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
+        if (User.getInstance().getAuthToken() != null && ExceptionHandler.getInstance().isConnectedToInternet(getApplicationContext())) {
 
             apiService.getAllHealthIssues(User.getInstance().getAuthToken()).enqueue(this);
         } else {
@@ -150,10 +154,10 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
             {
                 try {
-                    ExceptionHandler.exceptionThrower(new Exception());
+                    ExceptionHandler.getInstance().exceptionThrower(new Exception());
                 } catch (Exception e) {
 
-                    makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
+                    makeSnackBar(ExceptionHandler.getInstance().getMessage(e), MainActivity.this);
                 }
             }
         });
@@ -163,10 +167,10 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     public void onFailure(Call call, Throwable t) {
 
         try {
-            ExceptionHandler.exceptionThrower(new Exception());
+            ExceptionHandler.getInstance().exceptionThrower(new Exception());
         } catch (Exception e) {
 
-            makeSnackBar(ExceptionHandler.getMessage(e), MainActivity.this);
+            makeSnackBar(ExceptionHandler.getInstance().getMessage(e), MainActivity.this);
         }
     }
 

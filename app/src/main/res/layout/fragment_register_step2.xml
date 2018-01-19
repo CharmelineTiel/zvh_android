@@ -52,7 +52,7 @@
 
 
         <EditText
-            android:id="@+id/pass1"
+            android:id="@+id/password1"
             android:width="@dimen/form_field_mobile"
             android:background="@color/lighterGrey"
             android:layout_marginLeft="@dimen/margin_15"
@@ -69,7 +69,7 @@
         <EditText
             android:width="@dimen/form_field_mobile"
             android:background="@color/lighterGrey"
-            android:id="@+id/pass2"
+            android:id="@+id/password2"
             android:layout_marginLeft="@dimen/margin_15"
             android:layout_marginRight="@dimen/margin_15"
             android:layout_marginBottom="@dimen/margin_15"

@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,43 +50,12 @@ public class AllMessagesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_all_messages, container, false);
 
         mainActivity = (MainActivity) getActivity();
-        mListView = view.findViewById(R.id.message_list_view);
-        noMessagesText = view.findViewById(R.id.noMessagesText);
-        messages = new ArrayList<>();
+        initViews();
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
 
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Message selectedMessage = getMessages().get(position);
-
-                Bundle bundle=new Bundle();
-                bundle.putParcelable("message",selectedMessage);
-                MessageDetailFragment fg = new MessageDetailFragment();
-                fg.setArguments(bundle);
-                mainActivity.openFragment(fg);
-            }
-
-        });
-
-        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+        if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
             loadMessages();
         }else{
             mainActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), mainActivity);
@@ -113,14 +80,11 @@ public class AllMessagesFragment extends Fragment {
 
                     try{
                         messages = response.body();
-                        mainActivity.runOnUiThread(new Runnable() {
-                            public void run() {
+                        mainActivity.runOnUiThread(() -> {
 
-                                adapter = new MessageListAdapter(getContext(), messages);
-                                mListView.setAdapter(adapter);
-                                adapter.notifyDataSetChanged();
-                            }
-
+                            adapter = new MessageListAdapter(getContext(), messages);
+                            mListView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         });
 
                         // Show/Hide elements in the fragment based on if there are measurements
@@ -138,7 +102,7 @@ public class AllMessagesFragment extends Fragment {
 
                     }catch (Exception e){
 
-                        mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                        mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
                     }
                 }
             }
@@ -147,13 +111,31 @@ public class AllMessagesFragment extends Fragment {
             public void onFailure(Call<List<Message>> call, Throwable t) {
 
                 try {
-                    ExceptionHandler.exceptionThrower(new Exception());
+                    ExceptionHandler.getInstance().exceptionThrower(new Exception());
                 } catch (Exception e) {
 
-                    mainActivity.makeSnackBar(ExceptionHandler.getMessage(e), mainActivity);
+                    mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
                 }
 
             }
+        });
+    }
+
+    private void initViews(){
+
+        mListView = view.findViewById(R.id.message_list_view);
+        noMessagesText = view.findViewById(R.id.noMessagesText);
+        messages = new ArrayList<>();
+
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+
+            Message selectedMessage = getMessages().get(position);
+
+            Bundle bundle=new Bundle();
+            bundle.putParcelable("message",selectedMessage);
+            MessageDetailFragment fg = new MessageDetailFragment();
+            fg.setArguments(bundle);
+            mainActivity.openFragment(fg);
         });
     }
 
