@@ -71,6 +71,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button cancelForgotPassword, sendForgotPasswordEmail;
     private EditText forgotPasswordEmailInput;
     private LinearLayout buttonsPanel, emailSent;
+    private Intent mainIntent, refreshIntent;
+    private Retrofit retrofit;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
 
     @Override
@@ -84,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mIsRequesting = savedInstanceState.getBoolean(IS_REQUESTING);
         }
 
-        Retrofit retrofit = RetrofitClient.getClient();
+        retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
         initViews();
@@ -106,8 +110,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             goToLoginButton = findViewById(R.id.goToLoginButton);
             goToLoginButton.setOnClickListener(view -> {
                 //Refresh the activity to get to the login page
-                Intent refresh = new Intent(this, LoginActivity.class);
-                startActivity(refresh);
+                 refreshIntent = new Intent(this, LoginActivity.class);
+                startActivity(refreshIntent);
                 this.finish();
             });
         //Else show the normal login page
@@ -124,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             forgotPassword = findViewById(R.id.iForgot);
             forgotPassword.setOnClickListener(this);
 
-            loginButton = findViewById(R.id.loginBtn);
+            loginButton = findViewById(R.id.loginButton);
             loginButton.setOnClickListener(this);
 
             backButton = findViewById(R.id.backButton);
@@ -143,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.loginBtn:
+            case R.id.loginButton:
 
                 if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
 
@@ -276,13 +280,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void openFragment(final Fragment fg)
     {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content, fg, fg.toString());
-
-            ft.addToBackStack(fg.toString());
-
-        ft.commit();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction  = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, fg, fg.toString());
+        fragmentTransaction.addToBackStack(fg.toString());
+        fragmentTransaction.commit();
     }
 
     public void showProgressBar(){
@@ -401,8 +403,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void goToMainActivity(){
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
         finish();
     }
 

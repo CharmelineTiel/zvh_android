@@ -7,11 +7,9 @@
     <string name="title_diary">Mijn Dagboek</string>
     <string name="title_contact">Contact</string>
     <string name="title_settings">Service</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">Login</string>
+
+
     <string name="bovendruk">Bovendruk/SYS(mmHg)</string>
     <string name="onderdruk">Onderdruk/DIA(mmHg)</string>
 
@@ -38,6 +36,7 @@
     <string name="registeredTxt2">
         Klik op de link in de e-mail om uw \naccount activeren.
     </string>
+    <string name="restorePassword">Wachtwoord herstellen</string>
     <!-- Strings related to Service -->
     <string name="settingsLbl">Mijn instellingen</string>
     <string name="accountLbl">Mijn account</string>

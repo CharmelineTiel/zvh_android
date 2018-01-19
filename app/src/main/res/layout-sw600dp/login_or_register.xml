@@ -27,7 +27,7 @@
             android:paddingBottom="@dimen/margin_15">
 
             <Button
-                android:id="@+id/loginBtn"
+                android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_15"
@@ -43,7 +43,7 @@
                 android:id="@+id/orLbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/loginBtn"
+                android:layout_below="@+id/loginButton"
                 android:width="300dp"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:textAlignment="center"

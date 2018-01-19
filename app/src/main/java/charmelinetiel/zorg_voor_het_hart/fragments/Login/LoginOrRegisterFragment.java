@@ -3,8 +3,6 @@ package charmelinetiel.zorg_voor_het_hart.fragments.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +37,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
         registerActivity = (RegisterActivity) getActivity();
         registerActivity.getSupportActionBar().hide();
 
-        v.findViewById(R.id.loginBtn).setOnClickListener(this);
+        v.findViewById(R.id.loginButton).setOnClickListener(this);
         v.findViewById(R.id.registerBtn).setOnClickListener(this);
 
         return v;
@@ -49,7 +47,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.loginBtn:
+            case R.id.loginButton:
                 Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(loginIntent);
                 break;

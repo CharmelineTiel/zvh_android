@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private SimpleDateFormat simpleDateFormat;
     private Date date;
     private Snackbar snackbar;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+
 
     private android.support.design.widget.BottomNavigationView bottomNavigationView;
 
@@ -199,11 +202,11 @@ public class MainActivity extends AppCompatActivity implements  Callback {
 
     public void openFragment(final Fragment fg) {
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content, fg, fg.toString());
-        ft.addToBackStack(fg.toString());
-        ft.commit();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content, fg, fg.toString());
+        fragmentTransaction.addToBackStack(fg.toString());
+        fragmentTransaction.commit();
 
     }
 
