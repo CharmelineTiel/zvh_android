@@ -56,7 +56,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     private Preference logout, dailyReminder, veelgesteldeVragen;
     private EditTextPreference editLength, editWeight;
     private MainActivity mainActivity;
-    private FormErrorHandling formErrorHandling;
+    private FormErrorHandling errorHandling;
     private APIService apiService;
     private GoogleApiClient mGoogleApiClient;
     private SharedPreferences settings;
@@ -71,7 +71,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         addPreferencesFromResource(R.xml.app_preferences);
 
         mainActivity = (MainActivity) getActivity();
-        formErrorHandling = new FormErrorHandling();
+        errorHandling = new FormErrorHandling();
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
@@ -202,7 +202,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
             public boolean onPreferenceChange(Preference preference, Object newLength) {
 
                 if (preference instanceof EditTextPreference){
-                    if (formErrorHandling.inputValidLength(newLength.toString())){
+                    if (errorHandling.inputValidLength(newLength.toString())){
                         editLength.setSummary("Uw lengte (cm): " + newLength.toString());
 
                         UserLengthWeight userLength = new UserLengthWeight();
@@ -246,7 +246,7 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
                 if (preference instanceof EditTextPreference){
                     EditTextPreference weight =  (EditTextPreference)preference;
-                    if (formErrorHandling.inputValidWeight(newWeight.toString()) ){
+                    if (errorHandling.inputValidWeight(newWeight.toString()) ){
 
                         weight.setSummary("Uw gewicht (kg): " + newWeight);
                         editWeight.setText(newWeight.toString());

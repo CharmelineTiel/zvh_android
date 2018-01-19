@@ -77,22 +77,19 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         backButton.setOnClickListener(this);
 
 
-        infoToolTip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        infoToolTip.setOnClickListener(v -> {
 
-                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
-                        .setCancelable(true)
-                        .setDismissOnClick(false)
-                        .setCornerRadius(8f)
-                        .setPadding(30f)
-                        .setMargin(10f)
-                        .setTextColor(getResources().getColor(R.color.whiteText))
-                        .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
-                        .setGravity(Gravity.BOTTOM)
-                        .setText("Uw consulent bij het St.Antonius ziekenhuis");
-                builder.show();
-            }
+            Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                    .setCancelable(true)
+                    .setDismissOnClick(false)
+                    .setCornerRadius(8f)
+                    .setPadding(30f)
+                    .setMargin(10f)
+                    .setTextColor(getResources().getColor(R.color.whiteText))
+                    .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                    .setGravity(Gravity.BOTTOM)
+                    .setText("Uw consulent bij het St.Antonius ziekenhuis");
+            builder.show();
         });
 
         setDefaultValueSpinner();

@@ -8,7 +8,6 @@ import android.widget.EditText;
 
 public class FormErrorHandling {
 
-
     public boolean inputValidString(EditText editText){
 
         String regexString = "^[0-9]*$";
