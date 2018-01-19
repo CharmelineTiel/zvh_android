@@ -73,32 +73,9 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         initViews();
 
-        registerButton.setOnClickListener(this);
-        backButton.setOnClickListener(this);
-
-
-        infoToolTip.setOnClickListener(v -> {
-
-            Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
-                    .setCancelable(true)
-                    .setDismissOnClick(false)
-                    .setCornerRadius(8f)
-                    .setPadding(30f)
-                    .setMargin(10f)
-                    .setTextColor(getResources().getColor(R.color.whiteText))
-                    .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
-                    .setGravity(Gravity.BOTTOM)
-                    .setText("Uw consulent bij het St.Antonius ziekenhuis");
-            builder.show();
-        });
 
         setDefaultValueSpinner();
-
-        if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
-            ConsultantsDropdown();
-        }else{
-            registerActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), registerActivity);
-        }
+        initConsultantsDropdown();
 
         return v;
     }
@@ -161,13 +138,37 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void ConsultantsDropdown(){
-        allConsultants.addAll(Consultant.getConsultants());
-        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
-        consultantsView.setSelection(0,true);
-        consultantsView.setVerticalScrollBarEnabled(true);
-        consultantsView.setPadding(30, 30,30,30);
-        consultantsView.setAdapter(adapter);
+    private void initConsultantsDropdown(){
+        if(Consultant.getConsultants().size() == 0){
+            apiService.getAllConsultants().enqueue(new Callback<List<Consultant>>() {
+                @Override
+                public void onResponse(Call<List<Consultant>> call, Response<List<Consultant>> response) {
+                    if(response.isSuccessful() && response.body() != null){
+                        Consultant.setConsultants(response.body());
+                        initConsultantsDropdown();
+                    }else{
+                        registerActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", registerActivity);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Consultant>> call, Throwable t) {
+                    try {
+                        ExceptionHandler.getInstance().exceptionThrower(new Exception());
+                    } catch (Exception e) {
+
+                        registerActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), registerActivity);
+                    }
+                }
+            });
+        }
+            allConsultants.addAll(Consultant.getConsultants());
+            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, allConsultants);
+            consultantsView.setSelection(0,true);
+            consultantsView.setVerticalScrollBarEnabled(true);
+            consultantsView.setPadding(30, 30,30,30);
+            consultantsView.setAdapter(adapter);
+
     }
 
     private void showProgressBar(){
@@ -210,6 +211,25 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         backButton = v.findViewById(R.id.returnButton);
         consultantsView =  v.findViewById(R.id.consultants);
         infoToolTip = v.findViewById(R.id.toolTipConsultant);
+
+        registerButton.setOnClickListener(this);
+        backButton.setOnClickListener(this);
+
+
+        infoToolTip.setOnClickListener(v -> {
+
+            Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                    .setCancelable(true)
+                    .setDismissOnClick(false)
+                    .setCornerRadius(8f)
+                    .setPadding(30f)
+                    .setMargin(10f)
+                    .setTextColor(getResources().getColor(R.color.whiteText))
+                    .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                    .setGravity(Gravity.BOTTOM)
+                    .setText("Uw consulent bij het St.Antonius ziekenhuis");
+            builder.show();
+        });
 
     }
 }

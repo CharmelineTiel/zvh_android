@@ -277,8 +277,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void openFragment(final Fragment fg)
-    {
+    public void openFragment(final Fragment fg){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction  = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, fg, fg.toString());
@@ -297,8 +296,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void makeSnackBar(String messageText, Activity fg)
-    {
+    public void makeSnackBar(String messageText, Activity fg){
         Snackbar snackbar = Snackbar.make(fg.findViewById(R.id.parentLayout),
                 messageText, Snackbar.LENGTH_SHORT);
         snackbar.show();
@@ -372,7 +370,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Auth.CredentialsApi.request(mGoogleApiClient, request).setResultCallback(
                 credentialRequestResult -> {
-//                        mIsRequesting = false;
+                        mIsRequesting = false;
                     Status status = credentialRequestResult.getStatus();
                     if (credentialRequestResult.getStatus().isSuccess()) {
                         // Successfully read the credential without any user interaction, this
