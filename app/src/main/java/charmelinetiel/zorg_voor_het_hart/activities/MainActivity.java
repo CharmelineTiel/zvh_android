@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements  Callback {
     private APIService apiService;
     private List<HealthIssue> healthIssues;
     private boolean isEditingMeasurement;
-    public static ProgressBar progressBar;
+    public  ProgressBar progressBar;
     private SimpleDateFormat simpleDateFormat;
     private Date date;
     private Snackbar snackbar;

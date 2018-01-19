@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class DiaryFragment extends Fragment {
     private MeasurementListAdapter adapter;
     private String screenResolution;
     private boolean weekSelected, monthSelected, chartSelected;
+    public ProgressBar progressBar;
     private float BARSPACE;
     private float BARWIDTH;
 
@@ -73,7 +75,7 @@ public class DiaryFragment extends Fragment {
         initViews(v);
 
         screenResolution = getString(R.string.screen_type);
-        MainActivity.progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
@@ -152,7 +154,7 @@ public class DiaryFragment extends Fragment {
         insertMeasurementText = v.findViewById(R.id.insertMeasurementText);
         goToMeasurementBtn = v.findViewById(R.id.goToMeasurement);
         mainActivity = (MainActivity) getActivity();
-        MainActivity.progressBar = v.findViewById(R.id.progressBar_cyclic);
+        progressBar = v.findViewById(R.id.progressBar_cyclic);
         chartButton = v.findViewById(R.id.graphOverview);
         weekButton = v.findViewById(R.id.weekOverview);
         monthButton = v.findViewById(R.id.monthOverview);
@@ -254,7 +256,7 @@ public class DiaryFragment extends Fragment {
                             }
                             mListView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                            MainActivity.progressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
                         });
 
                         // Show/Hide elements in the fragment based on if there are measurements

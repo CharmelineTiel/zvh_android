@@ -193,11 +193,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean validInput(){
 
-        if (!validateForm.inputValidString(email)) {
-            email.setError(getResources().getString(R.string.error_invalid_email));
-            return false;
-        }else if(!validateForm.InputValidEmail(email)){
-
+        if (!validateForm.inputValidString(email) || !validateForm.InputValidEmail(email)) {
             email.setError(getResources().getString(R.string.error_invalid_email));
             return false;
         }
