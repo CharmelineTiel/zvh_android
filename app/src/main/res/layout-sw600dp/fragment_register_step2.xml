@@ -53,7 +53,7 @@
 
 
         <EditText
-            android:id="@+id/pass1"
+            android:id="@+id/password1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/grey"
@@ -68,7 +68,7 @@
 
 
         <EditText
-            android:id="@+id/pass2"
+            android:id="@+id/password2"
             android:background="@color/grey"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"

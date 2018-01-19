@@ -94,7 +94,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         setDefaultValueSpinner();
 
-        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+        if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
             ConsultantsDropdown();
         }else{
             registerActivity.makeSnackBar(String.valueOf(R.string.noInternetConnection), registerActivity);
@@ -109,7 +109,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.registerButton:
-                if (ExceptionHandler.isConnectedToInternet(getContext())) {
+                if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
                     consultant = (Consultant) consultantsView.getSelectedItem();
 
                     if (!consultant.getConsultantId().equals(DEFAULT_CONSULTANT_ID)){
@@ -144,7 +144,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
                 hideProgressBar();
             } catch (Exception e) {
 
-                registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
+                registerActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), registerActivity);
             }
         }
     }
@@ -157,7 +157,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         } catch (Exception e) {
 
-            registerActivity.makeSnackBar(ExceptionHandler.getMessage(e), registerActivity);
+            registerActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), registerActivity);
         }
     }
 

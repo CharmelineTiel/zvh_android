@@ -36,7 +36,7 @@ import org.json.JSONObject;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.helpers.ExceptionHandler;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
+import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandler;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
 import charmelinetiel.zorg_voor_het_hart.webservices.RetrofitClient;
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private APIService apiService;
     private TextView forgotPassword, iForgotLbl, forgotPasswordText;
     private EditText email, password;
-    private FormErrorHandling validateForm;
+    public FormErrorHandler formErrorHandler;
     private Uri data;
     private ProgressBar progressBar;
     private ScrollView loginPage;
@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mIsRequesting = savedInstanceState.getBoolean(IS_REQUESTING);
         }
 
+        formErrorHandler = FormErrorHandler.getInstance();
         retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
@@ -116,8 +117,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
         //Else show the normal login page
         }else {
-
-        validateForm = new FormErrorHandling();
 
             setSupportActionBar(toolbar);
             setTitle(R.string.title_activity_login);
@@ -149,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.loginButton:
 
-                if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
+                if (ExceptionHandler.getInstance().isConnectedToInternet(getApplicationContext())) {
 
                     User.getInstance().setPassword(password.getText().toString());
                     User.getInstance().setEmailAddress(email.getText().toString());
@@ -193,15 +192,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean validInput(){
 
-        if (!validateForm.inputValidString(email)) {
+        if (!formErrorHandler.inputValidString(email)) {
             email.setError(getResources().getString(R.string.error_invalid_email));
             return false;
-        }else if(!validateForm.InputValidEmail(email)){
+        }else if(!formErrorHandler.InputValidEmail(email)){
 
             email.setError(getResources().getString(R.string.error_invalid_email));
             return false;
         }
-        if(!validateForm.inputValidString(password)){
+        if(!formErrorHandler.inputValidString(password)){
 
             password.setError(getResources().getString(R.string.error_invalid_password));
             return false;
@@ -498,7 +497,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         sendForgotPasswordEmail.setOnClickListener(view -> {
 
-            if (validateForm.inputValidString(forgotPasswordEmailInput)) {
+            if (formErrorHandler.inputValidString(forgotPasswordEmailInput)) {
 
                 sendEmailInProgress();
 
@@ -528,7 +527,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
 
-            }else if(!validateForm.InputValidEmail(forgotPasswordEmailInput)){
+            }else if(!formErrorHandler.InputValidEmail(forgotPasswordEmailInput)){
 
                 forgotPasswordEmailInput.setError(getResources().getString(R.string.error_invalid_email));
             }

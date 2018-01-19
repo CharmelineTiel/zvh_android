@@ -21,7 +21,6 @@ public class RetrofitClient {
                     .setLenient()
                     .create();
 
-
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create(gson))

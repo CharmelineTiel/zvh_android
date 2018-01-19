@@ -13,7 +13,18 @@ import java.net.SocketTimeoutException;
 
 public class ExceptionHandler {
 
-    public static String getMessage(Exception ex) {
+    private static ExceptionHandler exceptionHandler = null;
+
+    private ExceptionHandler() { }
+    public static ExceptionHandler getInstance(){
+
+        if(exceptionHandler == null) {
+            exceptionHandler = new ExceptionHandler();
+        }
+        return exceptionHandler;
+    }
+
+    public String getMessage(Exception ex) {
         String message;
 
         if (ex instanceof ArrayIndexOutOfBoundsException) {
@@ -39,7 +50,7 @@ public class ExceptionHandler {
     }
 
 
-    public static void exceptionThrower(Exception ex) throws Exception {
+    public void exceptionThrower(Exception ex) throws Exception {
         if (ex != null) {
             if (ex instanceof ArrayIndexOutOfBoundsException) {
                 throw (ArrayIndexOutOfBoundsException) ex;
@@ -59,7 +70,7 @@ public class ExceptionHandler {
         }
     }
 
-    public static boolean isConnectedToInternet(Context context){
+    public boolean isConnectedToInternet(Context context){
         ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null)
         {

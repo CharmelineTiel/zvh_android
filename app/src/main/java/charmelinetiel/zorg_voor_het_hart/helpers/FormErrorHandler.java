@@ -6,9 +6,20 @@ import android.widget.EditText;
  * Created by C Tiel on 12/28/2017.
  */
 
-public class FormErrorHandling {
+public class FormErrorHandler {
 
-    public boolean inputValidString(EditText editText){
+    private static FormErrorHandler formErrorHandler = null;
+
+    private FormErrorHandler() { }
+    public static FormErrorHandler getInstance(){
+
+        if(formErrorHandler == null) {
+            formErrorHandler = new FormErrorHandler();
+        }
+        return formErrorHandler;
+    }
+
+   public static boolean inputValidString(EditText editText){
 
         String regexString = "^[0-9]*$";
         if(editText.getText().toString().trim().matches(regexString) ||
@@ -21,13 +32,13 @@ public class FormErrorHandling {
     }
 
 
-    public boolean InputValidEmail(EditText editText){
+    public static boolean InputValidEmail(EditText editText){
 
         return android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText().toString().trim()).matches();
 
     }
 
-    public boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
+    public static boolean inputValidBloodPressure(EditText editText, boolean isUpperBloodPressure){
 
         int bloodPressure;
 
@@ -49,7 +60,7 @@ public class FormErrorHandling {
         return true;
     }
 
-    public boolean inputValidLength(String lengthString){
+    public static boolean inputValidLength(String lengthString){
         int length;
 
         try {
@@ -63,7 +74,7 @@ public class FormErrorHandling {
         return (length >= 80 && length <= 230);
     }
 
-    public boolean inputValidWeight(String weightString){
+    public static boolean inputValidWeight(String weightString){
         int weight;
         try {
 

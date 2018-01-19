@@ -18,7 +18,6 @@ import com.tooltip.Tooltip;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 
 /**
@@ -29,8 +28,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
     private View v;
     private ImageView infoToolTip;
-    private EditText email, pass1, pass2;
-    private FormErrorHandling validateForm;
+    private EditText email, password1, password2;
     private RegisterActivity registerActivity;
 
     public RegisterStep2Fragment() {
@@ -81,10 +79,10 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             case R.id.nextScreenBtn:
 
                 //update user information
-                if(email.getText().toString() != "" && pass1.getText().toString() != "" && pass1.getText().toString().equals(pass2.getText().toString())) {
+                if(email.getText().toString() != "" && password1.getText().toString() != "" && password1.getText().toString().equals(password2.getText().toString())) {
                     User.getInstance().setEmailAddress(email.getText().toString());
 
-                    User.getInstance().setPassword(pass1.getText().toString());
+                    User.getInstance().setPassword(password1.getText().toString());
                 }
 
 
@@ -105,28 +103,26 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
     private boolean validInput(){
 
-        validateForm = new FormErrorHandling();
-
-        if (!validateForm.InputValidEmail(email)){
+        if (!registerActivity.formErrorHandler.InputValidEmail(email)){
 
             email.setError("Geen geldige email");
            return false;
-        }else if(!validateForm.inputValidString(email)){
+        }else if(!registerActivity.formErrorHandler.inputValidString(email)){
 
             email.setError("Vul uw e-mail in");
             return false;
         }
-        if (pass1.getText().toString().trim().equals("")) {
+        if (password1.getText().toString().trim().equals("")) {
 
-            pass1.setError("Vul een wachtwoord in");
+            password1.setError("Vul een wachtwoord in");
             return false;
         }
-        if (pass2.getText().toString().trim().equals("")) {
-            pass2.setError("Herhaal uw wachtwoord in");
+        if (password2.getText().toString().trim().equals("")) {
+            password2.setError("Herhaal uw wachtwoord in");
             return false;
         }
 
-        pass2.addTextChangedListener(new TextWatcher() {
+        password2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -135,11 +131,11 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                String pass = pass1.getText().toString().trim();
+                String pass = password1.getText().toString().trim();
                 if (charSequence.length() > 0 && pass.length() > 0) {
-                    if(!pass2.getText().toString().trim().equals(pass)){
+                    if(!password2.getText().toString().trim().equals(pass)){
 
-                        pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+                        password2.setError("De ingevoerde wachtwoorden komen niet overeen.");
 
                     }
 
@@ -148,11 +144,11 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String pass = pass1.getText().toString().trim();
+                String pass = password1.getText().toString().trim();
                 if (editable.length() > 0 && pass.length() > 0) {
-                    if(!pass2.getText().toString().trim().equals(pass)){
+                    if(!password2.getText().toString().trim().equals(pass)){
 
-                        pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+                        password2.setError("De ingevoerde wachtwoorden komen niet overeen.");
 
                     }
 
@@ -161,9 +157,9 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         });
 
 
-            if (!pass1.getText().toString().trim().equals(pass2.getText().toString().trim())) {
+            if (!password1.getText().toString().trim().equals(password2.getText().toString().trim())) {
 
-                pass2.setError("De ingevoerde wachtwoorden komen niet overeen.");
+                password2.setError("De ingevoerde wachtwoorden komen niet overeen.");
 
                 return false;
             }
@@ -175,8 +171,8 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
     private void initViews(){
 
         email = v.findViewById(R.id.email);
-        pass1 = v.findViewById(R.id.pass1);
-        pass2 = v.findViewById(R.id.pass2);
+        password1 = v.findViewById(R.id.password1);
+        password2 = v.findViewById(R.id.password2);
         infoToolTip = v.findViewById(R.id.toolTipLoginInfo);
 
     }

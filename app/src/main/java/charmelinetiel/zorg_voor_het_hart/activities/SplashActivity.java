@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity implements Callback<User> 
         retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        if (ExceptionHandler.isConnectedToInternet(getApplicationContext())) {
+        if (ExceptionHandler.getInstance().isConnectedToInternet(getApplicationContext())) {
 
             preloadContent();
 

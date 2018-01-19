@@ -26,7 +26,7 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
 
     private View v;
-    private Button contactBtn;
+    private Button contactButton;
     private MainActivity mainActivity;
     ExpandableLayout sectionLinearLayout;
 
@@ -39,38 +39,10 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_faq, container, false);
-
-
         mainActivity = (MainActivity) getActivity();
-        sectionLinearLayout = v.findViewById(R.id.el);
-        contactBtn = v.findViewById(R.id.contactBtn);
-        contactBtn.setOnClickListener(this);
 
-        sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<String, String>() {
-            @Override
-            public void renderParent(View view, String s, boolean b, int i) {
+        initViews();
 
-                ((TextView) view.findViewById(R.id.question)).setText(s);
-                view.findViewById(R.id.arrow).setBackgroundResource(b ? R.drawable.ic_chevron_right_black_24dp : R.drawable.ic_expand_more_black_24dp);
-
-            }
-
-            @Override
-            public void renderChild(View view, String s, int i, int i1) {
-                ((TextView) view.findViewById(R.id.answer)).setText(s);
-
-            }
-        });
-
-        initFAQ();
-
-        sectionLinearLayout.setExpandListener((ExpandCollapseListener.ExpandListener<String>) (parentIndex, parent, view) -> {
-
-        });
-
-        sectionLinearLayout.setCollapseListener((ExpandCollapseListener.CollapseListener<String>) (parentIndex, parent, view) -> {
-
-        });
         return v;
 
         }
@@ -116,6 +88,40 @@ public class FAQFragment extends Fragment implements View.OnClickListener {
 
 
             }
+    }
+
+    private void initViews(){
+
+
+        sectionLinearLayout = v.findViewById(R.id.el);
+        contactButton = v.findViewById(R.id.contactBtn);
+        contactButton.setOnClickListener(this);
+
+        sectionLinearLayout.setRenderer(new ExpandableLayout.Renderer<String, String>() {
+            @Override
+            public void renderParent(View view, String s, boolean b, int i) {
+
+                ((TextView) view.findViewById(R.id.question)).setText(s);
+                view.findViewById(R.id.arrow).setBackgroundResource(b ? R.drawable.ic_chevron_right_black_24dp : R.drawable.ic_expand_more_black_24dp);
+
+            }
+
+            @Override
+            public void renderChild(View view, String s, int i, int i1) {
+                ((TextView) view.findViewById(R.id.answer)).setText(s);
+
+            }
+        });
+
+        initFAQ();
+
+        sectionLinearLayout.setExpandListener((ExpandCollapseListener.ExpandListener<String>) (parentIndex, parent, view) -> {
+
+        });
+
+        sectionLinearLayout.setCollapseListener((ExpandCollapseListener.CollapseListener<String>) (parentIndex, parent, view) -> {
+
+        });
     }
 
 }

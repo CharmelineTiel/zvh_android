@@ -6,25 +6,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 
 
 public class MeasurementStep1Fragment extends Fragment implements View.OnClickListener {
 
     private View v;
-    private Button cancelButton;
-    private Button nextButton;
     private EditText upperBloodPressure;
     private EditText lowerBloodPressure;
     private TextView dateTimeNow;
-    private FormErrorHandling validateForm;
     private MainActivity mainActivity;
 
     public MeasurementStep1Fragment(){
@@ -34,6 +29,7 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
 
         mainActivity = (MainActivity) getActivity();
         if(mainActivity.isEditingMeasurement()){
@@ -42,7 +38,7 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
             mainActivity.setTitle("Meting stap 1 van 2");
         }
 
-        v = inflater.inflate(R.layout.fragment_measurement_step1, container, false);
+        initViews();
 
         if (container != null) {
             container.removeAllViews();
@@ -53,14 +49,13 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
 
     private boolean validInput()
     {
-        validateForm = new FormErrorHandling();
 
-        if(!validateForm.inputValidBloodPressure(lowerBloodPressure, false)){
+        if(!mainActivity.formErrorHandler.inputValidBloodPressure(lowerBloodPressure, false)){
             lowerBloodPressure.setError("Ongeldige waarde, controleer uw onderdruk");
             return false;
         }
 
-        if(!validateForm.inputValidBloodPressure(upperBloodPressure, true)){
+        if(!mainActivity.formErrorHandler.inputValidBloodPressure(upperBloodPressure, true)){
             upperBloodPressure.setError("Ongeldige waarde, controleer uw bovendruk");
             return false;
         }
@@ -73,12 +68,6 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        v.findViewById(R.id.cancel_measurement1_button).setOnClickListener(this);
-        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
-
-        upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
-        lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
-
         try {
             upperBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureUpper().toString());
             lowerBloodPressure.setText(mainActivity.getMeasurement().getBloodPressureLower().toString());
@@ -86,8 +75,6 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
 
         }
 
-        dateTimeNow = v.findViewById(R.id.dateTimeNow);
-        mainActivity.setDateOfToday(dateTimeNow);
 
     }
 
@@ -112,5 +99,15 @@ public class MeasurementStep1Fragment extends Fragment implements View.OnClickLi
                 }
                 break;
         }
+    }
+
+    private void initViews(){
+
+        v.findViewById(R.id.cancel_measurement1_button).setOnClickListener(this);
+        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
+        upperBloodPressure = v.findViewById(R.id.upperBloodPressure);
+        lowerBloodPressure = v.findViewById(R.id.lowerBloodPressure);
+        dateTimeNow = v.findViewById(R.id.dateTimeNow);
+        mainActivity.setDateOfToday(dateTimeNow);
     }
 }

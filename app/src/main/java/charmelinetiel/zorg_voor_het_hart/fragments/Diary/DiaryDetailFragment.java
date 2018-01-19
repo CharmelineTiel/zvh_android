@@ -46,7 +46,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
         mainActivity = (MainActivity) getActivity();
 
 
-        if (ExceptionHandler.isConnectedToInternet(getContext())) {
+        if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
 
             healthIssues = mainActivity.getHealthIssues();
 
@@ -78,7 +78,7 @@ public class DiaryDetailFragment extends Fragment implements View.OnClickListene
             case R.id.editButton:
 
                 //Set the measurement in the mainactivity so the values can be set
-                if (ExceptionHandler.isConnectedToInternet(getContext())) {
+                if (ExceptionHandler.getInstance().isConnectedToInternet(getContext())) {
                     mainActivity.setMeasurement(m);
                     mainActivity.setEditingMeasurement(true);
                     mainActivity.openFragment(new MeasurementStep1Fragment());

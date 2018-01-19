@@ -33,8 +33,8 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
 
         mainActivity = (MainActivity) getActivity();
 
-        Button btn = view.findViewById(R.id.backHomeButton);
-        btn.setOnClickListener(this);
+        Button backButton = view.findViewById(R.id.backHomeButton);
+        backButton.setOnClickListener(this);
         return view;
     }
 

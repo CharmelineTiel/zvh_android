@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.fragments.Login.LoginOrRegisterFragment;
 import charmelinetiel.zorg_voor_het_hart.fragments.Login.ResetPasswordFragment;
+import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandler;
 
 public class RegisterActivity extends AppCompatActivity{
 
@@ -22,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity{
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    public FormErrorHandler formErrorHandler;
     private Intent intent;
 
     @Override
@@ -29,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_register);
+
+        formErrorHandler = FormErrorHandler.getInstance();
 
         //Get the intent and data to determine if the activity was entered by deep link
         intent = getIntent();

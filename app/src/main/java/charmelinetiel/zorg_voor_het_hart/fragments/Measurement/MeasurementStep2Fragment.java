@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
 import charmelinetiel.zorg_voor_het_hart.adapters.CheckboxAdapter;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.Measurement;
 
 public class MeasurementStep2Fragment extends Fragment implements View.OnClickListener {
@@ -27,9 +26,6 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
     private RadioGroup measurementRadioGroup;
     private MainActivity mainActivity;
     private CheckboxAdapter measurementCheckboxAdapter;
-    private FormErrorHandling errorHandling;
-    private TextView warningMessage;
-    private CheckboxAdapter finalMeasurementCheckboxAdapter;
 
     public MeasurementStep2Fragment(){
         // Required empty public constructor
@@ -41,7 +37,6 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
         v = inflater.inflate(R.layout.fragment_measurement_step2, container, false);
 
         mainActivity = (MainActivity) getActivity();
-        errorHandling = new FormErrorHandling();
 
         initViews();
 
@@ -81,9 +76,6 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
             container.removeAllViews();
         }
 
-        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
-        v.findViewById(R.id.cancel_measurement2_button).setOnClickListener(this);
-
         configureRadioGroup();
 
         return v;
@@ -95,8 +87,9 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
         noIssues = v.findViewById(R.id.noIssues);
         measurementRadioGroup = v.findViewById(R.id.measurementRadioGroup);
         date = v.findViewById(R.id.dateTimeNow);
-        warningMessage = v.findViewById(R.id.warningMessage);
         checkboxList = v.findViewById(R.id.checkboxList);
+        v.findViewById(R.id.complete_measurement_button).setOnClickListener(this);
+        v.findViewById(R.id.cancel_measurement2_button).setOnClickListener(this);
     }
 
     @Override
@@ -114,7 +107,7 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
                 boolean yesNamelySelected = measurementRadioGroup.getCheckedRadioButtonId() == R.id.yesNamelyRadio;
 
                 if (yesNamelySelected && measurementCheckboxAdapter.getSelectedIssues().size() == 0
-                    && !errorHandling.inputValidString(otherNamelyInput)) {
+                    && !mainActivity.formErrorHandler.inputValidString(otherNamelyInput)) {
 
                       mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
 

@@ -21,7 +21,6 @@ import java.util.Calendar;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
-import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.User;
 
 
@@ -29,7 +28,6 @@ public class RegisterStep1Fragment extends Fragment
         implements View.OnClickListener
 
 {
-
     private EditText firstName;
     private EditText lastName;
     private EditText dateOfBirth;
@@ -37,7 +35,6 @@ public class RegisterStep1Fragment extends Fragment
     private RadioGroup gender;
     private ImageView infoToolTip;
     private View v;
-    private FormErrorHandling validateForm;
     private RegisterActivity registerActivity;
 
     public RegisterStep1Fragment() {
@@ -56,54 +53,11 @@ public class RegisterStep1Fragment extends Fragment
 
         v = inflater.inflate(R.layout.fragment_register_step1, container, false);
 
-        dateOfBirth = v.findViewById(R.id.dateOfBirth);
-        dateOfBirth.setOnClickListener(this);
-        dateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    setDate();
-                }
-            }
-        });
-
-        v.findViewById(R.id.cancelButton).setOnClickListener(this);
-        v.findViewById(R.id.nextButton).setOnClickListener(this);
 
         initViews();
 
-        infoToolTip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
-                        .setCancelable(true)
-                        .setDismissOnClick(false)
-                        .setCornerRadius(8f)
-                        .setPadding(30f)
-                        .setMargin(10f)
-                        .setTextColor(getResources().getColor(R.color.whiteText))
-                        .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
-                        .setGravity(Gravity.BOTTOM)
-                        .setText("Om u zo goed mogelijk te kunnen ondersteunen vragen wij u om enkele persoonsgegevens");
-                builder.show();
-            }
-        });
 
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Apply any required UI change now that the DiaryMonthFragment is visible.
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
     @Override
@@ -156,28 +110,27 @@ public class RegisterStep1Fragment extends Fragment
 
 
     private boolean validInput() {
-        validateForm = new FormErrorHandling();
 
-        if (!validateForm.inputValidString(firstName)) {
+        if (!registerActivity.formErrorHandler.inputValidString(firstName)) {
 
             firstName.setError("Vul uw voornaam in");
             return false;
         }
-        if (!validateForm.inputValidString(lastName)) {
+        if (!registerActivity.formErrorHandler.inputValidString(lastName)) {
 
             lastName.setError("Vul uw achternaam in");
             return false;
         }
-        if (!validateForm.inputValidString(dateOfBirth)) {
+        if (!registerActivity.formErrorHandler.inputValidString(dateOfBirth)) {
 
             dateOfBirth.setError("Vul uw geboortedatum in");
             return false;
         }
-        if (!validateForm.inputValidLength(length.getText().toString().trim())) {
+        if (!registerActivity.formErrorHandler.inputValidLength(length.getText().toString().trim())) {
             length.setError("Vul een geldige lengte in in gehele centimeters");
             return false;
         }
-        if (!validateForm.inputValidWeight(weight.getText().toString().trim())) {
+        if (!registerActivity.formErrorHandler.inputValidWeight(weight.getText().toString().trim())) {
             weight.setError("Vul een geldig gewicht in in gehele kilogrammen");
             return false;
         }
@@ -208,6 +161,32 @@ public class RegisterStep1Fragment extends Fragment
         gender = v.findViewById(R.id.radioGender);
         infoToolTip = v.findViewById(R.id.toolTipPersonalInfo);
 
+        dateOfBirth = v.findViewById(R.id.dateOfBirth);
+        dateOfBirth.setOnClickListener(this);
+        dateOfBirth.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                setDate();
+            }
+        });
+
+        v.findViewById(R.id.cancelButton).setOnClickListener(this);
+        v.findViewById(R.id.nextButton).setOnClickListener(this);
+
+
+        infoToolTip.setOnClickListener(v -> {
+
+            Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                    .setCancelable(true)
+                    .setDismissOnClick(false)
+                    .setCornerRadius(8f)
+                    .setPadding(30f)
+                    .setMargin(10f)
+                    .setTextColor(getResources().getColor(R.color.whiteText))
+                    .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                    .setGravity(Gravity.BOTTOM)
+                    .setText("Om u zo goed mogelijk te kunnen ondersteunen vragen wij u om enkele persoonsgegevens");
+            builder.show();
+        });
     }
 
 }
