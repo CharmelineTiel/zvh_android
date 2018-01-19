@@ -150,12 +150,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
                 @Override
                 public void onFailure(Call<List<Consultant>> call, Throwable t) {
-                    try {
-                        ExceptionHandler.getInstance().exceptionThrower(new Exception());
-                    } catch (Exception e) {
-
-                        registerActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), registerActivity);
-                    }
+                    Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
                 }
             });
         }

@@ -285,13 +285,10 @@ public class DiaryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
-                try {
-                    ExceptionHandler.getInstance().getInstance().exceptionThrower(new Exception());
-                } catch (Exception e) {
 
-                    progressBar.setVisibility(View.GONE);
-                    mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
-                }
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
+
             }
         });
     }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,13 +110,7 @@ public class AllMessagesFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
-
-                try {
-                    ExceptionHandler.getInstance().exceptionThrower(new Exception());
-                } catch (Exception e) {
-
-                    mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
-                }
+                Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
 
             }
         });

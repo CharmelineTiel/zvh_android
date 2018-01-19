@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
@@ -238,7 +239,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onFailure(Call<User> call, Throwable t) {
 
         hideProgressBar();
-        makeSnackBar(getResources().getString(R.string.noInternetConnection), this);
+        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -514,11 +515,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                         sendEmailFailed();
 
-                        makeSnackBar(getResources().getString(R.string.noInternetConnection), LoginActivity.this);
-
+                        Toast.makeText(getApplicationContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
                     }
                 });
 

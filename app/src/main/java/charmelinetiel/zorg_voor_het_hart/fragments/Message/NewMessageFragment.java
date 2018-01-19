@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.MainActivity;
@@ -129,12 +130,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
     @Override
     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-        try {
-            ExceptionHandler.getInstance().exceptionThrower(new Exception());
-        } catch (Exception e) {
-
-            mainActivity.makeSnackBar(ExceptionHandler.getInstance().getMessage(e), mainActivity);
-        }
+        Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
 
         hideProgressBar();
     }

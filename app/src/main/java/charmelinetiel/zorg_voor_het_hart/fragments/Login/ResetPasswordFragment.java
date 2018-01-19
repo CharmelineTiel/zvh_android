@@ -80,8 +80,8 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onFailure(Call<ResponseBody> call, Throwable t) {
-        Toast.makeText(getContext(), "Er is iets fout gegaan",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getString(R.string.noInternetConnection), Toast.LENGTH_LONG).show();
+
     }
 
     private void initViews(){
