@@ -56,7 +56,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         v = inflater.inflate(R.layout.fragment_register_step2, container, false);
 
         v.findViewById(R.id.nextScreenBtn).setOnClickListener(this);
-        v.findViewById(R.id.backBtn).setOnClickListener(this);
+        v.findViewById(R.id.returnButton).setOnClickListener(this);
 
 
         initViews();
@@ -104,7 +104,7 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
                 }
                 break;
 
-            case R.id.backBtn:
+            case R.id.returnButton:
 
                 //go to previous fragment
                 getFragmentManager().popBackStack();

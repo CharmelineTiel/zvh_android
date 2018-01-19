@@ -44,7 +44,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/backBtn"
+            android:id="@+id/returnButton"
             android:padding="@dimen/padding_15"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/contactTxt"
