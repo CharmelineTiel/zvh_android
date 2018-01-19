@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,7 +36,6 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_reset_password, container, false);
 
         registerActivity = (RegisterActivity) getActivity();
@@ -50,11 +48,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        password = v.findViewById(R.id.passwordInput);
-        confirmedPassword = v.findViewById(R.id.confirmedPasswordInput);
-
-        v.findViewById(R.id.cancel_reset_password_button).setOnClickListener(this);
-        v.findViewById(R.id.reset_password_button).setOnClickListener(this);
+        initViews();
 
         return v;
     }
@@ -62,6 +56,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
             case R.id.cancel_reset_password_button:
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
@@ -87,5 +82,15 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     public void onFailure(Call<ResponseBody> call, Throwable t) {
         Toast.makeText(getContext(), "Er is iets fout gegaan",
                 Toast.LENGTH_LONG).show();
+    }
+
+    private void initViews(){
+
+        password = v.findViewById(R.id.passwordInput);
+        confirmedPassword = v.findViewById(R.id.confirmedPasswordInput);
+
+        v.findViewById(R.id.cancel_reset_password_button).setOnClickListener(this);
+        v.findViewById(R.id.reset_password_button).setOnClickListener(this);
+
     }
 }

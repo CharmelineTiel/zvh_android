@@ -82,7 +82,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
 
         initializePreferences();
 
-
         //Set the theme of the preferences screen
         getActivity().setTheme(R.style.preferenceTheme);
 

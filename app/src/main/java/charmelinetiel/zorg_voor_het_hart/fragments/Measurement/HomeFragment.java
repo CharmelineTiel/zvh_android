@@ -1,14 +1,12 @@
 package charmelinetiel.zorg_voor_het_hart.fragments.Measurement;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -28,8 +26,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TextView greetUser, metingText;
     private MainActivity mainActivity;
-    private ProgressBar progressBar;
-    private SharedPreferences settings;
+    private String greeting = null;
+    private Date date;
+    String prefix;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,16 +40,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        progressBar = view.findViewById(R.id.progressBar_cyclic);
 
-
-
-        view.findViewById(R.id.metingBtn).setOnClickListener(this);
-
-        metingText = view.findViewById(R.id.metingText);
-        greetUser = view.findViewById(R.id.greetingsText);
-        mainActivity = (MainActivity) getActivity();
-        mainActivity.setTitle("Meting");
+        initViews();
 
 
         if(ServiceFragment.getPref(User.getInstance().getId() + "Date", this.getContext()) == null){
@@ -63,49 +54,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             metingText.setText("U heeft vandaag al een meting gedaan, wilt u nog een meting doen?");
 
         }else{
-            settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-
+            PreferenceManager.getDefaultSharedPreferences(getContext());
             metingText.setText("Start hier een nieuwe meting");
         }
 
-
-        greetUser();
+        initUserGreeting();
 
         return view;
     }
 
-    public void greetUser()
+    public void initUserGreeting()
     {
-        String prefix;
-
         if (User.getInstance().getGender().equals(1)){
-            prefix = "meneer";
+            prefix = getResources().getString(R.string.prefixMale);
         }else{
 
-            prefix = "mevrouw";
+            prefix = getResources().getString(R.string.prefixFemale);
         }
         greetUser.setText( timeOfDay() + " " + prefix + " " + User.getInstance().getLastname());
-    }
-
-    public String timeOfDay()
-    {
-        String greeting = null;
-        Date date = new Date();
-
-        if (date.getHours() < 12){
-            greeting = "Goedemorgen,";
-        }
-        else if(date.getHours() <= 18){
-
-            greeting = "Goedemiddag,";
-        }
-        else if(date.getHours() > 18 && date.getHours() < 24) {
-
-            greeting = "Goedenavond,";
-         }
-
-         return greeting;
     }
 
 
@@ -114,14 +81,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
 
-            case R.id.metingBtn:
+            case R.id.startMeasurementButton:
 
                 mainActivity.setEditingMeasurement(false);
                 mainActivity.setMeasurement(new Measurement());
                 mainActivity.openFragment(new MeasurementStep1Fragment());
                 break;
 
-            case R.id.backHome:
+            case R.id.backHomeButton:
 
                 mainActivity.getSupportFragmentManager().popBackStack();
                 break;
@@ -129,5 +96,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void initViews(){
+
+        view.findViewById(R.id.startMeasurementButton).setOnClickListener(this);
+        metingText = view.findViewById(R.id.metingText);
+        greetUser = view.findViewById(R.id.greetingsText);
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.setTitle(getResources().getString(R.string.title_home));
+
+    }
+
+    public String timeOfDay()
+    {
+        greeting = null;
+        date = new Date();
+
+        if (date.getHours() < 12){
+            greeting = getResources().getString(R.string.morningGreeting);
+        }
+        else if(date.getHours() <= 18){
+
+            greeting = getResources().getString(R.string.afternoonGreeting);
+        }
+        else if(date.getHours() > 18 && date.getHours() < 24) {
+
+            greeting = getResources().getString(R.string.nightGreeting);
+        }
+
+        return greeting;
+    }
 
 }

@@ -74,7 +74,7 @@
 
             <Button
                 android:padding="@dimen/padding_15"
-                android:id="@+id/backBtn"
+                android:id="@+id/returnButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Terug"
@@ -88,8 +88,8 @@
 
             <Button
                 android:padding="@dimen/padding_15"
-                android:id="@+id/editBtn"
-                android:layout_toEndOf="@+id/backBtn"
+                android:id="@+id/editButton"
+                android:layout_toEndOf="@+id/returnButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bewerken"

@@ -37,7 +37,7 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
         registerActivity.setTitle("Registratie afgerond");
 
         view = inflater.inflate(R.layout.fragment_register_completed, container, false);
-        Button btn = view.findViewById(R.id.toLoginBtn);
+        Button btn = view.findViewById(R.id.goToLoginButton);
         btn.setOnClickListener(this);
 
         email = view.findViewById(R.id.emailAdress);
@@ -52,7 +52,7 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.toLoginBtn:
+            case R.id.goToLoginButton:
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 break;

@@ -2,16 +2,20 @@
     <string name="app_name">Zorg voor het hart</string>
     <string name="startButton">Nieuwe meting</string>
     <string name="title_activity_bottom_nav">BottomNav</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Meting</string>
     <string name="title_measurement">Meting</string>
-    <string name="title_diary">Dagboek</string>
+    <string name="title_diary">Mijn Dagboek</string>
     <string name="title_contact">Contact</string>
     <string name="title_settings">Service</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">Login</string>
+
+    <string name="morningGreeting">Goedemorgen, </string>
+    <string name="afternoonGreeting">Goedemiddag, </string>
+    <string name="nightGreeting">Goedenavond, </string>
+
+    <string name="prefixMale">meneer</string>
+    <string name="prefixFemale">mevrouw</string>
+
     <string name="bovendruk">Bovendruk/SYS(mmHg)</string>
     <string name="onderdruk">Onderdruk/DIA(mmHg)</string>
 
@@ -38,6 +42,7 @@
     <string name="registeredTxt2">
         Klik op de link in de e-mail om uw \naccount activeren.
     </string>
+    <string name="restorePassword">Wachtwoord herstellen</string>
     <!-- Strings related to Service -->
     <string name="settingsLbl">Mijn instellingen</string>
     <string name="accountLbl">Mijn account</string>
@@ -73,8 +78,6 @@
     <string name="otherNamely">Anders, namelijk:</string>
     <string name="extraRemarks">Extra / opmerkingen</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Settings -->
     <string name="biggerText">biggerText</string>
@@ -86,8 +89,10 @@
 
 
     <!-- Error messages -->
-    <string name="noInternetConnection">Geen internet verbinding</string>
-
+    <string name="noInternetConnection">U heeft mogelijk geen internetverbinding, probeer het opnieuw</string>
+    <string name="emailNotFound">"Er is iets fout gegaan, controleer uw e-maildres en probeer het opnieuw."</string>
+    <string name="emailNotValid">Vul een geldig e-mailadres in</string>
+    <string name="nameNotValid">Vul een geldige naam in</string>
     <string name="toolTipRegister">Wij hebben een aantal gegevens van u nodig zodat wij u beter kunnen assisteren</string>
 
 </resources>

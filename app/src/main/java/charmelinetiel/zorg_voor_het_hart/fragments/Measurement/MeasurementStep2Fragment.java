@@ -55,6 +55,7 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
             if(mainActivity.getMeasurement().getHealthIssueIds().size() > 0 ||
                     !mainActivity.getMeasurement().getHealthIssueOther().isEmpty()){
                 measurementRadioGroup.check(R.id.yesNamelyRadio);
+                otherNamelyInput.setText(mainActivity.getMeasurement().getHealthIssueOther());
 
                 showIssues();
             }
@@ -117,7 +118,11 @@ public class MeasurementStep2Fragment extends Fragment implements View.OnClickLi
 
                       mainActivity.makeSnackBar("Selecteer miminaal 1 gezondheidsklacht", mainActivity);
 
-                } else {
+                }else {
+                    if(!yesNamelySelected){
+                        measurement.setHealthIssueIds(new ArrayList<>());
+                        measurement.setHealthIssueOther("");
+                    }
 
                     if (mainActivity.isEditingMeasurement()) {
                         mainActivity.putMeasurement();

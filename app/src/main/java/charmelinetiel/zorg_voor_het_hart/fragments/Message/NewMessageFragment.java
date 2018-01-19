@@ -55,7 +55,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
         mainActivity = (MainActivity)getActivity();
 
         view.findViewById(R.id.sendMessageBtn).setOnClickListener(this);
-        view.findViewById(R.id.backBtn).setOnClickListener(this);
+        view.findViewById(R.id.returnButton).setOnClickListener(this);
 
         initViews();
 
@@ -103,7 +103,7 @@ public class NewMessageFragment extends Fragment implements View.OnClickListener
                 }
                 break;
 
-            case R.id.backBtn:
+            case R.id.returnButton:
 
                 mainActivity.onBackPressed();
 

@@ -15,10 +15,9 @@
         android:text="Weekoverzicht"
         android:paddingRight="@dimen/margin_15"
         android:paddingLeft="@dimen/margin_15"
-        android:drawablePadding="8dp"
+        android:drawablePadding="6dp"
         android:drawableRight="@drawable/ic_check_black_24dp"
         android:background="@drawable/border_radius_button"
-        android:layout_marginLeft="@dimen/padding_20"
         android:textColor="@color/ms_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -29,7 +28,7 @@
             android:background="@drawable/border_radius_button"
             android:paddingRight="@dimen/margin_15"
             android:paddingLeft="@dimen/margin_15"
-            android:drawablePadding="8dp"
+            android:drawablePadding="6dp"
             android:textColor="@color/lightGrey"
             android:layout_marginLeft="@dimen/padding_20"
             android:layout_width="wrap_content"
@@ -63,7 +62,6 @@
 
     <TextView
         android:id="@+id/insertMeasurementText"
-        android:textStyle="bold"
         android:layout_centerVertical="true"
         android:textSize="@dimen/bigger_text_mobile"
         android:textAlignment="center"
