@@ -34,6 +34,7 @@ public class LoginOrRegisterFragment extends Fragment implements View.OnClickLis
         registerActivity = (RegisterActivity) getActivity();
         registerActivity.getSupportActionBar().hide();
 
+        //ik sta nog gewoon hier hoor
         v.findViewById(R.id.loginButton).setOnClickListener(this);
         v.findViewById(R.id.registerButton).setOnClickListener(this);
 

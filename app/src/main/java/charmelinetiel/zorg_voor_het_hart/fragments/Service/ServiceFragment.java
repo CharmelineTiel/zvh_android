@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -56,11 +55,9 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     private Preference logout, dailyReminder, veelgesteldeVragen;
     private EditTextPreference editLength, editWeight;
     private MainActivity mainActivity;
-    private FormErrorHandling errorHandling;
     private APIService apiService;
     private GoogleApiClient mGoogleApiClient;
-    private SharedPreferences settings;
-
+    private FormErrorHandling formErrorHandling;
 
     public ServiceFragment() {
         // Required empty public constructor
@@ -71,8 +68,9 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         addPreferencesFromResource(R.xml.app_preferences);
 
         mainActivity = (MainActivity) getActivity();
-        errorHandling = new FormErrorHandling();
-        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        formErrorHandling = new FormErrorHandling();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
@@ -82,19 +80,9 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         Retrofit retrofit = RetrofitClient.getClient();
         apiService = retrofit.create(APIService.class);
 
-        logout = findPreference("logout");
-        dailyReminder= findPreference("dailyReminders");
-        veelgesteldeVragen = findPreference("veelgesteldeVragen");
+        initializePreferences();
 
-        editLength =(EditTextPreference) findPreference("editLength");
-        editWeight = (EditTextPreference) findPreference("editWeight");
-
-        editLength.setText(User.getInstance().getLength().toString());
-        editWeight.setText(User.getInstance().getWeight().toString());
-
-        editWeight.setSummary("Uw gewicht (kg): " + User.getInstance().getWeight());
-        editLength.setSummary("Uw lengte (cm): " + User.getInstance().getLength());
-
+        //Set the theme of the preferences screen
         getActivity().setTheme(R.style.preferenceTheme);
 
         //initialize notificationManager and alarmManager
@@ -108,187 +96,174 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
         final PendingIntent notifyPendingIntent = PendingIntent.getBroadcast
                 (getActivity(), NOTIFICATION_ID, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        logout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
+        logout.setOnPreferenceClickListener(preference -> {
 
-                AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
-                alertDialog.setTitle("Uitloggen");
-                alertDialog.setMessage("Weet u zeker dat u wilt uitloggen?");
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Uitloggen",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+            AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
+            alertDialog.setTitle("Uitloggen");
+            alertDialog.setMessage("Weet u zeker dat u wilt uitloggen?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Uitloggen",
+                    (dialog, which) -> {
 
-                                Auth.CredentialsApi.disableAutoSignIn(mGoogleApiClient);
-                                Intent myIntent = new Intent(mainActivity, RegisterActivity.class);
-                                mainActivity.startActivity(myIntent);
-                                mainActivity.finish();
-                                User.getInstance().setAuthToken(null);
+                        Auth.CredentialsApi.disableAutoSignIn(mGoogleApiClient);
+                        Intent myIntent = new Intent(mainActivity, RegisterActivity.class);
+                        mainActivity.startActivity(myIntent);
+                        mainActivity.finish();
+                        User.getInstance().setAuthToken(null);
 
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuleren", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Annuleren", (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+
+
+
+            return true;
+        });
+
+        dailyReminder.setOnPreferenceChangeListener((preference, newValue) -> {
+
+            String toastMessage;
+            boolean isReminderOn = (Boolean) newValue;
+            if (isReminderOn) {
+
+                Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(400);
+
+                long triggerTime = SystemClock.elapsedRealtime()
+                        + AlarmManager.INTERVAL_FIFTEEN_MINUTES / 14;
+
+                //TODO change to daily, it is set to 1 minute for testing purposes
+                long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 14;
+
+                //If the Toggle is turned on, set the repeating reminder with a 15 minute interval
+                alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        triggerTime, repeatInterval, notifyPendingIntent);
+
+                //Set the toast message for the "on" case
+                toastMessage = "Dagelijkse herinnering aan";
+            } else {
+                //Cancel the notification if the reminder is turned off
+                alarmManager.cancel(notifyPendingIntent);
+                mNotificationManager.cancelAll();
+
+                //Set the toast message for the "off" case
+                toastMessage = "Dagelijkse herinnering uit";
+            }
+
+            Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT)
+                    .show();
+
+
+            return true;
+
+        });
+
+        veelgesteldeVragen.setOnPreferenceClickListener(preference -> {
+
+            Fragment fg = new FAQFragment();
+            mainActivity.openFragment(fg);
+
+            return true;
+        });
+
+
+        editLength.setOnPreferenceChangeListener((preference, newLength) -> {
+
+            if (preference instanceof EditTextPreference){
+                if (formErrorHandling.inputValidLength(newLength.toString())){
+                    editLength.setSummary("Uw lengte (cm): " + newLength.toString());
+
+                    UserLengthWeight userLength = new UserLengthWeight();
+                    try {
+                        userLength.setLength(Integer.parseInt(newLength.toString()));
+                    }catch (Exception e){
                     }
-                });
-                alertDialog.show();
 
+                    apiService.updateUserLenghtWeight(userLength, User.getInstance().getAuthToken()).enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
 
-
-                return true;
-            }
-        });
-
-        dailyReminder.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-
-                String toastMessage;
-                boolean isReminderOn = (Boolean) newValue;
-                if (isReminderOn) {
-
-                    Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-                    v.vibrate(400);
-
-                    long triggerTime = SystemClock.elapsedRealtime()
-                            + AlarmManager.INTERVAL_FIFTEEN_MINUTES / 14;
-
-                    //TODO change to daily, it is set to 1 minute for testing purposes
-                    long repeatInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 14;
-
-                    //If the Toggle is turned on, set the repeating reminder with a 15 minute interval
-                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                            triggerTime, repeatInterval, notifyPendingIntent);
-
-                    //Set the toast message for the "on" case
-                    toastMessage = "Dagelijkse herinnering aan";
-                } else {
-                    //Cancel the notification if the reminder is turned off
-                    alarmManager.cancel(notifyPendingIntent);
-                    mNotificationManager.cancelAll();
-
-                    //Set the toast message for the "off" case
-                    toastMessage = "Dagelijkse herinnering uit";
-                }
-
-                Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT)
-                        .show();
-
-
-                return true;
-
-            }
-        });
-
-        veelgesteldeVragen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-
-                Fragment fg = new FAQFragment();
-                mainActivity.openFragment(fg);
-
-                return true;
-            }
-        });
-
-
-        editLength.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newLength) {
-
-                if (preference instanceof EditTextPreference){
-                    if (errorHandling.inputValidLength(newLength.toString())){
-                        editLength.setSummary("Uw lengte (cm): " + newLength.toString());
-
-                        UserLengthWeight userLength = new UserLengthWeight();
-                        try {
-                            userLength.setLength(Integer.parseInt(newLength.toString()));
-                        }catch (Exception e){
+                            if(response.body() != null && response.isSuccessful()){
+                                User.getInstance().setLength(Integer.parseInt(newLength.toString()));
+                                Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
+                                        .show();
+                            }else{
+                                mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
+                            }
                         }
 
-                        apiService.updateUserLenghtWeight(userLength, User.getInstance().getAuthToken()).enqueue(new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-
-                                if(response.body() != null && response.isSuccessful()){
-                                    User.getInstance().setLength(Integer.parseInt(newLength.toString()));
-                                    Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
-                                            .show();
-                                }else{
-                                    mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-
-                            }
-                        });
-                    }else{
-                        Toast.makeText(getActivity(), "Vul een geldige lengte in in gehele centimeters", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-
-                }
-                return false;
-            }
-        });
-
-        editWeight.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newWeight) {
-
-                if (preference instanceof EditTextPreference){
-                    EditTextPreference weight =  (EditTextPreference)preference;
-                    if (errorHandling.inputValidWeight(newWeight.toString()) ){
-
-                        weight.setSummary("Uw gewicht (kg): " + newWeight);
-                        editWeight.setText(newWeight.toString());
-
-                        putPref("editWeight", newWeight.toString(), getContext());
-
-                        UserLengthWeight userWeight = new UserLengthWeight();
-
-                        try {
-                            userWeight.setWeight(Integer.parseInt(newWeight.toString()));
-                        }catch (Exception e){
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
 
                         }
-
-                        apiService.updateUserLenghtWeight(userWeight, User.getInstance().getAuthToken()).enqueue(new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-
-                                if (response.body() != null && response.isSuccessful()){
-                                    User.getInstance().setWeight(Integer.parseInt(newWeight.toString()));
-                                    Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
-                                            .show();
-                                }else{
-                                    mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-
-                            }
-                        });
-                        Toast.makeText(getActivity(), "Uw gewicht is aangepast", Toast.LENGTH_SHORT)
-                                .show();
-                    }else{
-                        Toast.makeText(getActivity(), "Vul een geldig gewicht in in gehele kilogrammen", Toast.LENGTH_SHORT)
-                                .show();
-                    }
+                    });
+                }else{
+                    Toast.makeText(getActivity(), "Vul een geldige lengte in in gehele centimeters", Toast.LENGTH_SHORT)
+                            .show();
                 }
-                return false;
+
             }
+            return false;
         });
+
+        editWeight.setOnPreferenceChangeListener((preference, newWeight) -> {
+
+            if (preference instanceof EditTextPreference){
+                EditTextPreference weight =  (EditTextPreference)preference;
+                if (formErrorHandling.inputValidWeight(newWeight.toString()) ){
+
+                    weight.setSummary("Uw gewicht (kg): " + newWeight);
+                    editWeight.setText(newWeight.toString());
+
+                    putPref("editWeight", newWeight.toString(), getContext());
+
+                    UserLengthWeight userWeight = new UserLengthWeight();
+
+                    try {
+                        userWeight.setWeight(Integer.parseInt(newWeight.toString()));
+                    }catch (Exception e){
+
+                    }
+
+                    apiService.updateUserLenghtWeight(userWeight, User.getInstance().getAuthToken()).enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+
+                            if (response.body() != null && response.isSuccessful()){
+                                User.getInstance().setWeight(Integer.parseInt(newWeight.toString()));
+                                Toast.makeText(getActivity(), "Uw lengte is aangepast", Toast.LENGTH_SHORT)
+                                        .show();
+                            }else{
+                                mainActivity.makeSnackBar("Er is iets fout gegaan, probeer het opnieuw", mainActivity);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+
+                        }
+                    });
+                    Toast.makeText(getActivity(), "Uw gewicht is aangepast", Toast.LENGTH_SHORT)
+                            .show();
+                }else{
+                    Toast.makeText(getActivity(), "Vul een geldig gewicht in in gehele kilogrammen", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+            return false;
+        });
+    }
+
+    private void initializePreferences() {
+        logout = findPreference("logout");
+        dailyReminder = findPreference("dailyReminders");
+        veelgesteldeVragen = findPreference("veelgesteldeVragen");
+
+        editLength =(EditTextPreference) findPreference("editLength");
+        editWeight = (EditTextPreference) findPreference("editWeight");
+
+        editWeight.setSummary("Uw gewicht (kg): " + User.getInstance().getWeight());
+        editLength.setSummary("Uw lengte (cm): " + User.getInstance().getLength());
     }
 
     @Override
@@ -306,7 +281,6 @@ public class ServiceFragment extends PreferenceFragmentCompatDividers implements
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-        //hmm
     }
 
 
