@@ -20,9 +20,6 @@ import charmelinetiel.android_tablet_zvg.R;
 import charmelinetiel.zorg_voor_het_hart.activities.RegisterActivity;
 import charmelinetiel.zorg_voor_het_hart.helpers.FormErrorHandling;
 import charmelinetiel.zorg_voor_het_hart.models.User;
-import charmelinetiel.zorg_voor_het_hart.webservices.APIService;
-import charmelinetiel.zorg_voor_het_hart.webservices.RetrofitClient;
-import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +28,6 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
 
     private View v;
-    private APIService apiService;
     private ImageView infoToolTip;
     private EditText email, pass1, pass2;
     private FormErrorHandling validateForm;
@@ -50,8 +46,6 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
         registerActivity = (RegisterActivity) getActivity();
         registerActivity.setTitle("Registreren stap 2 van 3");
 
-        Retrofit retrofit = RetrofitClient.getClient();
-        apiService = retrofit.create(APIService.class);
 
         v = inflater.inflate(R.layout.fragment_register_step2, container, false);
 
@@ -61,22 +55,19 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
 
         initViews();
 
-        infoToolTip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        infoToolTip.setOnClickListener(v -> {
 
-                Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
-                        .setCancelable(true)
-                        .setDismissOnClick(false)
-                        .setCornerRadius(8f)
-                        .setPadding(30f)
-                        .setMargin(20f)
-                        .setGravity(Gravity.BOTTOM)
-                        .setTextColor(getResources().getColor(R.color.whiteText))
-                        .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
-                        .setText("Om in te kunnen loggen heeft u een email en een wachtwoord nodig");
-                builder.show();
-            }
+            Tooltip.Builder builder = new Tooltip.Builder(v, R.style.AppTheme)
+                    .setCancelable(true)
+                    .setDismissOnClick(false)
+                    .setCornerRadius(8f)
+                    .setPadding(30f)
+                    .setMargin(20f)
+                    .setGravity(Gravity.BOTTOM)
+                    .setTextColor(getResources().getColor(R.color.whiteText))
+                    .setBackgroundColor(getResources().getColor(R.color.mediumGrey))
+                    .setText("Om in te kunnen loggen heeft u een email en een wachtwoord nodig");
+            builder.show();
         });
 
         return v;
@@ -90,7 +81,6 @@ public class RegisterStep2Fragment extends Fragment implements View.OnClickListe
             case R.id.nextScreenBtn:
 
                 //update user information
-
                 if(email.getText().toString() != "" && pass1.getText().toString() != "" && pass1.getText().toString().equals(pass2.getText().toString())) {
                     User.getInstance().setEmailAddress(email.getText().toString());
 

@@ -41,7 +41,6 @@ public class MessageSentFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-
         switch (v.getId()) {
 
             case R.id.backHomeButton:

@@ -37,11 +37,10 @@ public class RegisterCompletedFragment extends Fragment implements View.OnClickL
         registerActivity.setTitle("Registratie afgerond");
 
         view = inflater.inflate(R.layout.fragment_register_completed, container, false);
-        Button btn = view.findViewById(R.id.goToLoginButton);
-        btn.setOnClickListener(this);
+        Button loginButton = view.findViewById(R.id.goToLoginButton);
+        loginButton.setOnClickListener(this);
 
         email = view.findViewById(R.id.emailAdress);
-
             email.setText(User.getInstance().getEmailAddress());
 
 
