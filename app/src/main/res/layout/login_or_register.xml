@@ -49,7 +49,7 @@
                 android:textStyle="bold" />
     <Button
         android:layout_below="@+id/orLbl"
-        android:id="@+id/registerBtn"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registreren"

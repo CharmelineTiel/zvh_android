@@ -52,7 +52,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/registerBtn"
+                android:id="@+id/registerButton"
                 android:padding="@dimen/padding_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -111,7 +111,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
 
         switch (v.getId()) {
 
-            case R.id.registerBtn:
+            case R.id.registerButton:
                 if (ExceptionHandler.isConnectedToInternet(getContext())) {
                     consultant = (Consultant) consultantsView.getSelectedItem();
 
@@ -208,7 +208,7 @@ public class RegisterStep3Fragment extends Fragment implements View.OnClickListe
         consultantText = v.findViewById(R.id.consultant_text);
         consultantTitle = v.findViewById(R.id.consultantTitle);
         progressBar = v.findViewById(R.id.progressBar);
-        registerButton = v.findViewById(R.id.registerBtn);
+        registerButton = v.findViewById(R.id.registerButton);
         spinnerView = v.findViewById(R.id.spinner);
         backButton = v.findViewById(R.id.returnButton);
         consultantsView =  v.findViewById(R.id.consultants);

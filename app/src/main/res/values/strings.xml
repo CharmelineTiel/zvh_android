@@ -9,6 +9,12 @@
     <string name="title_settings">Service</string>
     <string name="title_activity_login">Login</string>
 
+    <string name="morningGreeting">Goedemorgen, </string>
+    <string name="afternoonGreeting">Goedemiddag, </string>
+    <string name="nightGreeting">Goedenavond, </string>
+
+    <string name="prefixMale">meneer</string>
+    <string name="prefixFemale">mevrouw</string>
 
     <string name="bovendruk">Bovendruk/SYS(mmHg)</string>
     <string name="onderdruk">Onderdruk/DIA(mmHg)</string>
